@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/nav_host_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:defaultNavHost="true"
+                app:layout_constraintBottom_toTopOf="@id/navMenu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:navGraph="@navigation/nav_main" />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/navMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/windowBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
+                app:menu="@menu/bottom_nav_menu" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/settingsFragment"
+            android:name="com.jivosite.sdk.ui.settings.JivoSettingsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</layout>

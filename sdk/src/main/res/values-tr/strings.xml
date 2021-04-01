@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Имя оператора по умолчанию, если не подгрузилась информация -->
+    <string name="agent_name_default">Temsilci</string>
+    <!-- Надпись к сообщениям клиента -->
+    <string name="agent_name_you">Ben</string>
+    <!-- Подзаголовок окна чата по умолчанию -->
+    <string name="chat_subtitle_placeholder">Bize 7/24 danışabilirsiniz!</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент несколько агентов набирают сообщение. -->
+    <string name="chat_system_few_agents_typing">%s, %s ve %d kişi daha yazıyor...</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент один агент набирает сообщение. -->
+    <string name="chat_system_one_agent_typing">%s yazıyor...</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент два агента набирают сообщение. -->
+    <string name="chat_system_two_agents_typing">%s ve %s yazıyor...</string>
+    <!-- Заголовок окна чата по умолчанию -->
+    <string name="chat_title_placeholder">Bir sorun bildirin</string>
+    <!-- Общая строка "Отмена" -->
+    <string name="common_cancel">İptal</string>
+    <!-- Универсальное сообщение о неизвестной ошибке. -->
+    <string name="common_unknown_error">Bilinmeyen hata</string>
+    <!-- Состояние подключения к сервису -->
+    <string name="connection_state_connecting">Bağlanılıyor...</string>
+    <!-- Состояние отсутствия подключения -->
+    <string name="connection_state_disconnected">Bağlantı başarısız, %d saniye içinde yeniden dene</string>
+    <!-- Кнопка для повторного подключения к сервису, не дожидаясь таймаута  -->
+    <string name="connection_state_retry">Şimdi tekrar dene</string>
+    <!-- Статус загрузки - ошибка -->
+    <string name="download_status_error">Hata</string>
+    <!-- Статус загрузки - загрузка -->
+    <string name="download_status_loading">Yükleniyor...</string>
+    <!-- Формат для размера файла в байтах -->
+    <string name="format_file_size_b">%.0f B</string>
+    <!-- Формат для размера файла в килобайтах -->
+    <string name="format_file_size_kb">%.0f KB</string>
+    <!-- Формат для размера файла в мегабайтах -->
+    <string name="format_file_size_mb">%.2f MB</string>
+    <!-- Подсказка в окне ввода сообщения -->
+    <string name="input_message_placeholder">Mesajınızı girin</string>
+    <string name="jivo_business_messenger">Canlı Destek Sağlayıcısı</string>
+    <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку открывает системный пикер документов. -->
+    <string name="media_upload_attachment_type_selecting_document">Döküman</string>
+    <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку вызывает пикер фотогалереи. -->
+    <string name="media_upload_attachment_type_selecting_photo">Görsel</string>
+    <!-- Заголовок с вопросом о том, какой тип вложения пользователь хочет прикрепить к сообщению. -->
+    <string name="media_upload_select_an_attachment_type_title">Ne eklemek istersiniz?</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент ведётся загрузка файла на сервер. -->
+    <string name="media_upload_sending_the_file">Dosya gönderiliyor</string>
+    <!-- Ошибка, возникающая при неудачной подготовке файла к загрузке. -->
+    <string name="media_uploading_extraction_error">Dosya hazırlanamadı</string>
+    <!-- Превышение лимита выгружаемого файла -->
+    <string name="media_uploading_too_large">Dosya boyutu limiti %dMB</string>
+    <!-- Кнопка скачать для прикрепленного документа/файла -->
+    <string name="message_download">İndir</string>
+    <!-- Системное сообщение о присоединении оператора к чату -->
+    <string name="message_system_operator_accepted">Temsilci sohbete katıldı</string>
+    <!-- Unsupported file type -->
+    <string name="message_unsupported_media">Bu dosya türü desteklenmiyor</string>
+    <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
+    <string name="options_copy">Kopyala</string>
+    <!-- Пункт "Повторить отправку" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
+    <string name="options_resend">Tekrar gönder</string>
+    <string name="toast_copied_to_clipboard">Kopyalandı</string>
+    <!-- Приветственное сообщение для пустого чата -->
+    <string name="welcome_message_placeholder">Destek ekibimize yazın ve karşılaştığınız hataları bize iletin</string>
+</resources>

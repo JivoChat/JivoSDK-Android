@@ -1,0 +1,109 @@
+{
+  "project_info": {
+    "project_number": "288963189899",
+    "firebase_url": "https://eternal-autumn-644.firebaseio.com",
+    "project_id": "eternal-autumn-644",
+    "storage_bucket": "eternal-autumn-644.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288963189899:android:a607a3c9ae33cf5943c88e",
+        "android_client_info": {
+          "package_name": "com.jivosite.example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288963189899-lna3bp902g5bk2k8a4asi2g6mtlvl31u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jivosite.example",
+            "certificate_hash": "f5b54de9ad2184e18d5a119d2a7ca4a52a20344b"
+          }
+        },
+        {
+          "client_id": "288963189899-e21kodn5jbt5eh5260dir1q4cpfulfsn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfXEq9xr9IN6OLYcXPwxqQhy7VX75SrO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288963189899-6c3o1vbteu3sirqbtug12sjbfgq9q1ca.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "288963189899-9aa2etjjmpcfr7a0ak1sj19qitnvrvqb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jivosite.mobile",
+                "app_store_id": "898216971"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288963189899:android:57359537d05a2035",
+        "android_client_info": {
+          "package_name": "com.jivosite.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288963189899-bk8cg4tmcrbhpl0gvqes9g6140ca1lue.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jivosite.mobile",
+            "certificate_hash": "175975692405b44c8b5bca83d1d913aa7b741b84"
+          }
+        },
+        {
+          "client_id": "288963189899-lk264v0sji954hbdg0006iebs81qarif.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jivosite.mobile",
+            "certificate_hash": "29fd3d8de3b508c78b7f4fb1438ce8cdddd2e420"
+          }
+        },
+        {
+          "client_id": "288963189899-e21kodn5jbt5eh5260dir1q4cpfulfsn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfXEq9xr9IN6OLYcXPwxqQhy7VX75SrO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288963189899-6c3o1vbteu3sirqbtug12sjbfgq9q1ca.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "288963189899-9aa2etjjmpcfr7a0ak1sj19qitnvrvqb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jivosite.mobile",
+                "app_store_id": "898216971"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

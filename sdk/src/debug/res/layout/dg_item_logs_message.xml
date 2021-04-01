@@ -1,0 +1,62 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.jivosite.sdk.ui.logs.items.message.MessageItemViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:paddingBottom="4dp"
+        tools:background="@color/black">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/direction"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="@id/info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/info"
+            app:messageDirection="@{viewModel.direction}"
+            tools:src="@drawable/vic_sent_24" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="4dp"
+            android:text="@{viewModel.eventInfo}"
+            android:textColor="@color/silver"
+            android:textSize="12sp"
+            android:typeface="monospace"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="13:45:11.123 [1]" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@{viewModel.text}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:typeface="monospace"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/info"
+            app:layout_constraintTop_toBottomOf="@id/info"
+            tools:text="{message:text}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

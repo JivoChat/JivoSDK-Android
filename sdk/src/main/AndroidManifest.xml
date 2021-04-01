@@ -1,0 +1,38 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jivosite.sdk">
+
+    <application>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification_small" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/darkPastelGreen" />
+
+        <service
+            android:name="com.jivosite.sdk.socket.JivoWebSocketService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.chat.JivoChatActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.imageviewer.ImageViewerActivity"
+            android:theme="@style/ImageViewerTheme" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.jivosite.sdk.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+</manifest>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Jivo.SDK</string>
+    <string name="explanation">This is example application to demonstrate Jivo SDK integration.</string>
+</resources>

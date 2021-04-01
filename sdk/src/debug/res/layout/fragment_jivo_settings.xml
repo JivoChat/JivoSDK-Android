@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.jivosite.sdk.ui.settings.JivoSettingsFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.jivosite.sdk.ui.settings.JivoSettingsViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/windowBackground">
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Connection"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/host"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Host"
+                    android:inputType="textUri"
+                    android:text="@={viewModel.host}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/port"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Port"
+                    android:inputType="numberDecimal"
+                    android:text="@={viewModel.port}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/siteId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Site ID"
+                    android:inputType="numberDecimal"
+                    android:text="@={viewModel.siteId}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/widgetId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Widget ID"
+                    android:inputType="text"
+                    android:text="@={viewModel.widgetId}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/restartConnection"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="2"
+                    android:onClick="@{() -> viewModel.saveAndRestart()}"
+                    android:text="save and restart"
+                    android:textColor="@color/black"
+                    tools:ignore="HardcodedText" />
+
+                <Button
+                    android:id="@+id/clearConnection"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/darkPastelGreen"
+                    android:onClick="@{() -> viewModel.clearAndRestart()}"
+                    android:text="Clear"
+                    android:textColor="@color/black"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/grey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Information about user"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name"
+                    android:inputType="textCapWords"
+                    android:text="@={viewModel.userName}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.userEmail}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone"
+                    android:inputType="phone"
+                    android:text="@={viewModel.userPhone}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Description"
+                    android:inputType="textCapSentences"
+                    android:text="@={viewModel.userDescription}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/sendUserInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:backgroundTint="@color/darkPastelGreen"
+                android:onClick="@{() -> viewModel.sendUserInfo()}"
+                android:text="Send"
+                android:textColor="@color/white"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/grey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Logs"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:text="Hide PING/PONG messages"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/hidePingPong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:checked="@{viewModel.doNotShowPings}"
+                    android:onClick="@{() -> viewModel.changeDoNotShowPings()}" />
+
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/clearLogs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:backgroundTint="@color/darkPastelGreen"
+                android:onClick="@{() -> viewModel.clearLogs()}"
+                android:text="Clear"
+                android:textColor="@color/white"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

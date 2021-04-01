@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.jivosite.sdk.ui.logs.JivoLogsFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.jivosite.sdk.ui.logs.JivoLogsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:background="@drawable/bg_toolbar"
+            app:layout_constraintBottom_toTopOf="@id/recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentInsetStart="0dp"
+                app:contentInsetStartWithNavigation="0dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/titleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:maxLines="1"
+                    android:text="Logs"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:items="@{viewModel.messages}"
+            app:layout_constraintBottom_toTopOf="@id/controls"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar"
+            tools:itemCount="4"
+            tools:listitem="@layout/dg_item_logs_message" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/controls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_incoming_message"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerView">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackgroundBorderless"
+                android:enabled="@{viewModel.canSend}"
+                android:onClick="@{() -> viewModel.send()}"
+                android:scaleType="center"
+                android:src="@drawable/ic_send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:background="@null"
+                android:hint="message to send to server"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:minHeight="40dp"
+                android:text="@={viewModel.messageToSend}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@id/send"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

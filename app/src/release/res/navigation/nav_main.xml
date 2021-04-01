@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@+id/pageMain">
+
+    <fragment
+        android:id="@+id/pageMain"
+        android:name="com.jivosite.example.ui.main.MainFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_pageMain_to_jivoChat"
+            app:destination="@id/jivoChat" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/jivoChat"
+        android:name="com.jivosite.sdk.ui.chat.JivoChatFragment"
+        android:label="Jivo"
+        tools:layout="@layout/fragment_jivo_chat" />
+
+</navigation>

@@ -1,0 +1,98 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.jivosite.sdk.ui.chat.items.message.text.agent.AgentTextItemViewModel" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/avatar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="bottom|start"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="@{viewModel.avatarVisibility ? View.VISIBLE : View.GONE}"
+            app:avatarUrl="@{viewModel.avatar}"
+            tools:src="@tools:sample/avatars" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="40dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:alpha="0.4"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textSize="14sp"
+                android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}"
+                app:agentName="@{viewModel.name}"
+                tools:text="@string/agent_name_default" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_incoming_message"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="4dp">
+
+                <TextView
+                    android:id="@+id/message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="all"
+                    android:text="@{viewModel.text}"
+                    android:textColor="@color/midnight"
+                    android:textColorLink="@color/persianBlue"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@id/time"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Спасибо,что обратились в Jivo!" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="24dp"
+                    android:alpha="0.85"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/message"
+                    app:time="@{viewModel.time}"
+                    tools:text="13:20" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>

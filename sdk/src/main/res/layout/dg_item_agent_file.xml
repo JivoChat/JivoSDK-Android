@@ -1,0 +1,126 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="view"
+            type="com.jivosite.sdk.ui.chat.items.message.file.agent.AgentFileItemViewHolder" />
+
+        <variable
+            name="viewModel"
+            type="com.jivosite.sdk.ui.chat.items.message.file.agent.AgentFileItemViewModel" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/avatar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="bottom|start"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="@{viewModel.avatarVisibility ? View.VISIBLE : View.GONE}"
+            app:avatarUrl="@{viewModel.avatar}"
+            tools:src="@tools:sample/avatars" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="80dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:alpha="0.4"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{viewModel.name ?? @string/agent_name_default}"
+                android:textSize="14sp"
+                android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}"
+                tools:text="@string/agent_name_default" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_incoming_message"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="4dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/picture"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_media_file"
+                    android:tint="@color/silver"
+                    app:fileIcon="@{viewModel.type}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/vic_file" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/fileName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:text="@{viewModel.fileName}"
+                    android:textColor="@color/midnight"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toTopOf="@id/download"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/picture"
+                    app:layout_constraintTop_toTopOf="@id/picture"
+                    tools:text="video.mp4" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{() -> view.onClick()}"
+                    android:text="@string/message_download"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/picture"
+                    app:layout_constraintStart_toEndOf="@id/picture"
+                    app:layout_constraintTop_toBottomOf="@id/fileName" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:alpha="0.85"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/download"
+                    app:time="@{viewModel.time}"
+                    tools:text="13:20" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>

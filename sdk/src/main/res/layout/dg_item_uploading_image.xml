@@ -1,0 +1,71 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="view"
+            type="com.jivosite.sdk.ui.chat.items.message.uploading.image.UploadingImageItemViewHolder" />
+
+        <variable
+            name="viewModel"
+            type="com.jivosite.sdk.ui.chat.items.message.uploading.image.UploadingImageItemViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:alpha="0.4"
+            android:text="@string/agent_name_you"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Вы" />
+
+        <FrameLayout
+            android:id="@+id/mediaContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:clientImageLoader="@{viewModel.state}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/status"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp"
+                tools:src="@drawable/vic_message_status_sending" />
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

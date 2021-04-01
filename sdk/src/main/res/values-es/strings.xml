@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Имя оператора по умолчанию, если не подгрузилась информация -->
+    <string name="agent_name_default">Agente</string>
+    <!-- Надпись к сообщениям клиента -->
+    <string name="agent_name_you">Usted</string>
+    <!-- Подзаголовок окна чата по умолчанию -->
+    <string name="chat_subtitle_placeholder">Chatee con nosotros 24/7</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент несколько агентов набирают сообщение. -->
+    <string name="chat_system_few_agents_typing">%s, %s y +%d están escribiendo...</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент один агент набирает сообщение. -->
+    <string name="chat_system_one_agent_typing">%s está escribiendo...</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент два агента набирают сообщение. -->
+    <string name="chat_system_two_agents_typing">%s y %s están escribiendo...</string>
+    <!-- Заголовок окна чата по умолчанию -->
+    <string name="chat_title_placeholder">"Reportar un problema "</string>
+    <!-- Общая строка "Отмена" -->
+    <string name="common_cancel">Cancelar</string>
+    <!-- Универсальное сообщение о неизвестной ошибке. -->
+    <string name="common_unknown_error">Error desconocido</string>
+    <!-- Состояние подключения к сервису -->
+    <string name="connection_state_connecting">Conectando...</string>
+    <!-- Состояние отсутствия подключения -->
+    <string name="connection_state_disconnected">Error de conexión, reintentar en %d segundos</string>
+    <!-- Кнопка для повторного подключения к сервису, не дожидаясь таймаута  -->
+    <string name="connection_state_retry">Reintentar inmediatamente</string>
+    <!-- Статус загрузки - ошибка -->
+    <string name="download_status_error">Error</string>
+    <!-- Статус загрузки - загрузка -->
+    <string name="download_status_loading">Cargando...</string>
+    <!-- Формат для размера файла в байтах -->
+    <string name="format_file_size_b">%.0f B</string>
+    <!-- Формат для размера файла в килобайтах -->
+    <string name="format_file_size_kb">%.0f KB</string>
+    <!-- Формат для размера файла в мегабайтах -->
+    <string name="format_file_size_mb">%.2f MB</string>
+    <!-- Подсказка в окне ввода сообщения -->
+    <string name="input_message_placeholder">Escriba su mensage</string>
+    <string name="jivo_business_messenger">Chat desarrollado por</string>
+    <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку открывает системный пикер документов. -->
+    <string name="media_upload_attachment_type_selecting_document">Documento</string>
+    <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку вызывает пикер фотогалереи. -->
+    <string name="media_upload_attachment_type_selecting_photo">Imagen</string>
+    <!-- Заголовок с вопросом о том, какой тип вложения пользователь хочет прикрепить к сообщению. -->
+    <string name="media_upload_select_an_attachment_type_title">¿Qué le gustaría adjuntar?</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент ведётся загрузка файла на сервер. -->
+    <string name="media_upload_sending_the_file">Enviando archivo</string>
+    <!-- Ошибка, возникающая при неудачной подготовке файла к загрузке. -->
+    <string name="media_uploading_extraction_error">La selección del archivo falló</string>
+    <!-- Превышение лимита выгружаемого файла -->
+    <string name="media_uploading_too_large">Tamaño máximo de archivo %dMB</string>
+    <!-- Кнопка скачать для прикрепленного документа/файла -->
+    <string name="message_download">Descargar</string>
+    <!-- Системное сообщение о присоединении оператора к чату -->
+    <string name="message_system_operator_accepted">Agente entró al chat</string>
+    <!-- Unsupported file type -->
+    <string name="message_unsupported_media">Este tipo de archivo no es compatible</string>
+    <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
+    <string name="options_copy">Copiar</string>
+    <!-- Пункт "Повторить отправку" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
+    <string name="options_resend">Reenviar</string>
+    <string name="toast_copied_to_clipboard">Copiado</string>
+    <!-- Приветственное сообщение для пустого чата -->
+    <string name="welcome_message_placeholder">Contacte con nuestro equipo de soporte y díganos si hay algún bug que podamos reparar</string>
+</resources>

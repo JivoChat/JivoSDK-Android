@@ -1,0 +1,7 @@
+Tasks:
+ - https://jivosite.atlassian.net/browse/MOB-2840
+ - https://jivosite.atlassian.net/browse/MOB-2980
+ - https://jivosite.atlassian.net/browse/MOB-2979
+ - https://jivosite.atlassian.net/browse/MOB-2983
+ - https://jivosite.atlassian.net/browse/MOB-2985
+ - https://jivosite.atlassian.net/browse/MOB-2998

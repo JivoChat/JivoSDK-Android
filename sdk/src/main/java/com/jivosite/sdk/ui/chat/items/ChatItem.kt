@@ -1,0 +1,110 @@
+package com.jivosite.sdk.ui.chat.items
+
+import com.jivosite.sdk.model.pojo.message.ClientMessage
+import com.jivosite.sdk.model.pojo.message.HistoryMessage
+import com.jivosite.sdk.model.repository.upload.FileState
+import com.jivosite.sdk.support.dg.AdapterDelegateItem
+
+/**
+ * Created on 23.09.2020.
+ *
+ * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ */
+open class ChatItem(viewType: Int, data: ChatEntry) : AdapterDelegateItem<ChatEntry>(viewType, data) {
+
+    companion object {
+        const val VT_WELCOME = VT_ITEM
+        const val VT_EVENT = VT_ITEM + 1
+
+        const val VT_CLIENT_TEXT = VT_ITEM + 2
+        const val VT_CLIENT_IMAGE = VT_ITEM + 3
+
+        const val VT_AGENT_TEXT = VT_ITEM + 4
+        const val VT_AGENT_IMAGE = VT_ITEM + 5
+
+        const val VT_UPLOADING_IMAGE = VT_ITEM + 6
+        const val VT_UPLOADING_FILE = VT_ITEM + 7
+
+        const val VT_AGENT_FILE_ITEM = VT_ITEM + 8
+        const val VT_CLIENT_FILE_ITEM = VT_ITEM + 9
+    }
+}
+
+/**
+ * Created on 12/17/20.
+ *
+ * Класс для передачи данных в элемент списка.
+ *
+ * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ */
+
+sealed class ChatEntry
+
+data class EventEntry(val code: Int, val reason: String) : ChatEntry()
+
+sealed class MessageEntry : ChatEntry() {
+
+    val type: String
+        get() = when (this) {
+            is AgentMessageEntry -> message.type
+            is ClientMessageEntry -> message.type
+            is SendingMessageEntry -> message.type
+            else -> ""
+        }
+
+    val from: String
+        get() = when (this) {
+            is AgentMessageEntry -> message.from
+            is ClientMessageEntry -> message.from
+            else -> ""
+        }
+
+    val data: String
+        get() = when (this) {
+            is AgentMessageEntry -> message.data
+            is ClientMessageEntry -> message.data
+            else -> ""
+        }
+
+    val time: Long
+        get() = when (this) {
+            is AgentMessageEntry -> message.timestamp
+            is ClientMessageEntry -> message.timestamp
+            is SendingMessageEntry -> message.timestamp
+            else -> System.currentTimeMillis()
+        }
+
+    abstract val position: EntryPosition
+
+    fun changePosition(position: EntryPosition): MessageEntry = when (this) {
+        is AgentMessageEntry -> copy(position = position)
+        is ClientMessageEntry -> copy(position = position)
+        is SendingMessageEntry -> copy(position = position)
+        is WelcomeMessageEntry -> this
+    }
+}
+
+object WelcomeMessageEntry : MessageEntry() {
+    override val position: EntryPosition
+        get() = EntryPosition.Single
+}
+
+sealed class HistoryMessageEntry : MessageEntry()
+
+data class AgentMessageEntry(val message: HistoryMessage, override val position: EntryPosition) : HistoryMessageEntry()
+data class ClientMessageEntry(val message: HistoryMessage, override val position: EntryPosition) : HistoryMessageEntry()
+
+data class SendingMessageEntry(val message: ClientMessage, override val position: EntryPosition) : MessageEntry()
+
+sealed class EntryPosition {
+    object First : EntryPosition()
+    object Middle : EntryPosition()
+    object Last : EntryPosition()
+    object Single : EntryPosition()
+}
+
+fun String.isFileType(): Boolean {
+    return this.startsWith("https://files.dev.jivosite.com/", true)
+}
+
+data class UploadingFileEntry(val state: FileState) : ChatEntry()

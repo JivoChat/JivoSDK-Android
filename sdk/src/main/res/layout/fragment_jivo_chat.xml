@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="fragment"
+            type="com.jivosite.sdk.ui.chat.JivoChatFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.jivosite.sdk.ui.chat.JivoChatViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:background="@drawable/bg_toolbar"
+            app:layout_constraintBottom_toTopOf="@id/recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentInsetStart="0dp"
+                app:contentInsetStartWithNavigation="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/titleView"
+                        appBarTitle="@{viewModel.agents}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif-medium"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@id/subtitleView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@id/avatar"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/avatar"
+                        appBarAvatar="@{viewModel.agents}"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/subtitleView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="24dp"
+                        android:alpha="0.3"
+                        android:singleLine="true"
+                        android:text="@string/chat_subtitle_placeholder"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/avatar"
+                        app:layout_constraintTop_toBottomOf="@id/titleView" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingTop="32dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@id/controls"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar"
+            tools:itemCount="4"
+            tools:listitem="@layout/dg_item_agent_text" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="26dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:typing="@{viewModel.agentsTyping}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white85"
+            android:drawablePadding="8dp"
+            android:gravity="end"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="4dp"
+            android:text="@string/jivo_business_messenger"
+            android:textSize="14sp"
+            app:drawableEndCompat="@drawable/vic_jivosite_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/connectionState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:visibility="gone"
+            app:cardCornerRadius="36dp"
+            app:cardElevation="1dp"
+            app:layout_constraintBottom_toTopOf="@id/controls"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+                <ProgressBar
+                    android:id="@+id/connectingView"
+                    style="?android:progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/connectionStateName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/black"
+
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/connectingView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/connection_state_connecting" />
+
+                <TextView
+                    android:id="@+id/connectionRetry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:onClick="@{() -> fragment.retry()}"
+                    android:text="@string/connection_state_retry"
+                    android:textColor="@color/persianBlue"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/connectingView"
+                    app:layout_constraintTop_toBottomOf="@id/connectionStateName"
+                    tools:visibility="visible" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/controls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerView">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/attachBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="12dp"
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:enabled="@{viewModel.canAttach}"
+                android:onClick="@{() -> fragment.attach()}"
+                android:src="@drawable/ic_clip" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_text_input"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/inputText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="14dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_text_input"
+                    android:focusable="true"
+                    android:hint="@string/input_message_placeholder"
+                    android:maxHeight="120dp"
+                    android:paddingVertical="8dp"
+                    android:paddingStart="16dp"
+                    android:textColor="@color/nero"
+                    android:textColorHint="@color/silver"
+                    android:textCursorDrawable="@drawable/bg_cursor"
+                    android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/sendBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginEnd="8dp"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    android:enabled="@{viewModel.canSend}"
+                    android:onClick="@{() -> fragment.send()}"
+                    android:paddingVertical="8dp"
+                    android:src="@drawable/ic_send" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

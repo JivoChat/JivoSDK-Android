@@ -1,0 +1,84 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.jivosite.sdk.ui.chat.items.message.text.client.ClientTextItemViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:alpha="0.4"
+            android:text="@string/agent_name_you"
+            android:textSize="14sp"
+            android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_outgoing_message"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="4dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="all"
+                android:text="@{viewModel.text}"
+                android:textColor="@color/white"
+                android:textColorLink="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Доб" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"
+                android:textColor="@color/white85"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/status"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/message"
+                app:time="@{viewModel.time}"
+                tools:text="13:20" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/status"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/message"
+                app:messageStatus="@{viewModel.status}"
+                tools:src="@drawable/vic_message_status_sent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</layout>

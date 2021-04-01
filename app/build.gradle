@@ -1,0 +1,128 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.appdistribution'
+
+android {
+    compileSdkVersion sdkVersion
+    buildToolsVersion buildTools
+
+    defaultConfig {
+        applicationId "com.jivosite.example"
+
+        minSdkVersion 21
+        targetSdkVersion sdkVersion
+
+        versionCode 102102161
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+
+        debug {
+            try {
+                storeFile file("../keys/debug_key")
+                storePassword "debug_key"
+                keyPassword "debug_key"
+                keyAlias "debug"
+            }
+            catch (ignored) {
+                throw new InvalidUserDataException("There is no debug_key.")
+            }
+        }
+
+        release {
+            try {
+                storeFile file("../keys/android_keys")
+                storePassword KEYSTORE_PASSWORD
+                keyPassword KEY_PASSWORD
+                keyAlias "firstkey"
+            }
+            catch (ignored) {
+                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+            }
+        }
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    buildTypes {
+
+        debug {
+            debuggable true
+            signingConfig signingConfigs.debug
+            firebaseAppDistribution {
+                releaseNotesFile = "./app/release-notes.txt"
+                groups = "qa"
+            }
+        }
+
+        release {
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def sep = "-"
+            def project = "jivo-sdk-example"
+            def buildType = variant.buildType.name
+            def versionName = variant.versionName
+            def versionCode = variant.versionCode
+
+            def apkName = project + sep + buildType + sep + versionName + "(" + versionCode + ").apk"
+
+            outputFileName = new File(apkName)
+        }
+    }
+}
+
+kapt {
+    useBuildCache = true
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(":sdk")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    //material
+    implementation 'com.google.android.material:material:1.3.0'
+
+    //lifecycle
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    //navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
+    
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+}
