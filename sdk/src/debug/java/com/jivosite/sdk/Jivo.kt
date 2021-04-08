@@ -47,8 +47,8 @@ object Jivo {
 
     fun init(appContext: Context, siteId: Long, widgetId: String) {
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
-            .sdkModule(SdkModule(appContext, siteId, widgetId))
-            .build()
+                .sdkModule(SdkModule(appContext, siteId, widgetId))
+                .build()
         sdkContext = jivoSdkComponent.sdkContext()
 
         lifecycleObserver = JivoLifecycleObserver(sdkContext, jivoSdkComponent.storage())
@@ -66,11 +66,11 @@ object Jivo {
      */
     fun setClientInfo(name: String = "", email: String = "", phone: String = "", description: String = "") {
         val args = bundleOf(
-            "name" to name,
-            "email" to email,
-            "phone" to phone,
-            "description" to description,
-            "clientId" to jivoSdkComponent.storage().clientId
+                "name" to name,
+                "email" to email,
+                "phone" to phone,
+                "description" to description,
+                "clientId" to jivoSdkComponent.storage().clientId
         )
         JivoWebSocketService.setClientInfo(sdkContext.appContext, args)
     }
@@ -97,11 +97,25 @@ object Jivo {
         JivoWebSocketService.restart(sdkContext.appContext)
     }
 
+    fun subscribeToPush() {
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
+            useCaseProvider.get().execute()
+        }
+    }
+
+    fun unsubscribeFromPush() {
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
+            useCaseProvider.get().execute("")
+        }
+    }
+
     internal fun getServiceComponent(service: JivoWebSocketService): WebSocketServiceComponent {
         return serviceComponent ?: jivoSdkComponent.serviceComponent(
-            WebSocketServiceModule(service),
-            StateModule(),
-            SocketMessageHandlerModule()
+                WebSocketServiceModule(service),
+                StateModule(),
+                SocketMessageHandlerModule()
         ).also {
             serviceComponent = it
         }
@@ -109,22 +123,23 @@ object Jivo {
 
     internal fun getChatComponent(fragment: Fragment): JivoChatComponent {
         return chatComponent ?: jivoSdkComponent.chatComponent(JivoChatFragmentModule(fragment))
-            .also { chatComponent = it }
+                .also { chatComponent = it }
     }
 
     internal fun getLogsComponent(fragment: JivoLogsFragment): JivoLogsComponent {
         return logsComponent ?: jivoSdkComponent.logsComponent(JivoLogsFragmentModule(fragment))
-            .also { logsComponent = it }
+                .also { logsComponent = it }
     }
 
     internal fun getSettingsComponent(fragment: JivoSettingsFragment): JivoSettingsComponent {
-        return settingsComponent ?: jivoSdkComponent.settingsComponent(JivoSettingsFragmentModule(fragment))
-            .also { settingsComponent = it }
+        return settingsComponent
+                ?: jivoSdkComponent.settingsComponent(JivoSettingsFragmentModule(fragment))
+                        .also { settingsComponent = it }
     }
 
     internal fun getPushServiceComponent(service: JivoFirebaseMessagingService): PushServiceComponent {
         return pushComponent ?: jivoSdkComponent.pushComponent(PushServiceModule(service))
-            .also { pushComponent = it }
+                .also { pushComponent = it }
     }
 
     internal fun clearServiceComponent() {

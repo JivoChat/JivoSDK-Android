@@ -16,8 +16,10 @@ import com.jivosite.sdk.di.ui.settings.JivoSettingsComponent
 import com.jivosite.sdk.di.ui.settings.JivoSettingsFragmentModule
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.storage.SharedStorage
+import com.jivosite.sdk.support.usecase.UpdatePushTokenUseCase
 import com.jivosite.sdk.ui.views.JivoChatButton
 import dagger.Component
+import javax.inject.Provider
 import javax.inject.Singleton
 
 /**
@@ -56,6 +58,8 @@ interface JivoSdkComponent {
     fun storage(): SharedStorage
 
     fun sdkContext(): SdkContext
+
+    fun updatePushTokenUseCaseProvider() : Provider<UpdatePushTokenUseCase>
 
     fun inject(button: JivoChatButton)
 }
