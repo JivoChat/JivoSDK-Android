@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Android data binding
+-dontwarn androidx.databinding.**
+-keep class androidx.databinding.* { *; }
+
+-keep public class com.jivosite.sdk.Jivo { *; }
+-keep public class com.jivosite.sdk.ui.chat.JivoChatFragment { *; }
+-keep public class com.jivosite.sdk.ui.views.JivoChatButton { *; }
+-keep public class com.jivosite.sdk.push.JivoFirebaseMessagingService

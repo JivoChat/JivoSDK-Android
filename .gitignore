@@ -9,3 +9,6 @@
 .externalNativeBuild
 .cxx
 /keys
+*.pub
+*.gpg
+/sdk/gpg-keys/

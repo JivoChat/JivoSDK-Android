@@ -5,6 +5,7 @@ import com.jivosite.sdk.di.modules.NetworkModule
 import com.jivosite.sdk.di.modules.ParseModule
 import com.jivosite.sdk.di.modules.RepositoryModule
 import com.jivosite.sdk.di.modules.SdkModule
+import com.jivosite.sdk.di.modules.DbModule
 import com.jivosite.sdk.di.service.PushServiceComponent
 import com.jivosite.sdk.di.service.WebSocketServiceComponent
 import com.jivosite.sdk.di.service.modules.PushServiceModule

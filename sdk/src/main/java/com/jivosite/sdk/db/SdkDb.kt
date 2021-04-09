@@ -11,7 +11,7 @@ import com.jivosite.sdk.db.entities.DbAgent
  *
  * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
  */
-@Database(entities = [DbAgent::class], version = DATABASE_VERSION)
+@Database(entities = [DbAgent::class], version = DATABASE_VERSION, exportSchema = false)
 abstract class SdkDb : RoomDatabase() {
     companion object {
         const val DATABASE_NAME: String = "jivo-sdk-db"
