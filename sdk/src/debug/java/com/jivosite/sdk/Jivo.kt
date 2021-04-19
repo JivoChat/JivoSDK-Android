@@ -45,18 +45,28 @@ object Jivo {
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
 
-    fun init(appContext: Context, siteId: Long, widgetId: String) {
+    fun init(appContext: Context, siteId: Long, widgetId: String, host: String = "", port: String = "") {
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
                 .sdkModule(SdkModule(appContext, siteId, widgetId))
                 .build()
         sdkContext = jivoSdkComponent.sdkContext()
 
-        lifecycleObserver = JivoLifecycleObserver(sdkContext, jivoSdkComponent.storage())
+        val storage = jivoSdkComponent.storage()
+
+        storage.siteId = siteId.toString()
+        storage.widgetId = widgetId
+
+        if (host.isNotBlank() && port.isNotBlank()) {
+            storage.host = host
+            storage.port = port
+        }
+
+        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage)
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
     }
 
     /**
-     * При успешном сохранении информации о клиенте, выполняется разрыв соединения с сокетом.
+     * Передача информации о клиенте
      *
      * @param name Имя пользователя, используется как обращение в сообщениях.
      * @param email Адрес электронной почты, для отправки сообщений.

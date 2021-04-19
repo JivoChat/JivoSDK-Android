@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@null"
         android:src="@drawable/vic_bubble"
+        app:tint="@null"
         app:borderWidth="0dp" />
 
     <View

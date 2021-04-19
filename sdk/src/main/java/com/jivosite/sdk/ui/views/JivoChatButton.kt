@@ -102,4 +102,8 @@ class JivoChatButton @JvmOverloads constructor(context: Context, attrs: Attribut
         super.onDetachedFromWindow()
         viewModel.state.removeObserver(stateObserver)
     }
+
+    override fun setOnClickListener(l: OnClickListener?) {
+        button.setOnClickListener(l)
+    }
 }

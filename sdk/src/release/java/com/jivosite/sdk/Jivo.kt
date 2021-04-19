@@ -1,5 +1,6 @@
 package com.jivosite.sdk
 
+import androidx.core.os.bundleOf
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ProcessLifecycleOwner
@@ -36,14 +37,44 @@ object Jivo {
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
 
-    fun init(appContext: Context, siteId: Long, widgetId: String) {
+    fun init(appContext: Context, siteId: Long, widgetId: String, host: String = "", port: String = "") {
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
-            .sdkModule(SdkModule(appContext, siteId, widgetId))
-            .build()
+                .sdkModule(SdkModule(appContext, siteId, widgetId))
+                .build()
         sdkContext = jivoSdkComponent.sdkContext()
 
-        lifecycleObserver = JivoLifecycleObserver(sdkContext, jivoSdkComponent.storage())
+        val storage = jivoSdkComponent.storage()
+
+        storage.siteId = siteId.toString()
+        storage.widgetId = widgetId
+
+        if (host.isNotBlank() && port.isNotBlank()) {
+            storage.host = host
+            storage.port = port
+        }
+
+        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage)
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
+    }
+
+    /**
+     * Передача информации о клиенте
+     *
+     * @param name Имя пользователя, используется как обращение в сообщениях.
+     * @param email Адрес электронной почты, для отправки сообщений.
+     * @param phone Номер телефона для звонков
+     * @param description Описание, как комментарий, можно почтовый адрес, должность и пр.
+     *
+     */
+    fun setClientInfo(name: String = "", email: String = "", phone: String = "", description: String = "") {
+        val args = bundleOf(
+                "name" to name,
+                "email" to email,
+                "phone" to phone,
+                "description" to description,
+                "clientId" to jivoSdkComponent.storage().clientId
+        )
+        JivoWebSocketService.setClientInfo(sdkContext.appContext, args)
     }
 
     fun turnOn() {

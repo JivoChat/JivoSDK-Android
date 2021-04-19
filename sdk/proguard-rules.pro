@@ -23,6 +23,7 @@
 # Android data binding
 -dontwarn androidx.databinding.**
 -keep class androidx.databinding.* { *; }
+-keep class * extends androidx.databinding.DataBinderMapper { *; }
 
 -keep public class com.jivosite.sdk.Jivo { *; }
 -keep public class com.jivosite.sdk.ui.chat.JivoChatFragment { *; }
