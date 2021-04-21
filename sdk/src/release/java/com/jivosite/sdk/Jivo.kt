@@ -37,6 +37,7 @@ object Jivo {
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
 
+    @JvmStatic
     fun init(appContext: Context, siteId: Long, widgetId: String, host: String = "", port: String = "") {
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
                 .sdkModule(SdkModule(appContext, siteId, widgetId))

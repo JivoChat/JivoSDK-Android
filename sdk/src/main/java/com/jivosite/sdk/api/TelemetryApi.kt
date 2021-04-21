@@ -1,6 +1,9 @@
 package com.jivosite.sdk.api
 
+import com.jivosite.sdk.network.retrofit.ChangeUrlInterceptor.Companion.TELEMETRY
+import com.jivosite.sdk.network.retrofit.ChangeUrlInterceptor.Companion.URL
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.QueryMap
 
 /**
@@ -11,5 +14,6 @@ import retrofit2.http.QueryMap
 interface TelemetryApi {
 
     @GET("/mobile")
+    @Headers("$URL:$TELEMETRY")
     suspend fun send(@QueryMap params: Map<String, String>): String
 }

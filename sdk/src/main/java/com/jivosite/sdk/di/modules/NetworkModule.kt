@@ -4,11 +4,10 @@ import com.jivosite.sdk.BuildConfig
 import com.jivosite.sdk.api.MediaApi
 import com.jivosite.sdk.api.PushApi
 import com.jivosite.sdk.api.TelemetryApi
-import com.jivosite.sdk.di.Name
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.network.response.ApiResponse
 import com.jivosite.sdk.network.response.ApiResponseFactory
-import com.jivosite.sdk.network.retrofit.DevServerInterceptor
+import com.jivosite.sdk.network.retrofit.ChangeUrlInterceptor
 import com.jivosite.sdk.network.retrofit.LiveDataCallAdapterFactory
 import com.jivosite.sdk.support.async.Schedulers
 import com.squareup.moshi.Moshi
@@ -37,10 +36,7 @@ class NetworkModule {
         const val READ_TIMEOUT = 30L // seconds
         const val CONNECT_TIMEOUT = 30L // seconds
 
-        const val BASE_URL = "https://api.jivosite.com/"
-        const val PUSH_URL = "https://node.sdk.dev.jivosite.com/"
-
-        const val TELEMETRY_URL = "https://telemetry.jivosite.com/"
+        const val BASE_URL = "https://jivosite.com/"
 
         val LOG_LEVEL = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.HEADERS else HttpLoggingInterceptor.Level.NONE
     }
@@ -56,7 +52,7 @@ class NetworkModule {
 
     @Provides
     @IntoSet
-    fun provideDevInterceptor(storage: SharedStorage): Interceptor = DevServerInterceptor(storage)
+    fun provideDevInterceptor(storage: SharedStorage): Interceptor = ChangeUrlInterceptor(storage)
 
     @Singleton
     @Provides
@@ -77,7 +73,6 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    @Name("JivoApi")
     fun provideJivoRetrofit(client: OkHttpClient, converter: Converter.Factory, callAdapter: CallAdapter.Factory): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -88,49 +83,19 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    @Name("TelemetryApi")
-    fun provideTelemetryRetrofit(client: OkHttpClient, converter: Converter.Factory): Retrofit =
-        Retrofit.Builder()
-            .baseUrl(TELEMETRY_URL)
-            .client(client)
-            .addConverterFactory(converter)
-            .build()
-
-    @Singleton
-    @Provides
-    @Name("PushApi")
-    fun providePushRetrofit(client: OkHttpClient, converter: Converter.Factory, callAdapter: CallAdapter.Factory): Retrofit =
-        Retrofit.Builder()
-            .baseUrl(PUSH_URL)
-            .client(client)
-            .addCallAdapterFactory(callAdapter)
-            .addConverterFactory(converter)
-            .build()
-
-    @Singleton
-    @Provides
-    fun provideTelemetryApi(
-        @Name("TelemetryApi")
-        retrofit: Retrofit,
-    ): TelemetryApi {
+    fun provideTelemetryApi(retrofit: Retrofit): TelemetryApi {
         return retrofit.create(TelemetryApi::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideMediaApi(
-        @Name("JivoApi")
-        retrofit: Retrofit,
-    ): MediaApi {
+    fun provideMediaApi(retrofit: Retrofit): MediaApi {
         return retrofit.create(MediaApi::class.java)
     }
 
     @Singleton
     @Provides
-    fun providePushApi(
-        @Name("PushApi")
-        retrofit: Retrofit,
-    ): PushApi {
+    fun providePushApi(retrofit: Retrofit): PushApi {
         return retrofit.create(PushApi::class.java)
     }
 }
