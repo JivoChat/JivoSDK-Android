@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.jivosite.sdk.model.pojo.push.Device
 import com.jivosite.sdk.model.pojo.response.Response
 import com.jivosite.sdk.network.response.ApiResponse
-import com.jivosite.sdk.network.retrofit.ChangeUrlInterceptor.Companion.PUSH
+import com.jivosite.sdk.network.retrofit.ChangeUrlInterceptor.Companion.NODE
 import com.jivosite.sdk.network.retrofit.ChangeUrlInterceptor.Companion.URL
 import retrofit2.http.*
 
@@ -16,7 +16,7 @@ import retrofit2.http.*
 interface PushApi {
 
     @POST("/client/{siteId}/{widgetPublicId}/device")
-    @Headers("$URL:$PUSH")
+    @Headers("$URL:$NODE")
     fun setPushToken(
         @Header("x-jv-client-id") clientId: String,
         @Path("siteId") siteId: Long,
