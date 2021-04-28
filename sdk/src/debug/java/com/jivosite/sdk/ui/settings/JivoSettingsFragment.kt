@@ -82,4 +82,12 @@ class JivoSettingsFragment : Fragment(R.layout.fragment_jivo_settings) {
         super.onDestroy()
         Jivo.clearSettingsComponent()
     }
+
+    fun onDisablePush(isDisable: Boolean) {
+        if (isDisable) {
+            Jivo.unsubscribeFromPush()
+        } else {
+            Jivo.subscribeToPush()
+        }
+    }
 }

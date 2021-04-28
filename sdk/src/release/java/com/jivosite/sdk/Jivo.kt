@@ -46,9 +46,6 @@ object Jivo {
 
         val storage = jivoSdkComponent.storage()
 
-        storage.siteId = siteId.toString()
-        storage.widgetId = widgetId
-
         if (host.isNotBlank() && port.isNotBlank()) {
             storage.host = host
             storage.port = port
@@ -98,6 +95,20 @@ object Jivo {
 
     fun clear() {
         JivoWebSocketService.restart(sdkContext.appContext)
+    }
+
+    fun subscribeToPush() {
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
+            useCaseProvider.get().execute()
+        }
+    }
+
+    fun unsubscribeFromPush() {
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
+            useCaseProvider.get().execute("")
+        }
     }
 
     internal fun getServiceComponent(service: JivoWebSocketService): WebSocketServiceComponent {

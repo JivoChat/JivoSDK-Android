@@ -54,9 +54,6 @@ object Jivo {
 
         val storage = jivoSdkComponent.storage()
 
-        storage.siteId = siteId.toString()
-        storage.widgetId = widgetId
-
         if (host.isNotBlank() && port.isNotBlank()) {
             storage.host = host
             storage.port = port

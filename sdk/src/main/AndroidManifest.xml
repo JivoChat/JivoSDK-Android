@@ -17,7 +17,8 @@
 
         <activity
             android:name=".ui.chat.JivoChatActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance"/>
 
         <activity
             android:name=".ui.imageviewer.ImageViewerActivity"
@@ -25,7 +26,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.jivosite.sdk.fileprovider"
+            android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
