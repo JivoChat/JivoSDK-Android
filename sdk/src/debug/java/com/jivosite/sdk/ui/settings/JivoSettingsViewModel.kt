@@ -20,8 +20,6 @@ class JivoSettingsViewModel @Inject constructor(
 ) : ViewModel() {
 
     val host = MutableLiveData(storage.host)
-    val port = MutableLiveData(storage.port)
-    val siteId = MutableLiveData(storage.siteId)
     val widgetId = MutableLiveData(storage.widgetId)
 
     val userName = MutableLiveData("")
@@ -39,8 +37,6 @@ class JivoSettingsViewModel @Inject constructor(
 
     fun saveAndRestart() {
         storage.host = host.requireValue().trim()
-        storage.port = port.requireValue().trim()
-        storage.siteId = siteId.requireValue().trim()
         storage.widgetId = widgetId.requireValue().trim()
 
         storage.path = ""
@@ -50,8 +46,6 @@ class JivoSettingsViewModel @Inject constructor(
 
     fun clearAndRestart() {
         host.value = ""
-        port.value = ""
-        siteId.value = ""
         widgetId.value = ""
 
         saveAndRestart()

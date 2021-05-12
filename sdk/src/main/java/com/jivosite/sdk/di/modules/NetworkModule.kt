@@ -3,6 +3,7 @@ package com.jivosite.sdk.di.modules
 import com.jivosite.sdk.BuildConfig
 import com.jivosite.sdk.api.MediaApi
 import com.jivosite.sdk.api.PushApi
+import com.jivosite.sdk.api.SdkApi
 import com.jivosite.sdk.api.TelemetryApi
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.network.response.ApiResponse
@@ -80,6 +81,12 @@ class NetworkModule {
             .addCallAdapterFactory(callAdapter)
             .addConverterFactory(converter)
             .build()
+
+    @Singleton
+    @Provides
+    fun provideSdkApi(retrofit: Retrofit): SdkApi {
+        return retrofit.create(SdkApi::class.java)
+    }
 
     @Singleton
     @Provides

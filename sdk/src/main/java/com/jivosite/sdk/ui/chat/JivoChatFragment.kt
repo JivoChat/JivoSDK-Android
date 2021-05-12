@@ -156,6 +156,8 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         viewModel.clientTyping.observe(viewLifecycleOwner) {
             viewModel.clientTyping(it)
         }
+
+        binding.banner.isVisible = viewModel.widgetId == "uJF4QRGMtU"
     }
 
     private fun renderConnectionState(state: ConnectionState) {

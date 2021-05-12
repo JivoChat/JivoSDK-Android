@@ -46,9 +46,9 @@ object Jivo {
     private lateinit var sdkContext: SdkContext
 
     @JvmStatic
-    fun init(appContext: Context, siteId: Long, widgetId: String, host: String = "", port: String = "") {
+    fun init(appContext: Context, widgetId: String, host: String = "", port: String = "") {
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
-                .sdkModule(SdkModule(appContext, siteId, widgetId))
+                .sdkModule(SdkModule(appContext, widgetId))
                 .build()
         sdkContext = jivoSdkComponent.sdkContext()
 
@@ -59,7 +59,10 @@ object Jivo {
             storage.port = port
         }
 
-        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage)
+        val sdkApi = jivoSdkComponent.sdkApi()
+        val schedulers = jivoSdkComponent.schedulers()
+
+        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkApi, schedulers)
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
     }
 
