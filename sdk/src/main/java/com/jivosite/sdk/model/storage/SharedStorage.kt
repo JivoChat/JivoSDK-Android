@@ -20,6 +20,10 @@ class SharedStorage(context: Context) {
         private const val PATH = "path"
         private const val START_ON_INITIALIZATION = "startOnInitialization"
 
+        private const val CHATSERVER_HOST = "chatserverHost"
+        private const val API_HOST = "apiHost"
+        private const val FILES_HOST = "filesHost"
+
         private const val HOST = "host"
         private const val PORT = "port"
         private const val SITE_ID = "siteId"
@@ -42,6 +46,10 @@ class SharedStorage(context: Context) {
         START_ON_INITIALIZATION,
         BuildConfig.START_ON_INITIALIZATION
     )
+
+    var chatserverHost: String by SharedPreference(preferences, CHATSERVER_HOST, "")
+    var apiHost: String by SharedPreference(preferences, API_HOST, "")
+    var filesHost: String by SharedPreference(preferences, FILES_HOST, "")
 
     var host: String by SharedPreference(preferences, HOST, "")
     var port: String by SharedPreference(preferences, PORT, "")

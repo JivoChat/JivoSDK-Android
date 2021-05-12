@@ -10,7 +10,6 @@ import java.util.*
  */
 data class SdkContext(
     val appContext: Context,
-    val siteId: Long,
     val widgetId: String,
     val clientInfo: Map<String, String> = Collections.emptyMap(),
 )

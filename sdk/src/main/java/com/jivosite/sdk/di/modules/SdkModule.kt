@@ -21,9 +21,9 @@ import javax.inject.Singleton
  * @author Alexandr Shibelev (av.shibelev@gmail.com)
  */
 @Module
-class SdkModule(appContext: Context, siteId: Long, widgetId: String) {
+class SdkModule(appContext: Context, widgetId: String) {
 
-    private val sdkContext = SdkContext(appContext, siteId, widgetId)
+    private val sdkContext = SdkContext(appContext, widgetId)
 
     @Provides
     @Singleton

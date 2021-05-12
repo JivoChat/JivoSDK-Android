@@ -98,7 +98,7 @@ class UploadRepositoryImpl @Inject constructor(
     }
 
     private fun createRequest(file: File): LiveData<Resource<String>> {
-        val siteId = storage.siteId.ifBlank { sdkContext.siteId.toString() }.toLong()
+        val siteId = storage.siteId.toLong()
         val widgetId = storage.widgetId.ifBlank { sdkContext.widgetId }
         return UploadResource.Builder(schedulers)
             .getAccess {

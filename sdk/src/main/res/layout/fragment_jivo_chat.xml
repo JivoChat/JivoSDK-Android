@@ -124,6 +124,7 @@
             app:typing="@{viewModel.agentsTyping}" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/banner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/white85"

@@ -38,20 +38,15 @@ abstract class NetworkResource<ResultType, RequestType>(schedulers: Schedulers) 
                 if (apiResponse.isSuccessful) {
                     val body = apiResponse.body
                     if (body is Response) {
-                        if (body.isOk) {
+                        if (body.errorList == null) {
                             val result = handleResponse(body)
                             this.result.value = Resource.success(result)
                         } else {
-                            val errors = if (body.errorList != null) {
-                                HashMap<String, String>().also {
-                                    for (error in body.errorList) {
-                                        it[error] = ""
-                                    }
+                            val errors = HashMap<String, String>().also {
+                                body.errorList.forEach { error ->
+                                    it[error] = ""
                                 }
-                            } else {
-                                Collections.emptyMap()
                             }
-
                             val error = JivoApiException(errors)
                             result.value = Resource.error(error.localizedMessage, error)
                         }

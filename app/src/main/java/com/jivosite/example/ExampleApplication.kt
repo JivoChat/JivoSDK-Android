@@ -14,6 +14,6 @@ class ExampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        Jivo.init(this, 75613, "E4gI90LkXM")
+        Jivo.init(this, "4AHKT4BHvi")
     }
 }

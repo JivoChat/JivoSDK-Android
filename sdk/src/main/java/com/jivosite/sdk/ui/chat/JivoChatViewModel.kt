@@ -29,6 +29,7 @@ import com.jivosite.sdk.model.repository.send.SendMessageState
 import com.jivosite.sdk.model.repository.typing.TypingRepository
 import com.jivosite.sdk.model.repository.upload.UploadFilesState
 import com.jivosite.sdk.model.repository.upload.UploadRepository
+import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.transmitter.Transmitter
 import com.jivosite.sdk.support.ext.getSupportFileType
 import com.jivosite.sdk.support.livedata.ClientTypingDebounceLiveData
@@ -64,7 +65,8 @@ class JivoChatViewModel @Inject constructor(
     private val typingRepository: TypingRepository,
     private val messageTransmitter: Transmitter,
     private val logsRepository: LogsRepository,
-    private val uploadRepository: UploadRepository
+    private val uploadRepository: UploadRepository,
+    private val storage: SharedStorage
 ) : ViewModel() {
 
     companion object {
@@ -148,6 +150,9 @@ class JivoChatViewModel @Inject constructor(
     private val _clientMessage = MutableLiveData<SocketMessage>()
     val clientMessage: LiveData<SocketMessage>
         get() = _clientMessage
+
+    val widgetId
+        get() = storage.widgetId
 
     private fun handleMessagesState(state: MessagesState): List<ChatItem> {
         if (state.myId.isBlank()) {
