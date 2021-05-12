@@ -46,7 +46,7 @@ object Jivo {
     private lateinit var sdkContext: SdkContext
 
     @JvmStatic
-    fun init(appContext: Context, widgetId: String, host: String = "", port: String = "") {
+    fun init(appContext: Context, widgetId: String, host: String = "") {
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
                 .sdkModule(SdkModule(appContext, widgetId))
                 .build()
@@ -54,9 +54,8 @@ object Jivo {
 
         val storage = jivoSdkComponent.storage()
 
-        if (host.isNotBlank() && port.isNotBlank()) {
+        if (host.isNotBlank()) {
             storage.host = host
-            storage.port = port
         }
 
         val sdkApi = jivoSdkComponent.sdkApi()
