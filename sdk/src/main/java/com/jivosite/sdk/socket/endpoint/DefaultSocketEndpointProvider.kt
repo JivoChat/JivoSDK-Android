@@ -16,6 +16,12 @@ class DefaultSocketEndpointProvider @Inject constructor(
 ) : SocketEndpointProvider {
 
     override fun getEndpoint(): URI {
-        return URI.create("wss://${storage.chatserverHost}/atom/${storage.siteId}:${sdkContext.widgetId}")
+        return storage.path.let {
+            if (it.isBlank()) {
+                URI.create("wss://${storage.chatserverHost}/atom/${storage.siteId}:${sdkContext.widgetId}")
+            } else {
+                URI.create("wss://${storage.chatserverHost}/atom${it}")
+            }
+        }
     }
 }
