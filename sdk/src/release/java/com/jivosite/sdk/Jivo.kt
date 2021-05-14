@@ -38,10 +38,10 @@ object Jivo {
     private lateinit var sdkContext: SdkContext
 
     @JvmStatic
-    fun init(appContext: Context, siteId: Long, widgetId: String, host: String = "", port: String = "") {
+    fun init(appContext: Context, widgetId: String, host: String = "") {
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
-                .sdkModule(SdkModule(appContext, siteId, widgetId))
-                .build()
+            .sdkModule(SdkModule(appContext, siteId, widgetId))
+            .build()
         sdkContext = jivoSdkComponent.sdkContext()
 
         val storage = jivoSdkComponent.storage()
@@ -64,6 +64,7 @@ object Jivo {
      * @param description Описание, как комментарий, можно почтовый адрес, должность и пр.
      *
      */
+    @JvmStatic
     fun setClientInfo(name: String = "", email: String = "", phone: String = "", description: String = "") {
         val args = bundleOf(
                 "name" to name,

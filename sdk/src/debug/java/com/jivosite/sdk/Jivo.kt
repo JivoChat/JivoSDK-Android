@@ -48,8 +48,8 @@ object Jivo {
     @JvmStatic
     fun init(appContext: Context, widgetId: String, host: String = "") {
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
-                .sdkModule(SdkModule(appContext, widgetId))
-                .build()
+            .sdkModule(SdkModule(appContext, widgetId))
+            .build()
         sdkContext = jivoSdkComponent.sdkContext()
 
         val storage = jivoSdkComponent.storage()
@@ -74,13 +74,14 @@ object Jivo {
      * @param description Описание, как комментарий, можно почтовый адрес, должность и пр.
      *
      */
+    @JvmStatic
     fun setClientInfo(name: String = "", email: String = "", phone: String = "", description: String = "") {
         val args = bundleOf(
-                "name" to name,
-                "email" to email,
-                "phone" to phone,
-                "description" to description,
-                "clientId" to jivoSdkComponent.storage().clientId
+            "name" to name,
+            "email" to email,
+            "phone" to phone,
+            "description" to description,
+            "clientId" to jivoSdkComponent.storage().clientId
         )
         JivoWebSocketService.setClientInfo(sdkContext.appContext, args)
     }
