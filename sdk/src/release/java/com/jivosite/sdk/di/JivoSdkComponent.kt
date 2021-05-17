@@ -1,5 +1,6 @@
 package com.jivosite.sdk.di
 
+import com.jivosite.sdk.api.SdkApi
 import com.jivosite.sdk.api.TelemetryApi
 import com.jivosite.sdk.di.modules.NetworkModule
 import com.jivosite.sdk.di.modules.ParseModule
@@ -16,8 +17,11 @@ import com.jivosite.sdk.di.ui.chat.JivoChatComponent
 import com.jivosite.sdk.di.ui.chat.JivoChatFragmentModule
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.storage.SharedStorage
+import com.jivosite.sdk.support.async.Schedulers
+import com.jivosite.sdk.support.usecase.UpdatePushTokenUseCase
 import com.jivosite.sdk.ui.views.JivoChatButton
 import dagger.Component
+import javax.inject.Provider
 import javax.inject.Singleton
 
 /**
@@ -52,6 +56,12 @@ interface JivoSdkComponent {
     fun storage(): SharedStorage
 
     fun sdkContext(): SdkContext
+
+    fun updatePushTokenUseCaseProvider() : Provider<UpdatePushTokenUseCase>
+
+    fun sdkApi(): SdkApi
+
+    fun  schedulers(): Schedulers
 
     fun inject(button: JivoChatButton)
 }
