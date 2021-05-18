@@ -51,22 +51,22 @@ class JivoLifecycleObserver(
 
     private fun getSdkConfig(): LiveData<Resource<Boolean>> {
         return NetworkResource.Builder<Boolean, Config>(schedulers)
-                .createCall {
-                    sdkApi.getConfig(
-                            sdkContext.widgetId
-                    )
+            .createCall {
+                sdkApi.getConfig(
+                    storage.widgetId.ifBlank { sdkContext.widgetId }
+                )
+            }
+            .handleResponse {
+                storage.siteId = it.siteId
+                storage.chatserverHost = it.chatserverHost
+                storage.apiHost = it.apiHost
+                storage.filesHost = it.filesHost
+                if (isStartedService) {
+                    JivoWebSocketService.start(sdkContext.appContext)
                 }
-                .handleResponse {
-                    storage.siteId = it.siteId
-                    storage.chatserverHost = it.chatserverHost
-                    storage.apiHost = it.apiHost
-                    storage.filesHost = it.filesHost
-                    if (isStartedService) {
-                        JivoWebSocketService.start(sdkContext.appContext)
-                    }
-                    it.apiHost.isNotBlank()
-                }
-                .build()
-                .asLiveData()
+                it.apiHost.isNotBlank()
+            }
+            .build()
+            .asLiveData()
     }
 }

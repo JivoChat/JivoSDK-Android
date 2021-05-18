@@ -151,8 +151,8 @@ class JivoChatViewModel @Inject constructor(
     val clientMessage: LiveData<SocketMessage>
         get() = _clientMessage
 
-    val widgetId
-        get() = storage.widgetId
+    val siteId
+        get() = storage.siteId
 
     private fun handleMessagesState(state: MessagesState): List<ChatItem> {
         if (state.myId.isBlank()) {
