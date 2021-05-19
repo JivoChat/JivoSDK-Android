@@ -67,7 +67,7 @@ class UpdatePushTokenUseCase @Inject constructor(
                 pushApi.setPushToken(
                     profileRepository.id,
                     storage.siteId.toLong(),
-                    sdkContext.widgetId,
+                    storage.widgetId.ifBlank { sdkContext.widgetId },
                     device
                 )
             }

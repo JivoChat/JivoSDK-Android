@@ -50,10 +50,9 @@ object Jivo {
             storage.host = host
         }
 
-        val sdkApi = jivoSdkComponent.sdkApi()
-        val schedulers = jivoSdkComponent.schedulers()
+        val sdkConfigUseCaseProvider = jivoSdkComponent.sdkConfigUseCaseProvider()
 
-        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkApi, schedulers)
+        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
     }
 
@@ -69,11 +68,11 @@ object Jivo {
     @JvmStatic
     fun setClientInfo(name: String = "", email: String = "", phone: String = "", description: String = "") {
         val args = bundleOf(
-                "name" to name,
-                "email" to email,
-                "phone" to phone,
-                "description" to description,
-                "clientId" to jivoSdkComponent.storage().clientId
+            "name" to name,
+            "email" to email,
+            "phone" to phone,
+            "description" to description,
+            "clientId" to jivoSdkComponent.storage().clientId
         )
         JivoWebSocketService.setClientInfo(sdkContext.appContext, args)
     }

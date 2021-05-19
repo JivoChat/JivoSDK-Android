@@ -58,10 +58,9 @@ object Jivo {
             storage.host = host
         }
 
-        val sdkApi = jivoSdkComponent.sdkApi()
-        val schedulers = jivoSdkComponent.schedulers()
+        val sdkConfigUseCaseProvider = jivoSdkComponent.sdkConfigUseCaseProvider()
 
-        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkApi, schedulers)
+        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
     }
 
@@ -124,9 +123,9 @@ object Jivo {
 
     internal fun getServiceComponent(service: JivoWebSocketService): WebSocketServiceComponent {
         return serviceComponent ?: jivoSdkComponent.serviceComponent(
-                WebSocketServiceModule(service),
-                StateModule(),
-                SocketMessageHandlerModule()
+            WebSocketServiceModule(service),
+            StateModule(),
+            SocketMessageHandlerModule()
         ).also {
             serviceComponent = it
         }
@@ -134,23 +133,23 @@ object Jivo {
 
     internal fun getChatComponent(fragment: Fragment): JivoChatComponent {
         return chatComponent ?: jivoSdkComponent.chatComponent(JivoChatFragmentModule(fragment))
-                .also { chatComponent = it }
+            .also { chatComponent = it }
     }
 
     internal fun getLogsComponent(fragment: JivoLogsFragment): JivoLogsComponent {
         return logsComponent ?: jivoSdkComponent.logsComponent(JivoLogsFragmentModule(fragment))
-                .also { logsComponent = it }
+            .also { logsComponent = it }
     }
 
     internal fun getSettingsComponent(fragment: JivoSettingsFragment): JivoSettingsComponent {
         return settingsComponent
-                ?: jivoSdkComponent.settingsComponent(JivoSettingsFragmentModule(fragment))
-                        .also { settingsComponent = it }
+            ?: jivoSdkComponent.settingsComponent(JivoSettingsFragmentModule(fragment))
+                .also { settingsComponent = it }
     }
 
     internal fun getPushServiceComponent(service: JivoFirebaseMessagingService): PushServiceComponent {
         return pushComponent ?: jivoSdkComponent.pushComponent(PushServiceModule(service))
-                .also { pushComponent = it }
+            .also { pushComponent = it }
     }
 
     internal fun clearServiceComponent() {

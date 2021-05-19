@@ -58,11 +58,11 @@ class JivoSettingsFragment : Fragment(R.layout.fragment_jivo_settings) {
             binding.lifecycleOwner = viewLifecycleOwner
         }
 
-        viewModel.restart.observe(viewLifecycleOwner) {
-            if (it == true && mBound) {
-                binder.restart()
-            }
-        }
+//        viewModel.restart.observe(viewLifecycleOwner) {
+//            if (it == true && mBound) {
+//                binder.restart()
+//            }
+//        }
     }
 
     override fun onStart() {

@@ -17,7 +17,7 @@ import com.jivosite.sdk.di.ui.settings.JivoSettingsComponent
 import com.jivosite.sdk.di.ui.settings.JivoSettingsFragmentModule
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.storage.SharedStorage
-import com.jivosite.sdk.support.async.Schedulers
+import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import com.jivosite.sdk.support.usecase.UpdatePushTokenUseCase
 import com.jivosite.sdk.ui.views.JivoChatButton
 import dagger.Component
@@ -61,11 +61,11 @@ interface JivoSdkComponent {
 
     fun sdkContext(): SdkContext
 
-    fun updatePushTokenUseCaseProvider() : Provider<UpdatePushTokenUseCase>
+    fun updatePushTokenUseCaseProvider(): Provider<UpdatePushTokenUseCase>
 
     fun sdkApi(): SdkApi
 
-    fun  schedulers(): Schedulers
+    fun sdkConfigUseCaseProvider(): Provider<SdkConfigUseCase>
 
     fun inject(button: JivoChatButton)
 }

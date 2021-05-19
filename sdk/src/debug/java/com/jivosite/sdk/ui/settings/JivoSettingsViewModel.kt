@@ -7,6 +7,7 @@ import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.logger.LogsRepository
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.support.ext.requireValue
+import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import javax.inject.Inject
 
 /**
@@ -16,7 +17,8 @@ import javax.inject.Inject
  */
 class JivoSettingsViewModel @Inject constructor(
     private val storage: SharedStorage,
-    private val logsRepository: LogsRepository
+    private val logsRepository: LogsRepository,
+    private val sdkConfigUseCase: SdkConfigUseCase
 ) : ViewModel() {
 
     val host = MutableLiveData(storage.host)
@@ -31,9 +33,9 @@ class JivoSettingsViewModel @Inject constructor(
     val doNotShowPings: LiveData<Boolean>
         get() = _doNotShowPings
 
-    private val _restart = MutableLiveData(false)
-    val restart: LiveData<Boolean>
-        get() = _restart
+//    private val _restart = MutableLiveData(false)
+//    val restart: LiveData<Boolean>
+//        get() = _restart
 
     fun saveAndRestart() {
         storage.host = host.requireValue().trim()
@@ -41,7 +43,8 @@ class JivoSettingsViewModel @Inject constructor(
 
         storage.path = ""
 
-        _restart.value = true
+        //_restart.value = true
+        sdkConfigUseCase.restart()
     }
 
     fun clearAndRestart() {

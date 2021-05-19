@@ -2,17 +2,11 @@ package com.jivosite.sdk
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.OnLifecycleEvent
-import com.jivosite.sdk.api.SdkApi
 import com.jivosite.sdk.model.SdkContext
-import com.jivosite.sdk.model.pojo.config.Config
 import com.jivosite.sdk.model.storage.SharedStorage
-import com.jivosite.sdk.network.resource.NetworkResource
-import com.jivosite.sdk.network.resource.Resource
 import com.jivosite.sdk.socket.JivoWebSocketService
-import com.jivosite.sdk.support.async.Schedulers
-import com.jivosite.sdk.support.ext.loadSilently
+import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 
 /**
  * Created on 19.11.2020.
@@ -22,8 +16,7 @@ import com.jivosite.sdk.support.ext.loadSilently
 class JivoLifecycleObserver(
     private val sdkContext: SdkContext,
     private val storage: SharedStorage,
-    private val sdkApi: SdkApi,
-    private val schedulers: Schedulers
+    private val sdkConfigUseCase: SdkConfigUseCase
 ) : LifecycleObserver {
 
     private var isStartedService = false
@@ -32,7 +25,17 @@ class JivoLifecycleObserver(
     fun onForeground() {
         if (storage.startOnInitialization) {
             isStartedService = true
-            getSdkConfig().loadSilently()
+            sdkConfigUseCase.onSuccess {
+                if (isStartedService) {
+                    JivoWebSocketService.start(sdkContext.appContext)
+                }
+            }.execute()
+
+            sdkConfigUseCase.onRestart {
+                if (isStartedService) {
+                    JivoWebSocketService.restart(sdkContext.appContext)
+                }
+            }
             Jivo.d("Application moved to foreground, start service")
         } else {
             isStartedService = false
@@ -47,26 +50,5 @@ class JivoLifecycleObserver(
             JivoWebSocketService.stop(sdkContext.appContext)
             isStartedService = false
         }
-    }
-
-    private fun getSdkConfig(): LiveData<Resource<Boolean>> {
-        return NetworkResource.Builder<Boolean, Config>(schedulers)
-            .createCall {
-                sdkApi.getConfig(
-                    storage.widgetId.ifBlank { sdkContext.widgetId }
-                )
-            }
-            .handleResponse {
-                storage.siteId = it.siteId
-                storage.chatserverHost = it.chatserverHost
-                storage.apiHost = it.apiHost
-                storage.filesHost = it.filesHost
-                if (isStartedService) {
-                    JivoWebSocketService.start(sdkContext.appContext)
-                }
-                it.apiHost.isNotBlank()
-            }
-            .build()
-            .asLiveData()
     }
 }
