@@ -74,16 +74,16 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
 
     private val autoScroller = AutoScroller()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Jivo.getChatComponent(this).inject(this)
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         contentResultCallback = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             if (uri != null) handleContent(uri)
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Jivo.getChatComponent(this).inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -160,26 +160,6 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         binding.banner.isVisible = viewModel.siteId == "1"
     }
 
-    private fun renderConnectionState(state: ConnectionState) {
-        binding.connectionState.isVisible = when (state) {
-            is ConnectionState.Initial, ConnectionState.Connected, ConnectionState.Stopped -> {
-                false
-            }
-            is ConnectionState.Connecting -> {
-                binding.connectingView.isVisible = true
-                binding.connectionStateName.setText(R.string.connection_state_connecting)
-                binding.connectionRetry.isVisible = false
-                true
-            }
-            is ConnectionState.Disconnected -> {
-                binding.connectingView.isVisible = false
-                binding.connectionStateName.text = getString(R.string.connection_state_disconnected, state.seconds)
-                binding.connectionRetry.isVisible = true
-                true
-            }
-        }
-    }
-
     override fun onStart() {
         super.onStart()
         if (!webSocketServiceBound) {
@@ -190,12 +170,23 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.setVisibility(true)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.setVisibility(false)
+    }
+
     override fun onStop() {
         super.onStop()
         if (webSocketServiceBound) {
             requireContext().unbindService(connection)
             webSocketServiceBound = false
         }
+        Jivo.clearChatComponent()
     }
 
     override fun onDestroyView() {
@@ -228,6 +219,26 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         contentResultCallback.launch("*/*")
     }
 
+    private fun renderConnectionState(state: ConnectionState) {
+        binding.connectionState.isVisible = when (state) {
+            is ConnectionState.Initial, ConnectionState.Connected, ConnectionState.Stopped -> {
+                false
+            }
+            is ConnectionState.Connecting -> {
+                binding.connectingView.isVisible = true
+                binding.connectionStateName.setText(R.string.connection_state_connecting)
+                binding.connectionRetry.isVisible = false
+                true
+            }
+            is ConnectionState.Disconnected -> {
+                binding.connectingView.isVisible = false
+                binding.connectionStateName.text = getString(R.string.connection_state_disconnected, state.seconds)
+                binding.connectionRetry.isVisible = true
+                true
+            }
+        }
+    }
+
     private fun handleContent(uri: Uri) {
         var fileName = ""
         var fileSize = 0L
@@ -248,15 +259,5 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         }
 
         viewModel.uploadFile(inputStream, fileName, type, fileSize, uri.toString())
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.setVisibility(true)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        viewModel.setVisibility(false)
     }
 }
