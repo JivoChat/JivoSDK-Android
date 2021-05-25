@@ -195,11 +195,6 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         binding.recyclerView.clearOnScrollListeners()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Jivo.clearChatComponent()
-    }
-
     fun send() {
         binding.inputText.text.toString().also {
             if (it.isNotBlank() && webSocketServiceBound) {
