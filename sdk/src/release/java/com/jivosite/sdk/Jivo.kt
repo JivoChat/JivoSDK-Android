@@ -18,6 +18,7 @@ import com.jivosite.sdk.di.ui.chat.JivoChatFragmentModule
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.push.JivoFirebaseMessagingService
 import com.jivosite.sdk.socket.JivoWebSocketService
+import com.jivosite.sdk.support.builders.ClientInfo
 import timber.log.Timber
 
 /**
@@ -56,22 +57,14 @@ object Jivo {
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
     }
 
-    /**
-     * Передача информации о клиенте
-     *
-     * @param name Имя пользователя, используется как обращение в сообщениях.
-     * @param email Адрес электронной почты, для отправки сообщений.
-     * @param phone Номер телефона для звонков
-     * @param description Описание, как комментарий, можно почтовый адрес, должность и пр.
-     *
-     */
+
     @JvmStatic
-    fun setClientInfo(name: String = "", email: String = "", phone: String = "", description: String = "") {
+    fun setClientInfo(clientInfo: ClientInfo) {
         val args = bundleOf(
-            "name" to name,
-            "email" to email,
-            "phone" to phone,
-            "description" to description,
+            "name" to clientInfo.name,
+            "email" to clientInfo.email,
+            "phone" to clientInfo.phone,
+            "description" to clientInfo.description,
             "clientId" to jivoSdkComponent.storage().clientId
         )
         JivoWebSocketService.setClientInfo(sdkContext.appContext, args)
