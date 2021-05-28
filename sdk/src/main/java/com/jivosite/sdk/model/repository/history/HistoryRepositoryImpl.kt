@@ -72,7 +72,13 @@ class HistoryRepositoryImpl @Inject constructor(
                         messagesCache[it.number] = it
                     }
                 } else {
-                    message
+                    if (message.status == MessageStatus.Sent && message.number <= number) {
+                        message.copy(status = MessageStatus.Delivered).also {
+                            messagesCache[it.number] = it
+                        }
+                    } else {
+                        message
+                    }
                 }
             }
             state.copy(messages = messages)
