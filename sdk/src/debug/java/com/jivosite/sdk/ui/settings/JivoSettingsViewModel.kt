@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.logger.LogsRepository
 import com.jivosite.sdk.model.storage.SharedStorage
+import com.jivosite.sdk.support.builders.ClientInfo
 import com.jivosite.sdk.support.ext.requireValue
 import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import javax.inject.Inject
@@ -56,10 +57,12 @@ class JivoSettingsViewModel @Inject constructor(
 
     fun sendUserInfo() {
         Jivo.setClientInfo(
-            userName.value ?: "",
-            userEmail.value ?: "",
-            userPhone.value ?: "",
-            userDescription.value ?: ""
+            ClientInfo.Builder()
+                .setName(userName.value ?: "")
+                .setEmail(userEmail.value ?: "")
+                .setPhone(userPhone.value ?: "")
+                .setDescription(userDescription.value ?: "")
+                .build()
         )
     }
 
