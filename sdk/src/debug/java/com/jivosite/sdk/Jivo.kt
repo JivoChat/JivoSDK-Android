@@ -4,12 +4,11 @@ import android.content.Context
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.google.firebase.messaging.RemoteMessage
 import com.jivosite.sdk.di.DaggerJivoSdkComponent
 import com.jivosite.sdk.di.JivoSdkComponent
 import com.jivosite.sdk.di.modules.SdkModule
-import com.jivosite.sdk.di.service.PushServiceComponent
 import com.jivosite.sdk.di.service.WebSocketServiceComponent
-import com.jivosite.sdk.di.service.modules.PushServiceModule
 import com.jivosite.sdk.di.service.modules.SocketMessageHandlerModule
 import com.jivosite.sdk.di.service.modules.StateModule
 import com.jivosite.sdk.di.service.modules.WebSocketServiceModule
@@ -20,7 +19,6 @@ import com.jivosite.sdk.di.ui.logs.JivoLogsFragmentModule
 import com.jivosite.sdk.di.ui.settings.JivoSettingsComponent
 import com.jivosite.sdk.di.ui.settings.JivoSettingsFragmentModule
 import com.jivosite.sdk.model.SdkContext
-import com.jivosite.sdk.push.JivoFirebaseMessagingService
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.ClientInfo
 import com.jivosite.sdk.ui.logs.JivoLogsFragment
@@ -41,7 +39,7 @@ object Jivo {
     private var chatComponent: JivoChatComponent? = null
     private var logsComponent: JivoLogsComponent? = null
     private var settingsComponent: JivoSettingsComponent? = null
-    private var pushComponent: PushServiceComponent? = null
+//    private var pushComponent: PushServiceComponent? = null
 
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
@@ -67,14 +65,34 @@ object Jivo {
 
     @JvmStatic
     fun setClientInfo(clientInfo: ClientInfo) {
-        val args = bundleOf(
-            "name" to clientInfo.name,
-            "email" to clientInfo.email,
-            "phone" to clientInfo.phone,
-            "description" to clientInfo.description,
-            "clientId" to jivoSdkComponent.storage().clientId
-        )
-        JivoWebSocketService.setClientInfo(sdkContext.appContext, args)
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            val args = bundleOf(
+                "name" to clientInfo.name,
+                "email" to clientInfo.email,
+                "phone" to clientInfo.phone,
+                "description" to clientInfo.description,
+                "clientId" to jivoSdkComponent.storage().clientId
+            )
+            JivoWebSocketService.setClientInfo(sdkContext.appContext, args)
+        }
+    }
+
+    @JvmStatic
+    fun handleRemoteMessage(message: RemoteMessage): Boolean {
+        return if (Jivo::jivoSdkComponent.isInitialized) {
+            val handler = jivoSdkComponent.remoteMessageHandler()
+            handler.handleRemoteMessage(message)
+        } else {
+            false
+        }
+    }
+
+    @JvmStatic
+    fun updatePushToken(token: String) {
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
+            useCaseProvider.get().execute(token)
+        }
     }
 
     fun turnOn() {
@@ -139,10 +157,10 @@ object Jivo {
                 .also { settingsComponent = it }
     }
 
-    internal fun getPushServiceComponent(service: JivoFirebaseMessagingService): PushServiceComponent {
-        return pushComponent ?: jivoSdkComponent.pushComponent(PushServiceModule(service))
-            .also { pushComponent = it }
-    }
+//    internal fun getPushServiceComponent(service: JivoFirebaseMessagingService): PushServiceComponent {
+//        return pushComponent ?: jivoSdkComponent.pushComponent(PushServiceModule(service))
+//            .also { pushComponent = it }
+//    }
 
     internal fun clearServiceComponent() {
         serviceComponent = null
@@ -160,9 +178,9 @@ object Jivo {
         settingsComponent = null
     }
 
-    internal fun clearPushServiceComponent() {
-        pushComponent = null
-    }
+//    internal fun clearPushServiceComponent() {
+//        pushComponent = null
+//    }
 
     internal fun d(msg: String) {
         Timber.tag(TAG).d(msg)

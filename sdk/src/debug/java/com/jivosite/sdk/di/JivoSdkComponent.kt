@@ -17,6 +17,7 @@ import com.jivosite.sdk.di.ui.settings.JivoSettingsComponent
 import com.jivosite.sdk.di.ui.settings.JivoSettingsFragmentModule
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.storage.SharedStorage
+import com.jivosite.sdk.push.RemoteMessageHandler
 import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import com.jivosite.sdk.support.usecase.UpdatePushTokenUseCase
 import com.jivosite.sdk.ui.views.JivoChatButton
@@ -36,7 +37,8 @@ import javax.inject.Singleton
         ParseModule::class,
         NetworkModule::class,
         RepositoryModule::class,
-        DbModule::class
+        DbModule::class,
+        PushMessageHandlerModule::class
     ]
 )
 interface JivoSdkComponent {
@@ -53,7 +55,7 @@ interface JivoSdkComponent {
 
     fun settingsComponent(module: JivoSettingsFragmentModule): JivoSettingsComponent
 
-    fun pushComponent(module: PushServiceModule): PushServiceComponent
+    //fun pushComponent(module: PushServiceModule): PushServiceComponent
 
     fun telemetryApi(): TelemetryApi
 
@@ -66,6 +68,8 @@ interface JivoSdkComponent {
     fun sdkApi(): SdkApi
 
     fun sdkConfigUseCaseProvider(): Provider<SdkConfigUseCase>
+
+    fun remoteMessageHandler(): RemoteMessageHandler
 
     fun inject(button: JivoChatButton)
 }

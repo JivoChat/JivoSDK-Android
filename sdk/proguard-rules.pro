@@ -28,6 +28,11 @@
 -keep public class com.jivosite.sdk.Jivo { *; }
 -keep public class com.jivosite.sdk.ui.chat.JivoChatFragment { *; }
 -keep public class com.jivosite.sdk.ui.views.JivoChatButton { *; }
+
 -keep public class com.jivosite.sdk.push.JivoFirebaseMessagingService
+-keep public class com.jivosite.sdk.push.RemoteMessageHandler
+
 -keep class com.jivosite.sdk.support.builders.ClientInfo { *; }
 -keep class com.jivosite.sdk.support.builders.ClientInfo$Builder { *; }
+
+-keep public class com.jivosite.sdk.fileprovider.JivoSdkFileProvider { *; }

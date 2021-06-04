@@ -17,27 +17,29 @@ import dagger.multibindings.StringKey
  *
  * @author Alexandr Shibelev (av.shibelev@gmail.com)
  */
-@Module(includes = [PushServiceModule.Bindings::class])
+//@Module(includes = [PushServiceModule.Bindings::class])
+@Deprecated("")
+@Module
 class PushServiceModule(private val service: JivoFirebaseMessagingService) {
 
-    @Module
-    interface Bindings {
-
-        @Binds
-        @IntoMap
-        @StringKey(PushMessageDelegate.MESSAGE)
-        fun provideTextMessageDelegate(delegate: TextMessageDelegate): PushMessageDelegate
-    }
+//    @Module
+//    interface Bindings {
+//
+//        @Binds
+//        @IntoMap
+//        @StringKey(PushMessageDelegate.MESSAGE)
+//        fun provideTextMessageDelegate(delegate: TextMessageDelegate): PushMessageDelegate
+//    }
 
     @ServiceScope
     @Provides
     fun provideService(): JivoFirebaseMessagingService = service
 
-    @ServiceScope
-    @Provides
-    fun providePushMessageHandler(
-        delegates: Map<String, @JvmSuppressWildcards PushMessageDelegate>,
-    ): PushMessageHandler {
-        return DefaultPushMessageHandler(delegates)
-    }
+//    @ServiceScope
+//    @Provides
+//    fun providePushMessageHandler(
+//        delegates: Map<String, @JvmSuppressWildcards PushMessageDelegate>,
+//    ): PushMessageHandler {
+//        return DefaultPushMessageHandler(delegates)
+//    }
 }

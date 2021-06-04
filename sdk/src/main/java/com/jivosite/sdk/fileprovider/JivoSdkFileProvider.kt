@@ -1,0 +1,1 @@
+package com.jivosite.sdk.fileproviderimport androidx.core.content.FileProvider/** * Created on 31.05.2021. * * @author Alexander Tavtorkin (av.tavtorkin@gmail.com) */class JivoSdkFileProvider: FileProvider()

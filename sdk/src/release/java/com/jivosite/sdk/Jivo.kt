@@ -19,6 +19,7 @@ import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.push.JivoFirebaseMessagingService
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.ClientInfo
+import com.google.firebase.messaging.RemoteMessage
 import timber.log.Timber
 
 /**
@@ -33,7 +34,7 @@ object Jivo {
     internal lateinit var jivoSdkComponent: JivoSdkComponent
     private var serviceComponent: WebSocketServiceComponent? = null
     private var chatComponent: JivoChatComponent? = null
-    private var pushComponent: PushServiceComponent? = null
+//    private var pushComponent: PushServiceComponent? = null
 
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
@@ -60,14 +61,34 @@ object Jivo {
 
     @JvmStatic
     fun setClientInfo(clientInfo: ClientInfo) {
-        val args = bundleOf(
-            "name" to clientInfo.name,
-            "email" to clientInfo.email,
-            "phone" to clientInfo.phone,
-            "description" to clientInfo.description,
-            "clientId" to jivoSdkComponent.storage().clientId
-        )
-        JivoWebSocketService.setClientInfo(sdkContext.appContext, args)
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            val args = bundleOf(
+                "name" to clientInfo.name,
+                "email" to clientInfo.email,
+                "phone" to clientInfo.phone,
+                "description" to clientInfo.description,
+                "clientId" to jivoSdkComponent.storage().clientId
+            )
+            JivoWebSocketService.setClientInfo(sdkContext.appContext, args)
+        }
+    }
+
+    @JvmStatic
+    fun handleRemoteMessage(message: RemoteMessage): Boolean {
+        return if (Jivo::jivoSdkComponent.isInitialized) {
+            val handler = jivoSdkComponent.remoteMessageHandler()
+            handler.handleRemoteMessage(message)
+        } else {
+            false
+        }
+    }
+
+    @JvmStatic
+    fun updatePushToken(token: String) {
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
+            useCaseProvider.get().execute(token)
+        }
     }
 
     fun turnOn() {
@@ -121,10 +142,10 @@ object Jivo {
             .also { chatComponent = it }
     }
 
-    internal fun getPushServiceComponent(service: JivoFirebaseMessagingService): PushServiceComponent {
-        return pushComponent ?: jivoSdkComponent.pushComponent(PushServiceModule(service))
-            .also { pushComponent = it }
-    }
+//    internal fun getPushServiceComponent(service: JivoFirebaseMessagingService): PushServiceComponent {
+//        return pushComponent ?: jivoSdkComponent.pushComponent(PushServiceModule(service))
+//            .also { pushComponent = it }
+//    }
 
     internal fun clearServiceComponent() {
         serviceComponent = null
@@ -134,9 +155,9 @@ object Jivo {
         chatComponent = null
     }
 
-    internal fun clearPushServiceComponent() {
-        pushComponent = null
-    }
+//    internal fun clearPushServiceComponent() {
+//        pushComponent = null
+//    }
 
     internal fun d(msg: String) {
         Timber.tag(TAG).d(msg)

@@ -9,7 +9,7 @@ import dagger.Subcomponent
  *
  * @author Alexandr Shibelev (av.shibelev@gmail.com)
  */
-@ServiceScope
+@Deprecated("")
 @Subcomponent(
     modules = [
         PushServiceModule::class

@@ -5,9 +5,11 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ContentResolver
 import android.content.Intent
 import android.media.AudioAttributes
 import android.net.Uri
+import android.os.Build
 import androidx.annotation.WorkerThread
 import androidx.core.content.FileProvider.getUriForFile
 import com.jivosite.sdk.Jivo
@@ -51,7 +53,8 @@ class TextMessageDelegate @Inject constructor(
 
         names.forEachIndexed { position, name ->
             val outputFile = File(path, name)
-            val outputFileUri = getUriForFile(context.appContext, "${context.appContext.packageName}.fileprovider", outputFile)
+            val outputFileUri =
+                getUriForFile(context.appContext, "com.jivosite.jivosdk.fileprovider", outputFile)
 
             with(context.appContext.contentResolver) {
                 try {
@@ -94,7 +97,7 @@ class TextMessageDelegate @Inject constructor(
     private fun getSoundForChannel(): Uri {
         val path = File(context.appContext.filesDir, NOTIFICATIONS_DIR)
         val sound = File(path, "Jivo - Magic.mp3")
-        return getUriForFile(context.appContext, "${context.appContext.packageName}.fileprovider", sound)
+        return getUriForFile(context.appContext, "com.jivosite.jivosdk.fileprovider", sound)
     }
 
     override fun getNotificationId() = NOTIFICATION_MESSAGE_ID
@@ -113,6 +116,15 @@ class TextMessageDelegate @Inject constructor(
             .setContentTitle(title)
             .setContentText(text)
             .setContentIntent(getContentIntent())
+            .apply {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                    setSound(
+                        Uri.parse(
+                            "${ContentResolver.SCHEME_ANDROID_RESOURCE}://${context.appContext.packageName}/${R.raw.jivo_magic}"
+                        )
+                    )
+                }
+            }
             .build()
     }
 
