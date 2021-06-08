@@ -39,7 +39,6 @@ object Jivo {
     private var chatComponent: JivoChatComponent? = null
     private var logsComponent: JivoLogsComponent? = null
     private var settingsComponent: JivoSettingsComponent? = null
-//    private var pushComponent: PushServiceComponent? = null
 
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
@@ -157,11 +156,6 @@ object Jivo {
                 .also { settingsComponent = it }
     }
 
-//    internal fun getPushServiceComponent(service: JivoFirebaseMessagingService): PushServiceComponent {
-//        return pushComponent ?: jivoSdkComponent.pushComponent(PushServiceModule(service))
-//            .also { pushComponent = it }
-//    }
-
     internal fun clearServiceComponent() {
         serviceComponent = null
     }
@@ -177,10 +171,6 @@ object Jivo {
     internal fun clearSettingsComponent() {
         settingsComponent = null
     }
-
-//    internal fun clearPushServiceComponent() {
-//        pushComponent = null
-//    }
 
     internal fun d(msg: String) {
         Timber.tag(TAG).d(msg)

@@ -3,9 +3,7 @@ package com.jivosite.sdk.di
 import com.jivosite.sdk.api.SdkApi
 import com.jivosite.sdk.api.TelemetryApi
 import com.jivosite.sdk.di.modules.*
-import com.jivosite.sdk.di.service.PushServiceComponent
 import com.jivosite.sdk.di.service.WebSocketServiceComponent
-import com.jivosite.sdk.di.service.modules.PushServiceModule
 import com.jivosite.sdk.di.service.modules.SocketMessageHandlerModule
 import com.jivosite.sdk.di.service.modules.StateModule
 import com.jivosite.sdk.di.service.modules.WebSocketServiceModule
@@ -46,8 +44,6 @@ interface JivoSdkComponent {
     ): WebSocketServiceComponent
 
     fun chatComponent(module: JivoChatFragmentModule): JivoChatComponent
-
-    fun pushComponent(module: PushServiceModule): PushServiceComponent
 
     fun telemetryApi(): TelemetryApi
 
