@@ -29,5 +29,9 @@
 -keep public class com.jivosite.sdk.ui.chat.JivoChatFragment { *; }
 -keep public class com.jivosite.sdk.ui.views.JivoChatButton { *; }
 -keep public class com.jivosite.sdk.push.JivoFirebaseMessagingService
+
 -keep class com.jivosite.sdk.support.builders.ClientInfo { *; }
 -keep class com.jivosite.sdk.support.builders.ClientInfo$Builder { *; }
+-keep class com.jivosite.sdk.support.builders.Config { *; }
+-keep class com.jivosite.sdk.support.builders.Config$Builder { *; }
+-keep class com.jivosite.sdk.support.builders.Config$Color { *; }

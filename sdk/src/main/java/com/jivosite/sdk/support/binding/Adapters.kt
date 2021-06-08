@@ -6,6 +6,7 @@ import android.webkit.URLUtil
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.isInvisible
@@ -142,7 +143,7 @@ fun setAppBarAvatar(view: AppCompatImageView, agents: List<Agent>?) {
     when {
         agentsInChat.isEmpty() -> {
             view.isVisible = true
-            view.load(R.drawable.vic_logo) {
+            view.load(Jivo.getConfig().logo ?: R.drawable.vic_logo) {
                 transformations(CircleCropTransformation())
             }
         }
@@ -165,7 +166,7 @@ fun setAppBarTitle(view: AppCompatTextView, agents: List<Agent>?) {
     val agentsInChat = agents?.filter { it.hasOnlineInChat && it.status !is AgentStatus.Offline } ?: Collections.emptyList()
     when {
         agentsInChat.isEmpty() -> {
-            view.setText(R.string.chat_title_placeholder)
+            view.setText(Jivo.getConfig().title ?: R.string.chat_subtitle_placeholder)
         }
         agentsInChat.size == 1 -> view.text = agentsInChat[0].name
         agentsInChat.size > 1 -> {
@@ -179,6 +180,8 @@ fun setAppBarTitle(view: AppCompatTextView, agents: List<Agent>?) {
             }.toString()
         }
     }
+    val color = AppCompatResources.getColorStateList(view.context, Jivo.getConfig().titleTextColor ?: R.color.white)
+    view.setTextColor(color)
 }
 
 @BindingAdapter("agentImageLoader")

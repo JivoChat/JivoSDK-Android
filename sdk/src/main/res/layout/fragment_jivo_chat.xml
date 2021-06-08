@@ -260,8 +260,7 @@
                     android:contentDescription="@null"
                     android:enabled="@{viewModel.canSend}"
                     android:onClick="@{() -> fragment.send()}"
-                    android:paddingVertical="8dp"
-                    android:src="@drawable/ic_send" />
+                    android:paddingVertical="8dp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

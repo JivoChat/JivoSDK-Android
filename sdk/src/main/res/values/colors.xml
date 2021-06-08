@@ -4,6 +4,7 @@
     <color name="black30">#4D000000</color>
     <color name="nero">#1F1F1F</color>
     <color name="white">#ffffff</color>
+    <color name="white30">#4Dffffff</color>
     <color name="white85">#ddffffff</color>
     <color name="whiteSmoke">#F1F0F0</color>
     <color name="midnight">#222D38</color>
@@ -13,4 +14,7 @@
     <color name="blueGrey">#a4b4bc</color>
     <color name="persianBlue">#1041E7</color>
     <color name="error">#FF4444</color>
+    <color name="apple">#5ABD4E</color>
+    <color name="eastBay">#485667</color>
+    <color name="royalBlue">#3983EF</color>
 </resources>
