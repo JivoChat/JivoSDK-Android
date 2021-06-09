@@ -3,9 +3,7 @@ package com.jivosite.sdk.di
 import com.jivosite.sdk.api.SdkApi
 import com.jivosite.sdk.api.TelemetryApi
 import com.jivosite.sdk.di.modules.*
-import com.jivosite.sdk.di.service.PushServiceComponent
 import com.jivosite.sdk.di.service.WebSocketServiceComponent
-import com.jivosite.sdk.di.service.modules.PushServiceModule
 import com.jivosite.sdk.di.service.modules.SocketMessageHandlerModule
 import com.jivosite.sdk.di.service.modules.StateModule
 import com.jivosite.sdk.di.service.modules.WebSocketServiceModule
@@ -17,6 +15,7 @@ import com.jivosite.sdk.di.ui.settings.JivoSettingsComponent
 import com.jivosite.sdk.di.ui.settings.JivoSettingsFragmentModule
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.storage.SharedStorage
+import com.jivosite.sdk.push.RemoteMessageHandler
 import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import com.jivosite.sdk.support.usecase.UpdatePushTokenUseCase
 import com.jivosite.sdk.ui.views.JivoChatButton
@@ -36,7 +35,8 @@ import javax.inject.Singleton
         ParseModule::class,
         NetworkModule::class,
         RepositoryModule::class,
-        DbModule::class
+        DbModule::class,
+        PushMessageHandlerModule::class
     ]
 )
 interface JivoSdkComponent {
@@ -53,8 +53,6 @@ interface JivoSdkComponent {
 
     fun settingsComponent(module: JivoSettingsFragmentModule): JivoSettingsComponent
 
-    fun pushComponent(module: PushServiceModule): PushServiceComponent
-
     fun telemetryApi(): TelemetryApi
 
     fun storage(): SharedStorage
@@ -66,6 +64,8 @@ interface JivoSdkComponent {
     fun sdkApi(): SdkApi
 
     fun sdkConfigUseCaseProvider(): Provider<SdkConfigUseCase>
+
+    fun remoteMessageHandler(): RemoteMessageHandler
 
     fun inject(button: JivoChatButton)
 }

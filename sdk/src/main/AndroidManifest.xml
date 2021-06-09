@@ -25,8 +25,8 @@
             android:theme="@style/ImageViewerTheme" />
 
         <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
+            android:name=".fileprovider.JivoSdkFileProvider"
+            android:authorities="com.jivosite.jivosdk.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

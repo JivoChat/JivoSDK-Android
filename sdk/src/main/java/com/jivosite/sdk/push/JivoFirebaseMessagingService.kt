@@ -19,58 +19,13 @@ import javax.inject.Provider
  */
 open class JivoFirebaseMessagingService : FirebaseMessagingService() {
 
-    @Inject
-    lateinit var updatePushTokenUseCaseProvider: Provider<UpdatePushTokenUseCase>
-
-    @Inject
-    lateinit var parser: Moshi
-
-    @Inject
-    lateinit var handler: PushMessageHandler
-
-    override fun onCreate() {
-        super.onCreate()
-        Jivo.getPushServiceComponent(this).inject(this)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Jivo.clearPushServiceComponent()
-    }
-
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        updatePushTokenUseCaseProvider.get().execute(token)
+        Jivo.updatePushToken(token)
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        Jivo.i("Received push message")
-
-        val data = try {
-            extractData(message)
-        } catch (e: Exception) {
-            Jivo.e(e, "Push message parsing problem")
-            return
-        }
-
-        handler.handle(data)
-    }
-
-    private fun extractData(message: RemoteMessage): PushData {
-        // Extract "u" field from remote message
-        val u = message.data["u"]?.let {
-            parser.adapter(U::class.java).fromJson(it)
-        }
-
-        // Extract "notification" field from remote message
-        val notification = message.data["notification"]?.let {
-            parser.adapter(Notification::class.java).fromJson(it)
-        }
-
-        return PushData(
-            requireNotNull(u) { """There is no "u" field in push message""" },
-            requireNotNull(notification) { """There is no "notification" field in push message""" }
-        )
+        Jivo.handleRemoteMessage(message)
     }
 }
