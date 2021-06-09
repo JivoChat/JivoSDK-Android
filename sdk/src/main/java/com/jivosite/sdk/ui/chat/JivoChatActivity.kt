@@ -8,4 +8,4 @@ import com.jivosite.sdk.R
  *
  * @author Alexandr Shibelev (av.shibelev@gmail.com)
  */
-class JivoChatActivity : AppCompatActivity(R.layout.activity_chat)
+class JivoChatActivity : AppCompatActivity(R.layout.activity_jivo_chat)
