@@ -21,6 +21,7 @@ import com.jivosite.sdk.di.ui.settings.JivoSettingsFragmentModule
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.ClientInfo
+import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.ui.logs.JivoLogsFragment
 import com.jivosite.sdk.ui.settings.JivoSettingsFragment
 import timber.log.Timber
@@ -42,6 +43,8 @@ object Jivo {
 
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
+
+    private var config: Config = Config.Builder().build()
 
     @JvmStatic
     fun init(appContext: Context, widgetId: String, host: String = "") {
@@ -94,6 +97,11 @@ object Jivo {
         }
     }
 
+    @JvmStatic
+    fun setConfig(config: Config) {
+        this.config = config
+    }
+
     fun turnOn() {
         jivoSdkComponent.storage().let {
             if (!it.startOnInitialization) {
@@ -128,6 +136,10 @@ object Jivo {
             val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
             useCaseProvider.get().execute("")
         }
+    }
+
+    internal fun getConfig(): Config {
+        return config
     }
 
     internal fun getServiceComponent(service: JivoWebSocketService): WebSocketServiceComponent {

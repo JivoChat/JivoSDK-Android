@@ -28,6 +28,7 @@
             android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bubble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
@@ -49,7 +50,7 @@
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Доб" />
+                tools:text="Text" />
 
             <TextView
                 android:id="@+id/time"

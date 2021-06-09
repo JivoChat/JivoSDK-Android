@@ -32,6 +32,7 @@
             android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bubble"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"

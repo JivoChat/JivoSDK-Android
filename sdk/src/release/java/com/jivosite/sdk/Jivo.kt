@@ -14,7 +14,10 @@ import com.jivosite.sdk.di.service.modules.WebSocketServiceModule
 import com.jivosite.sdk.di.ui.chat.JivoChatComponent
 import com.jivosite.sdk.di.ui.chat.JivoChatFragmentModule
 import com.jivosite.sdk.model.SdkContext
+import com.jivosite.sdk.support.builders.ClientInfo
+import com.jivosite.sdk.push.JivoFirebaseMessagingService
 import com.jivosite.sdk.socket.JivoWebSocketService
+import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.support.builders.ClientInfo
 import com.google.firebase.messaging.RemoteMessage
 import timber.log.Timber
@@ -35,6 +38,8 @@ object Jivo {
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
 
+    private var config: Config = Config.Builder().build()
+
     @JvmStatic
     fun init(appContext: Context, widgetId: String, host: String = "") {
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
@@ -50,10 +55,10 @@ object Jivo {
 
         val sdkConfigUseCaseProvider = jivoSdkComponent.sdkConfigUseCaseProvider()
 
-        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
+        lifecycleObserver =
+            JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
     }
-
 
     @JvmStatic
     fun setClientInfo(clientInfo: ClientInfo) {
@@ -85,6 +90,11 @@ object Jivo {
             val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
             useCaseProvider.get().execute(token)
         }
+    }
+
+    @JvmStatic
+    fun setConfig(config: Config) {
+        this.config = config
     }
 
     fun turnOn() {
@@ -121,6 +131,10 @@ object Jivo {
             val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
             useCaseProvider.get().execute("")
         }
+    }
+
+    internal fun getConfig(): Config {
+        return config
     }
 
     internal fun getServiceComponent(service: JivoWebSocketService): WebSocketServiceComponent {
