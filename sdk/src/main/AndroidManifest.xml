@@ -17,8 +17,8 @@
 
         <activity
             android:name=".ui.chat.JivoChatActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.imageviewer.ImageViewerActivity"
@@ -26,12 +26,12 @@
 
         <provider
             android:name=".fileprovider.JivoSdkFileProvider"
-            android:authorities="com.jivosite.jivosdk.fileprovider"
+            android:authorities="${applicationId}.jivosdk.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/jivosdk_file_paths" />
         </provider>
 
     </application>

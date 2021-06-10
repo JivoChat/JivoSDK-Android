@@ -14,7 +14,6 @@ import com.jivosite.sdk.di.service.modules.WebSocketServiceModule
 import com.jivosite.sdk.di.ui.chat.JivoChatComponent
 import com.jivosite.sdk.di.ui.chat.JivoChatFragmentModule
 import com.jivosite.sdk.model.SdkContext
-import com.jivosite.sdk.support.builders.ClientInfo
 import com.jivosite.sdk.push.JivoFirebaseMessagingService
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.Config
