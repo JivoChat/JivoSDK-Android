@@ -39,6 +39,8 @@ object Jivo {
 
     private var config: Config = Config.Builder().build()
 
+    private var loggingEnabled = false
+
     @JvmStatic
     fun init(appContext: Context, widgetId: String, host: String = "") {
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
@@ -94,6 +96,11 @@ object Jivo {
     @JvmStatic
     fun setConfig(config: Config) {
         this.config = config
+    }
+
+    @JvmStatic
+    fun enableLogging() {
+        loggingEnabled = true
     }
 
     fun turnOn() {
@@ -160,22 +167,32 @@ object Jivo {
     }
 
     internal fun d(msg: String) {
-        Timber.tag(TAG).d(msg)
+        if (loggingEnabled) {
+            Timber.tag(TAG).d(msg)
+        }
     }
 
     internal fun e(msg: String) {
-        Timber.tag(TAG).e(msg)
+        if (loggingEnabled) {
+            Timber.tag(TAG).e(msg)
+        }
     }
 
     internal fun e(e: Throwable, msg: String) {
-        Timber.tag(TAG).e(e, msg)
+        if (loggingEnabled) {
+            Timber.tag(TAG).e(e, msg)
+        }
     }
 
     internal fun i(msg: String) {
-        Timber.tag(TAG).i(msg)
+        if (loggingEnabled) {
+            Timber.tag(TAG).i(msg)
+        }
     }
 
     internal fun w(msg: String) {
-        Timber.tag(TAG).w(msg)
+        if (loggingEnabled) {
+            Timber.tag(TAG).w(msg)
+        }
     }
 }
