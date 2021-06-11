@@ -1,9 +1,9 @@
 package com.jivosite.sdk.network.retrofit
 
+import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.model.storage.SharedStorage
 import okhttp3.Interceptor
 import okhttp3.Response
-import timber.log.Timber
 
 /**
  * Created on 2019-12-12.
@@ -24,7 +24,7 @@ class DevServerInterceptor(private val storage: SharedStorage) : Interceptor {
                 .host(devServerAddress)
                 .build()
 
-            Timber.i("Change host from ${url.host} to ${devUrl.host}")
+            Jivo.i("Change host from ${url.host} to ${devUrl.host}")
             chain.proceed(request.newBuilder().url(devUrl).build())
         }
     }
