@@ -1,5 +1,6 @@
 package com.jivosite.sdk.model.repository.history
 
+import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.model.pojo.message.HistoryMessage
 import com.jivosite.sdk.model.pojo.message.MessageStatus
 import com.jivosite.sdk.model.pojo.message.splitIdTimestamp
@@ -46,6 +47,7 @@ class HistoryRepositoryImpl @Inject constructor(
     }
 
     override fun setHasUnreadMessages(hasUnread: Boolean) = updateStateInRepositoryThread {
+        Jivo.onNewMessage(hasUnread)
         doBefore { state -> state.hasUnread != hasUnread }
         transform { state -> state.copy(hasUnread = hasUnread) }
     }
@@ -57,6 +59,7 @@ class HistoryRepositoryImpl @Inject constructor(
     override fun markAsRead(msgId: Long) = updateStateInRepositoryThread {
         doBefore { state -> state.lastReadMsgId < msgId }
         transform { state ->
+            Jivo.onNewMessage(false)
             storage.lastReadMsgId = msgId
             state.copy(hasUnread = false, lastReadMsgId = msgId)
         }

@@ -2,6 +2,7 @@ package com.jivosite.sdk
 
 import androidx.core.os.bundleOf
 import android.content.Context
+import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.jivosite.sdk.di.DaggerJivoSdkComponent
@@ -14,7 +15,7 @@ import com.jivosite.sdk.di.service.modules.WebSocketServiceModule
 import com.jivosite.sdk.di.ui.chat.JivoChatComponent
 import com.jivosite.sdk.di.ui.chat.JivoChatFragmentModule
 import com.jivosite.sdk.model.SdkContext
-import com.jivosite.sdk.push.JivoFirebaseMessagingService
+import com.jivosite.sdk.model.repository.history.NewMessageListener
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.support.builders.ClientInfo
@@ -33,6 +34,7 @@ object Jivo {
     internal lateinit var jivoSdkComponent: JivoSdkComponent
     private var serviceComponent: WebSocketServiceComponent? = null
     private var chatComponent: JivoChatComponent? = null
+    private var newMessageListener: NewMessageListener? = null
 
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
@@ -103,6 +105,11 @@ object Jivo {
         loggingEnabled = true
     }
 
+    @JvmStatic
+    fun setNewMessageListener(@Nullable l: NewMessageListener?) {
+        newMessageListener = l
+    }
+
     fun turnOn() {
         jivoSdkComponent.storage().let {
             if (!it.startOnInitialization) {
@@ -137,6 +144,10 @@ object Jivo {
             val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
             useCaseProvider.get().execute("")
         }
+    }
+
+    internal fun onNewMessage(hasNewMessage: Boolean) {
+        newMessageListener?.onNewMessage(hasNewMessage)
     }
 
     internal fun getConfig(): Config {
