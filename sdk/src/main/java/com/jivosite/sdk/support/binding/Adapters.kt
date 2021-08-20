@@ -139,6 +139,12 @@ fun setAgentsTyping(view: AppCompatTextView, agents: List<Agent>) {
 
 @BindingAdapter("appBarAvatar")
 fun setAppBarAvatar(view: AppCompatImageView, agents: List<Agent>?) {
+
+    if (!Jivo.getConfig().isLogoVisible) {
+        view.isVisible = false
+        return
+    }
+
     val agentsInChat = agents?.filter { it.hasOnlineInChat && it.status !is AgentStatus.Offline } ?: Collections.emptyList()
     when {
         agentsInChat.isEmpty() -> {
