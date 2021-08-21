@@ -58,7 +58,9 @@ class UpdatePushTokenUseCase @Inject constructor(
             deviceId = storage.deviceId,
             token = token
         )
-        createRequest(deviceInfo).loadSilently()
+        schedulers.ui.execute {
+            createRequest(deviceInfo).loadSilently()
+        }
     }
 
     private fun createRequest(device: Device): LiveData<Resource<Boolean>> {

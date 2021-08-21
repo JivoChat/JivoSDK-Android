@@ -47,9 +47,11 @@ class HistoryRepositoryImpl @Inject constructor(
     }
 
     override fun setHasUnreadMessages(hasUnread: Boolean) = updateStateInRepositoryThread {
-        Jivo.onNewMessage(hasUnread)
         doBefore { state -> state.hasUnread != hasUnread }
-        transform { state -> state.copy(hasUnread = hasUnread) }
+        transform { state ->
+            Jivo.onNewMessage(hasUnread)
+            state.copy(hasUnread = hasUnread)
+        }
     }
 
     override fun needToLoadHistory(msgId: Long): Boolean {

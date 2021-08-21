@@ -1,7 +1,6 @@
 package com.jivosite.sdk
 
 import android.content.Context
-import androidx.annotation.Nullable
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ProcessLifecycleOwner
@@ -27,6 +26,7 @@ import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.ui.logs.JivoLogsFragment
 import com.jivosite.sdk.ui.settings.JivoSettingsFragment
 import timber.log.Timber
+import java.lang.ref.WeakReference
 
 /**
  * Created on 02.09.2020.
@@ -42,7 +42,8 @@ object Jivo {
     private var chatComponent: JivoChatComponent? = null
     private var logsComponent: JivoLogsComponent? = null
     private var settingsComponent: JivoSettingsComponent? = null
-    private var newMessageListener: NewMessageListener? = null
+
+    private val newMessageListeners: ArrayList<WeakReference<NewMessageListener>> = ArrayList()
 
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
@@ -113,8 +114,11 @@ object Jivo {
     }
 
     @JvmStatic
-    fun setNewMessageListener(@Nullable l: NewMessageListener?) {
-        newMessageListener = l
+    fun addNewMessageListener(l: NewMessageListener) {
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            l.onNewMessage(jivoSdkComponent.historyRepository().state.hasUnread)
+        }
+        newMessageListeners.add(WeakReference(l))
     }
 
     fun turnOn() {
@@ -154,7 +158,13 @@ object Jivo {
     }
 
     internal fun onNewMessage(hasNewMessage: Boolean) {
-        newMessageListener?.onNewMessage(hasNewMessage)
+        val filteredList = newMessageListeners.filter { it.get() != null }
+        newMessageListeners.clear()
+        newMessageListeners.addAll(filteredList)
+
+        newMessageListeners.forEach {
+            it.get()?.onNewMessage(hasNewMessage)
+        }
     }
 
     internal fun getConfig(): Config {

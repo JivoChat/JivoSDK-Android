@@ -14,6 +14,7 @@ import com.jivosite.sdk.di.ui.logs.JivoLogsFragmentModule
 import com.jivosite.sdk.di.ui.settings.JivoSettingsComponent
 import com.jivosite.sdk.di.ui.settings.JivoSettingsFragmentModule
 import com.jivosite.sdk.model.SdkContext
+import com.jivosite.sdk.model.repository.history.HistoryRepository
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.push.RemoteMessageHandler
 import com.jivosite.sdk.support.usecase.SdkConfigUseCase
@@ -68,4 +69,6 @@ interface JivoSdkComponent {
     fun remoteMessageHandler(): RemoteMessageHandler
 
     fun inject(button: JivoChatButton)
+
+    fun historyRepository() : HistoryRepository
 }
