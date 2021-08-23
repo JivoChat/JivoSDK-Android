@@ -19,12 +19,14 @@ import com.jivosite.sdk.di.ui.logs.JivoLogsFragmentModule
 import com.jivosite.sdk.di.ui.settings.JivoSettingsComponent
 import com.jivosite.sdk.di.ui.settings.JivoSettingsFragmentModule
 import com.jivosite.sdk.model.SdkContext
+import com.jivosite.sdk.model.repository.history.NewMessageListener
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.ClientInfo
 import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.ui.logs.JivoLogsFragment
 import com.jivosite.sdk.ui.settings.JivoSettingsFragment
 import timber.log.Timber
+import java.lang.ref.WeakReference
 
 /**
  * Created on 02.09.2020.
@@ -40,6 +42,8 @@ object Jivo {
     private var chatComponent: JivoChatComponent? = null
     private var logsComponent: JivoLogsComponent? = null
     private var settingsComponent: JivoSettingsComponent? = null
+
+    private val newMessageListeners: ArrayList<WeakReference<NewMessageListener>> = ArrayList()
 
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
@@ -109,6 +113,14 @@ object Jivo {
         loggingEnabled = true
     }
 
+    @JvmStatic
+    fun addNewMessageListener(l: NewMessageListener) {
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            l.onNewMessage(jivoSdkComponent.historyRepository().state.hasUnread)
+        }
+        newMessageListeners.add(WeakReference(l))
+    }
+
     fun turnOn() {
         jivoSdkComponent.storage().let {
             if (!it.startOnInitialization) {
@@ -142,6 +154,16 @@ object Jivo {
         if (Jivo::jivoSdkComponent.isInitialized) {
             val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
             useCaseProvider.get().execute("")
+        }
+    }
+
+    internal fun onNewMessage(hasNewMessage: Boolean) {
+        val filteredList = newMessageListeners.filter { it.get() != null }
+        newMessageListeners.clear()
+        newMessageListeners.addAll(filteredList)
+
+        newMessageListeners.forEach {
+            it.get()?.onNewMessage(hasNewMessage)
         }
     }
 

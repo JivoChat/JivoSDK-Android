@@ -1,0 +1,1 @@
+package com.jivosite.sdk.model.repository.history/** * Created on 05.08.2021. * * @author Alexander Tavtorkin (av.tavtorkin@gmail.com) */interface NewMessageListener {    fun onNewMessage(hasUnread: Boolean)}
