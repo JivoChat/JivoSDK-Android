@@ -49,11 +49,13 @@ data class HistoryMessage(
 
     val number: Long
     val timestamp: Long
+    val msgId: Long
 
     init {
         id.splitIdTimestamp().also {
             number = it.first
             timestamp = it.second
+            msgId = it.first + it.second
         }
     }
 

@@ -169,9 +169,9 @@ class JivoChatViewModel @Inject constructor(
         }.apply {
             state.historyState.messages.forEach {
                 if (it.from == state.myId) {
-                    put(it.timestamp, ClientMessageEntry(it, EntryPosition.Single))
+                    put(it.msgId, ClientMessageEntry(it, EntryPosition.Single))
                 } else {
-                    put(it.timestamp, AgentMessageEntry(it, EntryPosition.Single))
+                    put(it.msgId, AgentMessageEntry(it, EntryPosition.Single))
                 }
             }
             state.sendMessageState.messages.forEach { put(it.timestamp, SendingMessageEntry(it, EntryPosition.Single)) }
