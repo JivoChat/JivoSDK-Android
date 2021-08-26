@@ -17,10 +17,12 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion sdkVersion
+        versionName PUBLISH_VERSION
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
 
+        buildConfigField "String","VERSION_NAME","\"${defaultConfig.versionName}\""
         buildConfigField "String", "WSS_DEFAULT_HOST", '"node.jivosite.com:443"'
         buildConfigField "int", "CONNECTION_TIMEOUT", '15000'
         buildConfigField "Long", "PING_INTERVAL", '20000L'
