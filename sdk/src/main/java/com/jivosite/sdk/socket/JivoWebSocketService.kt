@@ -230,6 +230,7 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             .createSocket(endpoint, BuildConfig.CONNECTION_TIMEOUT)
             .apply {
                 Jivo.i("Try to connect to endpoint: $endpoint")
+                addHeader("User-Agent", "sdk/${BuildConfig.VERSION_NAME} (Android ${Build.VERSION.RELEASE})")
                 addListener(webSocketListener)
                 connectAsynchronously()
                 messageLogger.logConnecting()
