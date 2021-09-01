@@ -1,5 +1,6 @@
 package com.jivosite.sdk.ui.chat.items
 
+import android.net.Uri
 import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.pojo.message.HistoryMessage
 import com.jivosite.sdk.model.repository.upload.FileState
@@ -104,7 +105,7 @@ sealed class EntryPosition {
 }
 
 fun String.isFileType(): Boolean {
-    return this.startsWith("https://files.dev.jivosite.com/", true)
+    return Uri.parse(this).host?.endsWith("jivosite.com", true) ?: false
 }
 
 data class UploadingFileEntry(val state: FileState) : ChatEntry()
