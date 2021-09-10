@@ -16,7 +16,7 @@
         android:layout_width="12dp"
         android:layout_height="12dp"
         android:background="@drawable/bg_badge"
-        android:elevation="6dp"
+        android:elevation="12dp"
         android:visibility="visible" />
 
 </merge>

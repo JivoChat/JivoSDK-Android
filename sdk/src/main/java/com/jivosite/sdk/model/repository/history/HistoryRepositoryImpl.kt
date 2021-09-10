@@ -5,6 +5,7 @@ import com.jivosite.sdk.model.pojo.message.HistoryMessage
 import com.jivosite.sdk.model.pojo.message.MessageStatus
 import com.jivosite.sdk.model.pojo.message.splitIdTimestamp
 import com.jivosite.sdk.model.repository.StateRepository
+import com.jivosite.sdk.model.repository.profile.ProfileRepository
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.support.async.Schedulers
 import com.jivosite.sdk.support.vm.StateLiveData
@@ -20,7 +21,8 @@ import javax.inject.Inject
  */
 class HistoryRepositoryImpl @Inject constructor(
     schedulers: Schedulers,
-    private val storage: SharedStorage
+    private val storage: SharedStorage,
+    private val profileRepository: ProfileRepository
 ) : StateRepository<HistoryState>(schedulers, "History", HistoryState(lastReadMsgId = storage.lastReadMsgId)),
     HistoryRepository {
 
@@ -43,6 +45,11 @@ class HistoryRepositoryImpl @Inject constructor(
         transform { state ->
             messagesCache[message.number] = message
             state.copy(messages = messagesCache.entries.map { it.value })
+        }
+        doAfter {
+            if (profileRepository.isMe(message.from)) {
+                markAsRead(message.number)
+            }
         }
     }
 
