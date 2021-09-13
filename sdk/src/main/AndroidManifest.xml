@@ -34,6 +34,12 @@
                 android:resource="@xml/jivosdk_file_paths" />
         </provider>
 
+        <provider
+            android:name=".lifecycle.JivoLifecycleOwnerInitializer"
+            android:authorities="${applicationId}.jivosdk.lifecycle-process"
+            android:exported="false"
+            android:multiprocess="true"/>
+
     </application>
 
     <queries>

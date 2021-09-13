@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jivosite.example.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +22,11 @@ class MainActivity : AppCompatActivity() {
         val navController = (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
         val navView: BottomNavigationView = findViewById(R.id.navMenu)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.d("New lifecycle - on activity resumed")
     }
 
     override fun onBackPressed() {

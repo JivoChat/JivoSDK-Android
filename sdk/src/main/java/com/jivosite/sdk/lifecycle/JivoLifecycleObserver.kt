@@ -1,8 +1,9 @@
-package com.jivosite.sdk
+package com.jivosite.sdk.lifecycle
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.JivoWebSocketService
@@ -27,6 +28,7 @@ class JivoLifecycleObserver(
             isStartedService = true
             sdkConfigUseCase.onSuccess {
                 if (isStartedService) {
+                    Jivo.d("New lifecycle - Start SDK")
                     JivoWebSocketService.start(sdkContext.appContext)
                 }
             }.execute()
@@ -47,6 +49,7 @@ class JivoLifecycleObserver(
     fun onBackground() {
         if (storage.startOnInitialization) {
             Jivo.d("Application moved to background, stop service")
+            Jivo.d("New lifecycle - Stop SDK")
             JivoWebSocketService.stop(sdkContext.appContext)
             isStartedService = false
         }

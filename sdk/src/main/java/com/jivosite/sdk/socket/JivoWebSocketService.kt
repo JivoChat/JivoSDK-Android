@@ -1,6 +1,5 @@
 package com.jivosite.sdk.socket
 
-import android.app.ActivityManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -37,8 +36,10 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
     companion object {
         private const val ACTION_START = "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_START"
         private const val ACTION_STOP = "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_STOP"
-        private const val ACTION_RESTART = "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_RESTART"
-        private const val ACTION_SET_CLIENT_INFO = "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_SET_CLIENT_INFO"
+        private const val ACTION_RESTART =
+            "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_RESTART"
+        private const val ACTION_SET_CLIENT_INFO =
+            "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_SET_CLIENT_INFO"
 
         const val REASON_STOPPED = 4000
         const val REASON_TIMEOUT = 4001
@@ -47,15 +48,10 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
                 action = ACTION_START
             }
-            val activityManager = appContext.getSystemService(ACTIVITY_SERVICE) as ActivityManager
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                if (!activityManager.isBackgroundRestricted) {
-                    appContext.startService(intent)
-                } else {
-                    Jivo.e("Can not start jivo sdk service from background")
-                }
-            } else {
+            try {
                 appContext.startService(intent)
+            } catch (e: IllegalStateException) {
+                Jivo.e(e, "Can not start jivo sdk service from background")
             }
         }
 
@@ -63,7 +59,11 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
                 action = ACTION_STOP
             }
-            appContext.startService(intent)
+            try {
+                appContext.startService(intent)
+            } catch (e: IllegalStateException) {
+                Jivo.e(e, "Can not stop jivo sdk service from background")
+            }
         }
 
         fun restart(appContext: Context) {
@@ -105,7 +105,10 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
 
     private val webSocketListener: WebSocketListener = object : WebSocketAdapter() {
 
-        override fun onConnected(websocket: WebSocket?, headers: MutableMap<String, MutableList<String>>?) {
+        override fun onConnected(
+            websocket: WebSocket?,
+            headers: MutableMap<String, MutableList<String>>?
+        ) {
             messageLogger.logConnected()
             getState().setConnected()
         }
@@ -128,7 +131,10 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             clientCloseFrame: WebSocketFrame?,
             closedByServer: Boolean
         ) {
-            messageLogger.logDisconnected(clientCloseFrame?.closeCode ?: 0, clientCloseFrame?.closeReason ?: "")
+            messageLogger.logDisconnected(
+                clientCloseFrame?.closeCode ?: 0,
+                clientCloseFrame?.closeReason ?: ""
+            )
 
             Jivo.i("Socket disconnected, code=${clientCloseFrame?.closeCode}, reason=${clientCloseFrame?.closeReason}")
 
@@ -136,7 +142,10 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             when (val state = getState()) {
                 is ConnectedState -> {
                     val reason = when (clientCloseFrame?.closeCode) {
-                        1013 -> DisconnectReason.DisconnectedByServer(1013, clientCloseFrame.closeReason)
+                        1013 -> DisconnectReason.DisconnectedByServer(
+                            1013,
+                            clientCloseFrame.closeReason
+                        )
                         else -> DisconnectReason.Unknown
                     }
                     state.setDisconnected(reason)
@@ -230,7 +239,10 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             .createSocket(endpoint, BuildConfig.CONNECTION_TIMEOUT)
             .apply {
                 Jivo.i("Try to connect to endpoint: $endpoint")
-                addHeader("User-Agent", "sdk/${BuildConfig.VERSION_NAME} (Android ${Build.VERSION.RELEASE})")
+                addHeader(
+                    "User-Agent",
+                    "sdk/${BuildConfig.VERSION_NAME} (Android ${Build.VERSION.RELEASE})"
+                )
                 addListener(webSocketListener)
                 connectAsynchronously()
                 messageLogger.logConnecting()
@@ -251,7 +263,12 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
         Jivo.i("Start keep connection alive")
         releaseConnectionKeeper()
         webSocket?.let {
-            connectionKeeper = ConnectionKeeper(it, BuildConfig.PING_INTERVAL, BuildConfig.PONG_INTERVAL, messageLogger).apply {
+            connectionKeeper = ConnectionKeeper(
+                it,
+                BuildConfig.PING_INTERVAL,
+                BuildConfig.PONG_INTERVAL,
+                messageLogger
+            ).apply {
                 resetPing()
             }
         }
