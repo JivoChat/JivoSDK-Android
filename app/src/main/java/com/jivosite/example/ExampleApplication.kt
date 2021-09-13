@@ -15,6 +15,5 @@ class ExampleApplication : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         Jivo.init(this, "Q7BcPYNqCG")
-        Jivo.enableLogging()
     }
 }

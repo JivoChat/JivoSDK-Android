@@ -9,11 +9,9 @@ import com.jivosite.sdk.logger.LogsRepository
 import com.jivosite.sdk.model.pojo.agent.Agent
 import com.jivosite.sdk.model.pojo.file.File
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.FILE_TYPES
-import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_AUDIO
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_DOCUMENT
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_IMAGE
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_UNKNOWN
-import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_VIDEO
 import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import com.jivosite.sdk.model.repository.agent.AgentRepository
@@ -174,11 +172,16 @@ class JivoChatViewModel @Inject constructor(
                     put(it.msgId, AgentMessageEntry(it, EntryPosition.Single))
                 }
             }
-            state.sendMessageState.messages.forEach { put(it.timestamp, SendingMessageEntry(it, EntryPosition.Single)) }
+            state.sendMessageState.messages.forEach { put(it.timestamp * 1000, SendingMessageEntry(it, EntryPosition.Single)) }
 
             state.eventMessages.forEach { put(it.ts, EventEntry(it.code, it.reason)) }
 
-            state.uploadFilesState.files.forEach { put(it.value.timestamp, UploadingFileEntry(it.value)) }
+            state.uploadFilesState.files.forEach {
+                put(
+                    it.value.timestamp * 1000,
+                    UploadingFileEntry(it.value, EntryPosition.Single)
+                )
+            }
         }
 
         val result = ArrayList<ChatItem>(state.size)
@@ -188,21 +191,20 @@ class JivoChatViewModel @Inject constructor(
             when (message) {
                 is MessageEntry -> {
                     val from = if (message.from.isBlank()) state.myId else message.from
-                    if (from != previousMessage?.from) {
-                        dropBuffer(state.myId, buffer, result)
+                    val previousFrom = if (previousMessage?.from.isNullOrBlank()) state.myId else previousMessage?.from
+
+                    if (previousFrom == null) {
+                        buffer.add(message)
+                    } else {
+                        if (from != previousFrom) {
+                            dropBuffer(state.myId, buffer, result)
+                        }
+                        buffer.add(message)
                     }
-                    buffer.add(message)
                 }
                 is EventEntry -> {
                     dropBuffer(state.myId, buffer, result)
                     result.add(EventItem(message))
-                }
-                is UploadingFileEntry -> {
-                    dropBuffer(state.myId, buffer, result)
-                    when (message.state.type) {
-                        TYPE_IMAGE -> result.add(UploadingImageItem(message))
-                        TYPE_VIDEO, TYPE_AUDIO, TYPE_DOCUMENT -> result.add(UploadingFileItem(message))
-                    }
                 }
             }
         }
@@ -235,16 +237,23 @@ class JivoChatViewModel @Inject constructor(
 
     private fun createItem(myId: String, message: MessageEntry): ChatItem {
         return if (message.from.isBlank() || message.from == myId) {
-            when (message.type.getSupportFileType()) {
-                TYPE_DOCUMENT -> {
-                    if (message.data.isFileType()) {
-                        ClientFileItem(message)
-                    } else {
-                        ClientTextItem(message)
-                    }
+            if (message is UploadingFileEntry) {
+                when (message.state.type) {
+                    TYPE_IMAGE -> UploadingImageItem(message)
+                    else -> UploadingFileItem(message)
                 }
-                TYPE_IMAGE -> ClientImageItem(message)
-                else -> ClientFileItem(message)
+            } else {
+                when (message.type.getSupportFileType()) {
+                    TYPE_DOCUMENT -> {
+                        if (message.data.isFileType()) {
+                            ClientFileItem(message)
+                        } else {
+                            ClientTextItem(message)
+                        }
+                    }
+                    TYPE_IMAGE -> ClientImageItem(message)
+                    else -> ClientFileItem(message)
+                }
             }
         } else {
             when (message.type.getSupportFileType()) {

@@ -30,6 +30,7 @@
             android:alpha="0.4"
             android:text="@string/agent_name_you"
             android:textSize="14sp"
+            android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Вы" />
