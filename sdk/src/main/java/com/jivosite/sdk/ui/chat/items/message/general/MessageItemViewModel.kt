@@ -43,6 +43,7 @@ open class MessageItemViewModel<T : MessageEntry>(agentRepository: AgentReposito
     val name: LiveData<String> = Transformations.map(agent) { agent ->
         agent?.name ?: ""
     }
+
     val nameVisibility: LiveData<Boolean> = Transformations.map(_entry) { entry ->
         when (entry.position) {
             is EntryPosition.Last, EntryPosition.Single -> true

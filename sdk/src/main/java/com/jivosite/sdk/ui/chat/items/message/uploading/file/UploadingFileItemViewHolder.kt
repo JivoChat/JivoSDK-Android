@@ -6,7 +6,7 @@ import com.jivosite.sdk.databinding.DgItemUploadingFileBinding
 import com.jivosite.sdk.support.dg.AdapterDelegateItem
 import com.jivosite.sdk.ui.chat.items.ChatEntry
 import com.jivosite.sdk.ui.chat.items.UploadingFileEntry
-import com.jivosite.sdk.ui.chat.items.message.general.ChatEntryItemViewHolder
+import com.jivosite.sdk.ui.chat.items.message.general.MessageItemViewHolder
 
 /**
  * Created on 2/25/21.
@@ -17,7 +17,7 @@ class UploadingFileItemViewHolder(
     itemView: View,
     lifecycleOwner: LifecycleOwner,
     private val viewModel: UploadingFileItemViewModel
-) : ChatEntryItemViewHolder<UploadingFileEntry>(itemView) {
+) : MessageItemViewHolder<UploadingFileEntry>(itemView, viewModel) {
 
     init {
         val binding = DgItemUploadingFileBinding.bind(itemView)

@@ -81,6 +81,7 @@ sealed class MessageEntry : ChatEntry() {
         is AgentMessageEntry -> copy(position = position)
         is ClientMessageEntry -> copy(position = position)
         is SendingMessageEntry -> copy(position = position)
+        is UploadingFileEntry -> copy(position = position)
         is WelcomeMessageEntry -> this
     }
 }
@@ -97,6 +98,8 @@ data class ClientMessageEntry(val message: HistoryMessage, override val position
 
 data class SendingMessageEntry(val message: ClientMessage, override val position: EntryPosition) : MessageEntry()
 
+data class UploadingFileEntry(val state: FileState, override val position: EntryPosition) : MessageEntry()
+
 sealed class EntryPosition {
     object First : EntryPosition()
     object Middle : EntryPosition()
@@ -108,4 +111,4 @@ fun String.isFileType(): Boolean {
     return Uri.parse(this).host?.endsWith("jivosite.com", true) ?: false
 }
 
-data class UploadingFileEntry(val state: FileState) : ChatEntry()
+
