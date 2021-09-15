@@ -21,6 +21,7 @@ import com.jivosite.sdk.support.builders.ClientInfo
 import com.jivosite.sdk.support.builders.Config
 import timber.log.Timber
 import java.lang.ref.WeakReference
+import com.jivosite.sdk.lifecycle.JivoLifecycleObserver
 
 /**
  * Created on 02.09.2020.
