@@ -3,7 +3,7 @@ package com.jivosite.sdk
 import android.content.Context
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.JivoLifecycleOwner
 import com.google.firebase.messaging.RemoteMessage
 import com.jivosite.sdk.di.DaggerJivoSdkComponent
 import com.jivosite.sdk.di.JivoSdkComponent
@@ -14,6 +14,7 @@ import com.jivosite.sdk.di.service.modules.StateModule
 import com.jivosite.sdk.di.service.modules.WebSocketServiceModule
 import com.jivosite.sdk.di.ui.chat.JivoChatComponent
 import com.jivosite.sdk.di.ui.chat.JivoChatFragmentModule
+import com.jivosite.sdk.lifecycle.JivoLifecycleObserver
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.repository.history.NewMessageListener
 import com.jivosite.sdk.socket.JivoWebSocketService
@@ -21,7 +22,6 @@ import com.jivosite.sdk.support.builders.ClientInfo
 import com.jivosite.sdk.support.builders.Config
 import timber.log.Timber
 import java.lang.ref.WeakReference
-import com.jivosite.sdk.lifecycle.JivoLifecycleObserver
 
 /**
  * Created on 02.09.2020.
@@ -62,7 +62,7 @@ object Jivo {
 
         lifecycleObserver =
             JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
-        ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
+        JivoLifecycleOwner.addObserver(lifecycleObserver)
     }
 
     @JvmStatic
