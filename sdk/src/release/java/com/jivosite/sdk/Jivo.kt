@@ -60,9 +60,8 @@ object Jivo {
 
         val sdkConfigUseCaseProvider = jivoSdkComponent.sdkConfigUseCaseProvider()
 
-        lifecycleObserver =
-            JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
-        JivoLifecycleOwner.addObserver(lifecycleObserver)
+        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
+        ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
     }
 
     @JvmStatic

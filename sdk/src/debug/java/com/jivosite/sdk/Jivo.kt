@@ -3,6 +3,7 @@ package com.jivosite.sdk
 import android.content.Context
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.firebase.messaging.RemoteMessage
 import com.jivosite.sdk.di.DaggerJivoSdkComponent
 import com.jivosite.sdk.di.JivoSdkComponent
@@ -68,9 +69,8 @@ object Jivo {
 
         val sdkConfigUseCaseProvider = jivoSdkComponent.sdkConfigUseCaseProvider()
 
-        lifecycleObserver =
-            JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
-        JivoLifecycleOwner.addObserver(lifecycleObserver)
+        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
+        ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
     }
 
     @JvmStatic

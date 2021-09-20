@@ -19,6 +19,7 @@ import com.jivosite.sdk.Jivo
  *
  * @author Alexandr Shibelev (av.shibelev@gmail.com)
  */
+@Deprecated("not worked")
 object JivoLifecycleOwner : LifecycleOwner {
 
     private var resumedCounter = 0

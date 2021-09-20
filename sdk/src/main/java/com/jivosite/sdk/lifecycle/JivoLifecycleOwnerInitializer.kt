@@ -10,6 +10,7 @@ import android.net.Uri
  *
  * @author Alexandr Shibelev (av.shibelev@gmail.com)
  */
+@Deprecated("not worked")
 class JivoLifecycleOwnerInitializer : ContentProvider() {
 
     override fun onCreate(): Boolean {
