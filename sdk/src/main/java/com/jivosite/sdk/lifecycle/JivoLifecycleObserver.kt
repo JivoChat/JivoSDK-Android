@@ -28,7 +28,7 @@ class JivoLifecycleObserver(
             isStartedService = true
             sdkConfigUseCase.onSuccess {
                 if (isStartedService) {
-                    Jivo.d("New lifecycle - Start SDK")
+                    Jivo.d("JivoLifecycle: Start SDK")
                     JivoWebSocketService.start(sdkContext.appContext)
                 }
             }.execute()
@@ -49,7 +49,7 @@ class JivoLifecycleObserver(
     fun onBackground() {
         if (storage.startOnInitialization) {
             Jivo.d("Application moved to background, stop service")
-            Jivo.d("New lifecycle - Stop SDK")
+            Jivo.d("JivoLifecycle: Stop SDK")
             JivoWebSocketService.stop(sdkContext.appContext)
             isStartedService = false
         }

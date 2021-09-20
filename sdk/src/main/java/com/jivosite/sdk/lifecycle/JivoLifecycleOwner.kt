@@ -1,12 +1,13 @@
 package androidx.lifecycle
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.app.Application.ActivityLifecycleCallbacks
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import androidx.annotation.RequiresApi
+import android.util.Log
 import com.jivosite.sdk.Jivo
 
 /**
@@ -21,49 +22,33 @@ object JivoLifecycleOwner : LifecycleOwner {
 
     private val registry = LifecycleRegistry(this)
 
-    private val initializationListener = object : ReportFragment.ActivityInitializationListener {
-
-        override fun onCreate() = Unit
-
-        override fun onStart() = Unit
-
-        override fun onResume() {
-            Jivo.d("New lifecycle - on activity resumed")
-            activityResumed()
-        }
-    }
-
+    @SuppressLint("LogNotTimber")
     fun init(context: Context) {
-        Jivo.d("New lifecycle - init")
+        Log.d("JivoSDK", "JivoLifecycle: Owner - init")
         val app = context.applicationContext as Application
         app.registerActivityLifecycleCallbacks(object : JivoActivityLifecycleCallbacks() {
-            @RequiresApi(Build.VERSION_CODES.Q)
-            override fun onActivityPreCreated(a: Activity, savedInstanceState: Bundle?) {
-                Jivo.d("New lifecycle - on activity pre created")
-                a.registerActivityLifecycleCallbacks(object : JivoActivityLifecycleCallbacks() {
-                    override fun onActivityPostResumed(activity: Activity) {
-                        Jivo.d("New lifecycle - on activity post resumed")
-                        activityResumed()
-                    }
-                })
+
+            override fun onActivityResumed(activity: Activity) {
+                if (Build.VERSION.SDK_INT < 29) {
+                    Jivo.d("JivoLifecycle: ActivityLifecycleCallbacks(app) - on resumed")
+                    activityResumed()
+                }
             }
 
-            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                if (Build.VERSION.SDK_INT < 29) {
-                    Jivo.d("New lifecycle - on activity created")
-                    ReportFragment.get(activity).setProcessListener(initializationListener)
-                }
+            override fun onActivityPostResumed(activity: Activity) {
+                Jivo.d("JivoLifecycle: ActivityLifecycleCallbacks(app) - on post resumed")
+                activityResumed()
             }
 
             override fun onActivityPaused(activity: Activity) {
                 if (Build.VERSION.SDK_INT < 29) {
-                    Jivo.d("New lifecycle - on activity paused")
+                    Jivo.d("JivoLifecycle: ActivityLifecycleCallbacks(app) - on paused")
                     activityPaused()
                 }
             }
 
             override fun onActivityPrePaused(activity: Activity) {
-                Jivo.d("New lifecycle - on activity pre paused")
+                Jivo.d("JivoLifecycle: ActivityLifecycleCallbacks(app) - on pre paused")
                 activityPaused()
             }
         })
@@ -72,7 +57,7 @@ object JivoLifecycleOwner : LifecycleOwner {
     private fun activityResumed() {
         resumedCounter++
         if (resumedCounter == 1 && pauseSent) {
-            Jivo.d("New lifecycle - handle event ON_START")
+            Jivo.d("JivoLifecycle: dispatch event ON_START")
             registry.handleLifecycleEvent(Lifecycle.Event.ON_START)
             pauseSent = false
         }
@@ -81,7 +66,7 @@ object JivoLifecycleOwner : LifecycleOwner {
     private fun activityPaused() {
         resumedCounter--
         if (resumedCounter == 0 && !pauseSent) {
-            Jivo.d("New lifecycle - handle event ON_STOP")
+            Jivo.d("JivoLifecycle: dispatch event ON_STOP")
             pauseSent = true
             registry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
         }

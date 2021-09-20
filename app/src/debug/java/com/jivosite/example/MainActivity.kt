@@ -15,18 +15,25 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Timber.d("JivoLifecycle: Activity - on create")
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val navController = (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
+        val navController =
+            (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
         val navView: BottomNavigationView = findViewById(R.id.navMenu)
         navView.setupWithNavController(navController)
     }
 
     override fun onResume() {
+        Timber.d("JivoLifecycle: Activity - on resume")
         super.onResume()
-        Timber.d("New lifecycle - on activity resumed")
+    }
+
+    override fun onPause() {
+        Timber.d("JivoLifecycle: Activity - on pause")
+        super.onPause()
     }
 
     override fun onBackPressed() {
