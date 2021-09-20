@@ -26,10 +26,6 @@
 -keep class * extends androidx.databinding.DataBinderMapper { *; }
 
 -keep public class com.jivosite.sdk.Jivo { *; }
--keep public class androidx.lifecycle.* { *; }
--keep public class com.jivosite.sdk.lifecycle.JivoLifecycleOwner { *; }
--keep public class com.jivosite.sdk.lifecycle.JivoActivityLifecycleCallbacks { *; }
--keep public class com.jivosite.sdk.lifecycle.JivoLifecycleOwnerInitializer { *; }
 -keep public class com.jivosite.sdk.model.repository.history.NewMessageListener { *; }
 -keep public class com.jivosite.sdk.ui.chat.JivoChatFragment { *; }
 -keep public class com.jivosite.sdk.ui.views.JivoChatButton { *; }
