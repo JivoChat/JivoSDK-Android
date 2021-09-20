@@ -1,4 +1,4 @@
-package androidx.lifecycle
+package com.jivosite.sdk.lifecycle
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -8,6 +8,10 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import com.jivosite.sdk.Jivo
 
 /**

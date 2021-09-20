@@ -3,7 +3,6 @@ package com.jivosite.sdk
 import android.content.Context
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
 import com.google.firebase.messaging.RemoteMessage
 import com.jivosite.sdk.di.DaggerJivoSdkComponent
 import com.jivosite.sdk.di.JivoSdkComponent
@@ -19,6 +18,7 @@ import com.jivosite.sdk.di.ui.logs.JivoLogsFragmentModule
 import com.jivosite.sdk.di.ui.settings.JivoSettingsComponent
 import com.jivosite.sdk.di.ui.settings.JivoSettingsFragmentModule
 import com.jivosite.sdk.lifecycle.JivoLifecycleObserver
+import com.jivosite.sdk.lifecycle.JivoLifecycleOwner
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.repository.history.NewMessageListener
 import com.jivosite.sdk.socket.JivoWebSocketService
@@ -68,7 +68,8 @@ object Jivo {
 
         val sdkConfigUseCaseProvider = jivoSdkComponent.sdkConfigUseCaseProvider()
 
-        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
+        lifecycleObserver =
+            JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
         JivoLifecycleOwner.addObserver(lifecycleObserver)
     }
 
