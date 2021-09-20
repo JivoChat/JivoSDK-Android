@@ -19,7 +19,6 @@ import com.jivosite.sdk.di.ui.logs.JivoLogsFragmentModule
 import com.jivosite.sdk.di.ui.settings.JivoSettingsComponent
 import com.jivosite.sdk.di.ui.settings.JivoSettingsFragmentModule
 import com.jivosite.sdk.lifecycle.JivoLifecycleObserver
-import com.jivosite.sdk.lifecycle.JivoLifecycleOwner
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.repository.history.NewMessageListener
 import com.jivosite.sdk.socket.JivoWebSocketService
