@@ -172,7 +172,7 @@ fun setAppBarTitle(view: AppCompatTextView, agents: List<Agent>?) {
     val agentsInChat = agents?.filter { it.hasOnlineInChat && it.status !is AgentStatus.Offline } ?: Collections.emptyList()
     when {
         agentsInChat.isEmpty() -> {
-            view.setText(Jivo.getConfig().title ?: R.string.chat_subtitle_placeholder)
+            view.setText(Jivo.getConfig().title ?: R.string.chat_title_placeholder)
         }
         agentsInChat.size == 1 -> view.text = agentsInChat[0].name
         agentsInChat.size > 1 -> {
