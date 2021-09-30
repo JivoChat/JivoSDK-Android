@@ -1,6 +1,7 @@
 package com.jivosite.sdk.support.binding
 
 import android.text.SpannableStringBuilder
+import android.text.format.DateFormat
 import android.view.ViewGroup
 import android.webkit.URLUtil
 import android.widget.LinearLayout
@@ -35,7 +36,6 @@ import com.jivosite.sdk.support.dg.adapters.BaseAdapter
 import com.jivosite.sdk.support.ext.cutName
 import com.jivosite.sdk.support.ext.dp
 import com.jivosite.sdk.support.ext.getFileType
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.pow
 
@@ -324,8 +324,7 @@ fun setTime(view: TextView, time: Long?) {
     if (time == null || time == 0L) {
         return
     } else {
-        val dateFormat = SimpleDateFormat("HH:mm a", Locale.getDefault())
-        view.text = dateFormat.format(Date(time * 1000))
+        view.text = DateFormat.getTimeFormat(view.context).format(Date(time * 1000))
     }
 }
 
