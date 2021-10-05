@@ -1,7 +1,10 @@
 package com.jivosite.sdk.ui.chat
 
 import android.content.*
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.provider.OpenableColumns
@@ -30,6 +33,7 @@ import com.jivosite.sdk.ui.chat.items.ChatEntry
 import java.io.InputStream
 import javax.inject.Inject
 import javax.inject.Provider
+
 
 /**
  * Created on 02.09.2020.
@@ -102,7 +106,7 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
                 background = AppCompatResources.getDrawable(context, Jivo.getConfig().background ?: R.drawable.bg_toolbar)
             }
             binding.toolbar.run {
-                navigationIcon = AppCompatResources.getDrawable(context, R.drawable.vic_arrow_white_24dp)
+                navigationIcon = AppCompatResources.getDrawable(context, R.drawable.vic_arrow_24dp)
                 navigationIcon?.setTint(
                     ContextCompat.getColor(
                         context,
@@ -140,6 +144,22 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
             binding.inputText.doOnTextChanged { msg, _, _, _ ->
                 viewModel.message.value = msg.toString()
                 viewModel.clientTyping.setValue(msg.toString())
+            }
+            binding.inputText.run {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    AppCompatResources.getDrawable(context, R.drawable.bg_cursor)?.let { drawable ->
+                        val color = AppCompatResources.getColorStateList(context, Jivo.getConfig().outgoingMessageColor.color)
+                        drawable.setTintList(color)
+                        textCursorDrawable = drawable
+                    }
+                }
+            }
+
+            AppCompatResources.getDrawable(requireContext(), R.drawable.bg_outgoing_message)?.let { drawable ->
+                val color = AppCompatResources.getColorStateList(requireContext(), Jivo.getConfig().outgoingMessageColor.color)
+                drawable.setTintList(color)
+                binding.connectingView.indeterminateDrawable.colorFilter =
+                    PorterDuffColorFilter(color.defaultColor, PorterDuff.Mode.SRC_IN)
             }
         }
 

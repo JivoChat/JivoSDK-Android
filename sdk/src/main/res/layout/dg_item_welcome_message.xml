@@ -9,5 +9,5 @@
     android:maxWidth="275dp"
     android:padding="16dp"
     android:text="@string/welcome_message_placeholder"
-    android:textColor="@color/midnight"
+    android:textColor="@color/color_text_incoming_message"
     android:textSize="16sp" />

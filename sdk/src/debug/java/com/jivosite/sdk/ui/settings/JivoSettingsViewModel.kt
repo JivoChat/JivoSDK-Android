@@ -34,6 +34,8 @@ class JivoSettingsViewModel @Inject constructor(
     val doNotShowPings: LiveData<Boolean>
         get() = _doNotShowPings
 
+    val hasNightModeChecked = MutableLiveData(storage.nightMode)
+
 //    private val _restart = MutableLiveData(false)
 //    val restart: LiveData<Boolean>
 //        get() = _restart
@@ -75,5 +77,9 @@ class JivoSettingsViewModel @Inject constructor(
 
     fun clearLogs() {
         logsRepository.clear()
+    }
+
+    fun onNightModeChanged(isChecked: Boolean) {
+        storage.changeNightMode(isChecked)
     }
 }
