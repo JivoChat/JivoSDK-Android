@@ -64,6 +64,7 @@ sealed class MessageEntry : ChatEntry() {
         get() = when (this) {
             is AgentMessageEntry -> message.data
             is ClientMessageEntry -> message.data
+            is SendingMessageEntry -> message.data
             else -> ""
         }
 
