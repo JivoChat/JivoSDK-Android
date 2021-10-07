@@ -18,7 +18,7 @@
         <activity
             android:name=".ui.chat.JivoChatActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
 
         <activity
             android:name=".ui.imageviewer.ImageViewerActivity"

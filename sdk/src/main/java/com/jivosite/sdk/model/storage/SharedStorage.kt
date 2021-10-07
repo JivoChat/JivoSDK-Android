@@ -2,6 +2,9 @@ package com.jivosite.sdk.model.storage
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import com.jivosite.sdk.BuildConfig
 
 /**
@@ -32,6 +35,8 @@ class SharedStorage(context: Context) {
         private const val LOG_DO_NOT_SHOW_PINGS = "doNotShowPings"
 
         private const val LAST_READ_MSG_ID = "lastReadMsgId"
+
+        private const val NIGHT_MODE = "nightMode"
     }
 
     private val preferences: SharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
@@ -59,4 +64,23 @@ class SharedStorage(context: Context) {
     var doNotShowPings: Boolean by SharedPreference(preferences, LOG_DO_NOT_SHOW_PINGS, false)
 
     var lastReadMsgId: Long by SharedPreference(preferences, LAST_READ_MSG_ID, 0)
+
+    private var nightModePreference by SharedPreference(preferences, NIGHT_MODE, false)
+    private var _nightMode = MediatorLiveData<Boolean>().apply {
+        value = nightModePreference
+        addSource(this) {
+            if (it) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+    }
+    val nightMode: LiveData<Boolean>
+        get() = _nightMode
+
+    fun changeNightMode(hasNightModeEnable: Boolean) {
+        nightModePreference = hasNightModeEnable
+        _nightMode.value = hasNightModeEnable
+    }
 }
