@@ -295,10 +295,10 @@ class JivoChatViewModel @Inject constructor(
 
         val extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType) ?: ""
         val type = FILE_TYPES[extension] ?: TYPE_UNKNOWN
-//        if (type == TYPE_UNKNOWN) {
-//            _error.value = Error.UnsupportedType
-//            return
-//        }
+        if (type == TYPE_UNKNOWN) {
+            _error.value = Error.UnsupportedType
+            return
+        }
 
         val file = File(fileName, type, extension, mimeType, inputStream, contentUri, fileSize)
 
