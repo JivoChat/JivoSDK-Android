@@ -31,7 +31,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Connection"
-                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
@@ -50,7 +49,6 @@
                     android:hint="Host"
                     android:inputType="textUri"
                     android:text="@={viewModel.host}"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
 
@@ -70,7 +68,6 @@
                     android:hint="Widget ID"
                     android:inputType="text"
                     android:text="@={viewModel.widgetId}"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
 
@@ -94,7 +91,6 @@
                     android:layout_weight="2"
                     android:onClick="@{() -> viewModel.saveAndRestart()}"
                     android:text="save and restart"
-                    android:textColor="@color/black"
                     tools:ignore="HardcodedText" />
 
                 <Button
@@ -104,10 +100,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/darkPastelGreen"
                     android:onClick="@{() -> viewModel.clearAndRestart()}"
                     android:text="Clear"
-                    android:textColor="@color/black"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
@@ -124,7 +118,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Push notifications"
-                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
@@ -135,9 +128,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Disable push notifications"
                 android:onCheckedChanged="@{(view, isChecked) -> fragment.onDisablePush(isChecked)}"
-                android:textColor="@color/black"
+                android:text="Disable push notifications"
                 android:textSize="16sp" />
 
             <View
@@ -152,7 +144,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Information about user"
-                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
@@ -171,7 +162,6 @@
                     android:hint="Name"
                     android:inputType="textCapWords"
                     android:text="@={viewModel.userName}"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
 
@@ -191,7 +181,6 @@
                     android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:text="@={viewModel.userEmail}"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
 
@@ -211,7 +200,6 @@
                     android:hint="Phone"
                     android:inputType="phone"
                     android:text="@={viewModel.userPhone}"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
 
@@ -231,7 +219,6 @@
                     android:hint="Description"
                     android:inputType="textCapSentences"
                     android:text="@={viewModel.userDescription}"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
 
@@ -262,7 +249,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Logs"
-                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
@@ -279,7 +265,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
                     android:text="Hide PING/PONG messages"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
 
@@ -305,6 +290,34 @@
                 android:text="Clear"
                 android:textColor="@color/white"
                 tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/grey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="UI"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchNightMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:checked="@{viewModel.hasNightModeChecked}"
+                android:onCheckedChanged="@{(view, isChecked) -> viewModel.onNightModeChanged(isChecked)}"
+                android:text="Enable night mode" />
 
         </LinearLayout>
 
