@@ -4,6 +4,7 @@
     <string name="agent_name_default">Agente</string>
     <!-- Надпись к сообщениям клиента -->
     <string name="agent_name_you">Usted</string>
+    <string name="Agent.DisplayName.Deleted">Agente borrado</string>
     <!-- Подзаголовок окна чата по умолчанию -->
     <string name="chat_subtitle_placeholder">Chatee con nosotros 24/7</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент несколько агентов набирают сообщение. -->
@@ -14,10 +15,16 @@
     <string name="chat_system_two_agents_typing">%s y %s están escribiendo...</string>
     <!-- Заголовок окна чата по умолчанию -->
     <string name="chat_title_placeholder">"Reportar un problema "</string>
+    <string name="Chat.System.Media.Preparing">Preparando el archivo...</string>
+    <string name="Chat.System.Media.Uploading">Enviando archivo...</string>
+    <string name="Chat.System.NewMessages">Nuevos mensajes</string>
+    <string name="Client.Title">Cliente #%d</string>
     <!-- Общая строка "Отмена" -->
     <string name="common_cancel">Cancelar</string>
+    <string name="common_done">Listo</string>
     <!-- Универсальное сообщение о неизвестной ошибке. -->
     <string name="common_unknown_error">Error desconocido</string>
+    <string name="Common.Open">Abrir</string>
     <!-- Состояние подключения к сервису -->
     <string name="connection_state_connecting">Conectando...</string>
     <!-- Состояние отсутствия подключения -->
@@ -35,7 +42,7 @@
     <!-- Формат для размера файла в мегабайтах -->
     <string name="format_file_size_mb">%.2f MB</string>
     <!-- Подсказка в окне ввода сообщения -->
-    <string name="input_message_placeholder">Escriba su mensage</string>
+    <string name="input_message_placeholder">Escriba su mensage...</string>
     <string name="jivo_business_messenger">Chat desarrollado por</string>
     <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку открывает системный пикер документов. -->
     <string name="media_upload_attachment_type_selecting_document">Documento</string>
@@ -45,16 +52,27 @@
     <string name="media_upload_select_an_attachment_type_title">¿Qué le gustaría adjuntar?</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент ведётся загрузка файла на сервер. -->
     <string name="media_upload_sending_the_file">Enviando archivo</string>
+    <string name="media_uploading_common_error">La carga del archivo falló</string>
     <!-- Ошибка, возникающая при неудачной подготовке файла к загрузке. -->
     <string name="media_uploading_extraction_error">La selección del archivo falló</string>
     <!-- Превышение лимита выгружаемого файла -->
     <string name="media_uploading_too_large">Tamaño máximo de archivo %dMB</string>
+    <string name="Media.Access.Missing">Permitir el acceso</string>
+    <string name="Media.Access.Suggestion">JivoChat necesita permiso para acceder a la biblioteca de fotos y videos.
+
+Por favor vaya a [Configuración &gt; App &gt; Fotos] para dar el permiso.</string>
+    <string name="Media.Picker.Camera">Cámara</string>
     <!-- Кнопка скачать для прикрепленного документа/файла -->
     <string name="message_download">Descargar</string>
     <!-- Системное сообщение о присоединении оператора к чату -->
     <string name="message_system_operator_accepted">Agente entró al chat</string>
     <!-- Unsupported file type -->
     <string name="message_unsupported_media">Este tipo de archivo no es compatible</string>
+    <string name="Message.Deleted">El mensaje fue eliminado</string>
+    <string name="Message.Edited">(editado)</string>
+    <string name="Message.Preview.Line">El chat fue transferido a la segunda linea</string>
+    <string name="Message.Sender.You">Usted</string>
+    <string name="notification_message_title">Apoyo</string>
     <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
     <string name="options_copy">Copiar</string>
     <!-- Пункт "Повторить отправку" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->

@@ -8,8 +8,6 @@ import com.jivosite.sdk.model.pojo.response.Response
 import com.jivosite.sdk.network.response.ApiResponse
 import com.jivosite.sdk.network.retrofit.error.JivoApiException
 import com.jivosite.sdk.support.async.Schedulers
-import java.util.*
-import kotlin.collections.HashMap
 
 /**
  * Created on 2019-05-27.
@@ -50,6 +48,9 @@ abstract class NetworkResource<ResultType, RequestType>(schedulers: Schedulers) 
                             val error = JivoApiException(errors)
                             result.value = Resource.error(error.localizedMessage, error)
                         }
+                    } else if (body is Unit) {
+                        val result = handleResponse(body)
+                        this.result.value = Resource.success(result)
                     } else {
                         Jivo.e("There is something wrong in body response")
                         result.value = Resource.error(null, null)

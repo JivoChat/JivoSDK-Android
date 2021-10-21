@@ -15,6 +15,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.imageLoader
 import coil.load
+import coil.network.HttpException
 import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
@@ -35,6 +36,7 @@ import com.jivosite.sdk.support.dg.adapters.BaseAdapter
 import com.jivosite.sdk.support.ext.cutName
 import com.jivosite.sdk.support.ext.dp
 import com.jivosite.sdk.support.ext.getFileType
+import com.jivosite.sdk.ui.chat.items.message.file.agent.FileItemState
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.pow
@@ -199,6 +201,7 @@ fun agentImageLoader(layout: ViewGroup, url: String?) {
     val progressView: ProgressBar = layout.findViewById(R.id.progress) ?: return
     val statusContainer: LinearLayout? = layout.findViewById(R.id.statusContainer)
     val time: TextView? = layout.findViewById(R.id.time)
+    val errorText: TextView? = layout.findViewById(R.id.error)
 
     val imageLoader = imageView.context.imageLoader
     val request = ImageRequest.Builder(imageView.context)
@@ -206,6 +209,17 @@ fun agentImageLoader(layout: ViewGroup, url: String?) {
         .placeholder(R.drawable.ic_placeholder_image)
         .error(R.drawable.vic_broken_image)
         .transformations(ImageTransformation(layout.resources.getDimensionPixelSize(R.dimen.message_bubble_corner).toFloat()))
+        .listener(
+            onError = { _: ImageRequest, throwable: Throwable ->
+                Jivo.e("$throwable")
+                if ((throwable as HttpException).response.code == 401) {
+                    imageView.setImageDrawable(AppCompatResources.getDrawable(imageView.context, R.drawable.vic_broken_image))
+                    progressView.isVisible = false
+                    errorText?.isVisible = true
+                    time?.isVisible = false
+                }
+            }
+        )
         .target(
             onStart = { placeholder ->
                 imageView.setImageDrawable(placeholder)
@@ -335,5 +349,28 @@ fun setAgentName(view: AppCompatTextView, name: String?) {
         view.setText(R.string.agent_name_default)
     } else {
         view.text = name
+    }
+}
+
+@BindingAdapter("mediaStatus")
+fun setMediaStatus(view: TextView, state: FileItemState?) {
+
+    if (state == null) return
+
+    val context = view.context
+
+    when {
+        state.isLoading -> {
+            view.isClickable = false
+            view.text = context.getString(R.string.file_link_checking)
+        }
+        state.media.isExpired -> {
+            view.isClickable = false
+            view.text = context.getString(R.string.file_download_expired)
+        }
+        else -> {
+            view.isClickable = true
+            view.text = context.getString(R.string.message_download)
+        }
     }
 }

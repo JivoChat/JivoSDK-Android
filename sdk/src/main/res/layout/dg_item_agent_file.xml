@@ -95,13 +95,14 @@
                     android:layout_marginStart="8dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:onClick="@{() -> view.onClick()}"
+                    android:onClick="@{() -> view.onDownload()}"
                     android:text="@string/message_download"
                     android:textColor="@color/grey"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@id/picture"
                     app:layout_constraintStart_toEndOf="@id/picture"
-                    app:layout_constraintTop_toBottomOf="@id/fileName" />
+                    app:layout_constraintTop_toBottomOf="@id/fileName"
+                    app:mediaStatus="@{viewModel.state}" />
 
                 <TextView
                     android:id="@+id/time"

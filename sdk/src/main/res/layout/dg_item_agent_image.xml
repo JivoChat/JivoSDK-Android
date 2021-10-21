@@ -34,11 +34,13 @@
             tools:src="@tools:sample/avatars" />
 
         <LinearLayout
+            android:id="@+id/layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
             android:layout_marginEnd="40dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:agentImageLoader="@{viewModel.imageUrl}">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/name"
@@ -54,20 +56,15 @@
                 tools:text="@string/agent_name_default" />
 
             <FrameLayout
-                android:id="@+id/layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:agentImageLoader="@{viewModel.imageUrl}"
-                app:layout_constraintStart_toEndOf="@id/avatar"
-                app:layout_constraintTop_toBottomOf="@id/name">
+                android:layout_gravity="center">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> view.onClick()}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:src="@tools:sample/avatars" />
 
                 <ProgressBar
@@ -87,14 +84,23 @@
                     android:paddingHorizontal="4dp"
                     android:textColor="@color/white85"
                     android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/status"
-                    app:layout_constraintTop_toBottomOf="@id/download"
                     app:time="@{viewModel.time}"
                     tools:text="13:20" />
 
             </FrameLayout>
 
+            <TextView
+                android:id="@+id/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="6dp"
+                android:paddingHorizontal="4dp"
+                android:text="@string/file_download_expired"
+                android:textColor="@color/blueGrey"
+                android:textSize="12sp"
+                android:visibility="gone"
+                tools:text="The link is out of date" />
         </LinearLayout>
 
     </FrameLayout>

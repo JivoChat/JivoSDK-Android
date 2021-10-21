@@ -25,6 +25,12 @@ class AgentFileItemViewHolder(
         binding.view = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = lifecycleOwner
+
+        viewModel.state.observe(lifecycleOwner) {
+            if (it.hasCompletedCheck && !it.media.isExpired) {
+                Intents.downloadFile(context, it.media.path)
+            }
+        }
     }
 
     override fun bind(item: AdapterDelegateItem<ChatEntry>) {
@@ -35,9 +41,7 @@ class AgentFileItemViewHolder(
         }
     }
 
-    fun onClick() {
-        viewModel.url?.let { url ->
-            Intents.downloadFile(context, url)
-        }
+    fun onDownload() {
+        viewModel.checkLink()
     }
 }

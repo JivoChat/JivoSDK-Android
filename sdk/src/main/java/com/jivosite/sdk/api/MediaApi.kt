@@ -20,17 +20,20 @@ interface MediaApi {
     @GET("/api/1.0/sites/{siteId}/widgets/{widgetPublicId}/media/transfer/access/gain?allowContentType=1")
     @Headers("$URL:$API")
     fun getAccessForFile(
-            @Path("siteId") siteId: Long,
-            @Path("widgetPublicId") widgetPublicId: String,
-            @Query("extension") extension: String,
-            @Query("type") mimeType: String,
+        @Path("siteId") siteId: Long,
+        @Path("widgetPublicId") widgetPublicId: String,
+        @Query("extension") extension: String,
+        @Query("type") mimeType: String,
     ): LiveData<ApiResponse<AccessResponse>>
 
     @Multipart
     @POST
     fun uploadFile(
-            @Url url: String?,
-            @PartMap map: HashMap<String, RequestBody>,
-            @Part body: MultipartBody.Part,
+        @Url url: String?,
+        @PartMap map: HashMap<String, RequestBody>,
+        @Part body: MultipartBody.Part,
     ): LiveData<ApiResponse<Void>>
+
+    @GET
+    fun checkMedia(@Url url: String): LiveData<ApiResponse<Unit>>
 }
