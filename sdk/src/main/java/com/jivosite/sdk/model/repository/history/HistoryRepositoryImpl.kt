@@ -66,6 +66,7 @@ class HistoryRepositoryImpl @Inject constructor(
     }
 
     override fun markAsRead(msgId: Long) = updateStateInRepositoryThread {
+        Jivo.e("markAsRead -> $msgId")
         doBefore { state -> state.lastReadMsgId < msgId }
         transform { state ->
             Jivo.onNewMessage(false)
