@@ -64,6 +64,7 @@ sealed class MessageEntry : ChatEntry() {
         get() = when (this) {
             is AgentMessageEntry -> message.data
             is ClientMessageEntry -> message.data
+            is SendingMessageEntry -> message.data
             else -> ""
         }
 
@@ -72,7 +73,8 @@ sealed class MessageEntry : ChatEntry() {
             is AgentMessageEntry -> message.timestamp
             is ClientMessageEntry -> message.timestamp
             is SendingMessageEntry -> message.timestamp
-            else -> System.currentTimeMillis()
+            is UploadingFileEntry -> state.timestamp
+            else -> System.currentTimeMillis() / 1000
         }
 
     abstract val position: EntryPosition

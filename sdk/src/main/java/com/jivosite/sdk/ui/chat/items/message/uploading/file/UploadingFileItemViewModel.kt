@@ -22,6 +22,10 @@ class UploadingFileItemViewModel @Inject constructor(
         entry.state
     }
 
+    val fileName: LiveData<String> = Transformations.map(state) {
+        it.name
+    }
+
     val size: LiveData<Long> = Transformations.map(state) {
         it.size
     }

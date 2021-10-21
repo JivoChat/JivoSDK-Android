@@ -1,7 +1,12 @@
 package com.jivosite.sdk.ui.chat.items.message.uploading.file
 
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.LifecycleOwner
+import com.jivosite.sdk.Jivo
+import com.jivosite.sdk.R
 import com.jivosite.sdk.databinding.DgItemUploadingFileBinding
 import com.jivosite.sdk.support.dg.AdapterDelegateItem
 import com.jivosite.sdk.ui.chat.items.ChatEntry
@@ -24,6 +29,14 @@ class UploadingFileItemViewHolder(
         binding.view = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = lifecycleOwner
+
+        AppCompatResources.getDrawable(context, R.drawable.bg_outgoing_message)?.let { drawable ->
+            val color = AppCompatResources.getColorStateList(context, Jivo.getConfig().outgoingMessageColor.color)
+            drawable.setTintList(color)
+            binding.mediaContainer.background = drawable
+            binding.progressBar.indeterminateDrawable.colorFilter =
+                PorterDuffColorFilter(color.defaultColor, PorterDuff.Mode.SRC_IN)
+        }
     }
 
     override fun bind(item: AdapterDelegateItem<ChatEntry>) {

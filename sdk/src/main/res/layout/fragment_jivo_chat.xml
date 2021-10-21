@@ -21,7 +21,7 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/color_on_background">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -38,6 +38,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
                 app:contentInsetStart="0dp"
                 app:contentInsetStartWithNavigation="0dp">
 
@@ -54,13 +55,14 @@
                         android:ellipsize="end"
                         android:fontFamily="sans-serif-medium"
                         android:maxLines="1"
-                        android:textColor="@color/white"
+                        android:textColor="@color/color_text_title"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@id/subtitleView"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_chainStyle="packed"
                         app:layout_constraintStart_toEndOf="@id/avatar"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/chat_title_placeholder" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/avatar"
@@ -73,7 +75,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/chat_title_placeholder" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/subtitleView"
@@ -83,13 +86,13 @@
                         android:layout_marginEnd="24dp"
                         android:alpha="0.3"
                         android:singleLine="true"
-                        android:text="@string/chat_subtitle_placeholder"
-                        android:textColor="@color/white"
+                        android:textColor="@color/color_text_subtitle"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/avatar"
-                        app:layout_constraintTop_toBottomOf="@id/titleView" />
+                        app:layout_constraintTop_toBottomOf="@id/titleView"
+                        tools:text="@string/chat_subtitle_placeholder" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,27 +110,32 @@
             android:paddingBottom="16dp"
             app:layout_constraintBottom_toTopOf="@id/controls"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appbar"
-            tools:itemCount="4"
+            tools:itemCount="10"
             tools:listitem="@layout/dg_item_agent_text" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
-            android:layout_marginEnd="26dp"
+            android:background="@color/color_on_background"
+            android:paddingStart="56dp"
+            android:paddingEnd="26dp"
+            android:textColor="#636366"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:typing="@{viewModel.agentsTyping}" />
+            app:typing="@{viewModel.agentsTyping}"
+            tools:text="Agent is typing..."
+            tools:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/banner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/white85"
+            android:background="@color/color_background_banner"
             android:drawablePadding="8dp"
             android:gravity="end"
             android:paddingHorizontal="16dp"
@@ -145,6 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:visibility="gone"
+            app:cardBackgroundColor="@color/color_background_connection_state"
             app:cardCornerRadius="36dp"
             app:cardElevation="1dp"
             app:layout_constraintBottom_toTopOf="@id/controls"
@@ -174,8 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:textColor="@color/black"
-
+                    android:textColor="@color/color_text_connection_state"
                     android:textSize="12sp"
                     app:layout_constraintStart_toEndOf="@id/connectingView"
                     app:layout_constraintTop_toTopOf="parent"
@@ -205,6 +213,7 @@
             android:id="@+id/controls"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/color_on_background"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -217,16 +226,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="6dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="16dp"
                 android:background="?android:selectableItemBackgroundBorderless"
                 android:enabled="@{viewModel.canAttach}"
                 android:onClick="@{() -> fragment.attach()}"
-                android:src="@drawable/ic_clip" />
+                android:src="@drawable/ic_clip"
+                android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="6dp"
                 android:background="@drawable/bg_text_input"
@@ -244,23 +255,24 @@
                     android:hint="@string/input_message_placeholder"
                     android:maxHeight="120dp"
                     android:paddingVertical="8dp"
-                    android:paddingStart="16dp"
-                    android:textColor="@color/nero"
-                    android:textColorHint="@color/silver"
+                    android:paddingStart="20dp"
+                    android:textColor="@color/color_input_text"
+                    android:textColorHint="@color/color_text_hint"
                     android:textCursorDrawable="@drawable/bg_cursor"
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/sendBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_gravity="bottom"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginVertical="6dp"
+                    android:layout_marginEnd="6dp"
                     android:background="?selectableItemBackgroundBorderless"
                     android:contentDescription="@null"
                     android:enabled="@{viewModel.canSend}"
                     android:onClick="@{() -> fragment.send()}"
-                    android:paddingVertical="8dp" />
+                    tools:src="@drawable/vic_send_gray" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

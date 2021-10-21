@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="window_background">#191919</color>
+    <color name="color_surface">#1a1a1a</color>
+    <color name="color_on_background">#191919</color>
+    <color name="color_input_text">#C7C7CC</color>
+    <color name="color_background_input_text">#3A3A3C</color>
+    <color name="color_background_incoming_message">#2C2C2E</color>
+    <color name="color_text_incoming_message">#C7C7CC</color>
+    <color name="color_text_connection_state">#636366</color>
+    <color name="color_background_connection_state">#191919</color>
+    <color name="color_background_banner">#E6191919</color>
+    <color name="color_text_hint">#636366</color>
+    <color name="color_text_title">#C7C7CC</color>
+    <color name="color_text_subtitle">#636366</color>
+
+    <color name="color_primary">#141414</color>
+</resources>

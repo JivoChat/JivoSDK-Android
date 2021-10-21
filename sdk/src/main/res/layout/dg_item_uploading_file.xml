@@ -78,7 +78,7 @@
                 android:ellipsize="middle"
                 android:maxWidth="196dp"
                 android:singleLine="true"
-                android:text="@{viewModel.name}"
+                android:text="@{viewModel.fileName}"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@id/fileSize"
@@ -114,6 +114,21 @@
                 app:layout_constraintStart_toEndOf="@id/fileSize"
                 app:layout_constraintTop_toBottomOf="@id/fileName"
                 app:uploadState="@{viewModel.state}" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/white85"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/download"
+                app:time="@{viewModel.time}"
+                tools:text="13:20" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
