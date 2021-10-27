@@ -7,10 +7,9 @@ import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.R
 import com.jivosite.sdk.databinding.DgItemClientFileBinding
 import com.jivosite.sdk.support.dg.AdapterDelegateItem
-import com.jivosite.sdk.support.ext.Intents
 import com.jivosite.sdk.ui.chat.items.ChatEntry
 import com.jivosite.sdk.ui.chat.items.ClientMessageEntry
-import com.jivosite.sdk.ui.chat.items.message.general.MessageItemViewHolder
+import com.jivosite.sdk.ui.chat.items.message.media.MediaItemViewHolder
 
 /**
  * Created on 3/2/21.
@@ -21,7 +20,7 @@ class ClientFileItemViewHolder(
     itemView: View,
     lifecycleOwner: LifecycleOwner,
     private val viewModel: ClientFileItemViewModel
-) : MessageItemViewHolder<ClientMessageEntry>(itemView, viewModel) {
+) : MediaItemViewHolder<ClientMessageEntry>(itemView, viewModel) {
 
     init {
         val binding = DgItemClientFileBinding.bind(itemView)
@@ -43,12 +42,6 @@ class ClientFileItemViewHolder(
         val data = item.requireData()
         if (data is ClientMessageEntry) {
             viewModel.entry = data
-        }
-    }
-
-    fun onClick() {
-        viewModel.url?.let { url ->
-            Intents.downloadFile(context, url)
         }
     }
 }

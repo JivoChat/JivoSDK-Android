@@ -40,7 +40,7 @@
             android:layout_marginStart="60dp"
             android:layout_marginEnd="40dp"
             android:orientation="vertical"
-            app:agentImageLoader="@{viewModel.imageUrl}">
+            app:agentImageLoader="@{viewModel.newState}">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/name"
@@ -64,14 +64,16 @@
                     android:id="@+id/image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> view.onClick()}"
+                    android:onClick="@{() -> view.show()}"
                     tools:src="@tools:sample/avatars" />
 
                 <ProgressBar
                     android:id="@+id/progress"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/time"
@@ -85,7 +87,8 @@
                     android:textColor="@color/white85"
                     android:textSize="12sp"
                     app:time="@{viewModel.time}"
-                    tools:text="13:20" />
+                    tools:text="13:20"
+                    tools:visibility="visible" />
 
             </FrameLayout>
 

@@ -34,6 +34,6 @@ interface MediaApi {
         @Part body: MultipartBody.Part,
     ): LiveData<ApiResponse<Void>>
 
-    @GET
-    fun checkMedia(@Url url: String): LiveData<ApiResponse<Unit>>
+    @HEAD
+    fun getMedia(@Url path: String): LiveData<ApiResponse<Void>>
 }

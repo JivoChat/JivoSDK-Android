@@ -62,9 +62,9 @@
                 android:layout_marginStart="8dp"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                android:text="@{viewModel.fileName}"
                 android:textColor="@color/white"
                 android:textSize="14sp"
+                app:fileName="@{viewModel.newState}"
                 app:layout_constraintBottom_toTopOf="@id/download"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
@@ -79,13 +79,14 @@
                 android:layout_marginStart="8dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="@{() -> view.onClick()}"
-                android:text="@string/message_download"
+                android:onClick="@{() -> view.onDownload()}"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/picture"
                 app:layout_constraintStart_toEndOf="@id/picture"
-                app:layout_constraintTop_toBottomOf="@id/fileName" />
+                app:layout_constraintTop_toBottomOf="@id/fileName"
+                app:mediaStatus="@{viewModel.newState}"
+                tools:text="@string/message_download" />
 
             <TextView
                 android:id="@+id/time"
