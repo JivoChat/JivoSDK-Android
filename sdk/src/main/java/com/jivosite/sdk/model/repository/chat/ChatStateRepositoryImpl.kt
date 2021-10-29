@@ -24,7 +24,7 @@ class ChatStateRepositoryImpl @Inject constructor(
         transform { state -> state.copy(visible = isVisible) }
     }
 
-    override fun clear() {
-        // Ignore for now
+    override fun clear() = updateStateInRepositoryThread {
+        transform { ChatState() }
     }
 }

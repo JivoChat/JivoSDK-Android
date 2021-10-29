@@ -5,7 +5,6 @@ import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import com.jivosite.sdk.model.repository.agent.AgentRepository
 import com.jivosite.sdk.model.repository.connection.ConnectionState
 import com.jivosite.sdk.model.repository.connection.ConnectionStateRepository
-import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.socket.states.DisconnectReason
 import com.jivosite.sdk.socket.states.ServiceState
@@ -20,7 +19,6 @@ import javax.inject.Inject
 class ConnectedState @Inject constructor(
     stateContext: JivoWebSocketService,
     private val service: JivoWebSocketService,
-    private val storage: SharedStorage,
     private val parser: Moshi,
     private val connectionStateRepository: ConnectionStateRepository,
     private val agentRepository: AgentRepository
@@ -31,7 +29,6 @@ class ConnectedState @Inject constructor(
     }
 
     override fun reconnect(force: Boolean) {
-        logImpossibleAction("reconnect")
         stateContext.changeState(DisconnectedState::class.java)
         connectionStateRepository.setState(ConnectionState.Disconnected(0))
         service.releaseConnectionKeeper()
@@ -80,6 +77,10 @@ class ConnectedState @Inject constructor(
     }
 
     override fun restart() {
-        // Ignore for now
+        stateContext.changeState(DisconnectedState::class.java)
+        connectionStateRepository.setState(ConnectionState.Disconnected(0))
+        service.releaseConnectionKeeper()
+        service.unsubscribeFromTransmitter()
+        stateContext.getState().reconnect(true)
     }
 }
