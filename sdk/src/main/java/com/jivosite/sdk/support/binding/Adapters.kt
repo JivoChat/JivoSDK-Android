@@ -28,6 +28,7 @@ import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_DOCUMENT
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_IMAGE
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_VIDEO
 import com.jivosite.sdk.model.pojo.message.MessageStatus
+import com.jivosite.sdk.model.repository.media.MediaItemState
 import com.jivosite.sdk.model.repository.upload.FileState
 import com.jivosite.sdk.model.repository.upload.UploadState
 import com.jivosite.sdk.support.coil.ImageTransformation
@@ -36,7 +37,6 @@ import com.jivosite.sdk.support.dg.adapters.BaseAdapter
 import com.jivosite.sdk.support.ext.cutName
 import com.jivosite.sdk.support.ext.dp
 import com.jivosite.sdk.support.ext.getFileType
-import com.jivosite.sdk.ui.chat.items.message.media.MediaItemState
 import java.util.*
 import kotlin.math.pow
 

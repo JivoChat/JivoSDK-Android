@@ -80,7 +80,7 @@
                     android:singleLine="true"
                     android:textColor="@color/midnight"
                     android:textSize="14sp"
-                    app:fileName="@{viewModel.newState}"
+                    app:fileName="@{viewModel.state}"
                     app:layout_constraintBottom_toTopOf="@id/download"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
@@ -101,7 +101,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/picture"
                     app:layout_constraintStart_toEndOf="@id/picture"
                     app:layout_constraintTop_toBottomOf="@id/fileName"
-                    app:mediaStatus="@{viewModel.newState}" />
+                    app:mediaStatus="@{viewModel.state}" />
 
                 <TextView
                     android:id="@+id/time"

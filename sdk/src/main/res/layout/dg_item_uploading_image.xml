@@ -51,7 +51,7 @@
                 tools:src="@tools:sample/avatars" />
 
             <ProgressBar
-                android:id="@+id/progressBar"
+                android:id="@+id/progress"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"

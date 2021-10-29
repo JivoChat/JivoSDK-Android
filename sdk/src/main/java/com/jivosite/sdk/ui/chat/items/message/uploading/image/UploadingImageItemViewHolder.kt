@@ -33,7 +33,7 @@ class UploadingImageItemViewHolder(
         val background = AppCompatResources.getDrawable(context, R.drawable.bg_outgoing_message)
         val color = AppCompatResources.getColorStateList(context, Jivo.getConfig().outgoingMessageColor.color)
         background?.setTintList(color)
-        binding.progressBar.indeterminateDrawable.colorFilter = PorterDuffColorFilter(color.defaultColor, PorterDuff.Mode.SRC_IN)
+        binding.progress.indeterminateDrawable.colorFilter = PorterDuffColorFilter(color.defaultColor, PorterDuff.Mode.SRC_IN)
     }
 
     override fun bind(item: AdapterDelegateItem<ChatEntry>) {
