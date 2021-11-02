@@ -14,7 +14,7 @@ class ExampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        Jivo.init(this, "Q7BcPYNqCG")
+        Jivo.init(this, "ynL74oTbOg", "androidsdk.dev.jivosite.com")
         Jivo.enableLogging()
     }
 }

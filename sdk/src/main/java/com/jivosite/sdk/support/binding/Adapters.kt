@@ -31,7 +31,6 @@ import com.jivosite.sdk.model.pojo.message.MessageStatus
 import com.jivosite.sdk.model.repository.media.MediaItemState
 import com.jivosite.sdk.model.repository.upload.FileState
 import com.jivosite.sdk.model.repository.upload.UploadState
-import com.jivosite.sdk.support.coil.ImageTransformation
 import com.jivosite.sdk.support.dg.AdapterDelegateItem
 import com.jivosite.sdk.support.dg.adapters.BaseAdapter
 import com.jivosite.sdk.support.ext.cutName
@@ -50,7 +49,6 @@ fun loadAvatar(view: AppCompatImageView, url: String?) {
     if (url.isNullOrBlank()) {
         view.setImageResource(R.drawable.vic_avatar_empty)
     } else {
-        Jivo.d("Load avatar by url - $url")
         view.load(url) {
             placeholder(R.drawable.vic_avatar_empty)
             error(R.drawable.vic_avatar_empty)
@@ -187,7 +185,7 @@ fun setAppBarTitle(view: AppCompatTextView, agents: List<Agent>?) {
             }.toString()
         }
     }
-    val color = AppCompatResources.getColorStateList(view.context, Jivo.getConfig().titleTextColor ?: R.color.white)
+    val color = AppCompatResources.getColorStateList(view.context, Jivo.getConfig().titleTextColor ?: R.color.color_text_title)
     view.setTextColor(color)
 }
 
@@ -195,55 +193,55 @@ fun setAppBarTitle(view: AppCompatTextView, agents: List<Agent>?) {
 fun agentImageLoader(layout: ViewGroup, state: MediaItemState?) {
     if (state == null) return
 
+    val context = layout.context
+
     var viewHolder: ImageViewHolder? = layout.tag as ImageViewHolder?
     if (viewHolder == null) {
         viewHolder = ImageViewHolder(layout)
     }
 
+    viewHolder.imageView.setImageDrawable(null)
+
     when (state) {
         MediaItemState.Initial -> {
-            viewHolder.imageView.setImageResource(R.drawable.ic_placeholder_image)
+            viewHolder.placeholder?.isVisible = true
         }
         MediaItemState.Loading -> {
-            viewHolder.imageView.setImageResource(R.drawable.ic_placeholder_image)
-            viewHolder.errorText?.isVisible = false
             viewHolder.progressView?.isVisible = true
         }
         is MediaItemState.Success -> {
-            viewHolder.errorText?.isVisible = false
             val imageLoader = viewHolder.imageView.context.imageLoader
             val request = ImageRequest.Builder(viewHolder.imageView.context)
-                .data(state.media.path)
-                .placeholder(R.drawable.ic_placeholder_image)
-                .error(R.drawable.vic_broken_image)
-                .transformations(
-                    ImageTransformation(
-                        layout.resources.getDimensionPixelSize(R.dimen.message_bubble_corner).toFloat()
-                    )
-                )
+                .data(state.media.thumb(220.dp))
                 .target(
-                    onStart = { placeholder ->
-                        viewHolder.imageView.setImageDrawable(placeholder)
+                    onStart = {
                         viewHolder.progressView?.isVisible = true
+                        viewHolder.placeholder?.isVisible = true
+                        viewHolder.errorText?.isVisible = false
                     },
                     onSuccess = { result ->
+                        viewHolder.placeholder?.isVisible = false
+                        viewHolder.progressView?.isVisible = false
                         viewHolder.imageView.setImageDrawable(result)
-                        viewHolder.progressView?.isVisible = false
                     },
-                    onError = { error ->
-                        viewHolder.imageView.setImageDrawable(error)
+                    onError = {
                         viewHolder.progressView?.isVisible = false
+                        viewHolder.errorText?.text = context.getString(R.string.media_uploading_common_error)
+                        viewHolder.errorText?.isVisible = true
                     }
                 )
                 .build()
             imageLoader.enqueue(request)
         }
         MediaItemState.Expired -> {
-            viewHolder.imageView.setImageResource(R.drawable.vic_broken_image)
+            viewHolder.placeholder?.isVisible = true
+            viewHolder.progressView?.isVisible = false
             viewHolder.errorText?.isVisible = true
         }
         is MediaItemState.Error -> {
-            viewHolder.imageView.setImageResource(R.drawable.vic_broken_image)
+            viewHolder.progressView?.isVisible = false
+            viewHolder.errorText?.text = context.getString(R.string.media_uploading_common_error)
+            viewHolder.errorText?.isVisible = true
         }
     }
 }
@@ -252,17 +250,18 @@ fun agentImageLoader(layout: ViewGroup, state: MediaItemState?) {
 fun clientImageLoader(layout: ViewGroup, state: FileState?) {
     val uri = state?.uri ?: return
 
+    val context = layout.context
+
     var viewHolder: ImageViewHolder? = layout.tag as ImageViewHolder?
     if (viewHolder == null) {
         viewHolder = ImageViewHolder(layout)
     }
 
+    viewHolder.imageView.setImageDrawable(null)
+
     val imageLoader = viewHolder.imageView.context.imageLoader
     val requestBuilder = ImageRequest.Builder(viewHolder.imageView.context)
         .data(uri)
-        .placeholder(R.drawable.ic_placeholder_image)
-        .error(R.drawable.vic_broken_image)
-        .transformations(ImageTransformation(12f.dp))
 
     if (URLUtil.isContentUrl(uri)) {
         viewHolder.progressView?.isVisible = state.uploadState is UploadState.Uploading
@@ -273,29 +272,43 @@ fun clientImageLoader(layout: ViewGroup, state: FileState?) {
             }
         )
         requestBuilder.target(
-            onStart = { placeholder ->
-                viewHolder.imageView.setImageDrawable(placeholder)
+            onStart = {
+                viewHolder.progressView?.isVisible = true
+                viewHolder.placeholder?.isVisible = true
+                viewHolder.errorText?.isVisible = false
             },
             onSuccess = { result ->
+                viewHolder.progressView?.isVisible = false
+                viewHolder.placeholder?.isVisible = false
                 viewHolder.imageView.setImageDrawable(result)
             },
-            onError = { error ->
-                viewHolder.imageView.setImageDrawable(error)
+            onError = {
+                viewHolder.progressView?.isVisible = true
+                viewHolder.placeholder?.isVisible = true
+                viewHolder.errorText?.text = context.getString(R.string.media_uploading_common_error)
+                viewHolder.errorText?.isVisible = true
+
             }
         )
     } else {
         requestBuilder.target(
-            onStart = { placeholder ->
-                viewHolder.imageView.setImageDrawable(placeholder)
+            onStart = {
                 viewHolder.progressView?.isVisible = true
+                viewHolder.placeholder?.isVisible = true
+                viewHolder.errorText?.isVisible = false
             },
             onSuccess = { result ->
+                viewHolder.progressView?.isVisible = false
+                viewHolder.placeholder?.isVisible = false
                 viewHolder.imageView.setImageDrawable(result)
-                viewHolder.progressView?.isVisible = false
+
             },
-            onError = { error ->
-                viewHolder.imageView.setImageDrawable(error)
-                viewHolder.progressView?.isVisible = false
+            onError = {
+                viewHolder.progressView?.isVisible = true
+                viewHolder.placeholder?.isVisible = true
+                viewHolder.errorText?.text = context.getString(R.string.media_uploading_common_error)
+                viewHolder.errorText?.isVisible = true
+
             }
         )
     }
@@ -308,6 +321,7 @@ private class ImageViewHolder(layout: ViewGroup) {
     val status: AppCompatImageView? = layout.findViewById(R.id.status)
     val time: TextView? = layout.findViewById(R.id.time)
     val errorText: TextView? = layout.findViewById(R.id.error)
+    val placeholder: AppCompatImageView? = layout.findViewById(R.id.placeholder)
 }
 
 @BindingAdapter("fileIcon")
