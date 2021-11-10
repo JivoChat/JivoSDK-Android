@@ -57,25 +57,23 @@ class JivoSettingsFragment : Fragment(R.layout.fragment_jivo_settings) {
             binding.viewModel = viewModel
             binding.lifecycleOwner = viewLifecycleOwner
         }
-
-//        viewModel.restart.observe(viewLifecycleOwner) {
-//            if (it == true && mBound) {
-//                binder.restart()
-//            }
-//        }
     }
 
     override fun onStart() {
         super.onStart()
-        Intent(requireContext(), JivoWebSocketService::class.java).also { intent ->
-            requireContext().bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        if (!mBound) {
+            Intent(requireContext(), JivoWebSocketService::class.java).also { intent ->
+                requireContext().bindService(intent, connection, Context.BIND_AUTO_CREATE)
+            }
         }
     }
 
     override fun onStop() {
         super.onStop()
-        requireContext().unbindService(connection)
-        mBound = false
+        if (mBound) {
+            requireContext().unbindService(connection)
+            mBound = false
+        }
     }
 
     override fun onDestroy() {
