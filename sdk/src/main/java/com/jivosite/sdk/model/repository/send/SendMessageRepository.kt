@@ -34,4 +34,6 @@ interface SendMessageRepository {
      * @param doAfter Действие, которое необходимо выполнить после удачной обработки.
      */
     fun handleSocketMessage(message: SocketMessage, doAfter: (HistoryMessage) -> Unit)
+
+    fun clear()
 }

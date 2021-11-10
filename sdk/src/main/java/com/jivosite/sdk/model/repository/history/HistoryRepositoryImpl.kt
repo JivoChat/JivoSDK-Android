@@ -97,8 +97,8 @@ class HistoryRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun clear() = updateStateInRepositoryThread {
-        transform { HistoryState(lastReadMsgId = storage.lastReadMsgId) }
+    override fun clear() = updateStateInDispatchingThread {
+        transform { HistoryState() }
         doAfter { messagesCache.clear() }
     }
 }

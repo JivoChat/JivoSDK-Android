@@ -17,4 +17,6 @@ interface ChatStateRepository {
     val observableState: StateLiveData<ChatState>
 
     fun setVisibility(isVisible: Boolean)
+
+    fun clear()
 }

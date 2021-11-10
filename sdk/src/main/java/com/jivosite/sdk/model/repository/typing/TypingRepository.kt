@@ -20,4 +20,6 @@ interface TypingRepository {
     fun addAgent(agentId: Long, insight: String)
 
     fun removeAgent(agentId: Long)
+
+    fun clear()
 }

@@ -133,7 +133,7 @@ class UploadRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun clear() {
-        // Ignore for now
+    override fun clear() = updateStateInRepositoryThread {
+        transform { UploadFilesState() }
     }
 }

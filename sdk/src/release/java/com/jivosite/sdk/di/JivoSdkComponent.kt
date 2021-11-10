@@ -16,6 +16,7 @@ import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import com.jivosite.sdk.support.usecase.UpdatePushTokenUseCase
 import com.jivosite.sdk.ui.views.JivoChatButton
 import com.jivosite.sdk.push.RemoteMessageHandler
+import com.jivosite.sdk.support.usecase.ClearUseCase
 import dagger.Component
 import javax.inject.Provider
 import javax.inject.Singleton
@@ -60,7 +61,9 @@ interface JivoSdkComponent {
 
     fun remoteMessageHandler(): RemoteMessageHandler
 
+    fun clearUseCaseProvider(): Provider<ClearUseCase>
+
     fun inject(button: JivoChatButton)
 
-    fun historyRepository() : HistoryRepository
+    fun historyRepository(): HistoryRepository
 }

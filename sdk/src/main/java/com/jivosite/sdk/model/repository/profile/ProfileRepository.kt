@@ -26,4 +26,6 @@ interface ProfileRepository {
      * @return true - если переданный идентификатор равен идентификатору пользователя.
      */
     fun isMe(id: String): Boolean
+
+    fun clear()
 }

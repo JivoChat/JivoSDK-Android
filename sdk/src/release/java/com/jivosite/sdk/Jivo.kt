@@ -132,8 +132,14 @@ object Jivo {
         }
     }
 
+    @JvmStatic
     fun clear() {
-        JivoWebSocketService.restart(sdkContext.appContext)
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            val clearUseCaseProvider = jivoSdkComponent.clearUseCaseProvider()
+            clearUseCaseProvider.get().execute()
+            JivoWebSocketService.restart(sdkContext.appContext)
+            unsubscribeFromPush()
+        }
     }
 
     fun subscribeToPush() {
