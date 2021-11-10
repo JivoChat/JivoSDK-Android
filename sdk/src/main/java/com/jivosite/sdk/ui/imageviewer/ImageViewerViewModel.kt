@@ -9,5 +9,7 @@ import androidx.lifecycle.ViewModel
  */
 class ImageViewerViewModel : ViewModel() {
 
-    var url: String? = null
+    var path: String? = null
+
+    var name: String = ""
 }

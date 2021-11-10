@@ -10,6 +10,8 @@ import com.jivosite.sdk.model.repository.connection.ConnectionStateRepository
 import com.jivosite.sdk.model.repository.connection.ConnectionStateRepositoryImpl
 import com.jivosite.sdk.model.repository.history.HistoryRepository
 import com.jivosite.sdk.model.repository.history.HistoryRepositoryImpl
+import com.jivosite.sdk.model.repository.media.MediaRepository
+import com.jivosite.sdk.model.repository.media.MediaRepositoryImpl
 import com.jivosite.sdk.model.repository.pagination.PaginationRepository
 import com.jivosite.sdk.model.repository.pagination.PaginationRepositoryImpl
 import com.jivosite.sdk.model.repository.profile.ProfileRepository
@@ -71,4 +73,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun provideUploadRepository(repository: UploadRepositoryImpl): UploadRepository
+
+    @Binds
+    @Singleton
+    abstract fun provideMediaRepository(repository: MediaRepositoryImpl): MediaRepository
 }

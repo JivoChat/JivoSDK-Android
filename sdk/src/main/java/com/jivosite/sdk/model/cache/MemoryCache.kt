@@ -21,6 +21,11 @@ class MemoryCache<in K, V> @Inject constructor() {
     }
 
     @AnyThread
+    fun contains(key: K): Boolean {
+        return cache[key]?.value != null
+    }
+
+    @AnyThread
     fun clear() {
         if (isMainThread()) {
             cache.forEach { entry -> entry.value.value = null }
@@ -28,6 +33,10 @@ class MemoryCache<in K, V> @Inject constructor() {
             cache.forEach { entry -> entry.value.postValue(null) }
         }
         cache.clear()
+    }
+
+    fun setKey(key: K, value: MutableLiveData<V>) {
+        cache[key] = value
     }
 
     @AnyThread
