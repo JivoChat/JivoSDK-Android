@@ -4,6 +4,7 @@
     <string name="agent_name_default">Operador</string>
     <!-- Надпись к сообщениям клиента -->
     <string name="agent_name_you">Você</string>
+    <string name="Agent.DisplayName.Deleted">Operador excluído</string>
     <!-- Подзаголовок окна чата по умолчанию -->
     <string name="chat_subtitle_placeholder">Inicie um chat conosco, 24/7!</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент несколько агентов набирают сообщение. -->
@@ -14,10 +15,16 @@
     <string name="chat_system_two_agents_typing">%s e %s estão digitando...</string>
     <!-- Заголовок окна чата по умолчанию -->
     <string name="chat_title_placeholder">Reportar um problema</string>
+    <string name="Chat.System.Media.Preparing">Preparando o arquivo...</string>
+    <string name="Chat.System.Media.Uploading">Enviando arquivo...</string>
+    <string name="Chat.System.NewMessages">Novas mensagens</string>
+    <string name="Client.Title">Cliente #%d</string>
     <!-- Общая строка "Отмена" -->
     <string name="common_cancel">Cancelar</string>
+    <string name="common_done">Concluído</string>
     <!-- Универсальное сообщение о неизвестной ошибке. -->
     <string name="common_unknown_error">Erro desconhecido</string>
+    <string name="Common.Open">Abrir</string>
     <!-- Состояние подключения к сервису -->
     <string name="connection_state_connecting">Conectando...</string>
     <!-- Состояние отсутствия подключения -->
@@ -35,7 +42,7 @@
     <!-- Формат для размера файла в мегабайтах -->
     <string name="format_file_size_mb">%.2f MB</string>
     <!-- Подсказка в окне ввода сообщения -->
-    <string name="input_message_placeholder">Digite sua mensagem</string>
+    <string name="input_message_placeholder">Digite sua mensagem...</string>
     <string name="jivo_business_messenger">Chat desenvolvido por</string>
     <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку открывает системный пикер документов. -->
     <string name="media_upload_attachment_type_selecting_document">Documento</string>
@@ -45,16 +52,27 @@
     <string name="media_upload_select_an_attachment_type_title">O que você gostaria de anexar?</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент ведётся загрузка файла на сервер. -->
     <string name="media_upload_sending_the_file">Enviando arquivo</string>
+    <string name="media_uploading_common_error">Falha no carregamento do arquivo</string>
     <!-- Ошибка, возникающая при неудачной подготовке файла к загрузке. -->
     <string name="media_uploading_extraction_error">Falha na leitura do arquivo</string>
     <!-- Превышение лимита выгружаемого файла -->
     <string name="media_uploading_too_large">Dosya boyutu limiti %dMB</string>
+    <string name="Media.Access.Missing">Favor permitir acesso</string>
+    <string name="Media.Access.Suggestion">O JivoChat necessita acesso à sua pasta de imagens para enviar fotos e vídeos.
+
+Favor ir até [Ajustes &gt; App &gt; Fotos] para permitir o acesso.</string>
+    <string name="Media.Picker.Camera">Câmera</string>
     <!-- Кнопка скачать для прикрепленного документа/файла -->
     <string name="message_download">Baixar</string>
     <!-- Системное сообщение о присоединении оператора к чату -->
     <string name="message_system_operator_accepted">Operador entrou no chat</string>
     <!-- Unsupported file type -->
     <string name="message_unsupported_media">Este tipo de arquivo não é compatível</string>
+    <string name="Message.Deleted">A mensagem foi excluída</string>
+    <string name="Message.Edited">(editado)</string>
+    <string name="Message.Preview.Line">O chat foi transferido para a linha secundária</string>
+    <string name="Message.Sender.You">Você</string>
+    <string name="notification_message_title">Apoio</string>
     <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
     <string name="options_copy">Copiar</string>
     <!-- Пункт "Повторить отправку" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->

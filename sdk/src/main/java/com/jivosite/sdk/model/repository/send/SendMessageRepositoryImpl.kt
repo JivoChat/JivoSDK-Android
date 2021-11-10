@@ -1,9 +1,11 @@
 package com.jivosite.sdk.model.repository.send
 
+import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.pojo.message.HistoryMessage
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import com.jivosite.sdk.model.repository.StateRepository
+import com.jivosite.sdk.model.repository.history.HistoryRepository
 import com.jivosite.sdk.model.repository.profile.ProfileRepository
 import com.jivosite.sdk.model.repository.send.SendMessageRepository.Companion.SEND_TIMEOUT
 import com.jivosite.sdk.support.async.Schedulers
@@ -19,7 +21,8 @@ import javax.inject.Inject
  */
 class SendMessageRepositoryImpl @Inject constructor(
     schedulers: Schedulers,
-    private val profileRepository: ProfileRepository
+    private val profileRepository: ProfileRepository,
+    private val historyRepository: HistoryRepository
 ) : StateRepository<SendMessageState>(schedulers, "SendMessage", SendMessageState()), SendMessageRepository {
 
     override val observableState: StateLiveData<SendMessageState>
@@ -65,6 +68,9 @@ class SendMessageRepositoryImpl @Inject constructor(
             state.messages.forEach {
                 if (it.context == messageContext) {
                     val historyMessage = it.toHistoryMessage(message.data ?: "", profileRepository.id)
+                    if (historyRepository.state.messages.isEmpty()) {
+                        historyRepository.markAsRead(historyMessage.number)
+                    }
                     doAfter(historyMessage)
                 } else {
                     messages.add(it)

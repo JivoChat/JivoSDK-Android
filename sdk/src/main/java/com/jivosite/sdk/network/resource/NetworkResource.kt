@@ -8,8 +8,6 @@ import com.jivosite.sdk.model.pojo.response.Response
 import com.jivosite.sdk.network.response.ApiResponse
 import com.jivosite.sdk.network.retrofit.error.JivoApiException
 import com.jivosite.sdk.support.async.Schedulers
-import java.util.*
-import kotlin.collections.HashMap
 
 /**
  * Created on 2019-05-27.

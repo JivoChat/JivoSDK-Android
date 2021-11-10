@@ -4,6 +4,7 @@
     <string name="agent_name_default">Temsilci</string>
     <!-- Надпись к сообщениям клиента -->
     <string name="agent_name_you">Ben</string>
+    <string name="Agent.DisplayName.Deleted">Silinmiş temsilci</string>
     <!-- Подзаголовок окна чата по умолчанию -->
     <string name="chat_subtitle_placeholder">Bize 7/24 danışabilirsiniz!</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент несколько агентов набирают сообщение. -->
@@ -14,10 +15,16 @@
     <string name="chat_system_two_agents_typing">%s ve %s yazıyor...</string>
     <!-- Заголовок окна чата по умолчанию -->
     <string name="chat_title_placeholder">Bir sorun bildirin</string>
+    <string name="Chat.System.Media.Preparing">Dosya hazırlanıyor...</string>
+    <string name="Chat.System.Media.Uploading">Dosya gönderiliyor...</string>
+    <string name="Chat.System.NewMessages">Yeni mesajlar</string>
+    <string name="Client.Title">Ziyaretçi #%d</string>
     <!-- Общая строка "Отмена" -->
     <string name="common_cancel">İptal</string>
+    <string name="common_done">Tamam</string>
     <!-- Универсальное сообщение о неизвестной ошибке. -->
     <string name="common_unknown_error">Bilinmeyen hata</string>
+    <string name="Common.Open">Açık</string>
     <!-- Состояние подключения к сервису -->
     <string name="connection_state_connecting">Bağlanılıyor...</string>
     <!-- Состояние отсутствия подключения -->
@@ -35,7 +42,7 @@
     <!-- Формат для размера файла в мегабайтах -->
     <string name="format_file_size_mb">%.2f MB</string>
     <!-- Подсказка в окне ввода сообщения -->
-    <string name="input_message_placeholder">Mesajınızı girin</string>
+    <string name="input_message_placeholder">Mesajınızı girin...</string>
     <string name="jivo_business_messenger">Canlı Destek Sağlayıcısı</string>
     <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку открывает системный пикер документов. -->
     <string name="media_upload_attachment_type_selecting_document">Döküman</string>
@@ -45,16 +52,27 @@
     <string name="media_upload_select_an_attachment_type_title">Ne eklemek istersiniz?</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент ведётся загрузка файла на сервер. -->
     <string name="media_upload_sending_the_file">Dosya gönderiliyor</string>
+    <string name="media_uploading_common_error">Dosya yüklenemedi</string>
     <!-- Ошибка, возникающая при неудачной подготовке файла к загрузке. -->
     <string name="media_uploading_extraction_error">Dosya hazırlanamadı</string>
     <!-- Превышение лимита выгружаемого файла -->
     <string name="media_uploading_too_large">Dosya boyutu limiti %dMB</string>
+    <string name="Media.Access.Missing">Lütfen erişime izin verin</string>
+    <string name="Media.Access.Suggestion">Kütüphanenizden fotoğraf veya video gönderebilmeniz içinJivoChat\'in izne ihtiyacı var.
+
+Lütfen [Ayarlar &gt; App &gt; Fotoğraflar] yoluyla izin verin.</string>
+    <string name="Media.Picker.Camera">Kamera</string>
     <!-- Кнопка скачать для прикрепленного документа/файла -->
     <string name="message_download">İndir</string>
     <!-- Системное сообщение о присоединении оператора к чату -->
     <string name="message_system_operator_accepted">Temsilci sohbete katıldı</string>
     <!-- Unsupported file type -->
     <string name="message_unsupported_media">Bu dosya türü desteklenmiyor</string>
+    <string name="Message.Deleted">Mesaj silindi</string>
+    <string name="Message.Edited">(düzenlendi)</string>
+    <string name="Message.Preview.Line">Sohbet ikincil hatta aktarıldı</string>
+    <string name="Message.Sender.You">Ben</string>
+    <string name="notification_message_title">Yardım</string>
     <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
     <string name="options_copy">Kopyala</string>
     <!-- Пункт "Повторить отправку" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->

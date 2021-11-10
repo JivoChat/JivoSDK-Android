@@ -1,6 +1,5 @@
 package com.jivosite.sdk.network.response
 
-import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.network.retrofit.error.ErrorResponse
 import com.jivosite.sdk.network.retrofit.error.JivoApiException
 import com.squareup.moshi.Moshi
@@ -18,7 +17,6 @@ class ApiResponseFactory(val moshi: Moshi) : ApiResponse.Factory {
             ApiResponse(response.code(), response.body(), response.headers().toMultimap())
         } else {
             val errorResponse = response.errorBody()!!.string()
-            Jivo.e("Api response error -> $errorResponse")
             val error = moshi.adapter(ErrorResponse::class.java).fromJson(errorResponse)
             ApiResponse(response.code(), JivoApiException(error!!.violationList))
         }

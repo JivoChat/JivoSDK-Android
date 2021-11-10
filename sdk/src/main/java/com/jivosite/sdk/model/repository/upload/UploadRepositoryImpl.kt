@@ -6,8 +6,8 @@ import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.file.File
 import com.jivosite.sdk.model.repository.StateRepository
 import com.jivosite.sdk.model.storage.SharedStorage
+import com.jivosite.sdk.network.resource.MediaResource
 import com.jivosite.sdk.network.resource.Resource
-import com.jivosite.sdk.network.resource.UploadResource
 import com.jivosite.sdk.support.async.Schedulers
 import com.jivosite.sdk.support.ext.loadSilentlyResource
 import com.jivosite.sdk.support.vm.StateLiveData
@@ -100,18 +100,18 @@ class UploadRepositoryImpl @Inject constructor(
     private fun createRequest(file: File): LiveData<Resource<String>> {
         val siteId = storage.siteId.toLong()
         val widgetId = storage.widgetId.ifBlank { sdkContext.widgetId }
-        return UploadResource.Builder(schedulers)
+        return MediaResource.Builder(schedulers)
             .getAccess {
-                api.getAccessForFile(
+                api.getSign(
+                    file.name,
+                    storage.clientId.split(".").first(),
                     siteId,
-                    widgetId,
-                    file.extension,
-                    file.mimeType
+                    widgetId
                 )
             }
             .file { file }
-            .upload { url, map, body ->
-                api.uploadFile(url, map, body)
+            .upload { metadata, url, body ->
+                api.uploadMedia(metadata, url, body)
             }
             .build()
             .asLiveData()

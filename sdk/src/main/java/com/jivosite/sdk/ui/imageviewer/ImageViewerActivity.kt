@@ -25,13 +25,13 @@ import com.jivosite.sdk.support.utils.copyToClipboard
 class ImageViewerActivity : AppCompatActivity(R.layout.activity_image_viewer) {
 
     companion object {
-        private const val EXTRA_URL = "url"
+        private const val EXTRA_PATH = "path"
         private const val EXTRA_NAME = "name"
 
         @JvmStatic
-        fun show(context: Context, url: String, name: String) {
+        fun show(context: Context, path: String, name: String) {
             val intent = Intent(context, ImageViewerActivity::class.java).apply {
-                putExtra(EXTRA_URL, url)
+                putExtra(EXTRA_PATH, path)
                 putExtra(EXTRA_NAME, name)
             }
             context.startActivity(intent)
@@ -43,15 +43,16 @@ class ImageViewerActivity : AppCompatActivity(R.layout.activity_image_viewer) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val url = intent.extras?.getString(EXTRA_URL)
+        val path = intent.extras?.getString(EXTRA_PATH)
         val name = intent.extras?.getString(EXTRA_NAME)
         val photoView = findViewById<PhotoView>(R.id.imageView)
 
-        viewModel.url = url
+        viewModel.path = path
+        viewModel.name = name ?: getString(R.string.download_status_error)
 
         setupToolbar(name)
 
-        photoView.load(url)
+        photoView.load(path)
     }
 
     private fun setupToolbar(name: String?) {
@@ -78,11 +79,11 @@ class ImageViewerActivity : AppCompatActivity(R.layout.activity_image_viewer) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_download -> {
-                Intents.downloadFile(this, viewModel.url)
+                Intents.downloadFile(this, viewModel.path, viewModel.name)
                 true
             }
             R.id.action_copy -> {
-                copyToClipboard(viewModel.url)
+                copyToClipboard(viewModel.path)
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -1,0 +1,1 @@
+package com.jivosite.sdk.model.repository.mediaimport androidx.lifecycle.LiveData/** * Created on 12.10.2021. * * @author Alexander Tavtorkin (av.tavtorkin@gmail.com) */interface MediaRepository {    fun getMediaItemState(path: String): LiveData<MediaItemState>}

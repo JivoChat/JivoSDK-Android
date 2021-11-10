@@ -1,12 +1,11 @@
 package com.jivosite.sdk.ui.chat.items.message.file.agent
 
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.jivosite.sdk.model.repository.agent.AgentRepository
+import com.jivosite.sdk.model.repository.media.MediaRepository
 import com.jivosite.sdk.ui.chat.items.AgentMessageEntry
-import com.jivosite.sdk.ui.chat.items.message.general.MessageItemViewModel
-import java.io.File
+import com.jivosite.sdk.ui.chat.items.message.media.MediaItemViewModel
 import javax.inject.Inject
 
 /**
@@ -15,17 +14,12 @@ import javax.inject.Inject
  * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
  */
 class AgentFileItemViewModel @Inject constructor(
-    agentRepository: AgentRepository
-) : MessageItemViewModel<AgentMessageEntry>(agentRepository) {
-
-    val fileName: LiveData<String> = Transformations.map(_entry) { entry ->
-        File(Uri.parse(entry.message.data).path ?: "").name
-    }
-
-    val url: String?
-        get() = _entry.value?.message?.data
+    agentRepository: AgentRepository,
+    mediaRepository: MediaRepository
+) : MediaItemViewModel<AgentMessageEntry>(agentRepository, mediaRepository) {
 
     val type: LiveData<String> = Transformations.map(_entry) {
         it.type
     }
 }
+

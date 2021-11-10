@@ -1,10 +1,10 @@
 package com.jivosite.sdk.support.binding
 
+import android.graphics.Paint
 import android.text.SpannableStringBuilder
 import android.text.format.DateFormat
 import android.view.ViewGroup
 import android.webkit.URLUtil
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
@@ -28,6 +28,7 @@ import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_DOCUMENT
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_IMAGE
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_VIDEO
 import com.jivosite.sdk.model.pojo.message.MessageStatus
+import com.jivosite.sdk.model.repository.media.MediaItemState
 import com.jivosite.sdk.model.repository.upload.FileState
 import com.jivosite.sdk.model.repository.upload.UploadState
 import com.jivosite.sdk.support.coil.ImageTransformation
@@ -191,118 +192,122 @@ fun setAppBarTitle(view: AppCompatTextView, agents: List<Agent>?) {
 }
 
 @BindingAdapter("agentImageLoader")
-fun agentImageLoader(layout: ViewGroup, url: String?) {
+fun agentImageLoader(layout: ViewGroup, state: MediaItemState?) {
+    if (state == null) return
 
-    if (url.isNullOrBlank()) return
+    var viewHolder: ImageViewHolder? = layout.tag as ImageViewHolder?
+    if (viewHolder == null) {
+        viewHolder = ImageViewHolder(layout)
+    }
 
-    val imageView: AppCompatImageView = layout.findViewById(R.id.image) ?: return
-    val progressView: ProgressBar = layout.findViewById(R.id.progress) ?: return
-    val statusContainer: LinearLayout? = layout.findViewById(R.id.statusContainer)
-    val time: TextView? = layout.findViewById(R.id.time)
-
-    val imageLoader = imageView.context.imageLoader
-    val request = ImageRequest.Builder(imageView.context)
-        .data(url)
-        .placeholder(R.drawable.ic_placeholder_image)
-        .error(R.drawable.vic_broken_image)
-        .transformations(ImageTransformation(layout.resources.getDimensionPixelSize(R.dimen.message_bubble_corner).toFloat()))
-        .target(
-            onStart = { placeholder ->
-                imageView.setImageDrawable(placeholder)
-                progressView.isVisible = true
-                imageView.isClickable = false
-                statusContainer?.isVisible = false
-                time?.isVisible = false
-            },
-            onSuccess = { result ->
-                imageView.setImageDrawable(result)
-                progressView.isVisible = false
-                imageView.isClickable = true
-                statusContainer?.isVisible = true
-                time?.isVisible = true
-            },
-            onError = { error ->
-                imageView.setImageDrawable(error)
-                progressView.isVisible = false
-                imageView.isClickable = false
-                statusContainer?.isVisible = false
-                time?.isVisible = false
-            }
-        )
-        .build()
-    imageLoader.enqueue(request)
+    when (state) {
+        MediaItemState.Initial -> {
+            viewHolder.imageView.setImageResource(R.drawable.ic_placeholder_image)
+        }
+        MediaItemState.Loading -> {
+            viewHolder.imageView.setImageResource(R.drawable.ic_placeholder_image)
+            viewHolder.errorText?.isVisible = false
+            viewHolder.progressView?.isVisible = true
+        }
+        is MediaItemState.Success -> {
+            viewHolder.errorText?.isVisible = false
+            val imageLoader = viewHolder.imageView.context.imageLoader
+            val request = ImageRequest.Builder(viewHolder.imageView.context)
+                .data(state.media.path)
+                .placeholder(R.drawable.ic_placeholder_image)
+                .error(R.drawable.vic_broken_image)
+                .transformations(
+                    ImageTransformation(
+                        layout.resources.getDimensionPixelSize(R.dimen.message_bubble_corner).toFloat()
+                    )
+                )
+                .target(
+                    onStart = { placeholder ->
+                        viewHolder.imageView.setImageDrawable(placeholder)
+                        viewHolder.progressView?.isVisible = true
+                    },
+                    onSuccess = { result ->
+                        viewHolder.imageView.setImageDrawable(result)
+                        viewHolder.progressView?.isVisible = false
+                    },
+                    onError = { error ->
+                        viewHolder.imageView.setImageDrawable(error)
+                        viewHolder.progressView?.isVisible = false
+                    }
+                )
+                .build()
+            imageLoader.enqueue(request)
+        }
+        MediaItemState.Expired -> {
+            viewHolder.imageView.setImageResource(R.drawable.vic_broken_image)
+            viewHolder.errorText?.isVisible = true
+        }
+        is MediaItemState.Error -> {
+            viewHolder.imageView.setImageResource(R.drawable.vic_broken_image)
+        }
+    }
 }
 
 @BindingAdapter("clientImageLoader")
 fun clientImageLoader(layout: ViewGroup, state: FileState?) {
     val uri = state?.uri ?: return
 
-    val imageView: AppCompatImageView = layout.findViewById(R.id.image) ?: return
-    val progressView: ProgressBar = layout.findViewById(R.id.progress) ?: return
-    val status: AppCompatImageView = layout.findViewById(R.id.status) ?: return
-    val time: TextView? = layout.findViewById(R.id.time)
+    var viewHolder: ImageViewHolder? = layout.tag as ImageViewHolder?
+    if (viewHolder == null) {
+        viewHolder = ImageViewHolder(layout)
+    }
 
-    val imageLoader = imageView.context.imageLoader
-    val requestBuilder = ImageRequest.Builder(imageView.context)
+    val imageLoader = viewHolder.imageView.context.imageLoader
+    val requestBuilder = ImageRequest.Builder(viewHolder.imageView.context)
         .data(uri)
         .placeholder(R.drawable.ic_placeholder_image)
         .error(R.drawable.vic_broken_image)
         .transformations(ImageTransformation(12f.dp))
 
     if (URLUtil.isContentUrl(uri)) {
-        progressView.isVisible = state.uploadState is UploadState.Uploading
-        imageView.isClickable = false
-        imageView.isLongClickable = false
-        status.setImageResource(
+        viewHolder.progressView?.isVisible = state.uploadState is UploadState.Uploading
+        viewHolder.status?.setImageResource(
             when (state.uploadState) {
                 is UploadState.Uploading -> R.drawable.vic_message_status_sending
                 is UploadState.Error -> R.drawable.vic_message_status_error
             }
         )
-        time?.isVisible = false
         requestBuilder.target(
             onStart = { placeholder ->
-                imageView.setImageDrawable(placeholder)
-                imageView.isClickable = false
-                imageView.isLongClickable = false
+                viewHolder.imageView.setImageDrawable(placeholder)
             },
             onSuccess = { result ->
-                imageView.setImageDrawable(result)
-                imageView.isClickable = true
-                imageView.isLongClickable = true
+                viewHolder.imageView.setImageDrawable(result)
             },
             onError = { error ->
-                imageView.setImageDrawable(error)
-                imageView.isClickable = false
-                imageView.isLongClickable = false
+                viewHolder.imageView.setImageDrawable(error)
             }
         )
     } else {
         requestBuilder.target(
             onStart = { placeholder ->
-                imageView.setImageDrawable(placeholder)
-                progressView.isVisible = true
-                imageView.isClickable = false
-                imageView.isLongClickable = false
-                time?.isVisible = false
+                viewHolder.imageView.setImageDrawable(placeholder)
+                viewHolder.progressView?.isVisible = true
             },
             onSuccess = { result ->
-                imageView.setImageDrawable(result)
-                progressView.isVisible = false
-                imageView.isClickable = true
-                imageView.isLongClickable = true
-                time?.isVisible = true
+                viewHolder.imageView.setImageDrawable(result)
+                viewHolder.progressView?.isVisible = false
             },
             onError = { error ->
-                imageView.setImageDrawable(error)
-                progressView.isVisible = false
-                imageView.isClickable = false
-                imageView.isLongClickable = false
-                time?.isVisible = false
+                viewHolder.imageView.setImageDrawable(error)
+                viewHolder.progressView?.isVisible = false
             }
         )
     }
     imageLoader.enqueue(requestBuilder.build())
+}
+
+private class ImageViewHolder(layout: ViewGroup) {
+    val imageView: AppCompatImageView = layout.findViewById(R.id.image)
+    val progressView: ProgressBar? = layout.findViewById(R.id.progress)
+    val status: AppCompatImageView? = layout.findViewById(R.id.status)
+    val time: TextView? = layout.findViewById(R.id.time)
+    val errorText: TextView? = layout.findViewById(R.id.error)
 }
 
 @BindingAdapter("fileIcon")
@@ -334,5 +339,50 @@ fun setAgentName(view: AppCompatTextView, name: String?) {
         view.setText(R.string.agent_name_default)
     } else {
         view.text = name
+    }
+}
+
+@BindingAdapter("mediaStatus")
+fun setMediaStatus(view: TextView, state: MediaItemState?) {
+
+    if (state == null) return
+    val context = view.context
+
+    when (state) {
+
+        MediaItemState.Initial -> {
+        }
+
+        MediaItemState.Loading -> {
+            view.isClickable = false
+            view.text = context.getString(R.string.file_link_checking)
+        }
+        is MediaItemState.Success -> {
+            if (!state.media.isExpired) {
+                view.isClickable = true
+                view.text = context.getString(R.string.message_download)
+                view.paintFlags = view.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+            } else {
+                view.isInvisible = false
+            }
+        }
+
+        MediaItemState.Expired -> view.isVisible = false
+
+        is MediaItemState.Error -> {
+            view.isClickable = false
+            view.text = context.getString(R.string.download_status_error)
+        }
+    }
+
+}
+
+@BindingAdapter("fileName")
+fun setFileName(view: TextView, state: MediaItemState?) {
+    if (state == null) return
+    when (state) {
+        is MediaItemState.Success -> view.text = state.media.name
+        MediaItemState.Expired -> view.text = view.context.getString(R.string.file_download_expired)
+        else -> view.text = ""
     }
 }
