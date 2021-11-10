@@ -14,6 +14,7 @@ import kotlin.math.roundToInt
  *
  * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
  */
+@Deprecated("not used for new media service")
 class ImageTransformation(
     @Px private val topLeft: Float = 0f,
     @Px private val topRight: Float = 0f,

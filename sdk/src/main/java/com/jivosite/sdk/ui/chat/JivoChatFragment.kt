@@ -110,7 +110,7 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
                 navigationIcon?.setTint(
                     ContextCompat.getColor(
                         context,
-                        Jivo.getConfig().navigationIconTint ?: R.color.white
+                        Jivo.getConfig().navigationIconTint ?: R.color.color_tint_navigation_icon
                     )
                 )
                 setNavigationOnClickListener {

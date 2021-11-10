@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="color_primary">#C7C7CC</color>
     <color name="window_background">#191919</color>
     <color name="color_surface">#1a1a1a</color>
     <color name="color_on_background">#191919</color>
@@ -11,8 +12,8 @@
     <color name="color_background_connection_state">#191919</color>
     <color name="color_background_banner">#E6191919</color>
     <color name="color_text_hint">#636366</color>
+    <color name="color_tint_navigation_icon">#C7C7CC</color>
     <color name="color_text_title">#C7C7CC</color>
     <color name="color_text_subtitle">#636366</color>
-
-    <color name="color_primary">#141414</color>
+    <color name="color_text_error">#636366</color>
 </resources>
