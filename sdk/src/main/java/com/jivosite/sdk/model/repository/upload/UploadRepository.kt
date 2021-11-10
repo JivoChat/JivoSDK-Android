@@ -16,4 +16,6 @@ interface UploadRepository {
     fun upload(file: File, successfulUnloading: (url: String) -> Unit)
 
     fun removeFile(contentUri: String)
+
+    fun clear()
 }

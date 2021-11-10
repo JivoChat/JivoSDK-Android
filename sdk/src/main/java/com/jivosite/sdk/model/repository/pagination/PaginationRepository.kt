@@ -29,4 +29,6 @@ interface PaginationRepository {
      * Обработка пришедшего из истории сообщения.
      */
     fun handleHistoryMessage()
+
+    fun clear()
 }

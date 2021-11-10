@@ -23,4 +23,6 @@ interface HistoryRepository {
     fun markAsRead(msgId: Long)
 
     fun markAsDelivered(msgId: String)
+
+    fun clear()
 }

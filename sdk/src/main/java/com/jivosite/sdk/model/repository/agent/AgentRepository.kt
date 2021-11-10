@@ -73,4 +73,6 @@ interface AgentRepository {
      *   Событие об изменении статуса покдлючения к сокету
      */
     fun onConnectionStateChanged()
+
+    fun clear()
 }

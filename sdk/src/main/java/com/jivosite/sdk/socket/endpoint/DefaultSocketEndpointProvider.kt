@@ -11,8 +11,8 @@ import javax.inject.Inject
  * @author Alexandr Shibelev (av.shibelev@gmail.com)
  */
 class DefaultSocketEndpointProvider @Inject constructor(
-        private val sdkContext: SdkContext,
-        private val storage: SharedStorage,
+    private val sdkContext: SdkContext,
+    private val storage: SharedStorage,
 ) : SocketEndpointProvider {
 
     override fun getEndpoint(): URI {

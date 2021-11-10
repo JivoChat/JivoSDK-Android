@@ -8,6 +8,7 @@ import com.jivosite.sdk.logger.LogsRepository
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.support.builders.ClientInfo
 import com.jivosite.sdk.support.ext.requireValue
+import com.jivosite.sdk.support.usecase.ClearUseCase
 import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import javax.inject.Inject
 
@@ -19,7 +20,8 @@ import javax.inject.Inject
 class JivoSettingsViewModel @Inject constructor(
     private val storage: SharedStorage,
     private val logsRepository: LogsRepository,
-    private val sdkConfigUseCase: SdkConfigUseCase
+    private val sdkConfigUseCase: SdkConfigUseCase,
+    private val clearUseCase: ClearUseCase
 ) : ViewModel() {
 
     val host = MutableLiveData(storage.host)
@@ -54,7 +56,7 @@ class JivoSettingsViewModel @Inject constructor(
         host.value = ""
         widgetId.value = ""
 
-        saveAndRestart()
+        Jivo.clear()
     }
 
     fun sendUserInfo() {
