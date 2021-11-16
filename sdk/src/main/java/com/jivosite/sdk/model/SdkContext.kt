@@ -1,6 +1,8 @@
 package com.jivosite.sdk.model
 
 import android.content.Context
+import com.jivosite.sdk.socket.states.ServiceState
+import java.util.*
 
 /**
  * Created on 12/5/20.
@@ -10,4 +12,7 @@ import android.content.Context
 data class SdkContext(
     val appContext: Context,
     val widgetId: String
-)
+) {
+
+    val pendingIntent: MutableList<ServiceState> = LinkedList()
+}

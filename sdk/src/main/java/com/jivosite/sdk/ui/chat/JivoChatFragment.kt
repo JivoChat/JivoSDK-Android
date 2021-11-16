@@ -6,7 +6,6 @@ import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.IBinder
 import android.provider.OpenableColumns
 import android.view.View
 import android.widget.Toast
@@ -24,7 +23,6 @@ import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.R
 import com.jivosite.sdk.databinding.FragmentJivoChatBinding
 import com.jivosite.sdk.model.repository.connection.ConnectionState
-import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.support.dg.adapters.SimpleDiffAdapter
 import com.jivosite.sdk.support.recycler.AutoScroller
@@ -50,20 +48,6 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
     @Inject
     lateinit var chatAdapterProvider: Provider<SimpleDiffAdapter<ChatEntry>>
     private lateinit var chatAdapter: SimpleDiffAdapter<ChatEntry>
-
-    private var binder: JivoWebSocketService.JivoWebSocketServiceBinder? = null
-    private var webSocketServiceBound: Boolean = false
-
-    private val connection = object : ServiceConnection {
-
-        override fun onServiceConnected(className: ComponentName, service: IBinder) {
-            binder = service as JivoWebSocketService.JivoWebSocketServiceBinder
-        }
-
-        override fun onServiceDisconnected(arg0: ComponentName) {
-            binder = null
-        }
-    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<JivoChatViewModel>
@@ -167,10 +151,6 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
             chatAdapter.items = it
         }
 
-        viewModel.clientMessage.observe(viewLifecycleOwner) { message ->
-            binder?.sendMessage(message)
-        }
-
         viewModel.error.observe(viewLifecycleOwner) { error ->
             val message = when (error) {
                 is Error.Network -> error.message
@@ -198,16 +178,6 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         renderSendBtn()
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (!webSocketServiceBound) {
-            Intent(requireContext(), JivoWebSocketService::class.java).also { intent ->
-                requireContext().bindService(intent, connection, Context.BIND_AUTO_CREATE)
-                webSocketServiceBound = true
-            }
-        }
-    }
-
     override fun onResume() {
         super.onResume()
         viewModel.setVisibility(true)
@@ -220,10 +190,6 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
 
     override fun onStop() {
         super.onStop()
-        if (webSocketServiceBound) {
-            requireContext().unbindService(connection)
-            webSocketServiceBound = false
-        }
         Jivo.clearChatComponent()
     }
 
@@ -233,19 +199,18 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         binding.recyclerView.clearOnScrollListeners()
     }
 
-    fun send() {
-        binding.inputText.text.toString().also {
-            if (it.isNotBlank() && webSocketServiceBound) {
-                binding.inputText.text?.clear()
-                viewModel.sendTextMessage(it)
-//                viewModel.addTextMessage(it)
-//                binder.sendMessage(SocketMessage("atom/me.history"))
-            }
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        Jivo.clearChatComponent()
     }
 
-    fun retry() {
-        binder?.retry()
+    fun send() {
+        binding.inputText.text.toString().also {
+            if (it.isNotBlank()) {
+                binding.inputText.text?.clear()
+                viewModel.sendTextMessage(it)
+            }
+        }
     }
 
     fun attach() {
