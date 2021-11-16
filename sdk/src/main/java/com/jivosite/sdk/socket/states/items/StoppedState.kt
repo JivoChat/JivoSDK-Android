@@ -1,6 +1,7 @@
 package com.jivosite.sdk.socket.states.items
 
 import com.jivosite.sdk.Jivo
+import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.socket.states.DisconnectReason
@@ -15,11 +16,12 @@ import javax.inject.Inject
  */
 class StoppedState @Inject constructor(
     stateContext: ServiceStateContext,
-    private val service: JivoWebSocketService
+    private val service: JivoWebSocketService,
+    private val sdkContext: SdkContext
 ) : ServiceState(stateContext) {
 
     override fun start() {
-        logImpossibleAction("start")
+        sdkContext.pendingIntent.add(stateContext.getState())
     }
 
     override fun reconnect(force: Boolean) {

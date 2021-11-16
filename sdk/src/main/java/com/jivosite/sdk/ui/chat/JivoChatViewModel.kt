@@ -6,6 +6,7 @@ import android.webkit.MimeTypeMap
 import androidx.lifecycle.*
 import com.jivosite.sdk.logger.LogMessage
 import com.jivosite.sdk.logger.LogsRepository
+import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.agent.Agent
 import com.jivosite.sdk.model.pojo.file.File
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.FILE_TYPES
@@ -28,6 +29,7 @@ import com.jivosite.sdk.model.repository.typing.TypingRepository
 import com.jivosite.sdk.model.repository.upload.UploadFilesState
 import com.jivosite.sdk.model.repository.upload.UploadRepository
 import com.jivosite.sdk.model.storage.SharedStorage
+import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.socket.transmitter.Transmitter
 import com.jivosite.sdk.support.ext.getSupportFileType
 import com.jivosite.sdk.support.livedata.ClientTypingDebounceLiveData
@@ -64,7 +66,8 @@ class JivoChatViewModel @Inject constructor(
     private val messageTransmitter: Transmitter,
     private val logsRepository: LogsRepository,
     private val uploadRepository: UploadRepository,
-    private val storage: SharedStorage
+    private val storage: SharedStorage,
+    private val sdkContext: SdkContext
 ) : ViewModel() {
 
     companion object {
@@ -144,10 +147,6 @@ class JivoChatViewModel @Inject constructor(
     val canAttach = Transformations.map(_canAttachState) {
         it != null && !it.isLoading && it.hasConnection
     }
-
-    private val _clientMessage = MutableLiveData<SocketMessage>()
-    val clientMessage: LiveData<SocketMessage>
-        get() = _clientMessage
 
     val siteId
         get() = storage.siteId
@@ -343,6 +342,10 @@ class JivoChatViewModel @Inject constructor(
 
     fun clientTyping(incompleteText: String) {
         messageTransmitter.sendMessage(SocketMessage.clientTyping(incompleteText, profileRepository.id))
+    }
+
+    fun retry() {
+        JivoWebSocketService.reconnect(sdkContext.appContext)
     }
 
     private fun sendFileMessage(mimeType: String, imageUrl: String) {

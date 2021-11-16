@@ -10,6 +10,7 @@ import android.os.IBinder
 import com.jivosite.sdk.BuildConfig
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.logger.Logger
+import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import com.jivosite.sdk.socket.endpoint.SocketEndpointProvider
 import com.jivosite.sdk.socket.handler.SocketMessageHandler
@@ -40,6 +41,8 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_RESTART"
         private const val ACTION_SET_CLIENT_INFO =
             "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_SET_CLIENT_INFO"
+        private const val ACTION_RECONNECT =
+            "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_RECONNECT"
 
         const val REASON_STOPPED = 4000
         const val REASON_TIMEOUT = 4001
@@ -80,6 +83,13 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             }
             appContext.startService(intent)
         }
+
+        fun reconnect(appContext: Context) {
+            val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
+                action = ACTION_RECONNECT
+            }
+            appContext.startService(intent)
+        }
     }
 
     private val binder = JivoWebSocketServiceBinder()
@@ -98,6 +108,9 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
 
     @Inject
     lateinit var messageTransmitter: Transmitter
+
+    @Inject
+    lateinit var sdkContext: SdkContext
 
     private lateinit var socketState: ServiceState
     private var webSocket: WebSocket? = null
@@ -208,6 +221,11 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
                 }
             }
 
+            ACTION_RECONNECT -> {
+                Jivo.i("Received reconnect command")
+                getState().reconnect(true)
+            }
+
             else -> Jivo.w("Unknown command $action")
         }
         return START_REDELIVER_INTENT
@@ -219,6 +237,9 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
         super.onDestroy()
         Jivo.clearServiceComponent()
         Jivo.i("Service has been destroyed")
+        if (sdkContext.pendingIntent.isNotEmpty()) {
+            Jivo.restart()
+        }
     }
 
     override fun getState(): ServiceState = socketState

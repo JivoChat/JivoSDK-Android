@@ -1,6 +1,7 @@
 package com.jivosite.sdk.socket.transmitter
 
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -12,8 +13,19 @@ class DefaultTransmitter @Inject constructor() : Transmitter {
 
     private val subscribers = mutableListOf<TransmitterSubscriber>()
 
+    private val queue = LinkedList<Any>()
+
     override fun addSubscriber(subscriber: TransmitterSubscriber) {
         subscribers.add(subscriber)
+        if (queue.isNotEmpty()) {
+            queue.forEach { message ->
+                when (message) {
+                    is String -> subscriber.sendMessage(message)
+                    is SocketMessage -> subscriber.sendMessage(message)
+                }
+            }
+            queue.clear()
+        }
     }
 
     override fun removeSubscriber(subscriber: TransmitterSubscriber) {
@@ -21,11 +33,19 @@ class DefaultTransmitter @Inject constructor() : Transmitter {
     }
 
     override fun sendMessage(message: SocketMessage) {
-        subscribers.forEach { it.sendMessage(message) }
+        if (subscribers.isEmpty()) {
+            queue.add(message)
+        } else {
+            subscribers.forEach { it.sendMessage(message) }
+        }
     }
 
     override fun sendMessage(message: String) {
-        subscribers.forEach { it.sendMessage(message) }
+        if (subscribers.isEmpty()) {
+            queue.add(message)
+        } else {
+            subscribers.forEach { it.sendMessage(message) }
+        }
     }
 
     override fun clear() {

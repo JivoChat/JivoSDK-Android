@@ -195,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:background="?selectableItemBackgroundBorderless"
-                    android:onClick="@{() -> fragment.retry()}"
+                    android:onClick="@{() -> viewModel.retry()}"
                     android:text="@string/connection_state_retry"
                     android:textColor="@color/persianBlue"
                     android:textSize="12sp"
