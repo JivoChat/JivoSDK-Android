@@ -2,6 +2,8 @@ package com.jivosite.sdk.support.ext
 
 import android.webkit.MimeTypeMap
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes
+import java.net.URLDecoder
+import java.util.regex.Pattern
 
 fun String.cutName(): String {
     val spacePosition = indexOf(" ")
@@ -17,9 +19,30 @@ fun String.getFileType(): String {
     return SupportFileTypes.FILE_TYPES[extension] ?: SupportFileTypes.TYPE_UNKNOWN
 }
 
-fun String.getSupportFileType(): String {
+fun String.getSupportFileType(): String? {
     val extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(this) ?: ""
     return SupportFileTypes.SUPPORT_FILE_TYPES[extension] ?: SupportFileTypes.TYPE_UNKNOWN
+}
+
+fun String?.parseContentDisposition(): String {
+    if (this == null) return ""
+
+    var s = ""
+
+    try {
+        val pattern = Pattern.compile(
+            "attachment; filename(?:\\*=[a-zA-Z0-9_-]+'[\\w_-]*?'|=)([\"']?)(.+)(\\1)",
+            Pattern.CASE_INSENSITIVE
+        )
+        pattern.matcher(this).run {
+            if (matches()) {
+                s = group(2) ?: ""
+            }
+        }
+    } catch (e: IllegalStateException) {
+    }
+
+    return if (s.isBlank()) s else URLDecoder.decode(s, "UTF-8")
 }
 
 

@@ -273,12 +273,10 @@ fun clientImageLoader(layout: ViewGroup, state: FileState?) {
         )
         requestBuilder.target(
             onStart = {
-                viewHolder.progressView?.isVisible = true
                 viewHolder.placeholder?.isVisible = true
                 viewHolder.errorText?.isVisible = false
             },
             onSuccess = { result ->
-                viewHolder.progressView?.isVisible = false
                 viewHolder.placeholder?.isVisible = false
                 viewHolder.imageView.setImageDrawable(result)
             },
@@ -395,7 +393,7 @@ fun setMediaStatus(view: TextView, state: MediaItemState?) {
 fun setFileName(view: TextView, state: MediaItemState?) {
     if (state == null) return
     when (state) {
-        is MediaItemState.Success -> view.text = state.media.name
+        is MediaItemState.Success -> view.text = state.media.name.ifBlank { view.context.getString(R.string.file_name_unknown) }
         MediaItemState.Expired -> view.text = view.context.getString(R.string.file_download_expired)
         else -> view.text = ""
     }

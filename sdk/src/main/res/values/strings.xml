@@ -39,8 +39,12 @@
     <string name="download_status_loading">Uploading...</string>
     <!-- Ошибка загрузки файла, если ссылка устарела. -->
     <string name="file_download_expired">The link is out of date</string>
+    <!-- Message letting user know that file is unavailable for download. -->
+    <string name="file_download_unavailable">File is unavailable</string>
     <!-- Проверка ссылки на файл -->
     <string name="file_link_checking">Checking...</string>
+    <!-- Default file name -->
+    <string name="file_name_unknown">Untitled file</string>
     <!-- Формат для размера файла в байтах -->
     <string name="format_file_size_b">%.0f B</string>
     <!-- Формат для размера файла в килобайтах -->
@@ -66,7 +70,7 @@
     <string name="Media.Access.Missing">Please Allow Access</string>
     <string name="Media.Access.Suggestion">JivoChat needs access to your photo library to send photos and videos.
 
-Please go to [Settings &gt; App &gt; Photos] to give access.</string>
+Please go to [Settings &gt; Your App &gt; Photos] to give access.</string>
     <string name="Media.Picker.Camera">Camera</string>
     <!-- Пункт меню "Копировать ссылку" -->
     <string name="menu_action_copy">Copy link</string>
