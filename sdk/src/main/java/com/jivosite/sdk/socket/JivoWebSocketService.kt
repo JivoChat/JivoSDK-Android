@@ -3,7 +3,6 @@ package com.jivosite.sdk.socket
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.os.Binder
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
@@ -19,11 +18,13 @@ import com.jivosite.sdk.socket.states.DisconnectReason
 import com.jivosite.sdk.socket.states.ServiceState
 import com.jivosite.sdk.socket.states.ServiceStateContext
 import com.jivosite.sdk.socket.states.ServiceStateFactory
-import com.jivosite.sdk.socket.states.items.*
+import com.jivosite.sdk.socket.states.items.ConnectedState
+import com.jivosite.sdk.socket.states.items.DisconnectedState
+import com.jivosite.sdk.socket.states.items.InitialState
+import com.jivosite.sdk.socket.states.items.StoppedState
 import com.jivosite.sdk.socket.transmitter.Transmitter
 import com.jivosite.sdk.socket.transmitter.TransmitterSubscriber
 import com.neovisionaries.ws.client.*
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -91,8 +92,6 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             appContext.startService(intent)
         }
     }
-
-    private val binder = JivoWebSocketServiceBinder()
 
     @Inject
     lateinit var socketEndpointProvider: Provider<SocketEndpointProvider>
@@ -231,7 +230,7 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
         return START_REDELIVER_INTENT
     }
 
-    override fun onBind(intent: Intent?): IBinder = binder
+    override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onDestroy() {
         super.onDestroy()
@@ -321,20 +320,5 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
     internal fun unsubscribeFromTransmitter() {
         Jivo.d("Unsubscribe from message transmitter")
         messageTransmitter.removeSubscriber(this)
-    }
-
-    inner class JivoWebSocketServiceBinder : Binder() {
-
-        fun sendMessage(message: SocketMessage) {
-            this@JivoWebSocketService.getState().send(message)
-        }
-
-        fun retry() {
-            this@JivoWebSocketService.getState().reconnect(true)
-        }
-
-        fun restart() {
-            this@JivoWebSocketService.getState().setDisconnected(DisconnectReason.ChangeInstance)
-        }
     }
 }

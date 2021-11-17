@@ -1,6 +1,8 @@
 package com.jivosite.sdk
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ProcessLifecycleOwner
@@ -191,6 +193,13 @@ object Jivo {
 
     internal fun clearChatComponent() {
         chatComponent = null
+    }
+
+    internal fun restart() {
+        sdkContext.pendingIntent.clear()
+        Handler(Looper.getMainLooper()).postDelayed({
+            lifecycleObserver.onForeground()
+        }, 10)
     }
 
     internal fun d(msg: String) {
