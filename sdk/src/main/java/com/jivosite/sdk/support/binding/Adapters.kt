@@ -273,12 +273,10 @@ fun clientImageLoader(layout: ViewGroup, state: FileState?) {
         )
         requestBuilder.target(
             onStart = {
-                viewHolder.progressView?.isVisible = true
                 viewHolder.placeholder?.isVisible = true
                 viewHolder.errorText?.isVisible = false
             },
             onSuccess = { result ->
-                viewHolder.progressView?.isVisible = false
                 viewHolder.placeholder?.isVisible = false
                 viewHolder.imageView.setImageDrawable(result)
             },
