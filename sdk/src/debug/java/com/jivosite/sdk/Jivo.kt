@@ -131,7 +131,6 @@ object Jivo {
     fun setUserToken(userToken: String) {
         if (Jivo::jivoSdkComponent.isInitialized) {
             val md5 = userToken.toMD5()
-            Jivo.e("md5 = $md5, storage.md5 = ${storage.userTokenHash}")
             if (md5 != storage.userTokenHash) {
 
                 jivoSdkComponent.clearUseCaseProvider().get().execute()
