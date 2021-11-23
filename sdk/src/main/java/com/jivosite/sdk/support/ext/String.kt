@@ -3,6 +3,7 @@ package com.jivosite.sdk.support.ext
 import android.webkit.MimeTypeMap
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes
 import java.net.URLDecoder
+import java.security.MessageDigest
 import java.util.regex.Pattern
 
 fun String.cutName(): String {
@@ -44,6 +45,10 @@ fun String?.parseContentDisposition(): String {
 
     return if (s.isBlank()) s else URLDecoder.decode(s, "UTF-8")
 }
+
+fun String.toMD5() = MessageDigest.getInstance("MD5")
+    .digest(this.toByteArray())
+    .joinToString("") { "%02x".format(it) }
 
 
 

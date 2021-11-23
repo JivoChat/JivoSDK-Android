@@ -24,11 +24,12 @@ class JivoSettingsViewModel @Inject constructor(
 
     val host = MutableLiveData(storage.host)
     val widgetId = MutableLiveData(storage.widgetId)
-
     val userName = MutableLiveData("")
     val userEmail = MutableLiveData("")
     val userPhone = MutableLiveData("")
     val userDescription = MutableLiveData("")
+
+    val userToken = MutableLiveData("")
 
     private val _doNotShowPings = MutableLiveData(storage.doNotShowPings)
     val doNotShowPings: LiveData<Boolean>
@@ -50,6 +51,10 @@ class JivoSettingsViewModel @Inject constructor(
         widgetId.value = ""
 
         Jivo.clear()
+    }
+
+    fun setUserToken() {
+        Jivo.setUserToken(userToken.requireValue())
     }
 
     fun sendUserInfo() {

@@ -23,9 +23,11 @@ import com.jivosite.sdk.di.ui.settings.JivoSettingsFragmentModule
 import com.jivosite.sdk.lifecycle.JivoLifecycleObserver
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.repository.history.NewMessageListener
+import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.ClientInfo
 import com.jivosite.sdk.support.builders.Config
+import com.jivosite.sdk.support.ext.toMD5
 import com.jivosite.sdk.ui.logs.JivoLogsFragment
 import com.jivosite.sdk.ui.settings.JivoSettingsFragment
 import timber.log.Timber
@@ -50,6 +52,7 @@ object Jivo {
 
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
+    private lateinit var storage: SharedStorage
 
     private var config: Config = Config.Builder().build()
 
@@ -62,7 +65,7 @@ object Jivo {
             .build()
         sdkContext = jivoSdkComponent.sdkContext()
 
-        val storage = jivoSdkComponent.storage()
+        storage = jivoSdkComponent.storage()
 
         if (host.isNotBlank()) {
             storage.host = host
@@ -124,6 +127,22 @@ object Jivo {
         newMessageListeners.add(WeakReference(l))
     }
 
+    @JvmStatic
+    fun setUserToken(userToken: String) {
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            val md5 = userToken.toMD5()
+            Jivo.e("md5 = $md5, storage.md5 = ${storage.userTokenHash}")
+            if (md5 != storage.userTokenHash) {
+
+                jivoSdkComponent.clearUseCaseProvider().get().execute()
+                storage.userTokenHash = md5
+
+                val args = bundleOf("userToken" to userToken)
+                JivoWebSocketService.restart(sdkContext.appContext, args)
+            }
+        }
+    }
+
     fun turnOn() {
         jivoSdkComponent.storage().let {
             if (!it.startOnInitialization) {
@@ -145,10 +164,9 @@ object Jivo {
     @JvmStatic
     fun clear() {
         if (Jivo::jivoSdkComponent.isInitialized) {
-            val clearUseCaseProvider = jivoSdkComponent.clearUseCaseProvider()
-            clearUseCaseProvider.get().execute()
-            JivoWebSocketService.restart(sdkContext.appContext)
             unsubscribeFromPush()
+            jivoSdkComponent.clearUseCaseProvider().get().execute()
+            JivoWebSocketService.restart(sdkContext.appContext)
         }
     }
 
