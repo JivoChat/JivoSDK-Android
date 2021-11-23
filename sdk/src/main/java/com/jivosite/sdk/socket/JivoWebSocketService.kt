@@ -70,9 +70,10 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             }
         }
 
-        fun restart(appContext: Context) {
+        fun restart(appContext: Context, args: Bundle? = null) {
             val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
                 action = ACTION_RESTART
+                if (args != null) putExtras(args)
             }
             appContext.startService(intent)
         }
@@ -199,6 +200,9 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             }
             ACTION_RESTART -> {
                 Jivo.i("Received restart command")
+                intent.getStringExtra("userToken")?.let {
+                    sdkContext.userToken = it
+                }
                 getState().restart()
             }
 

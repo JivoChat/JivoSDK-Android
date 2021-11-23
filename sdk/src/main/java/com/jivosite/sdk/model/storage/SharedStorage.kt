@@ -37,6 +37,8 @@ class SharedStorage(context: Context) {
         private const val LAST_READ_MSG_ID = "lastReadMsgId"
 
         private const val NIGHT_MODE = "nightMode"
+
+        private const val USER_TOKEN_HASH = "userTokenHash"
     }
 
     private val preferences: SharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
@@ -60,6 +62,8 @@ class SharedStorage(context: Context) {
     var port: String by SharedPreference(preferences, PORT, "")
     var siteId: String by SharedPreference(preferences, SITE_ID, "")
     var widgetId: String by SharedPreference(preferences, WIDGET_ID, "")
+
+    var userTokenHash: String by SharedPreference(preferences, USER_TOKEN_HASH, "")
 
     var doNotShowPings: Boolean by SharedPreference(preferences, LOG_DO_NOT_SHOW_PINGS, false)
 
