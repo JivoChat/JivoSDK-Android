@@ -39,6 +39,11 @@ class SocketMessageHandlerModule {
 
         @Binds
         @IntoMap
+        @StringKey(StatusMeUrlPathDelegate.TYPE)
+        fun provideStatusMeUrlPathDelegate(delegate: StatusMeUrlPathDelegate): SocketMessageDelegate
+
+        @Binds
+        @IntoMap
         @StringKey(AtomMeHistoryDelegate.TYPE)
         fun provideAtomMeHistoryDelegate(delegate: AtomMeHistoryDelegate): SocketMessageDelegate
 

@@ -7,7 +7,6 @@ import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.api.PushApi
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.push.Device
-import com.jivosite.sdk.model.pojo.response.Response
 import com.jivosite.sdk.model.repository.profile.ProfileRepository
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.network.resource.NetworkResource
@@ -63,8 +62,8 @@ class UpdatePushTokenUseCase @Inject constructor(
         }
     }
 
-    private fun createRequest(device: Device): LiveData<Resource<Boolean>> {
-        return NetworkResource.Builder<Boolean, Response>(schedulers)
+    private fun createRequest(device: Device): LiveData<Resource<Unit>> {
+        return NetworkResource.Builder<Unit, Unit>(schedulers)
             .createCall {
                 pushApi.setPushToken(
                     profileRepository.id,
@@ -73,7 +72,7 @@ class UpdatePushTokenUseCase @Inject constructor(
                     device
                 )
             }
-            .handleResponse { it.isOk }
+            .handleResponse { }
             .build()
             .asLiveData()
     }
