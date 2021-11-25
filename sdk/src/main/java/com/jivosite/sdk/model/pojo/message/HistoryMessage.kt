@@ -42,7 +42,7 @@ data class HistoryMessage(
                 type = message.type,
                 from = message.from ?: "",
                 data = message.data ?: "",
-                status = MessageStatus.Delivered
+                status = MessageStatus.Sent
             )
         }
     }
