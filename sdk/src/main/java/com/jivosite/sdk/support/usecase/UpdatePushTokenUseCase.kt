@@ -62,9 +62,9 @@ class UpdatePushTokenUseCase @Inject constructor(
 
         if (storage.pushToken != token) {
             storage.pushToken = token
-            Handler(Looper.getMainLooper()).postDelayed({
+            schedulers.ui.execute {
                 createRequest(deviceInfo).loadSilently()
-            }, 1000)
+            }
         }
     }
 
