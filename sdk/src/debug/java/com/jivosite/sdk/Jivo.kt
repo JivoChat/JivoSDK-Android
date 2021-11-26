@@ -58,6 +58,17 @@ object Jivo {
 
     private var loggingEnabled = false
 
+    private val handler = Handler(Looper.getMainLooper())
+    private val updatePushTokenCallback = object : Runnable {
+        lateinit var token: String
+        override fun run() {
+            if (Jivo::jivoSdkComponent.isInitialized) {
+                val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
+                useCaseProvider.get().execute(token)
+            }
+        }
+    }
+
     @JvmStatic
     fun init(appContext: Context, widgetId: String, host: String = "") {
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
@@ -103,10 +114,8 @@ object Jivo {
 
     @JvmStatic
     fun updatePushToken(token: String) {
-        if (Jivo::jivoSdkComponent.isInitialized) {
-            val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
-            useCaseProvider.get().execute(token)
-        }
+        handler.removeCallbacks(updatePushTokenCallback)
+        handler.postDelayed(updatePushTokenCallback.also { it.token = token }, 1000)
     }
 
     @JvmStatic
@@ -162,6 +171,7 @@ object Jivo {
 
     @JvmStatic
     fun clear() {
+        handler.removeCallbacks(updatePushTokenCallback)
         if (Jivo::jivoSdkComponent.isInitialized) {
             unsubscribeFromPush()
             jivoSdkComponent.clearUseCaseProvider().get().execute()

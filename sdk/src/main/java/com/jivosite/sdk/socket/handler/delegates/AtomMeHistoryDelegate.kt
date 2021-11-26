@@ -42,7 +42,5 @@ class AtomMeHistoryDelegate @Inject constructor(
         } else {
             paginationRepository.setHasNextPage(false)
         }
-
-        updatePushTokenUseCaseProvider.get().execute()
     }
 }

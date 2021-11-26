@@ -1,5 +1,7 @@
 package com.jivosite.sdk.support.usecase
 
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.LiveData
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
@@ -57,8 +59,12 @@ class UpdatePushTokenUseCase @Inject constructor(
             deviceId = storage.deviceId,
             token = token
         )
-        schedulers.ui.execute {
-            createRequest(deviceInfo).loadSilently()
+
+        if (storage.pushToken != token) {
+            storage.pushToken = token
+            schedulers.ui.execute {
+                createRequest(deviceInfo).loadSilently()
+            }
         }
     }
 
