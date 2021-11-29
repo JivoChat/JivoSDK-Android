@@ -11,11 +11,13 @@
     <color name="color_text_connection_state">#000000</color>
     <color name="color_background_connection_state">#ffffff</color>
     <color name="color_background_banner">#ddffffff</color>
+    <color name="color_text_banner">#BABABA</color>
     <color name="color_text_hint">#BABABA</color>
     <color name="color_tint_navigation_icon">#ffffff</color>
     <color name="color_text_title">#ffffff</color>
     <color name="color_text_subtitle">#ffffff</color>
     <color name="color_text_error">#C7C7CC</color>
+    <color name="color_background_media_icon">#6E7878</color>
 
     <color name="black">#000000</color>
     <color name="black30">#4D000000</color>

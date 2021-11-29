@@ -141,6 +141,7 @@
             android:paddingHorizontal="16dp"
             android:paddingVertical="4dp"
             android:text="@string/jivo_business_messenger"
+            android:textColor="@color/color_text_banner"
             android:textSize="14sp"
             app:drawableEndCompat="@drawable/vic_jivosite_logo"
             app:layout_constraintEnd_toEndOf="parent"
