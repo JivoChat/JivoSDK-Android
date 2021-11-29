@@ -15,7 +15,6 @@ class DefaultMessageObfuscator @Inject constructor() : MessageObfuscator {
         return if (BuildConfig.DEBUG) {
             msg
         } else {
-            // TODO Сделать обфускацию сообщений для отладки, скрывать только критичные данные
             "{ *** }"
         }
     }
