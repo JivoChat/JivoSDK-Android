@@ -11,6 +11,7 @@
     <color name="color_text_connection_state">#636366</color>
     <color name="color_background_connection_state">#191919</color>
     <color name="color_background_banner">#E6191919</color>
+    <color name="color_text_banner">#636366</color>
     <color name="color_text_hint">#636366</color>
     <color name="color_tint_navigation_icon">#C7C7CC</color>
     <color name="color_text_title">#C7C7CC</color>
