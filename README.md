@@ -29,7 +29,8 @@ Jivo Mobile SDK - Android
 
 ### Демо-приложение для Android
 
-![](images/image26.png)![](images/image2.png)
+<img src="https://user-images.githubusercontent.com/81690520/144190746-278592b3-b704-4f9e-9642-ea40ce60f29c.png" width="300"> <img src="https://user-images.githubusercontent.com/81690520/144189472-f5d4c1fd-ded0-493f-860e-5301980e89c1.png" width="300">
+
 
 Посмотрите, как работает чат внутри приложения на примере нашего демо-приложения. Это простое приложение под Android позволяет написать в чат технической поддержке нашего сервиса - Jivo.
 
@@ -45,19 +46,19 @@ Jivo Mobile SDK - Android
 
 Для добавления нового канала SDK необходимо зайти в [приложение Jivo](https://www.google.com/url?q=http://app.jivosite.com/&sa=D&source=editors&ust=1635432992394000&usg=AOvVaw3EupELM0pAy1B6sa2MCpWc), затем перейти в **Управление > Каналы связи**, в разделе **Добавьте новый канал** найти пункт **Мобильное SDK** и нажать **Добавить**.
 
-![](images/image18.png)
+<img src="https://user-images.githubusercontent.com/81690520/144237727-fbc36415-946b-4822-9a86-b6a49e6b51d6.png" width="630">
 
 Далее необходимо ввести название (имя) вашего будущего канала:
 
-![](images/image14.png)
+<img src="https://user-images.githubusercontent.com/81690520/144238618-8fdd66c2-1b56-4f48-9722-c283dc741e65.png" width="630">
 
-![](images/image6.png)
+<img src="https://user-images.githubusercontent.com/81690520/144238660-698a94b5-7ed3-4d16-95ee-3b3f20fe5467.png" width="630">
 
 ### После добавления нового канала автоматически откроются его настройки.  Сохраните widget_id для дальнейшей интеграции JivoSDK.
 
 В рамках одного канала **Mobile SDK** можно подключить по одному приложению для каждой платформы: iOS и Android. Используйте один общий **widget_id**.
 
-![](images/image27.png)
+<img src="https://user-images.githubusercontent.com/81690520/144238692-6e76b28f-4429-4e02-afda-a453199a7809.png" width="630">
 
 Интеграция JivoSDK
 ------------------
@@ -255,63 +256,75 @@ Jivo.setConfig(
 
 Войдите в [Firebase](https://www.google.com/url?q=https://console.firebase.google.com/&sa=D&source=editors&ust=1635432992427000&usg=AOvVaw2x3fDvjG2Gh6XQJHH9cQUP), затем создайте свой проект. Нажмите на **Create a project** и выполните следующие инструкции.
 
-![](images/image5.png)
+<img src="https://user-images.githubusercontent.com/81690520/144238781-44fbe2d1-cb37-41a1-8ce6-7625e82e281c.png" width="630">
+
 
 Введите название вашего проекта.
 
-![](images/image17.png)
+<img src="https://user-images.githubusercontent.com/81690520/144238826-371e6266-960b-450d-ac94-184bf537b3ae.png" width="630">
+
 
 Добавьте **Google Analytics** в ваш проект(Рекомендация)
 
-![](images/image19.png)
+<img src="https://user-images.githubusercontent.com/81690520/144238845-b901d9be-e533-4dc8-86ec-8a1a3d3b361b.png" width="630">
+
 
 Выберите соответствующие настройки и нажмите **Create project**.
 
-![](images/image3.png)
+<img src="https://user-images.githubusercontent.com/81690520/144238863-4688e9b1-67ef-4478-9502-2e38703fb1dc.png" width="630">
+
 
 Дождитесь сборки проекта.
 
-![](images/image13.png)
+<img src="https://user-images.githubusercontent.com/81690520/144238882-ceabd77c-ac50-40c0-ba81-4b36857e2c2e.png" width="630">
 
 ### Получение google-services.json.
 
-Нажмите на кнопку ![](images/image25.png) , затем выберете **Project settings**.
+Нажмите на кнопку <img src="https://user-images.githubusercontent.com/81690520/144238902-8f6a0074-132a-4dd3-a13b-d00dfea81929.png" width="16">, затем выберете **Project settings**.
 
-![](images/image11.png)
+<img src="https://user-images.githubusercontent.com/81690520/144238932-8c16050c-0f4a-487d-a7f6-75c3c16c773c.png" width="630">
 
-В **Your apps**, щелкните значок **Android** (![](images/image22.png)) или **Add app**. Если у вас есть уже приложение, то выберете имя пакета, для которого нужен файл конфигурации.
 
-![](images/image12.png)
+В **Your apps**, щелкните значок **Android** (<img src="https://user-images.githubusercontent.com/81690520/144238953-08a73ba5-34e0-4a46-bd3b-801f5b72bf24.png" width="16">) или **Add app**. Если у вас есть уже приложение, то выберете имя пакета, для которого нужен файл конфигурации.
+
+<img src="https://user-images.githubusercontent.com/81690520/144238968-3ecaf9f5-183d-4112-ae7c-6299dc193164.png" width="630">
+
 
 Введите [имя пакета](https://www.google.com/url?q=https://developer.android.com/studio/build/application-id?authuser%3D0&sa=D&source=editors&ust=1635432992432000&usg=AOvVaw19GnrQ6usOJuSF9dLS_f55) вашего приложения в поле имени пакета **Android**.
 
-![](images/image28.png)
+<img src="https://user-images.githubusercontent.com/81690520/144238985-1aac954f-dd8a-400a-83e7-cf999ff21c96.png" width="630">
+
 
 (Необязательно) Введите другую информацию о приложении: псевдоним приложения и сертификат подписи отладки **SHA-1**.
 
 Скопируйте в приложение файл конфигурации **Firebase Android**. Нажмите **Download google-services.json**, чтобы получить файл конфигурации **Firebase Android (google-services.json)**. Переместите файл конфигурации в каталог модуля (уровня приложения) вашего приложения.
 
-![](images/image15.png)
+<img src="https://user-images.githubusercontent.com/81690520/144239001-b65f32fd-2035-4a9e-b61c-12759daecf5e.png" width="630">
+
 
 ### Получение приватного ключа.
 
 Для генерации приватного ключа нажать **Generate new private key** и сохранить новый ключ.
 
-![](images/image8.png)
+<img src="https://user-images.githubusercontent.com/81690520/144239017-974225bc-6fa8-486e-97ad-0ff256ad227a.png" width="630">
+
 
 ### Привязка private key к каналу SDK.
 
 Для добавления private key, вам нужно зайти в [приложение Jivo](https://www.google.com/url?q=http://app.jivosite.com/&sa=D&source=editors&ust=1635432992437000&usg=AOvVaw0QksMyM1hmC8Oysa0BTZFI), затем перейти в **Управление > Каналы связи**, в разделе Управление каналами найти нужный вам канал и нажать кнопку Настроить.
 
-![](images/image21.png)
+<img src="https://user-images.githubusercontent.com/81690520/144239039-5a435d45-2e06-4aba-b022-c149ae0a7cdb.png" width="630">
+
 
 В настройках канала выбрать **Настройки Push** и нажать кнопку **Загрузить JSON**, выбрать приватный ключ и дождаться выгрузки.
 
 В рамках одного канала **Mobile SDK** можно подключить по одному приложению для каждой платформы: **iOS и Android**. Соответствующий интерфейс загрузки **P8 сертификата** для работы **Push уведомлений** через **Apple APNS** смотрите ниже.
 
-![](images/image24.png)
+<img src="https://user-images.githubusercontent.com/81690520/144239059-4de99283-4010-4584-9a8b-c903feaa2271.png" width="630">
 
-![](images/image20.png)
+
+<img src="https://user-images.githubusercontent.com/81690520/144239071-c8b0a486-996b-4376-be2d-3123e444c222.png" width="630">
+
 
 ### Добавление зависимостей.
 
@@ -442,7 +455,8 @@ class ExampleApplication : Application() {
 
 Демонстрация логирования с помощью встроенного инструмента **Logcat**:
 
-![](images/image16.png)
+<img src="https://user-images.githubusercontent.com/81690520/144239108-ae744cf5-1ba0-4aa0-b5f2-af964b6e18ad.png" width="968">
+
 
 ### Передача информации о клиенте.
 
@@ -467,7 +481,8 @@ Jivo.setClientInfo(
 
 Переданные данные отобразятся в основном приложении в колонке справа от диалога.
 
-![](images/image10.png)
+<img src="https://user-images.githubusercontent.com/81690520/144239118-bb809274-a096-4e78-884c-74316804b37d.png" width="300">
+
 
 ### Уведомление о непрочитанных сообщениях.
 
@@ -497,7 +512,8 @@ Jivo.addNewMessageListener(object : NewMessageListener {
 
 Для начала откройте проект **Android** в приложении **Android Studio**. Вы можете найти свой **Android-проект** в папке проекта приложений **React Native**:
 
-![](images/image4.png)
+<img src="https://user-images.githubusercontent.com/81690520/144239149-22151f18-d938-40c3-b71d-6ff92d5245dc.png" width="630">
+
 
 **NB!** Мы рекомендуем использовать **Android Studio** для написания собственного кода. **Android studio - это IDE**, созданная для разработки под **Android**, и ее использование поможет вам быстро разрешать некоторые проблемы, такие как ошибки синтаксиса кода.
 
@@ -506,7 +522,8 @@ Jivo.addNewMessageListener(object : NewMessageListener {
 
 В ваш модуль (уровне приложения), в `Gradle` (обычно `app/build.gradle`) добавьте следующее:
 
-![](images/image23.png)
+<img src="https://user-images.githubusercontent.com/81690520/144239161-a240f4be-0676-4b8f-a80c-56a0a4a4bedd.png" width="968">
+
 
 ```gradle
 android {
@@ -537,7 +554,8 @@ dependencies {
 -   **widgetId** - уникальный `id`.
 -   **host** - необязательный параметр, можно передать пустую строку.
 
-![](images/image7.png)
+<img src="https://user-images.githubusercontent.com/81690520/144239174-f0d89cbb-cf85-46f5-9b52-e61a8cee6619.png" width="968">
+
 
 ```java
 public class MainApplication extends Application implements ReactApplication {
@@ -556,7 +574,7 @@ public class MainApplication extends Application implements ReactApplication {
 
 Создайте `JivoSDKModule.java` в папке `android/app/src/main/java/com/your-app-name/` со следующим содержанием:
 
-![](images/image1.png)
+<img src="https://user-images.githubusercontent.com/81690520/144239190-39195667-a8ad-434e-9de8-24950c93f311.png" width="968">
 
 ```javascript
 package com.jivosdkreactnativesample;
@@ -598,7 +616,8 @@ public class JivoSDKModule extends ReactContextBaseJavaModule {
 
 Чтобы добавить собственный модуль в **ReactPackage**, сначала создайте новый класс **Java** с именем `JivoSDKPackage.java`, который реализует **ReactPackage** внутри папки `android/app/src/main/java/com/your-app-name/`:
 
-![](images/image29.png)
+<img src="https://user-images.githubusercontent.com/81690520/144239213-2a8a5394-2d30-4b1f-8bf5-396473510bdb.png" width="968">
+
 
 ```javascript
 package com.jivosdkreactnativesample;
@@ -637,7 +656,8 @@ class JivoSDKPackage implements ReactPackage {
 
 Найдите в приложении место, где вы хотели бы добавить вызов метода `openJivoSdk()`.
 
-![](images/image9.png)
+<img src="https://user-images.githubusercontent.com/81690520/144239236-aace1c4d-294b-4783-a32b-3925c941a474.png" width="968">
+
 
 ```javascript
 import React from 'react';
