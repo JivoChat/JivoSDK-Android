@@ -38,9 +38,9 @@
     <!-- Статус загрузки - загрузка -->
     <string name="download_status_loading">Uploading...</string>
     <!-- Ошибка загрузки файла, если ссылка устарела. -->
-    <string name="file_download_expired">The link is out of date</string>
+    <string name="file_download_expired">Link has expired</string>
     <!-- Message letting user know that file is unavailable for download. -->
-    <string name="file_download_unavailable">File is unavailable</string>
+    <string name="file_download_unavailable">File not available</string>
     <!-- Проверка ссылки на файл -->
     <string name="file_link_checking">Checking...</string>
     <!-- Default file name -->
