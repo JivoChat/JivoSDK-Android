@@ -36,6 +36,8 @@ class UploadingFileItemViewHolder(
             binding.mediaContainer.background = drawable
             binding.progressBar.indeterminateDrawable.colorFilter =
                 PorterDuffColorFilter(color.defaultColor, PorterDuff.Mode.SRC_IN)
+            binding.picture.imageTintList =
+                AppCompatResources.getColorStateList(context, Jivo.getConfig().outgoingMessageColor.color)
         }
     }
 

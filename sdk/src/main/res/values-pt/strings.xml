@@ -7,6 +7,8 @@
     <string name="Agent.DisplayName.Deleted">Operador excluído</string>
     <!-- Подзаголовок окна чата по умолчанию -->
     <string name="chat_subtitle_placeholder">Inicie um chat conosco, 24/7!</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что произошел разрыв соединения  с сервером. -->
+    <string name="chat_system_disconnected">Código de erro de rede: %d , mensagem de erro: %s</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент несколько агентов набирают сообщение. -->
     <string name="chat_system_few_agents_typing">%s, %s e +%d estão digitando...</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент один агент набирает сообщение. -->
@@ -35,6 +37,14 @@
     <string name="download_status_error">Erro</string>
     <!-- Статус загрузки - загрузка -->
     <string name="download_status_loading">Carregando...</string>
+    <!-- Ошибка загрузки файла, если ссылка устарела. -->
+    <string name="file_download_expired">O link expirou</string>
+    <!-- Message letting user know that file is unavailable for download. -->
+    <string name="file_download_unavailable">Arquivo não disponível</string>
+    <!-- Проверка ссылки на файл -->
+    <string name="file_link_checking">Verificando ...</string>
+    <!-- Default file name -->
+    <string name="file_name_unknown">Arquivo sem título</string>
     <!-- Формат для размера файла в байтах -->
     <string name="format_file_size_b">%.0f B</string>
     <!-- Формат для размера файла в килобайтах -->
@@ -62,6 +72,10 @@
 
 Favor ir até [Ajustes &gt; App &gt; Fotos] para permitir o acesso.</string>
     <string name="Media.Picker.Camera">Câmera</string>
+    <!-- Пункт меню "Копировать ссылку" -->
+    <string name="menu_action_copy">Link de cópia</string>
+    <!-- Пункт меню "Cкачать" -->
+    <string name="menu_action_download">Baixar</string>
     <!-- Кнопка скачать для прикрепленного документа/файла -->
     <string name="message_download">Baixar</string>
     <!-- Системное сообщение о присоединении оператора к чату -->
@@ -72,6 +86,7 @@ Favor ir até [Ajustes &gt; App &gt; Fotos] para permitir o acesso.</string>
     <string name="Message.Edited">(editado)</string>
     <string name="Message.Preview.Line">O chat foi transferido para a linha secundária</string>
     <string name="Message.Sender.You">Você</string>
+    <string name="notification_channel_message_description">Mensagem do Jivo SDK</string>
     <string name="notification_message_title">Apoio</string>
     <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
     <string name="options_copy">Copiar</string>

@@ -42,7 +42,6 @@
             android:layout_marginStart="80dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_outgoing_message"
-            android:paddingHorizontal="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name">
 
@@ -51,6 +50,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginVertical="16dp"
+                android:layout_marginStart="16dp"
                 android:background="@drawable/bg_outgoing_file"
                 android:visibility="@{viewModel.isError() ? View.INVISIBLE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -62,26 +62,27 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginVertical="16dp"
+                android:layout_marginStart="16dp"
                 android:background="@drawable/bg_outgoing_file"
-                android:src="@drawable/vic_error_36"
+                android:src="@drawable/vic_close_24"
                 android:visibility="@{viewModel.isError() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/vic_error_36" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/fileName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
                 android:ellipsize="middle"
                 android:maxWidth="196dp"
                 android:singleLine="true"
                 android:text="@{viewModel.fileName}"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@id/fileSize"
+                app:layout_constraintBottom_toTopOf="@id/uploadState"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/progressBar"
@@ -89,46 +90,44 @@
                 tools:text="audio.mp3" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/fileSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/progressBar"
-                app:layout_constraintStart_toEndOf="@id/progressBar"
-                app:layout_constraintTop_toBottomOf="@id/fileName"
-                app:setFileSize="@{viewModel.size}"
-                tools:text="115 kb" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/download"
+                android:id="@+id/uploadState"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/progressBar"
-                app:layout_constraintStart_toEndOf="@id/fileSize"
+                app:layout_constraintStart_toEndOf="@id/progressBar"
                 app:layout_constraintTop_toBottomOf="@id/fileName"
-                app:uploadState="@{viewModel.state}" />
+                app:uploadState="@{viewModel.state}"
+                tools:text="@string/media_uploading_common_error" />
 
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="12dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
                 android:textColor="@color/white85"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/download"
+                app:layout_constraintEnd_toStartOf="@id/status"
+                app:layout_constraintTop_toBottomOf="@id/uploadState"
                 app:time="@{viewModel.time}"
                 tools:text="13:20" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/status"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
+                android:src="@{viewModel.isError() ? @drawable/vic_message_status_error : @drawable/vic_message_status_sending}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/time"
+                tools:src="@drawable/vic_message_status_sending" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

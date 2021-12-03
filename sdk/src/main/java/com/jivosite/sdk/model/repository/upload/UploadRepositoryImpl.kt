@@ -36,8 +36,7 @@ class UploadRepositoryImpl @Inject constructor(
             progress { }
             progressUpdate { bytesWritten ->
                 bytesWritten?.let {
-                    val percent = 100 * it / file.size
-                    setStateUploading(file, percent.toInt())
+                    setStateUploading(file, it)
                 }
             }
             result { successfulUnloading(it) }
@@ -57,7 +56,7 @@ class UploadRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun setStateUploading(file: File, percent: Int = 0) {
+    private fun setStateUploading(file: File, size: Long = 0) {
         updateStateInRepositoryThread {
             transform { state ->
                 val files = HashMap<String, FileState>()
@@ -66,7 +65,7 @@ class UploadRepositoryImpl @Inject constructor(
                 if (files.isNotEmpty()) {
                     for ((k, v) in files) {
                         if (k == file.uri) {
-                            files[file.uri] = v.copy(uploadState = UploadState.Uploading(percent))
+                            files[file.uri] = v.copy(uploadState = UploadState.Uploading(size))
                             break
                         } else {
                             files[file.uri] = FileState(
@@ -75,7 +74,7 @@ class UploadRepositoryImpl @Inject constructor(
                                 file.size,
                                 file.uri,
                                 System.currentTimeMillis() / 1000,
-                                UploadState.Uploading(percent),
+                                UploadState.Uploading(size),
                                 file.mimeType
                             )
                         }
@@ -87,7 +86,7 @@ class UploadRepositoryImpl @Inject constructor(
                         file.size,
                         file.uri,
                         System.currentTimeMillis() / 1000,
-                        UploadState.Uploading(percent),
+                        UploadState.Uploading(size),
                         file.mimeType
                     )
                 }

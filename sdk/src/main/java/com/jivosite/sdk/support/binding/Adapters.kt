@@ -1,5 +1,6 @@
 package com.jivosite.sdk.support.binding
 
+import android.content.Context
 import android.graphics.Paint
 import android.text.SpannableStringBuilder
 import android.text.format.DateFormat
@@ -71,16 +72,6 @@ fun loadImage(view: AppCompatImageView, url: String?) {
     }
 }
 
-@BindingAdapter("setFileSize")
-fun setFileSize(view: AppCompatTextView, size: Long) {
-    val context = view.context
-    when (size) {
-        in 0..999 -> view.text = context.getString(R.string.format_file_size_b, size.toDouble())
-        in 1000..999999 -> view.text = context.getString(R.string.format_file_size_kb, size.div(1000.0))
-        else -> view.text = context.getString(R.string.format_file_size_mb, size.div(10.0.pow(6)))
-    }
-}
-
 @BindingAdapter("uploadState")
 fun setUploadState(view: AppCompatTextView, state: FileState?) {
     val context = view.context
@@ -89,14 +80,20 @@ fun setUploadState(view: AppCompatTextView, state: FileState?) {
         is UploadState.Uploading -> {
             view.isClickable = false
             view.isFocusable = false
-            view.text = "${uploadingState.percent}% ${context.getString(R.string.download_status_loading)}"
+            view.text = "${getFileSize(context, uploadingState.size)} / ${getFileSize(context, state.size)}"
         }
         is UploadState.Error -> {
             view.isClickable = false
             view.isFocusable = false
-            view.text = context.getString(R.string.download_status_error)
+            view.text = context.getString(R.string.media_uploading_common_error)
         }
     }
+}
+
+private fun getFileSize(context: Context, size: Long) = when (size) {
+    in 0..999 -> context.getString(R.string.format_file_size_b, size.toDouble())
+    in 1000..999999 -> context.getString(R.string.format_file_size_kb, size.div(1000.0))
+    else -> context.getString(R.string.format_file_size_mb, size.div(10.0.pow(6)))
 }
 
 @BindingAdapter("items")
@@ -395,6 +392,7 @@ fun setFileName(view: TextView, state: MediaItemState?) {
     when (state) {
         is MediaItemState.Success -> view.text = state.media.name.ifBlank { view.context.getString(R.string.file_name_unknown) }
         MediaItemState.Expired -> view.text = view.context.getString(R.string.file_download_expired)
+        is MediaItemState.Error -> view.text = view.context.getString(R.string.file_download_unavailable)
         else -> view.text = ""
     }
 }

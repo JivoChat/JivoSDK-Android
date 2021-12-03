@@ -71,7 +71,7 @@ class JivoChatViewModel @Inject constructor(
 ) : ViewModel() {
 
     companion object {
-        const val WELCOME_TIMEOUT = 1000L // 3 sec
+        const val WELCOME_TIMEOUT = 1000L
         const val MAX_FILE_SIZE = 10
     }
 

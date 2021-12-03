@@ -15,7 +15,7 @@ data class UploadFilesState(
 sealed class UploadState {
 
     data class Uploading(
-        val percent: Int
+        val size: Long
     ) : UploadState()
 
     data class Error(

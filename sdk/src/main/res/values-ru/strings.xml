@@ -39,8 +39,12 @@
     <string name="download_status_loading">Загрузка...</string>
     <!-- Ошибка загрузки файла, если ссылка устарела. -->
     <string name="file_download_expired">Ссылка устарела</string>
+    <!-- Message letting user know that file is unavailable for download. -->
+    <string name="file_download_unavailable">Файл недоступен</string>
     <!-- Проверка ссылки на файл -->
     <string name="file_link_checking">Проверка...</string>
+    <!-- Default file name -->
+    <string name="file_name_unknown">Безымянный файл</string>
     <!-- Формат для размера файла в байтах -->
     <string name="format_file_size_b">%.0f Б</string>
     <!-- Формат для размера файла в килобайтах -->
@@ -82,6 +86,7 @@
     <string name="Message.Edited">(изменено)</string>
     <string name="Message.Preview.Line">Диалог передан на вторую линию</string>
     <string name="Message.Sender.You">Вы</string>
+    <string name="notification_channel_message_description">Сообщение из Jivo SDK</string>
     <string name="notification_message_title">Техподдержка</string>
     <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
     <string name="options_copy">Копировать</string>
