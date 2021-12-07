@@ -1,6 +1,8 @@
 package com.jivosite.sdk.model.repository.upload
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.jivosite.sdk.api.ApiErrors.FILE_TRANSFER_DISABLED
 import com.jivosite.sdk.api.MediaApi
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.file.File
@@ -22,12 +24,15 @@ class UploadRepositoryImpl @Inject constructor(
     private val sdkContext: SdkContext,
     private val schedulers: Schedulers,
     private val api: MediaApi,
-    private val storage: SharedStorage,
+    private val storage: SharedStorage
 ) : StateRepository<UploadFilesState>(schedulers, "UploadFilesState", UploadFilesState()), UploadRepository {
 
     override val observableState: StateLiveData<UploadFilesState>
         get() = _stateLive
 
+    private val _hasLicense = MutableLiveData(false)
+    override val hasLicense: LiveData<Boolean>
+        get() = _hasLicense
 
     override fun upload(file: File, successfulUnloading: (url: String) -> Unit) {
         setStateUploading(file)
@@ -40,7 +45,12 @@ class UploadRepositoryImpl @Inject constructor(
                 }
             }
             result { successfulUnloading(it) }
-            error { setStateError(file.uri, it) }
+            error {
+                setStateError(file.uri, it)
+                if (it == FILE_TRANSFER_DISABLED) {
+                    updateLicense(false)
+                }
+            }
         }
     }
 
@@ -54,6 +64,10 @@ class UploadRepositoryImpl @Inject constructor(
                 state.copy(files = files)
             }
         }
+    }
+
+    override fun updateLicense(hasLicense: Boolean) {
+        _hasLicense.value = hasLicense
     }
 
     private fun setStateUploading(file: File, size: Long = 0) {

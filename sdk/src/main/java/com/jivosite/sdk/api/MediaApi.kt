@@ -51,7 +51,7 @@ interface MediaApi {
 
     @PUT
     fun uploadMedia(
-        @Header("x-metadata") metadata: String,
+        @Header("x-metadata") metadata: String?,
         @Url url: String?,
         @Body body: RequestBody,
     ): LiveData<ApiResponse<Void>>

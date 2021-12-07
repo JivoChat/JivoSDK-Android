@@ -232,7 +232,8 @@
                 android:enabled="@{viewModel.canAttach}"
                 android:onClick="@{() -> fragment.attach()}"
                 android:src="@drawable/ic_clip"
-                android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+                android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                android:visibility="@{viewModel.canUploadFile ? View.VISIBLE : View.GONE}" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"

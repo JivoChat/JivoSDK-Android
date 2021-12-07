@@ -41,7 +41,7 @@ abstract class NetworkResource<ResultType, RequestType>(schedulers: Schedulers) 
                             this.result.value = Resource.success(result)
                         } else {
                             val errors = HashMap<String, String>().also {
-                                body.errorList.forEach { error ->
+                                body.errorList?.forEach { error ->
                                     it[error] = ""
                                 }
                             }

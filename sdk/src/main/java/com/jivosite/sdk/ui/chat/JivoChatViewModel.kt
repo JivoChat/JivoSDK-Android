@@ -129,6 +129,8 @@ class JivoChatViewModel @Inject constructor(
         it != null && it.hasMessage && it.hasConnection
     }
 
+    val canUploadFile = Transformations.map(uploadRepository.hasLicense) { it }
+
     private val _isLoading = MutableLiveData<Boolean>()
 
     private val _error = MutableLiveData<Error>()

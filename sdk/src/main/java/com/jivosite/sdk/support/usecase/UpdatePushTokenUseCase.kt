@@ -1,7 +1,5 @@
 package com.jivosite.sdk.support.usecase
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging

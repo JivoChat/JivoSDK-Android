@@ -45,6 +45,7 @@
     <string name="file_link_checking">Checking...</string>
     <!-- Default file name -->
     <string name="file_name_unknown">Untitled file</string>
+    <string name="file_transfer_disabled">File transfer disabled</string>
     <!-- Формат для размера файла в байтах -->
     <string name="format_file_size_b">%.0f B</string>
     <!-- Формат для размера файла в килобайтах -->

@@ -22,6 +22,7 @@ import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.R
+import com.jivosite.sdk.api.ApiErrors.FILE_TRANSFER_DISABLED
 import com.jivosite.sdk.model.pojo.agent.Agent
 import com.jivosite.sdk.model.pojo.agent.AgentStatus
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_AUDIO
@@ -85,7 +86,12 @@ fun setUploadState(view: AppCompatTextView, state: FileState?) {
         is UploadState.Error -> {
             view.isClickable = false
             view.isFocusable = false
-            view.text = context.getString(R.string.media_uploading_common_error)
+            view.text = context.getString(
+                when (uploadingState.errorMessage) {
+                    FILE_TRANSFER_DISABLED -> R.string.file_transfer_disabled
+                    else -> R.string.media_uploading_common_error
+                }
+            )
         }
     }
 }
