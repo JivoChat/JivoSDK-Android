@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger
 /**
  * Created on 18.11.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class SchedulersImpl @JvmOverloads constructor(networkPoolSize: Int = 3) : Schedulers {
 

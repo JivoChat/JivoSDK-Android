@@ -25,7 +25,7 @@ import javax.inject.Inject
 /**
  * Created on 12/14/20.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class JivoChatButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     FrameLayout(context, attrs, defStyleAttr), ViewModelStoreOwner {

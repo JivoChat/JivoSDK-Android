@@ -16,7 +16,7 @@ import dagger.multibindings.StringKey
 /**
  * Created on 08.09.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 @Module(includes = [SocketMessageHandlerModule.Bindings::class])
 class SocketMessageHandlerModule {

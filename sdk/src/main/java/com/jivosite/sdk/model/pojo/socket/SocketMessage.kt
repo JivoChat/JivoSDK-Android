@@ -26,7 +26,7 @@ import java.util.*
  * @param from Идентификатор отправителя сообщения. Используется при приеме сообщения.
  * @param parent Идентификатор родительского сообщения. Используется для формирования произвольных структур
  * сообщений (пока не реализовано на чатсервере).
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 @JsonClass(generateAdapter = true)
 data class SocketMessage(

@@ -7,7 +7,7 @@ import com.jivosite.sdk.support.vm.StateLiveData
 /**
  * Created on 2/16/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 interface UploadRepository {
 

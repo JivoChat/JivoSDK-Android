@@ -5,7 +5,7 @@ import javax.inject.Provider
 /**
  * Created on 10.09.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class ServiceStateFactory(
     private val statesMap: Map<Class<out ServiceState>, @JvmSuppressWildcards Provider<ServiceState>>

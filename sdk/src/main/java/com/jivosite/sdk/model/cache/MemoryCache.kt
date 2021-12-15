@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Created on 2019-05-21.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class MemoryCache<in K, V> @Inject constructor() {
 

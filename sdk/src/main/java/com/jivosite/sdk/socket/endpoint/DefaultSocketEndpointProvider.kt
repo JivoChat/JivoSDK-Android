@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created on 05.12.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class DefaultSocketEndpointProvider @Inject constructor(
     private val sdkContext: SdkContext,

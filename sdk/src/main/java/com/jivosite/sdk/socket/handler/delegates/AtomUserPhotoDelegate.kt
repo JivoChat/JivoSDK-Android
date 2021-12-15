@@ -11,7 +11,7 @@ import javax.inject.Inject
  * Example of message to handle:
  * {"type":"atom/user.photo","data":"https://files.jivosite.com/avatars/98101/5fcf7ed1dd8a0.jpg","id":"1"}
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class AtomUserPhotoDelegate @Inject constructor(
     private val agentRepository: AgentRepository

@@ -14,7 +14,7 @@ import dagger.Provides
 /**
  * Created on 10.09.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 @Module(includes = [WebSocketServiceModule.Bindings::class])
 class WebSocketServiceModule(private val service: JivoWebSocketService) {

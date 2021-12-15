@@ -11,7 +11,7 @@ import javax.inject.Inject
  *
  * Реализация репозитория для хранения информации о пользователе.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class ProfileRepositoryImpl @Inject constructor(
     schedulers: Schedulers,

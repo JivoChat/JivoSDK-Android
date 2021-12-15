@@ -20,7 +20,7 @@ import com.jivosite.sdk.support.utils.copyToClipboard
 /**
  * Created on 27.01.2021.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class ImageViewerActivity : AppCompatActivity(R.layout.activity_image_viewer) {
 

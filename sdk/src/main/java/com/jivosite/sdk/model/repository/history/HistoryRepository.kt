@@ -6,7 +6,7 @@ import com.jivosite.sdk.support.vm.StateLiveData
 /**
  * Created on 12/14/20.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 interface HistoryRepository {
 

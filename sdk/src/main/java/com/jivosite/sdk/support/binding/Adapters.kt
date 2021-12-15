@@ -44,7 +44,7 @@ import kotlin.math.pow
 /**
  * Created on 22.09.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 @BindingAdapter("avatarUrl")
 fun loadAvatar(view: AppCompatImageView, url: String?) {

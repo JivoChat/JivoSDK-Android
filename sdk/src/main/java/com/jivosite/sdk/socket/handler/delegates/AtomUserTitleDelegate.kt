@@ -12,7 +12,7 @@ import javax.inject.Inject
  * Example of message to handle:
  * {"type":"atom/user.title","data":"Консультант","id":"1"}
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class AtomUserTitleDelegate @Inject constructor(
     private val agentRepository: AgentRepository

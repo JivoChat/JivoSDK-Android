@@ -6,7 +6,7 @@ import com.jivosite.sdk.support.dg.AdapterDelegateItem
 /**
  * Created on 12/8/20.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 open class LogsItem(viewType: Int, data: LogMessage) : AdapterDelegateItem<LogMessage>(viewType, data) {
 

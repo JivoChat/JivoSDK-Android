@@ -6,6 +6,6 @@ import com.jivosite.sdk.R
 /**
  * Created on 1/20/21.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class JivoChatActivity : AppCompatActivity(R.layout.activity_jivo_chat)

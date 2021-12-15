@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * Created on 16.09.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class ClientTextItemViewModel @Inject constructor(
     agentRepository: AgentRepository

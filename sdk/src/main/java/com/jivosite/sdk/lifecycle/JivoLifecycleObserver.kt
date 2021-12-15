@@ -12,7 +12,7 @@ import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 /**
  * Created on 19.11.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class JivoLifecycleObserver(
     private val sdkContext: SdkContext,

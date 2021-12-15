@@ -8,7 +8,7 @@ import java.util.*
  *
  * Информация об агентах.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 data class AgentState(
     val hasOnlineAgentsInChat: Boolean = false,

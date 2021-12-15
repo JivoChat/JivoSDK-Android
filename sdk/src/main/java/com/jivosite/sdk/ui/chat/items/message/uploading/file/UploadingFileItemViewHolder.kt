@@ -16,7 +16,7 @@ import com.jivosite.sdk.ui.chat.items.message.general.MessageItemViewHolder
 /**
  * Created on 2/25/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class UploadingFileItemViewHolder(
     itemView: View,

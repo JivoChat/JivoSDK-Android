@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Created on 16.09.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class AgentTextItemViewModel @Inject constructor(
     agentRepository: AgentRepository

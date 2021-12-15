@@ -17,7 +17,7 @@ import javax.inject.Inject
  *
  * Репозиторий для работы с историей сообщений, которые приходят с сервера.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class HistoryRepositoryImpl @Inject constructor(
     schedulers: Schedulers,

@@ -17,7 +17,7 @@ import com.jivosite.sdk.Jivo
 /**
  * Created on 13.09.2021.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 @Deprecated("not worked")
 object JivoLifecycleOwner : LifecycleOwner {

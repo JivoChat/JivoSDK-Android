@@ -18,7 +18,7 @@ import javax.inject.Inject
 /**
  * Created on 2/16/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class UploadRepositoryImpl @Inject constructor(
     private val sdkContext: SdkContext,

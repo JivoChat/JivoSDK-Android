@@ -12,7 +12,7 @@ import kotlin.math.roundToInt
 /**
  * Created on 24.12.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 @Deprecated("not used for new media service")
 class ImageTransformation(

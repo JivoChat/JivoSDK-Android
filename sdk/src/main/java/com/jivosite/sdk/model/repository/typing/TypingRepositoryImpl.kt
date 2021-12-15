@@ -9,7 +9,7 @@ import javax.inject.Inject
 /**
  * Created on 2/3/21.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class TypingRepositoryImpl @Inject constructor(
     schedulers: Schedulers

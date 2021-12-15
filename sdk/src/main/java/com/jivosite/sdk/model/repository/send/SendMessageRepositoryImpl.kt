@@ -17,7 +17,7 @@ import javax.inject.Inject
  *
  * Реализация репозитория для отправки сообщения.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class SendMessageRepositoryImpl @Inject constructor(
     schedulers: Schedulers,

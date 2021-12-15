@@ -9,7 +9,7 @@ import com.squareup.moshi.Moshi
 /**
  * Created on 06.09.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class SocketMessageHandler(
     private val delegates: Map<String, SocketMessageDelegate>,

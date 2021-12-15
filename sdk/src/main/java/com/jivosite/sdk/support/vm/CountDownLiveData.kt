@@ -11,7 +11,7 @@ import com.jivosite.sdk.model.repository.connection.ConnectionState
 /**
  * Created on 27.11.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class CountDownLiveData : LiveData<ConnectionState>() {
 

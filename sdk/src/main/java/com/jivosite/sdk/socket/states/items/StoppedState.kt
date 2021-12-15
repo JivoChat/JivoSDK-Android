@@ -12,7 +12,7 @@ import javax.inject.Inject
 /**
  * Created on 26.11.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class StoppedState @Inject constructor(
     stateContext: ServiceStateContext,

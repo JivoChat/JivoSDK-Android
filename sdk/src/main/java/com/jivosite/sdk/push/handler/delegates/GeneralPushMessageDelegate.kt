@@ -16,7 +16,7 @@ import com.jivosite.sdk.support.async.Schedulers
 /**
  * Created on 1/20/21.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 abstract class GeneralPushMessageDelegate<P>(
     protected val context: SdkContext,

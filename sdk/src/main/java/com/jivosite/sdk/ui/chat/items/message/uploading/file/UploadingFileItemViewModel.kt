@@ -12,7 +12,7 @@ import javax.inject.Inject
 /**
  * Created on 2/25/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class UploadingFileItemViewModel @Inject constructor(
     agentRepository: AgentRepository

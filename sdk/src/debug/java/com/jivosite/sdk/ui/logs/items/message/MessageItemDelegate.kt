@@ -13,7 +13,7 @@ import javax.inject.Provider
 /**
  * Created on 12/8/20.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class MessageItemDelegate(
     private val lifecycleOwner: LifecycleOwner,

@@ -9,7 +9,7 @@ import java.util.*
  *
  * @param agents Список идентификаторов агентов, которые в данный момент набирают текст.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 data class TypingState(
     val agents: List<TypingInfo> = Collections.emptyList()

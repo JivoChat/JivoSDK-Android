@@ -9,7 +9,7 @@ import com.jivosite.sdk.support.vm.StateLiveData
  *
  * Репозиторий для хранения информации об агентах.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 interface AgentRepository {
 

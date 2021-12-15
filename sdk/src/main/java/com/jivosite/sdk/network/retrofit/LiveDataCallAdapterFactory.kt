@@ -11,7 +11,7 @@ import java.lang.reflect.Type
 /**
  * Created on 17.11.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class LiveDataCallAdapterFactory(
         private val schedulers: Schedulers,

@@ -8,7 +8,7 @@ import java.util.*
 /**
  * Created on 2020-02-06.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 open class SimpleDiffAdapter<T>(
 	private val comparator: SimpleDiffComparator<AdapterDelegateItem<T>> = DefaultComparator()

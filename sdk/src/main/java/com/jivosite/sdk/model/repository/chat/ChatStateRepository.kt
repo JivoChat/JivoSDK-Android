@@ -8,7 +8,7 @@ import com.jivosite.sdk.support.vm.StateLiveData
  * Репозиторий для хранения информации по окну чата. Пока храним только состояние просмотра, то есть наличие окна с
  * чатом на переднем плане.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 interface ChatStateRepository {
 

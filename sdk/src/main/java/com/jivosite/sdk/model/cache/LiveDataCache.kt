@@ -7,7 +7,7 @@ import javax.inject.Inject
 /**
  * Created on 28/04/2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class LiveDataCache<K, LD, T> @Inject constructor(private val producer: () -> LD) where LD : MutableLiveData<T> {
 

@@ -9,7 +9,7 @@ import com.jivosite.sdk.db.entities.DbAgent
 /**
  * Created on 3/21/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 @Database(entities = [DbAgent::class], version = DATABASE_VERSION, exportSchema = false)
 abstract class SdkDb : RoomDatabase() {

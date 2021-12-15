@@ -8,7 +8,7 @@ import com.jivosite.sdk.support.dg.items.fallback.FallbackDelegate
 /**
  * Created on 2020-01-28.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class AdapterDelegateManager<T> {
 

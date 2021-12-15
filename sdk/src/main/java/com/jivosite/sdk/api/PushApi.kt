@@ -12,7 +12,7 @@ import retrofit2.http.*
 /**
  * Created on 1/18/21.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 interface PushApi {
 

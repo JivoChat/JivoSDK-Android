@@ -11,7 +11,7 @@ import java.util.*
 /**
  * Created on 12/8/20.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 abstract class LogsItemViewModel {
 

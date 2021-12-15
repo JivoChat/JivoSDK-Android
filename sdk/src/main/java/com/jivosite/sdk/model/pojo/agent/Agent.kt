@@ -3,7 +3,7 @@ package com.jivosite.sdk.model.pojo.agent
 /**
  * Created on 12/12/20.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 data class Agent(
     val id: String,

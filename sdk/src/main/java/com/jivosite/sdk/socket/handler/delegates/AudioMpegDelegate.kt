@@ -16,7 +16,7 @@ import javax.inject.Inject
  * Пример сообщения для обработки:
  * {"type":"audio/mpeg","data":"https://files.dev.jivosite.com/file-transfer/75613/2021-02-26/d389d8336d81608f0c7f.mp3","id":"1407.1614339974","from":"7"}
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class AudioMpegDelegate @Inject constructor(
     chatStateRepository: ChatStateRepository,

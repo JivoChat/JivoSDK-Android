@@ -17,7 +17,7 @@ import javax.inject.Inject
  *
  * Реализация репозитория для хранения информации об агентах.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class AgentRepositoryImpl @Inject constructor(
     private val schedulers: Schedulers,

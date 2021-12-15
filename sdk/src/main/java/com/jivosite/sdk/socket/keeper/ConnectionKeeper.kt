@@ -10,7 +10,7 @@ import com.neovisionaries.ws.client.WebSocket
 /**
  * Created on 06.09.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class ConnectionKeeper(
     private val ws: WebSocket,

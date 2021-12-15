@@ -15,7 +15,7 @@ import javax.inject.Provider
  * Пример сообщения для обработки:
  * {"type":"atom/me.history","data":"147"}
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class AtomMeHistoryDelegate @Inject constructor(
     private val historyRepository: HistoryRepository,

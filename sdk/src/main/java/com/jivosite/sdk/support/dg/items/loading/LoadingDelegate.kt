@@ -8,7 +8,7 @@ import com.jivosite.sdk.support.dg.AdapterDelegateItem.Companion.VT_LOADING
 /**
  * Created on 2020-01-28.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class LoadingDelegate<T> : AdapterDelegate<T>(VT_LOADING, R.layout.dg_item_loading) {
 

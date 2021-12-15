@@ -5,7 +5,7 @@ import retrofit2.Response
 /**
  * Created on 17.11.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class ApiResponse<T>(
         val code: Int,

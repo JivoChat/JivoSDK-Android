@@ -14,7 +14,7 @@ import java.util.*
 /**
  * Created on 28.10.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 interface MediaApi {
 

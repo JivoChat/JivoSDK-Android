@@ -8,7 +8,7 @@ import com.jivosite.sdk.support.dg.AdapterDelegateViewHolder
 /**
  * Created on 12/8/20.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 open class LogsItemViewHolder(
     itemView: View,

@@ -3,7 +3,7 @@ package com.jivosite.sdk.socket.states
 /**
  * Created on 25.11.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 interface ServiceStateContext {
 

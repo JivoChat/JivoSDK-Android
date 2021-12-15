@@ -16,7 +16,7 @@ import javax.inject.Inject
  * Пример сообщения для обработки:
  * {"type":"video/mp4","data":"https://files.dev.jivosite.com/file-transfer/75613/2021-02-25/03764c01438607dd4f74.mp4","id":"1398.1614236995","from":"7"}
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class VideoMp4Delegate @Inject constructor(
     chatStateRepository: ChatStateRepository,

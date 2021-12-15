@@ -11,7 +11,7 @@ import javax.inject.Inject
  * Example of message to handle:
  * {"type":"atom/message.ack","data":"162.1607937882"}
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class AtomMessageAckDelegate @Inject constructor(
     private val historyRepository: HistoryRepository

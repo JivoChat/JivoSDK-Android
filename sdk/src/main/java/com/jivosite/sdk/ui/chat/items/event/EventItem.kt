@@ -10,6 +10,6 @@ import com.jivosite.sdk.ui.chat.items.EventEntry
  *
  * @param event Событие от сервера.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class EventItem(event: EventEntry) : ChatItem(VT_EVENT, event)

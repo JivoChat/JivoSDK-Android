@@ -9,7 +9,7 @@ import dagger.Subcomponent
 /**
  * Created on 10.09.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 @ServiceScope
 @Subcomponent(

@@ -13,7 +13,7 @@ import java.util.*
  * @param hasUnread индикатор того, что в истории есть не прочитанные сообщения.
  * @param lastReadMsgId идентификатор последнего просмотренного сообщения.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 data class HistoryState(
     val messages: List<HistoryMessage> = Collections.emptyList(),

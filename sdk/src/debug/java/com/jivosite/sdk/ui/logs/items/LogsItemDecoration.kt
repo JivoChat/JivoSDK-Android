@@ -14,7 +14,7 @@ import com.jivosite.sdk.support.ext.dp
 /**
  * Created on 2020-01-14.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class LogsItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
 

@@ -18,7 +18,7 @@ import javax.inject.Singleton
 /**
  * Created on 02.09.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 @Module
 class SdkModule(appContext: Context, widgetId: String) {

@@ -5,7 +5,7 @@ import com.jivosite.sdk.support.dg.AdapterDelegateItem
 /**
  * Created on 06/05/2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 interface BaseAdapter<T> {
 

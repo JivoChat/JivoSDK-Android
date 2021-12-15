@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 /**
  * Created on 29.01.2021.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class ImageViewerViewModel : ViewModel() {
 

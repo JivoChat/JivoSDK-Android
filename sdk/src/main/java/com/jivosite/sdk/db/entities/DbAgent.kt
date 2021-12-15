@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 /**
  * Created on 3/21/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 @Entity(tableName = "agent")
 data class DbAgent(

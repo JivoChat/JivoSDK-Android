@@ -5,7 +5,7 @@ package com.jivosite.sdk.model.repository.pagination
  *
  * Состояние пагинации для истории сообщений в чате.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 interface PaginationRepository {
 

@@ -16,7 +16,7 @@ import javax.inject.Inject
  * Пример сообщения с изображением:
  * {"type":"image/gif","data":"https://media4.giphy.com/media/xUPGcyi4YxcZp8dWZq/giphy.gif","id":"1024.1612693788","from":"6"}
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class ImageGifDelegate @Inject constructor(
     chatStateRepository: ChatStateRepository,

@@ -5,7 +5,7 @@ import java.io.InputStream
 /**
  * Created on 2/18/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 data class File(
     val name: String,

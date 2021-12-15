@@ -14,7 +14,7 @@ import java.util.*
  * @param data Данные сообщения, например текст для текстового сообщения, или ссылка для изображения.
  * @param status Статус сообщения, может быть "отправляется" или "ошибка". [MessageStatus]
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 data class ClientMessage(
     val context: String,

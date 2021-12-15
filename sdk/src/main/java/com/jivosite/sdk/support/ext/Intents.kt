@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull
  * Cre
  * ted on 12.11.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class Intents {
 

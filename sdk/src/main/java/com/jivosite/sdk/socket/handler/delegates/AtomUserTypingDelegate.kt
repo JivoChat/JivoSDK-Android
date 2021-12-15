@@ -11,7 +11,7 @@ import javax.inject.Inject
  * Пример сообщения для обработки:
  * {"type":"atom/user.typing","data":"…","id":"6"}
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class AtomUserTypingDelegate @Inject constructor(
     private val typingRepository: TypingRepository

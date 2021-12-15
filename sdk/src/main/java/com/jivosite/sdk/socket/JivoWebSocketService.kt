@@ -31,7 +31,7 @@ import javax.inject.Provider
 /**
  * Created on 05.09.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscriber {
 

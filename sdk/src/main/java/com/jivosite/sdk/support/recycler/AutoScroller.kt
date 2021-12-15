@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
  *
  * Вспомогательный класс, для подскроливания списка к последнему сообщению.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class AutoScroller {
 

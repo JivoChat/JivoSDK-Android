@@ -6,6 +6,6 @@ import com.jivosite.sdk.ui.chat.items.MessageEntry
 /**
  * Created on 2/16/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class ClientImageItem(message: MessageEntry) : ChatItem(VT_CLIENT_IMAGE, message)

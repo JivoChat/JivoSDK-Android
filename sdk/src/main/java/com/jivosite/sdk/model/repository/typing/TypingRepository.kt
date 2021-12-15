@@ -7,7 +7,7 @@ import com.jivosite.sdk.support.vm.StateLiveData
  *
  * Репозиторий, для хранения информации об операторах, набирающих сообщения.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 interface TypingRepository {
 

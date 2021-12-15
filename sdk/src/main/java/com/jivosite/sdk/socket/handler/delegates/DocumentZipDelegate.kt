@@ -16,7 +16,7 @@ import javax.inject.Inject
  * Пример сообщения для обработки:
  * {"type":"application/zip","data":"https://files.dev.jivosite.com/file-transfer/75613/2021-03-01/e7640d61209386639cdc.zip","id":"1435.1614585191","from":"7"}
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class DocumentZipDelegate @Inject constructor(
     chatStateRepository: ChatStateRepository,

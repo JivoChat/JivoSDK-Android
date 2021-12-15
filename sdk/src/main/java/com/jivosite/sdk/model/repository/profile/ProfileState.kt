@@ -7,7 +7,7 @@ package com.jivosite.sdk.model.repository.profile
  *
  * @param id Идентификатор пользователя.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 data class ProfileState(
     val id: String

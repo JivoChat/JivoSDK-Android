@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * Created on 12/9/20.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class JivoSettingsFragment : Fragment(R.layout.fragment_jivo_settings) {
 

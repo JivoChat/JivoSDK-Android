@@ -12,7 +12,7 @@ import javax.inject.Inject
  * Example of message to handle:
  * {"type":"atom/message.id","data":"162.1607937881","context":"CONTEXT_ID"}
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class AtomMessageIdDelegate @Inject constructor(
     private val historyRepository: HistoryRepository,

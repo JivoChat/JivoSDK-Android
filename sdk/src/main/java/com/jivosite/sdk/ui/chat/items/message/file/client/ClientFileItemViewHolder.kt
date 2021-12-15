@@ -14,7 +14,7 @@ import com.jivosite.sdk.ui.chat.items.message.media.MediaItemViewHolder
 /**
  * Created on 3/2/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class ClientFileItemViewHolder(
     itemView: View,

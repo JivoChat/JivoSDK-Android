@@ -16,7 +16,7 @@ import javax.inject.Inject
  * Пример текстового сообщения:
  * {"type":"text/plain","data":"Hello from agent","id":"152.1607929611","from":"1"}
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class TextPlainDelegate @Inject constructor(
     chatStateRepository: ChatStateRepository,

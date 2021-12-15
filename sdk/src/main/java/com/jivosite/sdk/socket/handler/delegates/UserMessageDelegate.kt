@@ -18,7 +18,7 @@ import com.jivosite.sdk.socket.transmitter.Transmitter
  *
  * Общий делегат для обработки сообщений пользователей, как клиента(из истории), так и оператора.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 abstract class UserMessageDelegate constructor(
     private val chatStateRepository: ChatStateRepository,

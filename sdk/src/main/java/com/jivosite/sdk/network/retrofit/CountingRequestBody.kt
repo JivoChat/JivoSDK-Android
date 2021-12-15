@@ -6,7 +6,7 @@ import okio.*
 /**
  * Created on 18.01.2021.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 typealias CountingRequestListener = (progress: Long) -> Unit
 

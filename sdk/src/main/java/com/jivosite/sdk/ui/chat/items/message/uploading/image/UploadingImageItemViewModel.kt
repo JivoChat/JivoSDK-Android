@@ -11,7 +11,7 @@ import javax.inject.Inject
 /**
  * Created on 2/24/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class UploadingImageItemViewModel @Inject constructor(
     agentRepository: AgentRepository

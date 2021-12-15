@@ -6,6 +6,6 @@ import com.jivosite.sdk.ui.chat.items.UploadingFileEntry
 /**
  * Created on 2/24/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class UploadingImageItem(data: UploadingFileEntry) : ChatItem(VT_UPLOADING_IMAGE, data)

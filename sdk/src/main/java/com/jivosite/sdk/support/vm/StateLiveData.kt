@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
  *
  * LiveData для состояний, внутри репозитория. Всегда имеет значение.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class StateLiveData<T>(state: T) : MutableLiveData<T>(state) {
 

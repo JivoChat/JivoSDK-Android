@@ -11,7 +11,7 @@ import com.jivosite.sdk.support.vm.StateLiveData
  *
  * @param STATE Состояние репозитория, которое можно обновить через [updateState]
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 abstract class StateRepository<STATE>(
     schedulers: Schedulers,

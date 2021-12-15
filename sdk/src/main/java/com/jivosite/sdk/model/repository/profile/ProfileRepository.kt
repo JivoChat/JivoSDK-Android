@@ -7,7 +7,7 @@ import com.jivosite.sdk.support.vm.StateLiveData
  *
  * Репозиторий для хренения информации о профиле пользователя.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 interface ProfileRepository {
 

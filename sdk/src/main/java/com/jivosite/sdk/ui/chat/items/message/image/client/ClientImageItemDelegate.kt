@@ -12,7 +12,7 @@ import javax.inject.Provider
 /**
  * Created on 2/16/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class ClientImageItemDelegate(
     private val lifecycleOwner: LifecycleOwner,

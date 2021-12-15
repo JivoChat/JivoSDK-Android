@@ -3,7 +3,7 @@ package com.jivosite.sdk.support.dg
 /**
  * Created on 2020-01-28.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 abstract class AdapterDelegateItem<T>(val viewType: Int = VT_ITEM, val data: T? = null) {
 

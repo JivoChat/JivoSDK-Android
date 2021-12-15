@@ -7,7 +7,7 @@ import com.jivosite.sdk.push.handler.PushMessageDelegate
 /**
  * Created on 1/19/21.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 data class PushData(
     val u: U,

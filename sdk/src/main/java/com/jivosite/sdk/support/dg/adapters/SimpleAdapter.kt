@@ -7,7 +7,7 @@ import java.util.*
 /**
  * Created on 2020-01-28.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class SimpleAdapter<T> : AdapterDelegateAdapter<T>(), BaseAdapter<T> {
 

@@ -6,7 +6,7 @@ import com.neovisionaries.ws.client.WebSocketException
 /**
  * Created on 19.11.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class SocketErrorHandler(private val cause: WebSocketException?) {
 

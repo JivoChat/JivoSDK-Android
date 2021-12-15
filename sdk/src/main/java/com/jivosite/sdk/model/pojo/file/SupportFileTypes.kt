@@ -3,7 +3,7 @@ package com.jivosite.sdk.model.pojo.file
 /**
  * Created on 02.11.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class SupportFileTypes {
 

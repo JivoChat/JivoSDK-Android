@@ -6,7 +6,7 @@ import javax.inject.Inject
 /**
  * Created on 12/8/20.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class DebugLogger @Inject constructor(
     private val logsRepository: LogsRepository

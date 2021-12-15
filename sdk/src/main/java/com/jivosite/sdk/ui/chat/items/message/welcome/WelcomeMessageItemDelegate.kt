@@ -10,7 +10,7 @@ import com.jivosite.sdk.ui.chat.items.ChatItem.Companion.VT_WELCOME
 /**
  * Created on 30.11.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class WelcomeMessageItemDelegate : AdapterDelegate<ChatEntry>(VT_WELCOME, R.layout.dg_item_welcome_message) {
 

@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * Created on 3/1/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class AudioUniversalDelegate @Inject constructor(
     chatStateRepository: ChatStateRepository,

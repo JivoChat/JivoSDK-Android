@@ -16,7 +16,7 @@ import javax.inject.Inject
  * Пример сообщения с изображением:
  * {"type":"image/jpeg","data":"https://files.dev.jivosite.com/file-transfer/75613/2021-02-07/08f11a6a06fa40c10dc5.jpg","id":"1023.1612693680","from":"6"}
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class ImageJpegDelegate @Inject constructor(
     chatStateRepository: ChatStateRepository,

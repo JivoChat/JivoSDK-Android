@@ -9,7 +9,7 @@ import retrofit2.http.QueryMap
 /**
  * Created on 08.09.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 interface TelemetryApi {
 

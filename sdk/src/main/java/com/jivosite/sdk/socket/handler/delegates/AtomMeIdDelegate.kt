@@ -13,7 +13,7 @@ import javax.inject.Provider
  * Пример сообщения для обработки:
  * {"type":"atom/me.id","data":"211.gnEVRL77+NxHERLl2+B8nBPby0+2FunyAuT0Qic1hCU"}
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class AtomMeIdDelegate @Inject constructor(
     private val profileRepository: ProfileRepository,

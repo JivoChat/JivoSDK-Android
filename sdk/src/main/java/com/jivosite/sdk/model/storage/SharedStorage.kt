@@ -10,7 +10,7 @@ import com.jivosite.sdk.BuildConfig
 /**
  * Created on 2019-06-05.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class SharedStorage(context: Context) {
 

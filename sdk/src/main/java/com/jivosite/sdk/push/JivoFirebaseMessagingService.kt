@@ -15,7 +15,7 @@ import javax.inject.Provider
 /**
  * Created on 1/15/21.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 open class JivoFirebaseMessagingService : FirebaseMessagingService() {
 

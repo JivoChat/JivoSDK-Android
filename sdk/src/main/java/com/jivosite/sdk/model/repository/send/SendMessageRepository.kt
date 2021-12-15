@@ -11,7 +11,7 @@ import com.jivosite.sdk.support.vm.StateLiveData
  * Репозиторий, который отвечает за список отправляемых сообщений. То есть тех, которые еще
  * не попали в историю переписки.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 interface SendMessageRepository {
 

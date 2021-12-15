@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 /**
  * Created on 1/19/21.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 @JsonClass(generateAdapter = true)
 data class U(

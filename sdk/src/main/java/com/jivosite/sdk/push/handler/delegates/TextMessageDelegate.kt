@@ -26,7 +26,7 @@ import javax.inject.Inject
 /**
  * Created on 1/20/21.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class TextMessageDelegate @Inject constructor(
     context: SdkContext,

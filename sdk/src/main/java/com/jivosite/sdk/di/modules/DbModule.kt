@@ -11,7 +11,7 @@ import javax.inject.Singleton
 /**
  * Created on 3/21/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 @Module
 class DbModule {

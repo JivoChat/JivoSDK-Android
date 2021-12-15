@@ -7,7 +7,7 @@ import javax.inject.Inject
 /**
  * Created on 12/15/20.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class DefaultTransmitter @Inject constructor() : Transmitter {
 

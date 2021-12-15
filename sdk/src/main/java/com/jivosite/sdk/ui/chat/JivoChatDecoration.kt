@@ -9,7 +9,7 @@ import com.jivosite.sdk.ui.chat.items.message.general.MessageItemViewHolder
 /**
  * Created on 29.09.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class JivoChatDecoration : RecyclerView.ItemDecoration() {
 

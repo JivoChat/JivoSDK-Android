@@ -9,7 +9,7 @@ import javax.inject.Inject
 /**
  * Created on 02.02.2021.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class JivoChatButtonViewModel @Inject constructor(
     private val historyRepository: HistoryRepository

@@ -7,7 +7,7 @@ import java.util.*
 /**
  * Created on 12/5/20.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 data class SdkContext(
     val appContext: Context,

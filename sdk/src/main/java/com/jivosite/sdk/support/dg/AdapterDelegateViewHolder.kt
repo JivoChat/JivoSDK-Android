@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * Created on 2020-01-28.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 abstract class AdapterDelegateViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

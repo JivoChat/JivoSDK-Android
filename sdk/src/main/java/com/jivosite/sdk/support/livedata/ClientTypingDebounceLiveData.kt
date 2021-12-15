@@ -5,7 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 /**
  * Created on 2/5/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class ClientTypingDebounceLiveData<T>(private val timeout: Long = 3000) : MediatorLiveData<T>() {
 

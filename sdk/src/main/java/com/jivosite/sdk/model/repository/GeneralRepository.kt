@@ -13,7 +13,7 @@ import java.util.concurrent.Executor
  * Если нужна обработка сообщения глобально, то используем метод [handleInDispatchingThread]. Он запустит обработку
  * в основном потоке приложения.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 abstract class GeneralRepository(schedulers: Schedulers, name: String) {
 

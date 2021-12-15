@@ -12,7 +12,7 @@ import com.jivosite.sdk.support.async.Schedulers
 /**
  * Created on 2019-05-27.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 typealias ApiCall<T> = () -> LiveData<ApiResponse<T>>
 typealias ApiResponseHandler<T, R> = (T) -> R

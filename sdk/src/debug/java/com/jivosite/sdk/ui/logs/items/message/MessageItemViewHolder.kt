@@ -9,7 +9,7 @@ import com.jivosite.sdk.ui.logs.items.LogsItemViewHolder
 /**
  * Created on 12/8/20.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class MessageItemViewHolder(
     itemView: View,

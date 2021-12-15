@@ -9,7 +9,7 @@ import javax.inject.Inject
 /**
  * Created on 1/31/21.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class PaginationRepositoryImpl @Inject constructor(
     schedulers: Schedulers

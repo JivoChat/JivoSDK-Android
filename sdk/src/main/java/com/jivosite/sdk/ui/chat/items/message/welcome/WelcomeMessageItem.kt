@@ -8,6 +8,6 @@ import com.jivosite.sdk.ui.chat.items.WelcomeMessageEntry
  *
  * Приветственное сообщение. Отображается, если история сообщений пустая.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class WelcomeMessageItem : ChatItem(VT_WELCOME, WelcomeMessageEntry)

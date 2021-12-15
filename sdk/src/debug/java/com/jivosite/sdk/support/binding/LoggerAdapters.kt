@@ -9,7 +9,7 @@ import com.jivosite.sdk.ui.logs.items.message.MessageDirection
 /**
  * Created on 22.09.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 @BindingAdapter("messageDirection")
 fun setMessageStatus(view: AppCompatImageView, direction: MessageDirection?) {

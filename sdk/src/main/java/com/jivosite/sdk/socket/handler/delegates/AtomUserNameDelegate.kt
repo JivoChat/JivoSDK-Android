@@ -11,7 +11,7 @@ import javax.inject.Inject
  * Example of message to handle:
  * {"type":"atom/user.name","data":"Alex","id":"1"}
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class AtomUserNameDelegate @Inject constructor(
     private val agentRepository: AgentRepository

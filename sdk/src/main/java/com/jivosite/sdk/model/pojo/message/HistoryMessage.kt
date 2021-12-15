@@ -13,7 +13,7 @@ import com.jivosite.sdk.model.pojo.socket.SocketMessage
  * @param data Полезная нагрузка, данные сообщения.
  * @param status [MessageStatus].
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 data class HistoryMessage(
     val id: String,

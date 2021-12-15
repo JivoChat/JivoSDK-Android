@@ -11,7 +11,7 @@ import javax.inject.Inject
  * Example of message to handle:
  * {"type":"atom/user","data":"online","id":"1"} or {"type":"atom/user","data":"offline"}
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class AtomUserDelegate @Inject constructor(
     private val agentRepository: AgentRepository

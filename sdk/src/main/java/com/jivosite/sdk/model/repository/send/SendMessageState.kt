@@ -9,7 +9,7 @@ import java.util.*
  * @param messages Список сообщений, которые отправляются на сервер. Если отправить сообщение не удалось,
  * то оно останется в истории, со статусом ошибки.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 data class SendMessageState(
     val messages: List<ClientMessage> = Collections.emptyList()

@@ -7,7 +7,7 @@ import kotlin.reflect.KProperty
 /**
  * Created on 2019-08-05.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class SharedPreference<T>(
     private val preferences: SharedPreferences,

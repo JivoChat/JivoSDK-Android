@@ -8,7 +8,7 @@ import android.net.Uri
 /**
  * Created on 13.09.2021.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 @Deprecated("not worked")
 class JivoLifecycleOwnerInitializer : ContentProvider() {

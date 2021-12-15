@@ -19,7 +19,7 @@ import javax.inject.Inject
 /**
  * Created on 1/18/21.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class UpdatePushTokenUseCase @Inject constructor(
     private val sdkContext: SdkContext,

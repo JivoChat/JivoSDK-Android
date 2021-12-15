@@ -12,7 +12,7 @@ import javax.inject.Provider
 /**
  * Created on 2/9/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class EventItemDelegate(
     private val lifecycleOwner: LifecycleOwner,

@@ -8,7 +8,7 @@ import javax.inject.Provider
 /**
  * Created on 16.09.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class ViewModelFactory<T : ViewModel> @Inject constructor(
     private val viewModelProvider: Provider<T>

@@ -14,7 +14,7 @@ import javax.inject.Inject
 /**
  * Created on 10.09.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class ConnectedState @Inject constructor(
     stateContext: JivoWebSocketService,

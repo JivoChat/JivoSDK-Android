@@ -5,7 +5,7 @@ import java.util.concurrent.Executor
 /**
  * Created on 18.11.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 interface Schedulers {
 

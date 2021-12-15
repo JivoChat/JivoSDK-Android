@@ -13,7 +13,7 @@ import com.jivosite.sdk.ui.chat.items.MessageEntry
  *
  * Основной класс для сообщений от пользователя или агента.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 open class MessageItemViewModel<T : MessageEntry>(agentRepository: AgentRepository) : ChatEntryViewModel<T>() {
 

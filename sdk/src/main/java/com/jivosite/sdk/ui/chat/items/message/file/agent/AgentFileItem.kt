@@ -6,7 +6,7 @@ import com.jivosite.sdk.ui.chat.items.MessageEntry
 /**
  * Created on 3/2/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class AgentFileItem(message: MessageEntry) : ChatItem(VT_AGENT_FILE_ITEM, message)
 

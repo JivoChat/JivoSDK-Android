@@ -7,7 +7,7 @@ import timber.log.Timber
 /**
  * Created on 02.09.2020.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class ExampleApplication : Application() {
 

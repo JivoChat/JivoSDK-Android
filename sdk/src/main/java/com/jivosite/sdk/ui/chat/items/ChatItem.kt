@@ -9,7 +9,7 @@ import com.jivosite.sdk.support.dg.AdapterDelegateItem
 /**
  * Created on 23.09.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 open class ChatItem(viewType: Int, data: ChatEntry) : AdapterDelegateItem<ChatEntry>(viewType, data) {
 
@@ -36,7 +36,7 @@ open class ChatItem(viewType: Int, data: ChatEntry) : AdapterDelegateItem<ChatEn
  *
  * Класс для передачи данных в элемент списка.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 
 sealed class ChatEntry

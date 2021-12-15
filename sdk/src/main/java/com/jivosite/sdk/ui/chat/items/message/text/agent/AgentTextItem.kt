@@ -9,6 +9,6 @@ import com.jivosite.sdk.ui.chat.items.MessageEntry
  * Элемент списка, описывающий сообщение от агента.
  * @param message Информация о сообщении.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class AgentTextItem(message: MessageEntry) : ChatItem(VT_AGENT_TEXT, message)

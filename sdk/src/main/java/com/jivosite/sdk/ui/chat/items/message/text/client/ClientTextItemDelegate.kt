@@ -12,7 +12,7 @@ import javax.inject.Provider
 /**
  * Created on 16.09.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class ClientTextItemDelegate(
     private val lifecycleOwner: LifecycleOwner,

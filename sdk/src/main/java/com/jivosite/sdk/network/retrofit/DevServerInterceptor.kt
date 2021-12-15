@@ -8,7 +8,7 @@ import okhttp3.Response
 /**
  * Created on 2019-12-12.
  *
- * @author Alexandr Shibelev (av.shibelev@gmail.com)
+ * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class DevServerInterceptor(private val storage: SharedStorage) : Interceptor {
 

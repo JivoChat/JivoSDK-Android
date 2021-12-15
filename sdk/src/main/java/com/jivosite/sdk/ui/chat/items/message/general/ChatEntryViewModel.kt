@@ -7,7 +7,7 @@ import com.jivosite.sdk.ui.chat.items.ChatEntry
 /**
  * Created on 2/20/21.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 open class ChatEntryViewModel<T : ChatEntry>: ViewModel() {
 

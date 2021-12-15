@@ -5,7 +5,7 @@ import java.util.*
 /**
  * Created on 07.12.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 
 data class UploadFilesState(

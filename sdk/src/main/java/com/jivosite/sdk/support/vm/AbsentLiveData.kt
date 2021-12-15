@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 /**
  * Created on 30.09.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class AbsentLiveData<T> private constructor() : LiveData<T>() {
 

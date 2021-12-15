@@ -11,7 +11,7 @@ import com.jivosite.sdk.ui.chat.items.MessageEntry
 /**
  * Created on 16.09.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 open class MessageItemViewHolder<T : MessageEntry>(
     itemView: View,

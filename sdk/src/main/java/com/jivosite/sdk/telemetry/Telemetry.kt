@@ -6,7 +6,7 @@ import com.jivosite.sdk.api.TelemetryApi
 /**
  * Created on 08.09.2020.
  *
- * @author Alexander Tavtorkin (av.tavtorkin@gmail.com)
+ * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 object Telemetry {
 
