@@ -14,8 +14,8 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_SHOW_PUSH = "ExtraShowPush"
-        const val ACTION_OPEN_CHAT = "ActionOpenChat"
+        const val EXTRA_TARGET = "ExtraTarget"
+        const val TARGET_CHAT = "TargetChat"
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.navMenu)
         navView.setupWithNavController(navController)
 
-        if (intent.getStringExtra(ACTION_OPEN_CHAT) == EXTRA_SHOW_PUSH) {
+        if (intent.getStringExtra(EXTRA_TARGET) == TARGET_CHAT) {
             navController.navigate(R.id.action_pageMain_to_jivoChat)
         }
 

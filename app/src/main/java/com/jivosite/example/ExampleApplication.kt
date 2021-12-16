@@ -3,8 +3,8 @@ package com.jivosite.example
 import android.app.Application
 import android.app.PendingIntent
 import android.content.Intent
-import com.jivosite.example.MainActivity.Companion.ACTION_OPEN_CHAT
-import com.jivosite.example.MainActivity.Companion.EXTRA_SHOW_PUSH
+import com.jivosite.example.MainActivity.Companion.EXTRA_TARGET
+import com.jivosite.example.MainActivity.Companion.TARGET_CHAT
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.push.handler.delegates.TextMessageDelegate.Companion.NOTIFICATION_REQUEST_CODE
 import com.jivosite.sdk.support.builders.Config
@@ -29,7 +29,7 @@ class ExampleApplication : Application() {
                     this,
                     NOTIFICATION_REQUEST_CODE,
                     Intent(this, MainActivity::class.java).apply {
-                        putExtra(ACTION_OPEN_CHAT, EXTRA_SHOW_PUSH)
+                        putExtra(EXTRA_TARGET, TARGET_CHAT)
                     },
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
