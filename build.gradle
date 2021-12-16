@@ -5,7 +5,7 @@ buildscript {
     ext {
         sdkVersion = 31
         buildTools = "30.0.3"
-        ext.kotlinVersion = "1.6.0"
+        ext.kotlinVersion = "1.6.10"
     }
 
     repositories {
