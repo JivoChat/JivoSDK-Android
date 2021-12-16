@@ -10,7 +10,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jivosite.example.databinding.ActivityMainBinding
 import timber.log.Timber
 
+
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        const val EXTRA_SHOW_PUSH = "ExtraShowPush"
+        const val ACTION_OPEN_CHAT = "ActionOpenChat"
+    }
 
     private lateinit var binding: ActivityMainBinding
 
@@ -24,6 +30,11 @@ class MainActivity : AppCompatActivity() {
             (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
         val navView: BottomNavigationView = findViewById(R.id.navMenu)
         navView.setupWithNavController(navController)
+
+        if (intent.getStringExtra(ACTION_OPEN_CHAT) == EXTRA_SHOW_PUSH) {
+            navController.navigate(R.id.action_pageMain_to_jivoChat)
+        }
+
     }
 
     override fun onResume() {
