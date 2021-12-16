@@ -38,7 +38,7 @@ import javax.inject.Provider
  *
  * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
-class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
+open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
 
     companion object {
         const val COUNT_TO_LOAD_NEXT_PAGE = 3
@@ -98,7 +98,7 @@ class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
                     )
                 )
                 setNavigationOnClickListener {
-                    activity?.finish()
+                    Jivo.getConfig().onBackPressedCallback?.invoke(this@JivoChatFragment) ?: activity?.onBackPressed()
                 }
             }
 

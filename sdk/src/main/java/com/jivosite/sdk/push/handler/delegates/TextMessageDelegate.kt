@@ -35,6 +35,7 @@ class TextMessageDelegate @Inject constructor(
 
     companion object {
         private const val NOTIFICATIONS_DIR = "notifications"
+        const val NOTIFICATION_REQUEST_CODE = 0
     }
 
     override fun getChannelId() = "jivo_sdk_message"
@@ -129,13 +130,17 @@ class TextMessageDelegate @Inject constructor(
     }
 
     private fun getContentIntent(): PendingIntent {
-        val intent = Intent(context.appContext, JivoChatActivity::class.java)
-        return PendingIntent.getActivity(
+        return Jivo.getConfig().openNotificationCallback?.invoke() ?: Intent(
             context.appContext,
-            0,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
+            JivoChatActivity::class.java
+        ).let {
+            PendingIntent.getActivity(
+                context.appContext,
+                NOTIFICATION_REQUEST_CODE,
+                it,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        }
     }
 }
 
