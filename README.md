@@ -41,10 +41,12 @@ Jivo Mobile SDK - Android
 -   Android API level 21+
 -   Android Studio 4.2.1+
 
-Добавление нового канала mobile SDK
+Добавление нового канала Mobile SDK
 -----------------------------------
 
-Для добавления нового канала SDK необходимо зайти в [приложение Jivo](https://www.google.com/url?q=http://app.jivosite.com/&sa=D&source=editors&ust=1635432992394000&usg=AOvVaw3EupELM0pAy1B6sa2MCpWc), затем перейти в **Управление > Каналы связи**, в разделе **Добавьте новый канал** найти пункт **Мобильное SDK** и нажать **Добавить**.
+**Внимание!** Данный тип канала доступен в *Корпоративной* версии сервиса [Jivo](https://www.jivo.ru/pricing/). За дополнительной информацией обратитесь, пожалуйста, в чат техподдержки на сайте [Jivo.ru](https://www.jivo.ru/).
+
+Для добавления нового канала SDK необходимо зайти в [приложение Jivo](https://app.jivosite.com/), затем перейти в **Управление > Каналы связи**, в разделе **Добавьте новый канал** найти пункт **Мобильное SDK** и нажать **Добавить**.
 
 <img src="https://user-images.githubusercontent.com/81690520/144237727-fbc36415-946b-4822-9a86-b6a49e6b51d6.png" width="630">
 
@@ -160,7 +162,7 @@ class App() : Application() {
 Запуск JivoSDK
 --------------
 
-Открытие чата реализовано на примере демо -  приложения  [JivosSdkSample](https://www.google.com/url?q=https://github.com/JivoChat/JivoSDK-Android-Sample&sa=D&source=editors&ust=1635432992414000&usg=AOvVaw1dOIX7NBH3kfqDUozew1S_). Добавьте в `main_fragment.xml` кнопку `JivoChatButton`. Пример  кода приведен ниже:
+Открытие чата реализовано на примере демо -  приложения  [JivosSdkSample](https://github.com/JivoChat/JivoSDK-Android-Sample). Добавьте в `main_fragment.xml` кнопку `JivoChatButton`. Пример  кода приведен ниже:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -254,7 +256,7 @@ Jivo.setConfig(
 
 ### Создание проекта.
 
-Войдите в [Firebase](https://www.google.com/url?q=https://console.firebase.google.com/&sa=D&source=editors&ust=1635432992427000&usg=AOvVaw2x3fDvjG2Gh6XQJHH9cQUP), затем создайте свой проект. Нажмите на **Create a project** и выполните следующие инструкции.
+Войдите в [Firebase](https://console.firebase.google.com/), затем создайте свой проект. Нажмите на **Create a project** и выполните следующие инструкции.
 
 <img src="https://user-images.githubusercontent.com/81690520/144238781-44fbe2d1-cb37-41a1-8ce6-7625e82e281c.png" width="630">
 
@@ -290,7 +292,7 @@ Jivo.setConfig(
 <img src="https://user-images.githubusercontent.com/81690520/144238968-3ecaf9f5-183d-4112-ae7c-6299dc193164.png" width="630">
 
 
-Введите [имя пакета](https://www.google.com/url?q=https://developer.android.com/studio/build/application-id?authuser%3D0&sa=D&source=editors&ust=1635432992432000&usg=AOvVaw19GnrQ6usOJuSF9dLS_f55) вашего приложения в поле имени пакета **Android**.
+Введите [имя пакета](https://developer.android.com/studio/build/configure-app-module?authuser=0#set_the_application_id) вашего приложения в поле имени пакета **Android**.
 
 <img src="https://user-images.githubusercontent.com/81690520/144238985-1aac954f-dd8a-400a-83e7-cf999ff21c96.png" width="630">
 
@@ -311,7 +313,7 @@ Jivo.setConfig(
 
 ### Привязка private key к каналу SDK.
 
-Для добавления private key, вам нужно зайти в [приложение Jivo](https://www.google.com/url?q=http://app.jivosite.com/&sa=D&source=editors&ust=1635432992437000&usg=AOvVaw0QksMyM1hmC8Oysa0BTZFI), затем перейти в **Управление > Каналы связи**, в разделе Управление каналами найти нужный вам канал и нажать кнопку Настроить.
+Для добавления private key, вам нужно зайти в [приложение Jivo](http://app.jivosite.com/), затем перейти в **Управление > Каналы связи**, в разделе Управление каналами найти нужный вам канал и нажать кнопку Настроить.
 
 <img src="https://user-images.githubusercontent.com/81690520/144239039-5a435d45-2e06-4aba-b022-c149ae0a7cdb.png" width="630">
 
