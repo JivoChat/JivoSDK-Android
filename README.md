@@ -34,7 +34,7 @@ Jivo Mobile SDK - Android
 
 Посмотрите, как работает чат внутри приложения на примере нашего демо-приложения. Это простое приложение под Android позволяет написать в чат технической поддержке нашего сервиса - Jivo.
 
--   [Демо-приложение для Android](https://www.google.com/url?q=https://github.com/JivoChat/JivoSDK-Android-Sample&sa=D&source=editors&ust=1635432992393000&usg=AOvVaw1IYa3MxigNN37sLIowzOpW)
+-   [Демо-приложение для Android](https://github.com/JivoChat/JivoSDK-Android-Sample)
 
 ### Требования
 
