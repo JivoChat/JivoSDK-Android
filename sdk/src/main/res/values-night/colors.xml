@@ -18,4 +18,10 @@
     <color name="color_text_subtitle">#636366</color>
     <color name="color_text_error">#636366</color>
     <color name="color_background_media_icon">#6E7878</color>
+    <color name="color_background_incoming_file">#191919</color>
+    <color name="color_background_btn_send">#191919</color>
+    <color name="color_btn_arrow_send">#636366</color>
+    <color name="color_background_placeholder_image">#3A3A3C</color>
+    <color name="color_placeholder_image">#2C2C2E</color>
+    <color name="color_banner">#FFFFFF</color>
 </resources>

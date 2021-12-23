@@ -4,16 +4,16 @@
     android:viewportWidth="32"
     android:viewportHeight="32">
     <path
-        android:fillColor="#DEDEDE"
+        android:fillColor="@color/color_background_btn_send"
         android:pathData="M16,16m-16,0a16,16 0,1 1,32 0a16,16 0,1 1,-32 0" />
     <path
-        android:fillColor="#ffffff"
+        android:fillColor="@color/color_btn_arrow_send"
         android:pathData="M16,10.353L16,10.353A0.9412,0.9412 0,0 1,16.9412 11.2942L16.9412,22.5883A0.9412,0.9412 0,0 1,16 23.5295L16,23.5295A0.9412,0.9412 0,0 1,15.0588 22.5883L15.0588,11.2942A0.9412,0.9412 0,0 1,16 10.353z" />
     <path
-        android:fillColor="#ffffff"
+        android:fillColor="@color/color_btn_arrow_send"
         android:pathData="M15.3818,9.7348L15.3818,9.7348A0.9412,0.9412 134.2567,0 1,16.7128 9.7348L22.0369,15.0589A0.9412,0.9412 134.2567,0 1,22.0369 16.3899L22.0369,16.3899A0.9412,0.9412 134.2567,0 1,20.7059 16.3899L15.3818,11.0658A0.9412,0.9412 134.2567,0 1,15.3818 9.7348z" />
     <path
-        android:fillColor="#ffffff"
+        android:fillColor="@color/color_btn_arrow_send"
         android:pathData="M16.7798,9.7348L16.7798,9.7348A0.9412,0.9412 45.7433,0 0,15.4488 9.7348L10.1247,15.0589A0.9412,0.9412 45.7433,0 0,10.1247 16.3899L10.1247,16.3899A0.9412,0.9412 45.7433,0 0,11.4557 16.3899L16.7798,11.0658A0.9412,0.9412 45.7433,0 0,16.7798 9.7348z" />
 </vector>
 
