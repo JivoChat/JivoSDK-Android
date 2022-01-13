@@ -274,7 +274,7 @@
                     android:contentDescription="@null"
                     android:enabled="@{viewModel.canSend}"
                     android:onClick="@{() -> fragment.send()}"
-                    tools:src="@drawable/vic_send_gray" />
+                    tools:src="@drawable/vic_send_disabled" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
