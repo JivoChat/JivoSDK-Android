@@ -18,7 +18,7 @@ open class MessageItemViewHolder<T : MessageEntry>(
     private val viewModel: MessageItemViewModel<T>
 ) : ChatEntryItemViewHolder<ChatEntry>(itemView) {
 
-    fun isLast(): Boolean = viewModel.position == EntryPosition.Last
+    fun getEntryPosition(): EntryPosition = viewModel.position
 
     fun copyToClipboard(text: String?) {
         if (text.copyToClipboard(context)) {

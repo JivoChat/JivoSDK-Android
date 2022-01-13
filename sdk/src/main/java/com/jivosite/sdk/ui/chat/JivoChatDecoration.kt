@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.jivosite.sdk.support.ext.dp
+import com.jivosite.sdk.ui.chat.items.EntryPosition
 import com.jivosite.sdk.ui.chat.items.message.general.MessageItemViewHolder
 
 /**
@@ -25,10 +26,9 @@ class JivoChatDecoration : RecyclerView.ItemDecoration() {
         if (RecyclerView.NO_POSITION != parent.getChildAdapterPosition(view)) {
             when (val holder = parent.getChildViewHolder(view)) {
                 is MessageItemViewHolder<*> -> {
-                    if (holder.isLast()) {
-                        outRect.top = paddingTopBig
-                    } else {
-                        outRect.top = paddingTopSmall
+                    when (holder.getEntryPosition()) {
+                        EntryPosition.Single, EntryPosition.Last -> outRect.top = paddingTopBig
+                        else -> outRect.top = paddingTopSmall
                     }
                 }
             }
