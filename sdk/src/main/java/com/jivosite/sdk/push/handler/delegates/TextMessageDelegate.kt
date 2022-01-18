@@ -85,7 +85,7 @@ class TextMessageDelegate @Inject constructor(
         val channel = NotificationChannel(getChannelId(), name, importance).also {
             it.description = description
             it.setSound(
-                getSoundForChannel(),
+                Jivo.getConfig().uriNotificationSound ?: getSoundForChannel(),
                 AudioAttributes.Builder()
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .setUsage(AudioAttributes.USAGE_NOTIFICATION)
@@ -120,7 +120,7 @@ class TextMessageDelegate @Inject constructor(
             .apply {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
                     setSound(
-                        Uri.parse(
+                        Jivo.getConfig().uriNotificationSound ?: Uri.parse(
                             "${ContentResolver.SCHEME_ANDROID_RESOURCE}://${context.appContext.packageName}/${R.raw.jivo_magic}"
                         )
                     )
