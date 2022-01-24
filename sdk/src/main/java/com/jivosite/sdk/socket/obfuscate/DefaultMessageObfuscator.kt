@@ -1,6 +1,5 @@
 package com.jivosite.sdk.socket.obfuscate
 
-import com.jivosite.sdk.BuildConfig
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import javax.inject.Inject
 
@@ -12,10 +11,6 @@ import javax.inject.Inject
 class DefaultMessageObfuscator @Inject constructor() : MessageObfuscator {
 
     override fun obfuscate(msg: String, socketMessage: SocketMessage): String {
-        return if (BuildConfig.DEBUG) {
-            msg
-        } else {
-            "{ *** }"
-        }
+        return msg
     }
 }
