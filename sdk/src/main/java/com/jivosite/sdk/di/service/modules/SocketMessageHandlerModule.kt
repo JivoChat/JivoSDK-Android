@@ -5,7 +5,7 @@ import com.jivosite.sdk.di.service.ServiceScope
 import com.jivosite.sdk.socket.handler.SocketMessageDelegate
 import com.jivosite.sdk.socket.handler.SocketMessageHandler
 import com.jivosite.sdk.socket.handler.delegates.*
-import com.jivosite.sdk.socket.obfuscate.DefaultMessageObfuscator
+import com.jivosite.sdk.socket.obfuscate.DebugMessageObfuscator
 import com.jivosite.sdk.socket.obfuscate.MessageObfuscator
 import com.jivosite.sdk.socket.obfuscate.ReleaseMessageObfuscator
 import com.squareup.moshi.Moshi
@@ -25,9 +25,6 @@ class SocketMessageHandlerModule {
 
     @Module
     interface Bindings {
-
-        @Binds
-        fun provideMessageObfuscator(obfuscator: DefaultMessageObfuscator): MessageObfuscator
 
         @Binds
         @IntoMap
@@ -139,15 +136,18 @@ class SocketMessageHandlerModule {
     @Provides
     fun provideFallbackDelegate(): FallbackDelegate = FallbackDelegate()
 
+    @Provides
+    fun provideMessageObfuscator(moshi: Moshi): MessageObfuscator =
+        if (BuildConfig.DEBUG) DebugMessageObfuscator() else ReleaseMessageObfuscator(moshi)
+
     @ServiceScope
     @Provides
     fun provideSocketMessageHandler(
         delegates: Map<String, @JvmSuppressWildcards SocketMessageDelegate>,
         fallbackDelegate: FallbackDelegate,
         parser: Moshi,
-        defaultMessageObfuscator: MessageObfuscator
+        messageObfuscator: MessageObfuscator
     ): SocketMessageHandler {
-        val obfuscator = if (BuildConfig.DEBUG) defaultMessageObfuscator else  ReleaseMessageObfuscator()
-        return SocketMessageHandler(delegates, fallbackDelegate, parser, obfuscator)
+        return SocketMessageHandler(delegates, fallbackDelegate, parser, messageObfuscator)
     }
 }

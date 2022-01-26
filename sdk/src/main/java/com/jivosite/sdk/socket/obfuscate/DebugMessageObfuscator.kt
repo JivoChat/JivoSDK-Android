@@ -8,7 +8,7 @@ import javax.inject.Inject
  *
  * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
-class DefaultMessageObfuscator @Inject constructor() : MessageObfuscator {
+class DebugMessageObfuscator @Inject constructor() : MessageObfuscator {
 
     override fun obfuscate(msg: String, socketMessage: SocketMessage): String {
         return msg
