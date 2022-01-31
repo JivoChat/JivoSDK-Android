@@ -10,6 +10,7 @@ import com.jivosite.sdk.network.response.ApiResponse
 import com.jivosite.sdk.network.response.ApiResponseFactory
 import com.jivosite.sdk.network.retrofit.ChangeUrlInterceptor
 import com.jivosite.sdk.network.retrofit.LiveDataCallAdapterFactory
+import com.jivosite.sdk.network.retrofit.UserAgentInterceptor
 import com.jivosite.sdk.support.async.Schedulers
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -53,7 +54,11 @@ class NetworkModule {
 
     @Provides
     @IntoSet
-    fun provideDevInterceptor(storage: SharedStorage): Interceptor = ChangeUrlInterceptor(storage)
+    fun provideChangeUrlInterceptor(storage: SharedStorage): Interceptor = ChangeUrlInterceptor(storage)
+
+    @Provides
+    @IntoSet
+    fun provideUserAgentInterceptor(): Interceptor = UserAgentInterceptor()
 
     @Singleton
     @Provides
