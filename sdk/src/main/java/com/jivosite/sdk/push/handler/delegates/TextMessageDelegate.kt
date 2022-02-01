@@ -138,7 +138,7 @@ class TextMessageDelegate @Inject constructor(
                 context.appContext,
                 NOTIFICATION_REQUEST_CODE,
                 it,
-                PendingIntent.FLAG_UPDATE_CURRENT
+                PendingIntent.FLAG_IMMUTABLE
             )
         }
     }
