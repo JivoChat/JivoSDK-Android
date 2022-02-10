@@ -40,6 +40,8 @@ class SharedStorage(context: Context) {
 
         private const val USER_TOKEN_HASH = "userTokenHash"
         private const val PUSH_TOKEN = "pushToken"
+
+        private const val IN_APP_NOTIFICATION_ENABLED = "notification"
     }
 
     private val preferences: SharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
@@ -70,6 +72,8 @@ class SharedStorage(context: Context) {
     var doNotShowPings: Boolean by SharedPreference(preferences, LOG_DO_NOT_SHOW_PINGS, false)
 
     var lastReadMsgId: Long by SharedPreference(preferences, LAST_READ_MSG_ID, 0)
+
+    var inAppNotificationEnabled: Boolean by SharedPreference(preferences, IN_APP_NOTIFICATION_ENABLED, true)
 
     private var nightModePreference by SharedPreference(preferences, NIGHT_MODE, false)
     private var _nightMode = MediatorLiveData<Boolean>().apply {

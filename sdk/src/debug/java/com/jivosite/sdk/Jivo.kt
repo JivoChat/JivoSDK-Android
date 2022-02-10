@@ -129,6 +129,11 @@ object Jivo {
     }
 
     @JvmStatic
+    fun disableInAppNotification(isDisabled: Boolean) {
+        storage.inAppNotificationEnabled = !isDisabled
+    }
+
+    @JvmStatic
     fun addNewMessageListener(l: NewMessageListener) {
         if (Jivo::jivoSdkComponent.isInitialized) {
             l.onNewMessage(jivoSdkComponent.historyRepository().state.hasUnread)
