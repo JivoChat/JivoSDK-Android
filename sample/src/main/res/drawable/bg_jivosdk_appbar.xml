@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+<item>
+    <shape>
+        <gradient
+            android:angle="180"
+            android:endColor="#18C139"
+            android:startColor="#222D38"
+            android:type="linear" />
+    </shape>
+</item>
+
+<item android:drawable="@drawable/bitmap_bg_appbar" />
+
+</layer-list>
