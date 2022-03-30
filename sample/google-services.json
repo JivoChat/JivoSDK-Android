@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "62142808727",
+    "project_id": "jivosdk-android",
+    "storage_bucket": "jivosdk-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:62142808727:android:5e1e289a93086c31981fd2",
+        "android_client_info": {
+          "package_name": "com.jivosite.jivosdk_android_sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "62142808727-78c43qs7aue7eav4pfh70bhjp3q4iqup.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jivosite.jivosdk_android_sample",
+            "certificate_hash": "c9ccd9a92ff0df19a762e4afbe18dea32518e81d"
+          }
+        },
+        {
+          "client_id": "62142808727-1avvddemla7hl3hc8brc993bia2oa9g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfUz39BCYmGkhmIu8f52NG54ttCDDZpzw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "62142808727-1avvddemla7hl3hc8brc993bia2oa9g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

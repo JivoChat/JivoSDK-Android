@@ -28,6 +28,8 @@ open class ChatItem(viewType: Int, data: ChatEntry) : AdapterDelegateItem<ChatEn
 
         const val VT_AGENT_FILE_ITEM = VT_ITEM + 8
         const val VT_CLIENT_FILE_ITEM = VT_ITEM + 9
+
+        const val VT_OFFLINE = VT_ITEM + 10
     }
 }
 
@@ -85,10 +87,16 @@ sealed class MessageEntry : ChatEntry() {
         is SendingMessageEntry -> copy(position = position)
         is UploadingFileEntry -> copy(position = position)
         is WelcomeMessageEntry -> this
+        is OfflineMessageEntry -> this
     }
 }
 
 object WelcomeMessageEntry : MessageEntry() {
+    override val position: EntryPosition
+        get() = EntryPosition.Single
+}
+
+object OfflineMessageEntry : MessageEntry() {
     override val position: EntryPosition
         get() = EntryPosition.Single
 }

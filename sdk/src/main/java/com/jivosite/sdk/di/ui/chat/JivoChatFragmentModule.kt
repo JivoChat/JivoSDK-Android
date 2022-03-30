@@ -15,6 +15,7 @@ import com.jivosite.sdk.ui.chat.items.message.image.agent.AgentImageItemDelegate
 import com.jivosite.sdk.ui.chat.items.message.image.agent.AgentImageItemViewModel
 import com.jivosite.sdk.ui.chat.items.message.image.client.ClientImageItemDelegate
 import com.jivosite.sdk.ui.chat.items.message.image.client.ClientImageItemViewModel
+import com.jivosite.sdk.ui.chat.items.message.offline.OfflineMessageItemDelegate
 import com.jivosite.sdk.ui.chat.items.message.text.agent.AgentTextItemDelegate
 import com.jivosite.sdk.ui.chat.items.message.text.agent.AgentTextItemViewModel
 import com.jivosite.sdk.ui.chat.items.message.text.client.ClientTextItemDelegate
@@ -140,6 +141,12 @@ class JivoChatFragmentModule(private val fragment: Fragment) {
             fragment.viewLifecycleOwner,
             viewModelProvider
         )
+    }
+
+    @IntoSet
+    @Provides
+    fun provideOfflineMessageItemDelegate(): AdapterDelegate<ChatEntry> {
+        return OfflineMessageItemDelegate()
     }
 
     @UIScope

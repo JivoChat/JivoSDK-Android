@@ -5,6 +5,11 @@
     <!-- Надпись к сообщениям клиента -->
     <string name="agent_name_you">You</string>
     <string name="Agent.DisplayName.Deleted">Deleted agent</string>
+    <!-- Normally user iOS device doesn't return "Restricted" camera access status. But for test purposes we've added an alert with this string message anyway. -->
+    <string name="Camera.Access.Restricted">Camera access denied</string>
+    <string name="Camera.Access.Suggestion">We need your permission to be able to take photos and share them</string>
+    <!-- Alert with this message displays when you try to take a photo from camera on iOS simulator or when real device experiencing some technical issues. -->
+    <string name="Camera.Access.Unavailable">Camera is unavailable</string>
     <!-- Подзаголовок окна чата по умолчанию -->
     <string name="chat_subtitle_placeholder">Chat with us 24/7!</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что произошел разрыв соединения  с сервером. -->
@@ -92,10 +97,18 @@ Please go to [Settings &gt; Your App &gt; Photos] to give access.</string>
     <!-- Format for text message where $1 is agent name, $2 - text message -->
     <string name="notification_message_text_format">%1$s: %2$s</string>
     <string name="notification_message_title">Support</string>
+    <string name="offline_message_placeholder">Oops, it seems that our agents are not available now. You can leave your message here in chat and they will contact you soon.</string>
     <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
     <string name="options_copy">Copy</string>
     <!-- Пункт "Повторить отправку" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
     <string name="options_resend">Resend</string>
+    <!--
+  Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway.
+  If there is an error then the alert should be displayed on photo library access try when starting to pick images.
+  -->
+    <string name="PhotoLibrary.Access.NoAvailableImages">No available images</string>
+    <!-- Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway -->
+    <string name="PhotoLibrary.Access.Unavailable">Photo library is unavailable</string>
     <string name="toast_copied_to_clipboard">Copied</string>
     <!-- Приветственное сообщение для пустого чата -->
     <string name="welcome_message_placeholder">Chat with our customer support team and let us know if there\'s any bugs we can fix</string>

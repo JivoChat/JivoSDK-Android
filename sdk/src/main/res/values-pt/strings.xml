@@ -5,6 +5,11 @@
     <!-- Надпись к сообщениям клиента -->
     <string name="agent_name_you">Você</string>
     <string name="Agent.DisplayName.Deleted">Operador excluído</string>
+    <!-- Normally user iOS device doesn't return "Restricted" camera access status. But for test purposes we've added an alert with this string message anyway. -->
+    <string name="Camera.Access.Restricted">Acesso à câmera negado</string>
+    <string name="Camera.Access.Suggestion">Precisamos desta permissão para que você consiga tirar e compartilhar fotos</string>
+    <!-- Alert with this message displays when you try to take a photo from camera on iOS simulator or when real device experiencing some technical issues. -->
+    <string name="Camera.Access.Unavailable">A câmera não está disponível</string>
     <!-- Подзаголовок окна чата по умолчанию -->
     <string name="chat_subtitle_placeholder">Inicie um chat conosco, 24/7!</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что произошел разрыв соединения  с сервером. -->
@@ -45,6 +50,7 @@
     <string name="file_link_checking">Verificando ...</string>
     <!-- Default file name -->
     <string name="file_name_unknown">Arquivo sem título</string>
+    <string name="file_transfer_disabled">Transferência de arquivo desativada</string>
     <!-- Формат для размера файла в байтах -->
     <string name="format_file_size_b">%.0f B</string>
     <!-- Формат для размера файла в килобайтах -->
@@ -87,11 +93,21 @@ Favor ir até [Ajustes &gt; App &gt; Fotos] para permitir o acesso.</string>
     <string name="Message.Preview.Line">O chat foi transferido para a linha secundária</string>
     <string name="Message.Sender.You">Você</string>
     <string name="notification_channel_message_description">Mensagem do Jivo SDK</string>
+    <string name="notification_channel_message_name">Jivo</string>
+    <!-- Format for text message where $1 is agent name, $2 - text message -->
+    <string name="notification_message_text_format">%1$s: %2$s</string>
     <string name="notification_message_title">Apoio</string>
     <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
     <string name="options_copy">Copiar</string>
     <!-- Пункт "Повторить отправку" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
     <string name="options_resend">Reenviar</string>
+    <!--
+  Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway.
+  If there is an error then the alert should be displayed on photo library access try when starting to pick images.
+  -->
+    <string name="PhotoLibrary.Access.NoAvailableImages">Nenhuma imagem disponível</string>
+    <!-- Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway -->
+    <string name="PhotoLibrary.Access.Unavailable">A biblioteca de fotos não está disponível</string>
     <string name="toast_copied_to_clipboard">Copiado</string>
     <!-- Приветственное сообщение для пустого чата -->
     <string name="welcome_message_placeholder">Converse com nossa equipe de atendimento e nos diga se encontrar qualquer erro para que possamos consertá-lo</string>
