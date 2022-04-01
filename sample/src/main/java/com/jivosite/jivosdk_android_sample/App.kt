@@ -15,7 +15,7 @@ class App : Application() {
         super.onCreate()
         Jivo.init(
             appContext = this,
-            widgetId = "Q7BcPYNqCG"
+            widgetId = "4UoDFh5U7n"
         )
         Jivo.setConfig(
             Config.Builder()
