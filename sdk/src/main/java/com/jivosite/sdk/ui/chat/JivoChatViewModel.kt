@@ -14,6 +14,7 @@ import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_DOCUMENT
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_IMAGE
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_UNKNOWN
 import com.jivosite.sdk.model.pojo.message.ClientMessage
+import com.jivosite.sdk.model.pojo.message.MessageStatus
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import com.jivosite.sdk.model.repository.agent.AgentRepository
 import com.jivosite.sdk.model.repository.chat.ChatStateRepository
@@ -39,6 +40,7 @@ import com.jivosite.sdk.ui.chat.items.message.file.agent.AgentFileItem
 import com.jivosite.sdk.ui.chat.items.message.file.client.ClientFileItem
 import com.jivosite.sdk.ui.chat.items.message.image.agent.AgentImageItem
 import com.jivosite.sdk.ui.chat.items.message.image.client.ClientImageItem
+import com.jivosite.sdk.ui.chat.items.message.offline.OfflineMessageItem
 import com.jivosite.sdk.ui.chat.items.message.text.agent.AgentTextItem
 import com.jivosite.sdk.ui.chat.items.message.text.client.ClientTextItem
 import com.jivosite.sdk.ui.chat.items.message.uploading.file.UploadingFileItem
@@ -55,7 +57,7 @@ import kotlin.collections.ArrayList
  * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
 class JivoChatViewModel @Inject constructor(
-    agentRepository: AgentRepository,
+    private val agentRepository: AgentRepository,
     private val profileRepository: ProfileRepository,
     private val connectionStateRepository: ConnectionStateRepository,
     private val chatStateRepository: ChatStateRepository,
@@ -72,12 +74,17 @@ class JivoChatViewModel @Inject constructor(
 
     companion object {
         const val WELCOME_TIMEOUT = 1000L
+        const val OFFLINE_TIMEOUT = 2000L
         const val MAX_FILE_SIZE = 10
     }
 
     private val handler = Handler(Looper.getMainLooper())
+
     private val addWelcomeMessageCallback: Runnable = Runnable {
         messagesState.value = messagesState.value?.copy(hasWelcome = true)
+    }
+    private val addOfflineMessageCallback: Runnable = Runnable {
+        messagesState.value = messagesState.value?.copy(hasOffline = true)
     }
 
     private val messagesState = MediatorLiveData<MessagesState>().apply {
@@ -91,8 +98,15 @@ class JivoChatViewModel @Inject constructor(
             } else {
                 handler.removeCallbacks(addWelcomeMessageCallback)
             }
+            handleOfflineMessage(currentState)
         }
-        addSource(sendMessageRepository.observableState) { value = value?.copy(sendMessageState = it) }
+        addSource(agentRepository.observableState) {
+            handleOfflineMessage(value ?: return@addSource)
+        }
+        addSource(sendMessageRepository.observableState) {
+            value = value?.copy(sendMessageState = it)
+            handleOfflineMessage(value ?: return@addSource)
+        }
         addSource(logsRepository.messages) { value = value?.copy(eventMessages = prepareEventMessages(it)) }
         addSource(uploadRepository.observableState) { value = value?.copy(uploadFilesState = it) }
     }
@@ -213,6 +227,15 @@ class JivoChatViewModel @Inject constructor(
             dropBuffer(state.myId, buffer, result)
         }
 
+        if (state.hasOffline && result.isNotEmpty() && agents.value.isNullOrEmpty()) {
+            val data = result.first().data
+            if (data is ClientMessageEntry) {
+                if (data.message.status == MessageStatus.Sent || data.message.status == MessageStatus.Delivered) {
+                    result.add(0, OfflineMessageItem())
+                }
+            }
+        }
+
         if (state.hasWelcome) {
             result.add(WelcomeMessageItem())
         }
@@ -309,6 +332,15 @@ class JivoChatViewModel @Inject constructor(
         }
     }
 
+    private fun handleOfflineMessage(state: MessagesState) {
+        if (!state.hasOffline) {
+            handler.postDelayed(addOfflineMessageCallback, OFFLINE_TIMEOUT)
+        } else {
+            handler.removeCallbacks(addOfflineMessageCallback)
+            messagesState.value = messagesState.value?.copy(hasOffline = false)
+        }
+    }
+
     fun sendTextMessage(text: String) {
         val message = ClientMessage.createText(text)
         sendMessageRepository.addMessage(message)
@@ -371,6 +403,7 @@ class JivoChatViewModel @Inject constructor(
     private data class MessagesState(
         val myId: String = "",
         val hasWelcome: Boolean = false,
+        val hasOffline: Boolean = false,
         val historyState: HistoryState = HistoryState(),
         val sendMessageState: SendMessageState = SendMessageState(),
         val eventMessages: List<LogMessage.Disconnected> = Collections.emptyList(),
