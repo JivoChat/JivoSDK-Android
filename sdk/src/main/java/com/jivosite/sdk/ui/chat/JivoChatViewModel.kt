@@ -78,8 +78,7 @@ class JivoChatViewModel @Inject constructor(
         const val MAX_FILE_SIZE = 10
     }
 
-    private val addWelcomeMessageHandler = Handler(Looper.getMainLooper())
-    private val addOfflineMessageHandler = Handler(Looper.getMainLooper())
+    private val handler = Handler(Looper.getMainLooper())
 
     private val addWelcomeMessageCallback: Runnable = Runnable {
         messagesState.value = messagesState.value?.copy(hasWelcome = true)
@@ -95,9 +94,9 @@ class JivoChatViewModel @Inject constructor(
             val currentState = value ?: return@addSource
             value = currentState.copy(historyState = it)
             if (it.messages.isEmpty() && !currentState.hasWelcome) {
-                addWelcomeMessageHandler.postDelayed(addWelcomeMessageCallback, WELCOME_TIMEOUT)
+                handler.postDelayed(addWelcomeMessageCallback, WELCOME_TIMEOUT)
             } else {
-                addWelcomeMessageHandler.removeCallbacks(addWelcomeMessageCallback)
+                handler.removeCallbacks(addWelcomeMessageCallback)
             }
             handleOfflineMessage(currentState)
         }
@@ -335,9 +334,9 @@ class JivoChatViewModel @Inject constructor(
 
     private fun handleOfflineMessage(state: MessagesState) {
         if (!state.hasOffline) {
-            addOfflineMessageHandler.postDelayed(addOfflineMessageCallback, OFFLINE_TIMEOUT)
+            handler.postDelayed(addOfflineMessageCallback, OFFLINE_TIMEOUT)
         } else {
-            addOfflineMessageHandler.removeCallbacks(addOfflineMessageCallback)
+            handler.removeCallbacks(addOfflineMessageCallback)
             messagesState.value = messagesState.value?.copy(hasOffline = false)
         }
     }
