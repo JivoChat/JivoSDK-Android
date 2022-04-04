@@ -12,3 +12,4 @@
 *.pub
 *.gpg
 /sdk/gpg-keys/
+/.phraseapp.yml
