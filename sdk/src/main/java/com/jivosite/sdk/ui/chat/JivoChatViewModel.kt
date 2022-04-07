@@ -8,6 +8,7 @@ import com.jivosite.sdk.logger.LogMessage
 import com.jivosite.sdk.logger.LogsRepository
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.agent.Agent
+import com.jivosite.sdk.model.pojo.agent.AgentStatus
 import com.jivosite.sdk.model.pojo.file.File
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.FILE_TYPES
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_DOCUMENT
@@ -227,11 +228,14 @@ class JivoChatViewModel @Inject constructor(
             dropBuffer(state.myId, buffer, result)
         }
 
-        if (state.hasOffline && result.isNotEmpty() && agents.value.isNullOrEmpty()) {
-            val data = result.first().data
-            if (data is ClientMessageEntry) {
-                if (data.message.status == MessageStatus.Sent || data.message.status == MessageStatus.Delivered) {
-                    result.add(0, OfflineMessageItem())
+        if (state.hasOffline && result.isNotEmpty()) {
+            val agentList = agents.value ?: emptyList()
+            if (agentList.isEmpty() || agentList.any { it.status != AgentStatus.Online }) {
+                val data = result.first().data
+                if (data is ClientMessageEntry) {
+                    if (data.message.status == MessageStatus.Sent || data.message.status == MessageStatus.Delivered) {
+                        result.add(0, OfflineMessageItem())
+                    }
                 }
             }
         }
