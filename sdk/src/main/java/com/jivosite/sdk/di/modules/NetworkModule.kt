@@ -9,6 +9,7 @@ import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.network.response.ApiResponse
 import com.jivosite.sdk.network.response.ApiResponseFactory
 import com.jivosite.sdk.network.retrofit.ChangeUrlInterceptor
+import com.jivosite.sdk.network.retrofit.DistrictInterceptor
 import com.jivosite.sdk.network.retrofit.LiveDataCallAdapterFactory
 import com.jivosite.sdk.network.retrofit.UserAgentInterceptor
 import com.jivosite.sdk.support.async.Schedulers
@@ -59,6 +60,10 @@ class NetworkModule {
     @Provides
     @IntoSet
     fun provideUserAgentInterceptor(): Interceptor = UserAgentInterceptor()
+
+    @Provides
+    @IntoSet
+    fun provideDistrictInterceptor(): Interceptor = DistrictInterceptor()
 
     @Singleton
     @Provides
