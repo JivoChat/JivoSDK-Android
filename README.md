@@ -13,11 +13,11 @@ Jivo Mobile SDK - Android
 -   Индикатор новых сообщений внутри приложения интегратора
 -   Push-уведомления
 
-### Актуальная версия: 1.0.2
+### Актуальная версия: 1.0.3
 
 Список изменений:
 
--   добавлена возможность отключения in-app уведомлений;
+-   добавлено оповещение об отсутствии операторов на канале;
 
 ### Известные проблемы:
 - На устройствах марки **Xiaomi**, возникают проблемы с отображением цветов в чате **SDK**. Решение, добавить флаг в стили вашего приложения:
@@ -108,7 +108,7 @@ android {
 dependencies {
    ...
    //JivoSDK
-   implementation 'com.jivosite.sdk:android-sdk:1.0.0-alpha17'
+   implementation 'com.jivosite.sdk:android-sdk:1.0.3'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -246,6 +246,7 @@ Jivo.setConfig(
 -   **setWelcomeMessage()** - строковый ресурс, изменяет текст приветственного сообщения.
 -   **setOutgoingMessageColor()** - принимает на вход enum, изменяет цвет фона исходящего сообщения. Доступны три основных цвета на выбор(`Config.Color.GREEN, Config.Color.GREY, Config.Color.BLUE`)
 -   **hideLogo()** - скрывает логотип.
+-   **setOfflineMessage()** - строковый ресурс, изменяет текст оповещения об отсутствии операторов на канале.
 
 Настройка push notifications.
 -----------------------------
@@ -600,7 +601,7 @@ android {
 dependencies {
    ...
    //JivoSDK
-   implementation 'com.jivosite.sdk:android-sdk:1.0.0-rc04'
+   implementation 'com.jivosite.sdk:android-sdk:1.0.3'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -744,6 +745,12 @@ export default function App() {
 Changelog
 =========
 
+1.0.3 (2022-04-07)
+-----------------------
+### Features:
+
+- добавлено оповещение об отсутствии операторов на канале;
+
 1.0.2 (2022-02-11)
 -----------------------
 ### Features:
@@ -778,7 +785,6 @@ Changelog
 - добавлен интерфейс для реализации кастомной навигации по клику на уведомление;
 - добавлен интерфейс для реализации кастомной навигации по клику кнопки “назад”;
 
-
 1.0.0-rc05 (2021-11-24)
 -----------------------
 
@@ -796,7 +802,6 @@ Changelog
 -   добавлен интерфейс очистки данных:
 -   добавлена очередь неотправленных сообщений;
 -   добавлен интерфейс передачи user-token’a;
-
 
 1.0.0-rc04 (2021-09-20)
 -----------------------
