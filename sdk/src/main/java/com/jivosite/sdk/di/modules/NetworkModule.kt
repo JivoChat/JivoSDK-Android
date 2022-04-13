@@ -9,6 +9,7 @@ import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.network.response.ApiResponse
 import com.jivosite.sdk.network.response.ApiResponseFactory
 import com.jivosite.sdk.network.retrofit.ChangeUrlInterceptor
+import com.jivosite.sdk.network.retrofit.DistrictInterceptor
 import com.jivosite.sdk.network.retrofit.LiveDataCallAdapterFactory
 import com.jivosite.sdk.network.retrofit.UserAgentInterceptor
 import com.jivosite.sdk.support.async.Schedulers
@@ -46,26 +47,14 @@ class NetworkModule {
     @Provides
     fun provideConverter(moshi: Moshi): Converter.Factory = MoshiConverterFactory.create(moshi)
 
-    @Provides
-    @IntoSet
-    fun provideLoggingInterceptor(): Interceptor = HttpLoggingInterceptor().apply {
-        level = LOG_LEVEL
-    }
-
-    @Provides
-    @IntoSet
-    fun provideChangeUrlInterceptor(storage: SharedStorage): Interceptor = ChangeUrlInterceptor(storage)
-
-    @Provides
-    @IntoSet
-    fun provideUserAgentInterceptor(): Interceptor = UserAgentInterceptor()
-
     @Singleton
     @Provides
-    fun provideOkHttpClient(interceptors: Set<@JvmSuppressWildcards Interceptor>): OkHttpClient = OkHttpClient.Builder()
+    fun provideOkHttpClient(storage: SharedStorage): OkHttpClient = OkHttpClient.Builder()
         .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
         .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-        .apply { interceptors.forEach { addInterceptor(it) } }
+        .addInterceptor(ChangeUrlInterceptor(storage))
+        .addInterceptor(UserAgentInterceptor())
+        .addInterceptor(HttpLoggingInterceptor().apply { level = LOG_LEVEL })
         .build()
 
     @Provides
