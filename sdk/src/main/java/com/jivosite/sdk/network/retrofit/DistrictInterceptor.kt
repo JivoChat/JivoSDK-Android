@@ -10,6 +10,7 @@ import java.util.*
  *
  * @author Aleksandr Tavtorkin (tavtorkin@jivosite.com)
  */
+@Deprecated("not used")
 class DistrictInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
