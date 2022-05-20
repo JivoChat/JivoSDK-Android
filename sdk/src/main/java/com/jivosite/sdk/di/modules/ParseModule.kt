@@ -1,6 +1,9 @@
 package com.jivosite.sdk.di.modules
 
-import com.squareup.moshi.Moshi
+import com.jivosite.sdk.model.pojo.message.MessageStatus
+import com.squareup.moshi.*
+import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -17,6 +20,20 @@ class ParseModule {
     @Singleton
     fun provideParser(): Moshi {
         return Moshi.Builder()
+            .add(MessageStatusJsonAdapter())
             .build()
+    }
+}
+
+class MessageStatusJsonAdapter {
+
+    @ToJson
+    fun toJson(status: MessageStatus): String {
+        return "SENDING"
+    }
+
+    @FromJson
+    fun fromJson(status: String): MessageStatus {
+       return MessageStatus.Sending
     }
 }

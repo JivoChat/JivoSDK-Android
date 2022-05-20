@@ -11,6 +11,7 @@ import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.logger.Logger
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
+import com.jivosite.sdk.model.repository.contacts.ContactFormRepository
 import com.jivosite.sdk.socket.endpoint.SocketEndpointProvider
 import com.jivosite.sdk.socket.handler.SocketMessageHandler
 import com.jivosite.sdk.socket.keeper.ConnectionKeeper
@@ -111,6 +112,9 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
 
     @Inject
     lateinit var sdkContext: SdkContext
+
+    @Inject
+    lateinit var contactFormRepository: ContactFormRepository
 
     private lateinit var socketState: ServiceState
     private var webSocket: WebSocket? = null
@@ -222,6 +226,8 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
                         getState().send(SocketMessage.clientInfo(key, value, clientId))
                     }
                 }
+
+                contactFormRepository.sentContactForm()
             }
 
             ACTION_RECONNECT -> {

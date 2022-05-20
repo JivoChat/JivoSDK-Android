@@ -1,0 +1,157 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="view"
+            type="com.jivosite.sdk.ui.chat.items.contacts.ContactFormItemViewHolder" />
+
+        <variable
+            name="viewModel"
+            type="com.jivosite.sdk.ui.chat.items.contacts.ContactFormItemViewModel" />
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/contactFormPlaceholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:paddingHorizontal="36dp"
+            android:textColor="@color/color_on_surface"
+            android:textSize="14sp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_contact_form"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:checked="true"
+                    android:enabled="@{!viewModel.hasSentContacts}"
+                    android:focusableInTouchMode="true"
+                    app:endIconDrawable="@drawable/ic_done"
+                    app:endIconMode="custom"
+                    app:endIconTint="@color/darkPastelGreen"
+                    app:isEndIconVisible="@{viewModel.isNameValid}">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/userName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/contact_form.name.placeholder"
+                        android:inputType="textCapWords"
+                        android:text="@={viewModel.name}"
+                        android:textColor="@color/color_input_text"
+                        android:textColorHint="@color/color_on_surface"
+                        android:textSize="16sp"
+                        tools:ignore="HardcodedText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:enabled="@{!viewModel.hasSentContacts}"
+                    android:focusableInTouchMode="true"
+                    app:endIconDrawable="@drawable/ic_done"
+                    app:endIconMode="custom"
+                    app:endIconTint="@color/darkPastelGreen"
+                    app:isEndIconVisible="@{viewModel.isPhoneValid}">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/userPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/contact_form.phone.placeholder"
+                        android:inputType="phone"
+                        android:text="@={viewModel.phone}"
+                        android:textColor="@color/color_input_text"
+                        android:textColorHint="@color/color_on_surface"
+                        android:textSize="16sp"
+                        tools:ignore="HardcodedText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:enabled="@{!viewModel.hasSentContacts}"
+                    android:focusableInTouchMode="true"
+                    app:endIconDrawable="@drawable/ic_done"
+                    app:endIconMode="custom"
+                    app:endIconTint="@color/darkPastelGreen"
+                    app:isEndIconVisible="@{viewModel.isEmailValid}">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/userEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/contact_form.email.placeholder"
+                        android:inputType="textEmailAddress"
+                        android:text="@={viewModel.email}"
+                        android:textColor="@color/color_input_text"
+                        android:textColorHint="@color/color_on_surface"
+                        android:textSize="16sp"
+                        tools:ignore="HardcodedText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/sendUserInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/btn_color_selector"
+                    android:enabled="@{viewModel.canSend}"
+                    android:onClick="@{() -> viewModel.sendUserInfo()}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_text_btn_send_contact_form"
+                    tools:ignore="HardcodedText"
+                    tools:text="Send" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingHorizontal="36dp"
+            android:text="Your message is being sent over to the team. They'll be in touch soon."
+            android:textColor="@color/color_on_surface"
+            android:textSize="14sp"
+            android:visibility="@{viewModel.hasSentContacts? viewModel.hasAgentsOnline ? View.GONE : View.VISIBLE: View.GONE}" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

@@ -254,14 +254,14 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_text_input"
                     android:focusable="true"
-                    android:hint="@string/input_message_placeholder"
                     android:maxHeight="120dp"
                     android:paddingVertical="8dp"
                     android:paddingStart="20dp"
                     android:textColor="@color/color_input_text"
                     android:textColorHint="@color/color_text_hint"
                     android:textCursorDrawable="@drawable/bg_cursor"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    app:stateInputText="@{viewModel.canInputText}" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/sendBtn"

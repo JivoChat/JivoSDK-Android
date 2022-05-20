@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.jivosite.sdk.support.ext.dp
 import com.jivosite.sdk.ui.chat.items.EntryPosition
+import com.jivosite.sdk.ui.chat.items.contacts.ContactFormItemViewHolder
 import com.jivosite.sdk.ui.chat.items.message.general.MessageItemViewHolder
 
 /**
@@ -30,6 +31,9 @@ class JivoChatDecoration : RecyclerView.ItemDecoration() {
                         EntryPosition.Single, EntryPosition.Last -> outRect.top = paddingTopBig
                         else -> outRect.top = paddingTopSmall
                     }
+                }
+                is ContactFormItemViewHolder -> {
+                    outRect.top = paddingTopBig
                 }
             }
         }

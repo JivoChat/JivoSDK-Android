@@ -42,6 +42,10 @@ class SharedStorage(context: Context) {
         private const val PUSH_TOKEN = "pushToken"
 
         private const val IN_APP_NOTIFICATION_ENABLED = "notification"
+
+        private const val HAS_SENT_CONTACT_FORM = "hasSentContactForm"
+
+        private const val CLIENT_MESSAGE = "clientMessage"
     }
 
     private val preferences: SharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
@@ -93,4 +97,9 @@ class SharedStorage(context: Context) {
         nightModePreference = hasNightModeEnable
         _nightMode.value = hasNightModeEnable
     }
+
+    var clientMessage: String by SharedPreference(preferences, CLIENT_MESSAGE, "")
+
+    var hasSentContactForm: Boolean by SharedPreference(preferences, HAS_SENT_CONTACT_FORM, false)
+
 }

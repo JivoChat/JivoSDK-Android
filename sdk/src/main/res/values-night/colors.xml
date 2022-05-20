@@ -2,7 +2,8 @@
 <resources>
     <color name="color_primary">#C7C7CC</color>
     <color name="window_background">#191919</color>
-    <color name="color_surface">#1a1a1a</color>
+    <color name="color_surface">#1E1E1E</color>
+    <color name="color_on_surface">#D9FFFFFF</color>
     <color name="color_on_background">#191919</color>
     <color name="color_input_text">#C7C7CC</color>
     <color name="color_background_input_text">#3A3A3C</color>
@@ -19,9 +20,10 @@
     <color name="color_text_error">#636366</color>
     <color name="color_background_media_icon">#6E7878</color>
     <color name="color_background_incoming_file">#191919</color>
-    <color name="color_background_btn_send">#191919</color>
+    <color name="color_background_btn_send">#333333</color>
     <color name="color_btn_arrow_send">#636366</color>
     <color name="color_background_placeholder_image">#3A3A3C</color>
     <color name="color_placeholder_image">#2C2C2E</color>
     <color name="color_banner">#FFFFFF</color>
+    <color name="color_text_btn_send_contact_form">#FFFFFF</color>
 </resources>
