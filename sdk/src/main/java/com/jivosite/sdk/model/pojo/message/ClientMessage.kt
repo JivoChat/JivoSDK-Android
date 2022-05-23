@@ -1,5 +1,7 @@
 package com.jivosite.sdk.model.pojo.message
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.util.*
 
 /**
@@ -16,11 +18,13 @@ import java.util.*
  *
  * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
+@JsonClass(generateAdapter = true)
 data class ClientMessage(
     val context: String,
     val timestamp: Long,
     val type: String,
     val data: String,
+    @Json(name = "status")
     val status: MessageStatus
 ) {
 

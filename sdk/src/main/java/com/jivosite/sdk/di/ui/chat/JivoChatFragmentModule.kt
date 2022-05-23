@@ -5,6 +5,8 @@ import com.jivosite.sdk.di.ui.UIScope
 import com.jivosite.sdk.support.dg.AdapterDelegate
 import com.jivosite.sdk.support.dg.adapters.SimpleDiffAdapter
 import com.jivosite.sdk.ui.chat.items.ChatEntry
+import com.jivosite.sdk.ui.chat.items.contacts.ContactFormItemDelegate
+import com.jivosite.sdk.ui.chat.items.contacts.ContactFormItemViewModel
 import com.jivosite.sdk.ui.chat.items.event.EventItemDelegate
 import com.jivosite.sdk.ui.chat.items.event.EventItemViewModel
 import com.jivosite.sdk.ui.chat.items.message.file.agent.AgentFileItemDelegate
@@ -147,6 +149,17 @@ class JivoChatFragmentModule(private val fragment: Fragment) {
     @Provides
     fun provideOfflineMessageItemDelegate(): AdapterDelegate<ChatEntry> {
         return OfflineMessageItemDelegate()
+    }
+
+    @IntoSet
+    @Provides
+    fun provideContactFormItemDelegate(
+        viewModelProvider: Provider<ContactFormItemViewModel>
+    ): AdapterDelegate<ChatEntry> {
+        return ContactFormItemDelegate(
+            fragment.viewLifecycleOwner,
+            viewModelProvider,
+        )
     }
 
     @UIScope

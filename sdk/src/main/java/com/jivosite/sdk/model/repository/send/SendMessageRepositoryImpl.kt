@@ -1,6 +1,5 @@
 package com.jivosite.sdk.model.repository.send
 
-import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.pojo.message.HistoryMessage
 import com.jivosite.sdk.model.pojo.socket.SocketMessage

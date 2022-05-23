@@ -1,6 +1,8 @@
 package com.jivosite.sdk.model.pojo.message
 
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 /**
  * Created on 12/14/20.
@@ -49,13 +51,11 @@ data class HistoryMessage(
 
     val number: Long
     val timestamp: Long
-    val msgId: Long
 
     init {
         id.splitIdTimestamp().also {
             number = it.first
             timestamp = it.second
-            msgId = it.first + it.second
         }
     }
 

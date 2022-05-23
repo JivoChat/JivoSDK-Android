@@ -8,12 +8,16 @@ import com.jivosite.sdk.model.repository.chat.ChatStateRepository
 import com.jivosite.sdk.model.repository.chat.ChatStateRepositoryImpl
 import com.jivosite.sdk.model.repository.connection.ConnectionStateRepository
 import com.jivosite.sdk.model.repository.connection.ConnectionStateRepositoryImpl
+import com.jivosite.sdk.model.repository.contacts.ContactFormRepository
+import com.jivosite.sdk.model.repository.contacts.ContactFormRepositoryImpl
 import com.jivosite.sdk.model.repository.history.HistoryRepository
 import com.jivosite.sdk.model.repository.history.HistoryRepositoryImpl
 import com.jivosite.sdk.model.repository.media.MediaRepository
 import com.jivosite.sdk.model.repository.media.MediaRepositoryImpl
 import com.jivosite.sdk.model.repository.pagination.PaginationRepository
 import com.jivosite.sdk.model.repository.pagination.PaginationRepositoryImpl
+import com.jivosite.sdk.model.repository.pending.PendingRepository
+import com.jivosite.sdk.model.repository.pending.PendingRepositoryImpl
 import com.jivosite.sdk.model.repository.profile.ProfileRepository
 import com.jivosite.sdk.model.repository.profile.ProfileRepositoryImpl
 import com.jivosite.sdk.model.repository.send.SendMessageRepository
@@ -77,4 +81,12 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun provideMediaRepository(repository: MediaRepositoryImpl): MediaRepository
+
+    @Binds
+    @Singleton
+    abstract fun providePendingRepository(repository: PendingRepositoryImpl): PendingRepository
+
+    @Binds
+    @Singleton
+    abstract fun provideContactFormRepository(repository: ContactFormRepositoryImpl): ContactFormRepository
 }

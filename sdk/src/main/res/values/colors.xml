@@ -3,6 +3,7 @@
     <color name="color_primary">#000000</color>
     <color name="window_background">#FFFFFF</color>
     <color name="color_surface">#FFFFFF</color>
+    <color name="color_on_surface">#C7C7CC</color>
     <color name="color_on_background">#FFFFFF</color>
     <color name="color_input_text">#1F1F1F</color>
     <color name="color_background_input_text">#F1F0F0</color>
@@ -24,6 +25,7 @@
     <color name="color_background_placeholder_image">#FFFFFF</color>
     <color name="color_placeholder_image">#F4F4F9</color>
     <color name="color_banner">#24243B</color>
+    <color name="color_text_btn_send_contact_form">#FFFFFF</color>
 
     <color name="black">#000000</color>
     <color name="black30">#4D000000</color>

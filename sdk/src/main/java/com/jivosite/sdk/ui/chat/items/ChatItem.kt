@@ -3,6 +3,7 @@ package com.jivosite.sdk.ui.chat.items
 import android.net.Uri
 import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.pojo.message.HistoryMessage
+import com.jivosite.sdk.model.repository.contacts.ContactFormState
 import com.jivosite.sdk.model.repository.upload.FileState
 import com.jivosite.sdk.support.dg.AdapterDelegateItem
 
@@ -30,6 +31,8 @@ open class ChatItem(viewType: Int, data: ChatEntry) : AdapterDelegateItem<ChatEn
         const val VT_CLIENT_FILE_ITEM = VT_ITEM + 9
 
         const val VT_OFFLINE = VT_ITEM + 10
+
+        const val VT_CONTACT_FORM = VT_ITEM + 11
     }
 }
 
@@ -109,6 +112,8 @@ data class ClientMessageEntry(val message: HistoryMessage, override val position
 data class SendingMessageEntry(val message: ClientMessage, override val position: EntryPosition) : MessageEntry()
 
 data class UploadingFileEntry(val state: FileState, override val position: EntryPosition) : MessageEntry()
+
+data class ContactFormEntry(val state: ContactFormState) : ChatEntry()
 
 sealed class EntryPosition {
     object First : EntryPosition()

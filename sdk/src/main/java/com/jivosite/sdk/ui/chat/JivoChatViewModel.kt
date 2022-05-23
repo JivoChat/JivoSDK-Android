@@ -21,9 +21,13 @@ import com.jivosite.sdk.model.repository.agent.AgentRepository
 import com.jivosite.sdk.model.repository.chat.ChatStateRepository
 import com.jivosite.sdk.model.repository.connection.ConnectionState
 import com.jivosite.sdk.model.repository.connection.ConnectionStateRepository
+import com.jivosite.sdk.model.repository.contacts.ContactFormRepository
+import com.jivosite.sdk.model.repository.contacts.ContactFormState
 import com.jivosite.sdk.model.repository.history.HistoryRepository
 import com.jivosite.sdk.model.repository.history.HistoryState
 import com.jivosite.sdk.model.repository.pagination.PaginationRepository
+import com.jivosite.sdk.model.repository.pending.PendingRepository
+import com.jivosite.sdk.model.repository.pending.PendingState
 import com.jivosite.sdk.model.repository.profile.ProfileRepository
 import com.jivosite.sdk.model.repository.send.SendMessageRepository
 import com.jivosite.sdk.model.repository.send.SendMessageState
@@ -36,6 +40,7 @@ import com.jivosite.sdk.socket.transmitter.Transmitter
 import com.jivosite.sdk.support.ext.getSupportFileType
 import com.jivosite.sdk.support.livedata.ClientTypingDebounceLiveData
 import com.jivosite.sdk.ui.chat.items.*
+import com.jivosite.sdk.ui.chat.items.contacts.ContactFormItem
 import com.jivosite.sdk.ui.chat.items.event.EventItem
 import com.jivosite.sdk.ui.chat.items.message.file.agent.AgentFileItem
 import com.jivosite.sdk.ui.chat.items.message.file.client.ClientFileItem
@@ -50,7 +55,6 @@ import com.jivosite.sdk.ui.chat.items.message.welcome.WelcomeMessageItem
 import java.io.InputStream
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 /**
  * Created on 15.09.2020.
@@ -70,7 +74,9 @@ class JivoChatViewModel @Inject constructor(
     private val logsRepository: LogsRepository,
     private val uploadRepository: UploadRepository,
     private val storage: SharedStorage,
-    private val sdkContext: SdkContext
+    private val sdkContext: SdkContext,
+    private val pendingRepository: PendingRepository,
+    private val contactFormRepository: ContactFormRepository
 ) : ViewModel() {
 
     companion object {
@@ -100,6 +106,9 @@ class JivoChatViewModel @Inject constructor(
                 handler.removeCallbacks(addWelcomeMessageCallback)
             }
             handleOfflineMessage(currentState)
+            if (!storage.hasSentContactForm && it.messages.isNotEmpty()) {
+                contactFormRepository.createContactForm()
+            }
         }
         addSource(agentRepository.observableState) {
             handleOfflineMessage(value ?: return@addSource)
@@ -110,6 +119,22 @@ class JivoChatViewModel @Inject constructor(
         }
         addSource(logsRepository.messages) { value = value?.copy(eventMessages = prepareEventMessages(it)) }
         addSource(uploadRepository.observableState) { value = value?.copy(uploadFilesState = it) }
+        addSource(pendingRepository.observableState) {
+            value = value?.copy(pendingState = it)
+            if (it.message != null) {
+                contactFormRepository.createContactForm()
+            }
+        }
+        addSource(contactFormRepository.observableState) {
+            value = value?.copy(contactFormState = it)
+            if (it.hasSentContactForm) {
+                val currentState = value ?: return@addSource
+                currentState.pendingState.message?.let { clientMessage ->
+                    sendMessage(clientMessage)
+                    pendingRepository.removeMessage()
+                }
+            }
+        }
     }
 
     val items: LiveData<List<ChatItem>> = Transformations.map(messagesState) { handleMessagesState(it) }
@@ -139,9 +164,13 @@ class JivoChatViewModel @Inject constructor(
         addSource(connectionState) {
             value = value?.copy(hasConnection = it is ConnectionState.Connected)
         }
+
+        addSource(messagesState) {
+            value = value?.copy(hasPendingMessage = it.pendingState.message != null)
+        }
     }
     val canSend = Transformations.map(_canSendState) {
-        it != null && it.hasMessage && it.hasConnection
+        it != null && it.hasMessage && it.hasConnection && !it.hasPendingMessage
     }
 
     val canUploadFile = Transformations.map(uploadRepository.hasLicense) { it }
@@ -160,9 +189,18 @@ class JivoChatViewModel @Inject constructor(
         addSource(connectionState) {
             value = value?.copy(hasConnection = it is ConnectionState.Connected)
         }
+
+        addSource(messagesState) {
+            value = value?.copy(hasPendingMessage = it.pendingState.message != null)
+        }
     }
+
+    val canInputText = Transformations.map(messagesState) {
+        it.pendingState.message == null
+    }
+
     val canAttach = Transformations.map(_canAttachState) {
-        it != null && !it.isLoading && it.hasConnection
+        it != null && !it.isLoading && it.hasConnection && !it.hasPendingMessage
     }
 
     val siteId
@@ -181,22 +219,38 @@ class JivoChatViewModel @Inject constructor(
         val messages: SortedMap<Long, ChatEntry> = TreeMap<Long, ChatEntry> { o1, o2 ->
             o2.compareTo(o1)
         }.apply {
+
             state.historyState.messages.forEach {
                 if (it.from == state.myId) {
-                    put(it.msgId, ClientMessageEntry(it, EntryPosition.Single))
+                    putOrIncrementKey(it.timestamp, ClientMessageEntry(it, EntryPosition.Single))
                 } else {
-                    put(it.msgId, AgentMessageEntry(it, EntryPosition.Single))
+                    putOrIncrementKey(it.timestamp, AgentMessageEntry(it, EntryPosition.Single))
                 }
             }
-            state.sendMessageState.messages.forEach { put(it.timestamp * 1000, SendingMessageEntry(it, EntryPosition.Single)) }
 
-            state.eventMessages.forEach { put(it.ts, EventEntry(it.code, it.reason)) }
+            state.sendMessageState.messages.forEach {
+                putOrIncrementKey(it.timestamp, SendingMessageEntry(it, EntryPosition.Single))
+            }
+
+            state.eventMessages.forEach {
+                putOrIncrementKey(it.ts, EventEntry(it.code, it.reason))
+            }
 
             state.uploadFilesState.files.forEach {
-                put(
-                    it.value.timestamp * 1000,
-                    UploadingFileEntry(it.value, EntryPosition.Single)
-                )
+                putOrIncrementKey(it.value.timestamp, UploadingFileEntry(it.value, EntryPosition.Single))
+            }
+
+            state.pendingState.message?.let {
+                putOrIncrementKey(it.timestamp, SendingMessageEntry(it, EntryPosition.Single))
+            }
+
+            state.contactFormState.run {
+                if (this.contactForm != null) {
+                    putOrIncrementKey(
+                        state.historyState.messages.firstOrNull()?.timestamp?.inc() ?: this.contactForm.timestamp,
+                        ContactFormEntry(this)
+                    )
+                }
             }
         }
 
@@ -222,13 +276,17 @@ class JivoChatViewModel @Inject constructor(
                     dropBuffer(state.myId, buffer, result)
                     result.add(EventItem(message))
                 }
+                is ContactFormEntry -> {
+                    dropBuffer(state.myId, buffer, result)
+                    result.add(ContactFormItem(message))
+                }
             }
         }
         if (buffer.isNotEmpty()) {
             dropBuffer(state.myId, buffer, result)
         }
 
-        if (state.hasOffline && result.isNotEmpty()) {
+        if (state.hasOffline && storage.hasSentContactForm && result.isNotEmpty()) {
             val agentList = agents.value ?: emptyList()
             if (agentList.isEmpty() || agentList.any { it.status != AgentStatus.Online }) {
                 val data = result.first().data
@@ -261,6 +319,19 @@ class JivoChatViewModel @Inject constructor(
             }
         }
         buffer.clear()
+    }
+
+    private fun TreeMap<Long, ChatEntry>.putOrIncrementKey(timestamp: Long, entry: ChatEntry) {
+        var hasIncrement = true
+        var key = timestamp
+        while (hasIncrement) {
+            if (this[key] != null) {
+                key++
+            } else {
+                this[key] = entry
+                hasIncrement = false
+            }
+        }
     }
 
     private fun createItem(myId: String, message: MessageEntry): ChatItem {
@@ -345,10 +416,26 @@ class JivoChatViewModel @Inject constructor(
         }
     }
 
-    fun sendTextMessage(text: String) {
+    fun createTextMessage(text: String) {
         val message = ClientMessage.createText(text)
-        sendMessageRepository.addMessage(message)
+        if (!storage.hasSentContactForm && agents.value.isNullOrEmpty()) {
+            pendingRepository.addMessage(message)
+        } else {
+            sendMessage(message)
+        }
+    }
 
+    private fun sendFileMessage(mimeType: String, url: String) {
+        val message = ClientMessage.createFile(mimeType, url)
+        if (!storage.hasSentContactForm && agents.value.isNullOrEmpty()) {
+            pendingRepository.addMessage(message)
+        } else {
+            sendMessage(message)
+        }
+    }
+
+    private fun sendMessage(message: ClientMessage) {
+        sendMessageRepository.addMessage(message)
         val socketMessage = SocketMessage.fromClientMessage(message)
         messageTransmitter.sendMessage(socketMessage)
     }
@@ -386,22 +473,16 @@ class JivoChatViewModel @Inject constructor(
         JivoWebSocketService.reconnect(sdkContext.appContext)
     }
 
-    private fun sendFileMessage(mimeType: String, imageUrl: String) {
-        val message = ClientMessage.createFile(mimeType, imageUrl)
-        sendMessageRepository.addMessage(message)
-
-        val socketMessage = SocketMessage.fromClientMessage(message)
-        messageTransmitter.sendMessage(socketMessage)
-    }
-
     private data class CanSendState(
         val hasMessage: Boolean = false,
-        val hasConnection: Boolean = false
+        val hasConnection: Boolean = false,
+        val hasPendingMessage: Boolean = false
     )
 
     private data class CanAttachState(
         val isLoading: Boolean = false,
-        val hasConnection: Boolean = false
+        val hasConnection: Boolean = false,
+        val hasPendingMessage: Boolean = false
     )
 
     private data class MessagesState(
@@ -411,10 +492,12 @@ class JivoChatViewModel @Inject constructor(
         val historyState: HistoryState = HistoryState(),
         val sendMessageState: SendMessageState = SendMessageState(),
         val eventMessages: List<LogMessage.Disconnected> = Collections.emptyList(),
-        val uploadFilesState: UploadFilesState = UploadFilesState()
+        val uploadFilesState: UploadFilesState = UploadFilesState(),
+        val pendingState: PendingState = PendingState(),
+        val contactFormState: ContactFormState = ContactFormState()
     ) {
         val size: Int
-            get() = historyState.messages.size + sendMessageState.messages.size + eventMessages.size + uploadFilesState.files.size
+            get() = historyState.messages.size + sendMessageState.messages.size + eventMessages.size + uploadFilesState.files.size + pendingState.size + contactFormState.size
     }
 }
 

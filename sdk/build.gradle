@@ -58,7 +58,7 @@ dependencies {
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.android.material:material:1.5.0'
 
     //activity / fragment result api
     implementation 'androidx.activity:activity-ktx:1.4.0'
@@ -87,6 +87,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
+    implementation 'com.squareup.moshi:moshi-adapters:1.13.0'
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.13.0'
 
     //coil

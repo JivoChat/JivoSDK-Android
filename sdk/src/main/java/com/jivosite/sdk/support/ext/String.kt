@@ -1,5 +1,6 @@
 package com.jivosite.sdk.support.ext
 
+import android.util.Patterns
 import android.webkit.MimeTypeMap
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes
 import java.net.URLDecoder
@@ -49,6 +50,14 @@ fun String?.parseContentDisposition(): String {
 fun String.toMD5() = MessageDigest.getInstance("MD5")
     .digest(this.toByteArray())
     .joinToString("") { "%02x".format(it) }
+
+fun String.isEmailValid(): Boolean {
+    return this.isNotBlank() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+}
+
+fun String.isPhoneValid(): Boolean {
+    return this.isNotBlank() && Patterns.PHONE.matcher(this).matches()
+}
 
 
 

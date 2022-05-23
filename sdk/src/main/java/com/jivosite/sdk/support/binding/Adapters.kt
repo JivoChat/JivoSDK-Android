@@ -9,6 +9,7 @@ import android.webkit.URLUtil
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.isInvisible
@@ -20,6 +21,7 @@ import coil.load
 import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
+import com.google.android.material.textfield.TextInputLayout
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.R
 import com.jivosite.sdk.api.ApiErrors.FILE_TRANSFER_DISABLED
@@ -402,3 +404,17 @@ fun setFileName(view: TextView, state: MediaItemState?) {
         else -> view.text = ""
     }
 }
+
+@BindingAdapter("stateInputText")
+fun setStateInputText(view: AppCompatEditText, isEnabled: Boolean) {
+    view.hint =
+        view.context.getString(if (isEnabled) R.string.input_message_placeholder else R.string.chat_input_status_contact_info)
+    view.isEnabled = isEnabled
+}
+
+@BindingAdapter("isEndIconVisible")
+fun setEndIconVisible(view: TextInputLayout, isVisible: Boolean) {
+    view.isEndIconVisible = isVisible
+}
+
+

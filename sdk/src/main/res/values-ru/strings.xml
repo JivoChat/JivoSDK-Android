@@ -10,6 +10,7 @@
     <string name="Camera.Access.Suggestion">Для съёмки фото требуется доступ к камере.\n\nПожалуйста, перейдите в [Настройки устройства &gt; Ваше приложение &gt; Камера], чтобы разрешить доступ.</string>
     <!-- Alert with this message displays when you try to take a photo from camera on iOS simulator or when real device experiencing some technical issues. -->
     <string name="Camera.Access.Unavailable">Камера недоступна</string>
+    <string name="chat_input.status.contact_info">Пожалуйста, укажите ваши контакты</string>
     <!-- Подзаголовок окна чата по умолчанию -->
     <string name="chat_subtitle_placeholder">На связи 24/7!</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что произошел разрыв соединения  с сервером. -->
@@ -22,6 +23,9 @@
     <string name="chat_system_two_agents_typing">%s и %s набирают сообщение...</string>
     <!-- Заголовок окна чата по умолчанию -->
     <string name="chat_title_placeholder">Чат с поддержкой</string>
+    <string name="chat.system.contact_form.introduce_in_chat">Представьтесь в чате</string>
+    <string name="chat.system.contact_form.must_fill">Укажите ваши контакты, чтобы мы смогли ответить вам</string>
+    <string name="chat.system.contact_form.status_sent">Теперь ваши сообщения не потеряются. Ответ операторов придет в чат и по указанным контактам.</string>
     <string name="Chat.System.Media.Preparing">Подготовка файла...</string>
     <string name="Chat.System.Media.Uploading">Отправка файла...</string>
     <string name="Chat.System.NewMessages">Новые сообщения</string>
@@ -32,12 +36,17 @@
     <!-- Универсальное сообщение о неизвестной ошибке. -->
     <string name="common_unknown_error">Техническая ошибка</string>
     <string name="Common.Open">Открыть</string>
+    <string name="common.send">Отправить</string>
     <!-- Состояние подключения к сервису -->
     <string name="connection_state_connecting">Подключение…</string>
     <!-- Состояние отсутствия подключения -->
     <string name="connection_state_disconnected">Нет подключения, повторная попытка через %d сек.</string>
     <!-- Кнопка для повторного подключения к сервису, не дожидаясь таймаута  -->
     <string name="connection_state_retry">Подключиться сейчас</string>
+    <string name="contact_form.email.placeholder">E-mail</string>
+    <string name="contact_form.name.placeholder">Ваше имя</string>
+    <string name="contact_form.phone.placeholder">Ваш телефон</string>
+    <string name="contact_form.status.sent">Спасибо!</string>
     <!-- Статус загрузки - ошибка -->
     <string name="download_status_error">Ошибка</string>
     <!-- Статус загрузки - загрузка -->

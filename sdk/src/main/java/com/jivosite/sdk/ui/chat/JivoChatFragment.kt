@@ -208,7 +208,7 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         binding.inputText.text.toString().also {
             if (it.isNotBlank()) {
                 binding.inputText.text?.clear()
-                viewModel.sendTextMessage(it)
+                viewModel.createTextMessage(it)
             }
         }
     }

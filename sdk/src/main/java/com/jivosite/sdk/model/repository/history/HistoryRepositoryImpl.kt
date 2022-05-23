@@ -27,7 +27,7 @@ class HistoryRepositoryImpl @Inject constructor(
     HistoryRepository {
 
     private val messagesCache: SortedMap<Long, HistoryMessage> = TreeMap { o1, o2 ->
-        o2.compareTo(o1)
+        o1.compareTo(o2)
     }
 
     override val state: HistoryState
