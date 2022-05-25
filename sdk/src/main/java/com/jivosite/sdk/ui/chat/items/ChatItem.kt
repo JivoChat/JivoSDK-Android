@@ -1,6 +1,7 @@
 package com.jivosite.sdk.ui.chat.items
 
 import android.net.Uri
+import android.webkit.URLUtil
 import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.pojo.message.HistoryMessage
 import com.jivosite.sdk.model.repository.contacts.ContactFormState
@@ -123,7 +124,10 @@ sealed class EntryPosition {
 }
 
 fun String.isFileType(): Boolean {
-    return Uri.parse(this).host?.endsWith("jivosite.com", true) ?: false
+    return URLUtil.isHttpsUrl(this) && Uri.parse(this).host?.let {
+        it.endsWith("jivosite.com") || it.endsWith("jivo.ru")
+    } ?: false
 }
+
 
 
