@@ -288,7 +288,7 @@ class JivoChatViewModel @Inject constructor(
 
         if (state.hasOffline && storage.hasSentContactForm && result.isNotEmpty()) {
             val agentList = agents.value ?: emptyList()
-            if (agentList.isEmpty() || agentList.any { it.status != AgentStatus.Online }) {
+            if (!agentList.any { it.status != AgentStatus.Online }) {
                 val data = result.first().data
                 if (data is ClientMessageEntry) {
                     if (data.message.status == MessageStatus.Sent || data.message.status == MessageStatus.Delivered) {
