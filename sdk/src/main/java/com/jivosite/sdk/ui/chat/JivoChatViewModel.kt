@@ -97,28 +97,6 @@ class JivoChatViewModel @Inject constructor(
     private val messagesState = MediatorLiveData<MessagesState>().apply {
         value = MessagesState()
         addSource(profileRepository.observableState) { value = value?.copy(myId = it.id) }
-        addSource(historyRepository.observableState) {
-            val currentState = value ?: return@addSource
-            value = currentState.copy(historyState = it)
-            if (it.messages.isEmpty() && !currentState.hasWelcome) {
-                handler.postDelayed(addWelcomeMessageCallback, WELCOME_TIMEOUT)
-            } else {
-                handler.removeCallbacks(addWelcomeMessageCallback)
-            }
-            handleOfflineMessage(currentState)
-            if (!storage.hasSentContactForm && it.messages.isNotEmpty()) {
-                contactFormRepository.createContactForm()
-            }
-        }
-        addSource(agentRepository.observableState) {
-            handleOfflineMessage(value ?: return@addSource)
-        }
-        addSource(sendMessageRepository.observableState) {
-            value = value?.copy(sendMessageState = it)
-            handleOfflineMessage(value ?: return@addSource)
-        }
-        addSource(logsRepository.messages) { value = value?.copy(eventMessages = prepareEventMessages(it)) }
-        addSource(uploadRepository.observableState) { value = value?.copy(uploadFilesState = it) }
         addSource(pendingRepository.observableState) {
             value = value?.copy(pendingState = it)
             if (it.message != null) {
@@ -135,6 +113,35 @@ class JivoChatViewModel @Inject constructor(
                 }
             }
         }
+        addSource(historyRepository.observableState) {
+            val currentState = value ?: return@addSource
+            value = currentState.copy(historyState = it)
+            if (it.messages.isEmpty() && !currentState.hasWelcome) {
+                handler.postDelayed(addWelcomeMessageCallback, WELCOME_TIMEOUT)
+            } else {
+                handler.removeCallbacks(addWelcomeMessageCallback)
+            }
+            handleOfflineMessage(currentState)
+            if (!storage.hasSentContactForm && it.messages.isNotEmpty()) {
+                contactFormRepository.createContactForm()
+            }
+        }
+        addSource(agentRepository.observableState) { state ->
+            handleOfflineMessage(value ?: return@addSource)
+            if (state.agents.any { it.status == AgentStatus.Online }) {
+                val currentState = value ?: return@addSource
+                currentState.pendingState.message?.let { clientMessage ->
+                    sendMessage(clientMessage)
+                    pendingRepository.removeMessage()
+                }
+            }
+        }
+        addSource(sendMessageRepository.observableState) {
+            value = value?.copy(sendMessageState = it)
+            handleOfflineMessage(value ?: return@addSource)
+        }
+        addSource(logsRepository.messages) { value = value?.copy(eventMessages = prepareEventMessages(it)) }
+        addSource(uploadRepository.observableState) { value = value?.copy(uploadFilesState = it) }
     }
 
     val items: LiveData<List<ChatItem>> = Transformations.map(messagesState) { handleMessagesState(it) }
