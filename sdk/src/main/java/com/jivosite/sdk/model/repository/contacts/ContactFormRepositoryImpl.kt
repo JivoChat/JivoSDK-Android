@@ -17,16 +17,20 @@ import javax.inject.Inject
 class ContactFormRepositoryImpl @Inject constructor(
     schedulers: Schedulers,
     private val storage: SharedStorage
-) : StateRepository<ContactFormState>(schedulers, "ContactForm", ContactFormState(hasSentContactForm = storage.hasSentContactForm)),
+) : StateRepository<ContactFormState>(
+    schedulers, "ContactForm", ContactFormState(hasSentContactForm = storage.hasSentContactForm)
+),
     ContactFormRepository {
 
     override val observableState: StateLiveData<ContactFormState>
         get() = _stateLive
 
-    override fun createContactForm() = updateStateInRepositoryThread(CREATE_CONTACT_FORM_TIMEOUT) {
-        doBefore { state -> state.contactForm == null }
-        transform { state -> state.copy(contactForm = ContactForm()) }
-    }
+    override fun createContactForm(hasTimeout: Boolean) =
+        updateStateInRepositoryThread(CREATE_CONTACT_FORM_TIMEOUT.takeIf { hasTimeout } ?: 0L
+        ) {
+            doBefore { state -> state.contactForm == null }
+            transform { state -> state.copy(contactForm = ContactForm()) }
+        }
 
     override fun sendContactForm(contactForm: ContactForm) = updateStateInRepositoryThread {
         transform { state ->

@@ -100,7 +100,7 @@ class JivoChatViewModel @Inject constructor(
         addSource(pendingRepository.observableState) {
             value = value?.copy(pendingState = it)
             if (it.message != null) {
-                contactFormRepository.createContactForm()
+                contactFormRepository.createContactForm(true)
             }
         }
         addSource(contactFormRepository.observableState) {
