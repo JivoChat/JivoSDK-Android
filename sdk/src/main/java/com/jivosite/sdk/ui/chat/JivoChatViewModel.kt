@@ -116,14 +116,14 @@ class JivoChatViewModel @Inject constructor(
         addSource(historyRepository.observableState) {
             val currentState = value ?: return@addSource
             value = currentState.copy(historyState = it)
-            if (it.messages.isEmpty() && !currentState.hasWelcome) {
+            if (it.messages.isEmpty() && !currentState.hasWelcome && currentState.pendingState.message == null) {
                 handler.postDelayed(addWelcomeMessageCallback, WELCOME_TIMEOUT)
             } else {
                 handler.removeCallbacks(addWelcomeMessageCallback)
             }
             handleOfflineMessage(currentState)
             if (!storage.hasSentContactForm && it.messages.isNotEmpty()) {
-                contactFormRepository.createContactForm()
+                contactFormRepository.createContactForm(it.messages.size == 1)
             }
         }
         addSource(agentRepository.observableState) { state ->
