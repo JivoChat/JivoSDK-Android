@@ -147,7 +147,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingHorizontal="36dp"
-            android:text="Your message is being sent over to the team. They'll be in touch soon."
+            android:text="@string/chat.system.contact_form.status_sent"
             android:textColor="@color/color_on_surface"
             android:textSize="14sp"
             android:visibility="@{viewModel.hasSentContacts? viewModel.hasAgentsOnline ? View.GONE : View.VISIBLE: View.GONE}" />

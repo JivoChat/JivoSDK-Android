@@ -10,6 +10,7 @@
     <string name="Camera.Access.Suggestion">Precisamos desta permissão para que você consiga tirar e compartilhar fotos</string>
     <!-- Alert with this message displays when you try to take a photo from camera on iOS simulator or when real device experiencing some technical issues. -->
     <string name="Camera.Access.Unavailable">A câmera não está disponível</string>
+    <string name="chat_input.status.contact_info">Preencha o formulário de contato acima</string>
     <!-- Подзаголовок окна чата по умолчанию -->
     <string name="chat_subtitle_placeholder">Inicie um chat conosco, 24/7!</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что произошел разрыв соединения  с сервером. -->
@@ -22,6 +23,9 @@
     <string name="chat_system_two_agents_typing">%s e %s estão digitando...</string>
     <!-- Заголовок окна чата по умолчанию -->
     <string name="chat_title_placeholder">Reportar um problema</string>
+    <string name="chat.system.contact_form.introduce_in_chat">Por favor, apresente-se no chat</string>
+    <string name="chat.system.contact_form.must_fill">Por favor, insira seus dados de contato para enviar esta mensagem</string>
+    <string name="chat.system.contact_form.status_sent">Sua mensagem está sendo enviada para a nossa equipe. Entraremos em contato em breve. Fique à vontade para deixar mais mensagens abaixo caso deseje completar sua mensagem.</string>
     <string name="Chat.System.Media.Preparing">Preparando o arquivo...</string>
     <string name="Chat.System.Media.Uploading">Enviando arquivo...</string>
     <string name="Chat.System.NewMessages">Novas mensagens</string>
@@ -32,12 +36,17 @@
     <!-- Универсальное сообщение о неизвестной ошибке. -->
     <string name="common_unknown_error">Erro desconhecido</string>
     <string name="Common.Open">Abrir</string>
+    <string name="common.send">Enviar</string>
     <!-- Состояние подключения к сервису -->
     <string name="connection_state_connecting">Conectando...</string>
     <!-- Состояние отсутствия подключения -->
     <string name="connection_state_disconnected">Não há conexão, tentar novamente em %d</string>
     <!-- Кнопка для повторного подключения к сервису, не дожидаясь таймаута  -->
     <string name="connection_state_retry">Conectar agora</string>
+    <string name="contact_form.email.placeholder">Seu email</string>
+    <string name="contact_form.name.placeholder">Nome</string>
+    <string name="contact_form.phone.placeholder">Telefone</string>
+    <string name="contact_form.status.sent">Obrigado!</string>
     <!-- Статус загрузки - ошибка -->
     <string name="download_status_error">Erro</string>
     <!-- Статус загрузки - загрузка -->

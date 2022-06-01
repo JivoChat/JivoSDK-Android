@@ -43,7 +43,7 @@
     <string name="connection_state_disconnected">Нет подключения, повторная попытка через %d сек.</string>
     <!-- Кнопка для повторного подключения к сервису, не дожидаясь таймаута  -->
     <string name="connection_state_retry">Подключиться сейчас</string>
-    <string name="contact_form.email.placeholder">E-mail</string>
+    <string name="contact_form.email.placeholder">Ваш e-mail</string>
     <string name="contact_form.name.placeholder">Ваше имя</string>
     <string name="contact_form.phone.placeholder">Ваш телефон</string>
     <string name="contact_form.status.sent">Спасибо!</string>
