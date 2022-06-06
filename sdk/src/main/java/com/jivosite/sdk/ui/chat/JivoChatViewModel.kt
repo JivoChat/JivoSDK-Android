@@ -410,7 +410,7 @@ class JivoChatViewModel @Inject constructor(
 
         uploadRepository.upload(file) { url ->
             uploadRepository.removeFile(contentUri)
-            sendFileMessage(mimeType, url)
+            sendMessage(ClientMessage.createFile(mimeType, url))
         }
     }
 
@@ -423,28 +423,15 @@ class JivoChatViewModel @Inject constructor(
         }
     }
 
-    fun createTextMessage(text: String) {
-        val message = ClientMessage.createText(text)
-        if (!storage.hasSentContactForm && agents.value.isNullOrEmpty()) {
+    fun sendMessage(message: ClientMessage) {
+        val historyMessages = messagesState.value?.historyState?.messages
+        if (!storage.hasSentContactForm && agents.value.isNullOrEmpty() && historyMessages.isNullOrEmpty()) {
             pendingRepository.addMessage(message)
         } else {
-            sendMessage(message)
+            sendMessageRepository.addMessage(message)
+            val socketMessage = SocketMessage.fromClientMessage(message)
+            messageTransmitter.sendMessage(socketMessage)
         }
-    }
-
-    private fun sendFileMessage(mimeType: String, url: String) {
-        val message = ClientMessage.createFile(mimeType, url)
-        if (!storage.hasSentContactForm && agents.value.isNullOrEmpty()) {
-            pendingRepository.addMessage(message)
-        } else {
-            sendMessage(message)
-        }
-    }
-
-    private fun sendMessage(message: ClientMessage) {
-        sendMessageRepository.addMessage(message)
-        val socketMessage = SocketMessage.fromClientMessage(message)
-        messageTransmitter.sendMessage(socketMessage)
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.jivosite.sdk.ui.chat
 
-import android.content.*
+import android.content.ContentResolver
+import android.content.Context
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.net.Uri
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.R
 import com.jivosite.sdk.databinding.FragmentJivoChatBinding
+import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.repository.connection.ConnectionState
 import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.support.dg.adapters.SimpleDiffAdapter
@@ -208,7 +210,7 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         binding.inputText.text.toString().also {
             if (it.isNotBlank()) {
                 binding.inputText.text?.clear()
-                viewModel.createTextMessage(it)
+                viewModel.sendMessage(ClientMessage.createText(it))
             }
         }
     }
