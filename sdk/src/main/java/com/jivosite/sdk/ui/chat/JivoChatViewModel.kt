@@ -442,7 +442,7 @@ class JivoChatViewModel @Inject constructor(
         chatStateRepository.setVisibility(isVisible)
         if (isVisible) {
             historyRepository.state.let { state ->
-                val message = state.messages.firstOrNull()
+                val message = state.messages.lastOrNull()
                 if (message != null && message.from != profileRepository.id && message.number != state.lastReadMsgId) {
                     messageTransmitter.sendMessage(SocketMessage.ack(message.id))
                     historyRepository.markAsRead(message.number)
