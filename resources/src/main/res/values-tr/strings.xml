@@ -10,6 +10,7 @@
     <string name="Camera.Access.Suggestion">Fotoğraf çekip paylaşabilmeniz için bu izne ihtiyacımız var</string>
     <!-- Alert with this message displays when you try to take a photo from camera on iOS simulator or when real device experiencing some technical issues. -->
     <string name="Camera.Access.Unavailable">Kamera kullanılamıyor</string>
+    <string name="chat_input.status.contact_info">Yukarıdaki iletişim formunu doldurunuz</string>
     <!-- Подзаголовок окна чата по умолчанию -->
     <string name="chat_subtitle_placeholder">Bize 7/24 danışabilirsiniz!</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что произошел разрыв соединения  с сервером. -->
@@ -22,6 +23,9 @@
     <string name="chat_system_two_agents_typing">%s ve %s yazıyor...</string>
     <!-- Заголовок окна чата по умолчанию -->
     <string name="chat_title_placeholder">Bir sorun bildirin</string>
+    <string name="chat.system.contact_form.introduce_in_chat">Sizi daha yakından tanıyabilir miyiz?</string>
+    <string name="chat.system.contact_form.must_fill">Mesaj gönderebilmek için lütfen iletişim bilgilerinizi giriniz</string>
+    <string name="chat.system.contact_form.status_sent">Mesajlarınız temsilcilerimize iletilecek. En kısa sürede size döneceğiz.</string>
     <string name="Chat.System.Media.Preparing">Dosya hazırlanıyor...</string>
     <string name="Chat.System.Media.Uploading">Dosya gönderiliyor...</string>
     <string name="Chat.System.NewMessages">Yeni mesajlar</string>
@@ -32,12 +36,17 @@
     <!-- Универсальное сообщение о неизвестной ошибке. -->
     <string name="common_unknown_error">Bilinmeyen hata</string>
     <string name="Common.Open">Açık</string>
+    <string name="common.send">Gönder</string>
     <!-- Состояние подключения к сервису -->
     <string name="connection_state_connecting">Bağlanılıyor...</string>
     <!-- Состояние отсутствия подключения -->
     <string name="connection_state_disconnected">Bağlantı başarısız, %d saniye içinde yeniden dene</string>
     <!-- Кнопка для повторного подключения к сервису, не дожидаясь таймаута  -->
     <string name="connection_state_retry">Şimdi tekrar dene</string>
+    <string name="contact_form.email.placeholder">E-posta adresiniz</string>
+    <string name="contact_form.name.placeholder">Adınız</string>
+    <string name="contact_form.phone.placeholder">Telefon numaranız</string>
+    <string name="contact_form.status.sent">Teşekkürler!</string>
     <!-- Статус загрузки - ошибка -->
     <string name="download_status_error">Hata</string>
     <!-- Статус загрузки - загрузка -->

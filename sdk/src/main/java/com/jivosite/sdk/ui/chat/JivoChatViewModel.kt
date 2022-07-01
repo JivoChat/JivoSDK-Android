@@ -295,7 +295,7 @@ class JivoChatViewModel @Inject constructor(
 
         if (state.hasOffline && storage.hasSentContactForm && result.isNotEmpty()) {
             val agentList = agents.value ?: emptyList()
-            if (!agentList.any { it.status != AgentStatus.Online }) {
+            if (!agentList.any { it.status == AgentStatus.Online }) {
                 val data = result.first().data
                 if (data is ClientMessageEntry) {
                     if (data.message.status == MessageStatus.Sent || data.message.status == MessageStatus.Delivered) {
@@ -410,7 +410,7 @@ class JivoChatViewModel @Inject constructor(
 
         uploadRepository.upload(file) { url ->
             uploadRepository.removeFile(contentUri)
-            sendFileMessage(mimeType, url)
+            sendMessage(ClientMessage.createFile(mimeType, url))
         }
     }
 
@@ -423,28 +423,15 @@ class JivoChatViewModel @Inject constructor(
         }
     }
 
-    fun createTextMessage(text: String) {
-        val message = ClientMessage.createText(text)
-        if (!storage.hasSentContactForm && agents.value.isNullOrEmpty()) {
+    fun sendMessage(message: ClientMessage) {
+        val historyMessages = messagesState.value?.historyState?.messages
+        if (!storage.hasSentContactForm && agents.value.isNullOrEmpty() && historyMessages.isNullOrEmpty()) {
             pendingRepository.addMessage(message)
         } else {
-            sendMessage(message)
+            sendMessageRepository.addMessage(message)
+            val socketMessage = SocketMessage.fromClientMessage(message)
+            messageTransmitter.sendMessage(socketMessage)
         }
-    }
-
-    private fun sendFileMessage(mimeType: String, url: String) {
-        val message = ClientMessage.createFile(mimeType, url)
-        if (!storage.hasSentContactForm && agents.value.isNullOrEmpty()) {
-            pendingRepository.addMessage(message)
-        } else {
-            sendMessage(message)
-        }
-    }
-
-    private fun sendMessage(message: ClientMessage) {
-        sendMessageRepository.addMessage(message)
-        val socketMessage = SocketMessage.fromClientMessage(message)
-        messageTransmitter.sendMessage(socketMessage)
     }
 
     /**
@@ -455,7 +442,7 @@ class JivoChatViewModel @Inject constructor(
         chatStateRepository.setVisibility(isVisible)
         if (isVisible) {
             historyRepository.state.let { state ->
-                val message = state.messages.firstOrNull()
+                val message = state.messages.lastOrNull()
                 if (message != null && message.from != profileRepository.id && message.number != state.lastReadMsgId) {
                     messageTransmitter.sendMessage(SocketMessage.ack(message.id))
                     historyRepository.markAsRead(message.number)
