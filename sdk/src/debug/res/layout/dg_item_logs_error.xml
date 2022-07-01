@@ -22,7 +22,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="8dp"
             android:scaleType="center"
-            android:src="@drawable/vic_error_24"
+            android:src="@drawable/vic_jivo_sdk_error_24"
             app:layout_constraintBottom_toBottomOf="@id/info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/info" />

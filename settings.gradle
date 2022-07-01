@@ -1,4 +1,5 @@
 include ':sdk'
 include ':app'
 include ':sample'
+include ':resources'
 rootProject.name = "JivoSDK-Android"

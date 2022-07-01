@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="JivoSDKThemeSwitcher">
+        <item name="android:theme">@style/Main.Theme.JivoSDK</item>
+    </style>
+
+    <!-- JivoSDKTextAppearance -->
+    <style name="JivoSDKTextAppearance" parent="@android:style/TextAppearance.Material">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <!-- Headline 1 -->
+    <style name="Base.V21.TextAppearance.JivoSDK.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">34sp</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Base.TextAppearance.Headline1" parent="Base.V21.TextAppearance.JivoSDK.Headline1" />
+
+    <style name="TextAppearance.JivoSDK.Headline1" parent="Base.TextAppearance.Headline1" />
+
+    <!-- Headline 2 -->
+    <style name="Base.V21.TextAppearance.JivoSDK.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Base.TextAppearance.Headline2" parent="Base.V21.TextAppearance.JivoSDK.Headline2" />
+
+    <style name="TextAppearance.JivoSDK.Headline2" parent="Base.TextAppearance.Headline2" />
+
+    <!-- Headline 3 -->
+    <style name="Base.V21.TextAppearance.JivoSDK.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineSpacingExtra">1sp</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Base.TextAppearance.Headline3" parent="Base.V21.TextAppearance.JivoSDK.Headline3" />
+
+    <style name="TextAppearance.JivoSDK.Headline3" parent="Base.TextAppearance.Headline3" />
+
+    <style name="TextAppearance.JivoSDK.Headline3.Main">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- Subtitle 1 -->
+    <style name="Base.V21.TextAppearance.JivoSDK.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Base.TextAppearance.Subtitle1" parent="Base.V21.TextAppearance.JivoSDK.Subtitle1" />
+
+    <style name="TextAppearance.JivoSDK.Subtitle1" parent="Base.TextAppearance.Subtitle1" />
+
+    <!-- Subtitle 2 -->
+    <style name="Base.V21.TextAppearance.JivoSDK.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Base.TextAppearance.Subtitle2" parent="Base.V21.TextAppearance.JivoSDK.Subtitle2" />
+
+    <style name="TextAppearance.JivoSDK.Subtitle2" parent="Base.TextAppearance.Subtitle2" />
+
+    <!-- Body 1 -->
+    <style name="Base.V21.TextAppearance.JivoSDK.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Base.TextAppearance.Body1" parent="Base.V21.TextAppearance.JivoSDK.Body1" />
+
+    <style name="TextAppearance.JivoSDK.Body1" parent="Base.TextAppearance.Body1" />
+
+    <!-- Body 2 -->
+    <style name="Base.V21.TextAppearance.JivoSDK.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Base.TextAppearance.Body2" parent="Base.V21.TextAppearance.JivoSDK.Body2" />
+
+    <style name="TextAppearance.JivoSDK.Body2" parent="Base.TextAppearance.Body2" />
+
+    <!-- Button -->
+    <style name="Base.V21.TextAppearance.JivoSDK.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Base.TextAppearance.Button" parent="Base.V21.TextAppearance.JivoSDK.Button" />
+
+    <style name="TextAppearance.JivoSDK.Button" parent="Base.TextAppearance.Button" />
+
+    <!-- Caption -->
+    <style name="Base.V21.TextAppearance.JivoSDK.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Base.TextAppearance.Caption" parent="Base.V21.TextAppearance.JivoSDK.Caption" />
+
+    <style name="TextAppearance.JivoSDK.Caption" parent="Base.TextAppearance.Caption" />
+
+    <!-- Overline -->
+    <style name="Base.V21.TextAppearance.JivoSDK.Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Base.TextAppearance.Overline" parent="Base.V21.TextAppearance.JivoSDK.Overline" />
+
+    <style name="TextAppearance.JivoSDK.Overline" parent="Base.TextAppearance.Overline" />
+
+    <style name="Base.V21.TextAppearance.Jivo.Menu" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="Base.TextAppearance.Menu" parent="Base.V21.TextAppearance.Jivo.Menu" />
+
+    <style name="TextAppearance.JivoSDK.Menu" parent="Base.TextAppearance.Menu" />
+
+
+    <!-- AppBar layout -->
+    <style name="Widget.JivoSDK.AppBarLayout" parent="Widget.Material3.AppBarLayout">
+        <item name="android:background">@drawable/ic_bg_jivo_sdk_appbar</item>
+    </style>
+
+    <!-- Toolbar -->
+    <style name="Widget.JivoSDK.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="navigationIcon">@drawable/vic_jivo_sdk_arrow_24dp</item>
+        <item name="navigationIconTint">?attr/colorOnPrimary</item>
+        <item name="titleTextAppearance">?attr/textAppearanceSubtitle2</item>
+        <item name="titleTextColor">?attr/colorOnPrimary</item>
+        <item name="subtitleTextColor">@color/color_jivo_sdk_on_surface_84</item>
+        <item name="subtitleTextAppearance">?attr/textAppearanceCaption</item>
+        <item name="logo">@drawable/vic_jivo_sdk_logo</item>
+        <item name="titleMarginStart">8dp</item>
+    </style>
+
+    <!-- Chat background -->
+    <style name="JivoSDK.ChatBackground" parent="Main.Theme.JivoSDK">
+        <item name="android:background">@color/jivo_sdk_surface</item>
+    </style>
+
+    <!-- Outgoing bubble background -->
+    <style name="JivoSDK.OutgoingBubbleBackground" parent="Main.Theme.JivoSDK">
+        <item name="android:background">@drawable/bg_jivo_sdk_outgoing_bubble</item>
+    </style>
+
+    <!-- Incoming bubble background -->
+    <style name="JivoSDK.IncomingBubbleBackground" parent="Main.Theme.JivoSDK">
+        <item name="android:background">@drawable/bg_jivo_sdk_incoming_bubble</item>
+    </style>
+
+    <!-- Text input appearance -->
+    <style name="Widget.JivoSDK.TextInputEditText.TextInput" parent="ThemeOverlay.Material3.TextInputEditText">
+        <item name="android:textAppearance">@style/Base.TextAppearance.Body2</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:maxHeight">120dp</item>
+        <item name="android:maxLength">1000</item>
+
+        <item name="android:textColor">@color/color_jivo_sdk_on_surface_87</item>
+        <item name="android:textColorHint">@color/color_jivo_sdk_on_surface_38</item>
+
+        <item name="android:textCursorDrawable">@drawable/bg_jivo_sdk_cursor</item>
+        <item name="android:textColorHighlight">@color/color_jivo_sdk_primary_20</item>
+
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:checked">true</item>
+    </style>
+
+    <!-- Contact form background -->
+    <style name="Main.Theme.JivoSDK.ContactFormBackground">
+        <item name="android:background">@drawable/bg_jivo_sdk_contact_form</item>
+    </style>
+
+    <!-- Contact form text input appearance -->
+    <style name="Widget.JivoSDK.TextInputLayoutAppearance.ContactForm" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:textColor">@color/color_jivo_sdk_on_surface_87</item>
+        <item name="android:textColorHint">@color/color_jivo_sdk_on_surface_60</item>
+
+        <item name="endIconDrawable">@drawable/vic_jivo_sdk_done</item>
+        <item name="endIconMode">custom</item>
+        <item name="endIconTint">?attr/colorPrimary</item>
+
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:checked">true</item>
+    </style>
+
+    <style name="Widget.JivoSDK.TextInputEditText.ContactForm" parent="ThemeOverlay.Material3.TextInputEditText">
+        <item name="android:textAppearance">@style/Base.TextAppearance.Body2</item>
+        <item name="android:textColorHighlight">@color/color_jivo_sdk_primary_20</item>
+    </style>
+
+    <!-- Button send contact form -->
+    <style name="Widget.JivoSDK.Button.SendContactForm" parent="Widget.Material3.Button">
+        <item name="cornerRadius">4dp</item>
+        <item name="android:stateListAnimator">@animator/button_state_list_animator</item>
+        <item name="android:insetRight">8dp</item>
+        <item name="android:insetLeft">8dp</item>
+        <item name="backgroundTint">@color/btn_contained_bg_color_selector</item>
+        <item name="android:textColor">@color/btn_contained_txt_color_selector</item>
+    </style>
+
+    <!-- Button send message -->
+    <style name="Widget.JivoSDK.Button.SendMessage" parent="Widget.Material3.Button.IconButton">
+        <item name="icon">@drawable/vic_jivo_sdk_btn_send</item>
+    </style>
+
+    <!-- Base file icon -->
+    <style name="Widget.JivoSDK.Image.FileIcon" parent="Main.Theme.JivoSDK">
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="contentPadding">8dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.JivoSDK.FileIcon</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.JivoSDK.FileIcon" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- Incoming bubble file icon -->
+    <style name="Widget.JivoSDK.Image.IncomingBubble.FileIcon" parent="Widget.JivoSDK.Image.FileIcon">
+        <item name="android:background">@color/jivo_sdk_on_surface_variant</item>
+        <item name="android:tint">@color/jivo_sdk_surface_variant</item>
+    </style>
+
+    <!-- Outgoing bubble file icon -->
+    <style name="Widget.JivoSDK.Image.OutgoingBubble.FileIcon" parent="Widget.JivoSDK.Image.FileIcon">
+        <item name="android:background">?colorOnPrimary</item>
+        <item name="android:tint">?colorPrimary</item>
+    </style>
+
+    <!-- Incoming bubble agent name appearance  -->
+    <style name="Widget.JivoSDK.TextView.IncomingBubble.AgentName" parent="">
+        <item name="android:textColor">@color/color_jivo_sdk_on_surface_60</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Subtitle2</item>
+    </style>
+
+    <!-- Incoming bubble text message appearance -->
+    <style name="Widget.JivoSDK.TextView.IncomingBubble.Message" parent="">
+        <item name="android:textColor">@color/color_jivo_sdk_on_surface_87</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Body1</item>
+        <item name="android:textColorLink">@color/jivo_sdk_secondary</item>
+        <item name="android:autoLink">all</item>
+    </style>
+
+    <!-- Incoming bubble file name appearance  -->
+    <style name="Widget.JivoSDK.TextView.IncomingBubble.FileName" parent="">
+        <item name="android:textColor">@color/color_jivo_sdk_on_surface_87</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Body1</item>
+    </style>
+
+    <!-- Incoming bubble action appearance  -->
+    <style name="Widget.JivoSDK.TextView.IncomingBubble.Action" parent="">
+        <item name="android:textColor">@color/color_jivo_sdk_on_surface_60</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Caption</item>
+    </style>
+
+    <!-- Incoming bubble time appearance  -->
+    <style name="Widget.JivoSDK.TextView.IncomingBubble.Time" parent="">
+        <item name="android:textColor">@color/color_jivo_sdk_on_surface_60</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Caption</item>
+    </style>
+
+    <!-- Background image bubble -->
+    <style name="Widget.JivoSDK.TextView.ImageBubble.Background" parent="">
+        <item name="cardBackgroundColor">@color/jivo_sdk_surface_variant</item>
+    </style>
+
+    <!-- Image bubble time appearance -->
+    <style name="Widget.JivoSDK.TextView.ImageBubble.Time" parent="">
+        <item name="android:textColor">@color/jivo_sdk_surface</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Caption</item>
+        <item name="android:background">@drawable/bg_jivo_sdk_time</item>
+    </style>
+
+    <!-- Image bubble error appearance -->
+    <style name="Widget.JivoSDK.TextView.ImageBubble.Error" parent="">
+        <item name="android:textColor">@color/color_jivo_sdk_on_surface_60</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Caption</item>
+    </style>
+
+    <!-- Outgoing bubble file name appearance -->
+    <style name="Widget.JivoSDK.TextView.OutgoingBubble.FileName" parent="">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Body1</item>
+    </style>
+
+    <!-- Outgoing bubble action appearance -->
+    <style name="Widget.JivoSDK.TextView.OutgoingBubble.Action" parent="">
+        <item name="android:textColor">@color/color_jivo_sdk_on_primary_74</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Caption</item>
+    </style>
+
+    <!-- Outgoing bubble time appearance -->
+    <style name="Widget.JivoSDK.TextView.OutgoingBubble.Time" parent="">
+        <item name="android:textColor">@color/color_jivo_sdk_on_primary_74</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Caption</item>
+    </style>
+
+    <!-- Outgoing image bubble time appearance -->
+    <style name="Widget.JivoSDK.TextView.OutgoingImageBubble.Time" parent="">
+        <item name="android:textColor">@color/jivo_sdk_surface</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Caption</item>
+    </style>
+
+    <!-- Outgoing bubble message appearance -->
+    <style name="Widget.JivoSDK.TextView.OutgoingBubble.Message" parent="ThemeOverlay.Material3.AutoCompleteTextView">
+        <item name="android:textColor">@color/jivo_sdk_on_primary</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Body1</item>
+        <item name="android:textColorLink">?colorOnPrimary</item>
+        <item name="android:autoLink">all</item>
+    </style>
+
+    <!-- Welcome message bubble appearance -->
+    <style name="Widget.JivoSDK.TextView.WelcomeMessage" parent="">
+        <item name="android:textColor">@color/color_jivo_sdk_on_surface_87</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Body1</item>
+        <item name="android:background">@drawable/bg_jivo_sdk_incoming_bubble</item>
+        <item name="android:text">@string/welcome_message_placeholder</item>
+    </style>
+
+    <!-- Offline message bubble appearance -->
+    <style name="Widget.JivoSDK.TextView.OfflineMessage" parent="">
+        <item name="android:textColor">@color/color_jivo_sdk_on_surface_87</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Body1</item>
+        <item name="android:background">@drawable/bg_jivo_sdk_incoming_bubble</item>
+        <item name="android:text">@string/offline_message_placeholder</item>
+    </style>
+
+</resources>

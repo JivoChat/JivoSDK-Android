@@ -7,4 +7,8 @@
         <item name="colorAccent">@color/darkPastelGreen</item>
     </style>
 
+    <style name="JivoSDKThemeSwitcher">
+        <item name="theme">@style/Main.Theme.JivoSDK</item>
+    </style>
+
 </resources>

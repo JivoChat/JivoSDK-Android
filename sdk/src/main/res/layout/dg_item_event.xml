@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -20,7 +21,8 @@
         android:gravity="center"
         android:paddingHorizontal="36dp"
         android:text="@{@string/chat_system_disconnected(viewModel.code, viewModel.reason)}"
-        android:textColor="@color/blueGrey"
-        android:textSize="14sp" />
+        android:textColor="@color/color_jivo_sdk_on_surface_38"
+        android:textSize="14sp"
+        tools:text="Event message"/>
 
 </layout>

@@ -1,10 +1,7 @@
 package com.jivosite.sdk.ui.chat.items.message.file.client
 
 import android.view.View
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.LifecycleOwner
-import com.jivosite.sdk.Jivo
-import com.jivosite.sdk.R
 import com.jivosite.sdk.databinding.DgItemClientFileBinding
 import com.jivosite.sdk.support.dg.AdapterDelegateItem
 import com.jivosite.sdk.ui.chat.items.ChatEntry
@@ -27,14 +24,6 @@ class ClientFileItemViewHolder(
         binding.view = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = lifecycleOwner
-
-        val background = AppCompatResources.getDrawable(context, R.drawable.bg_outgoing_message)
-        val color =
-            AppCompatResources.getColorStateList(context, Jivo.getConfig().outgoingMessageColor.color)
-        background?.setTintList(color)
-        binding.bubble.background = background
-        binding.picture.imageTintList =
-            AppCompatResources.getColorStateList(context, Jivo.getConfig().outgoingMessageColor.color)
     }
 
     override fun bind(item: AdapterDelegateItem<ChatEntry>) {

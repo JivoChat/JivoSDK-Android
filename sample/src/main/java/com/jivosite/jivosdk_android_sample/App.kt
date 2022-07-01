@@ -22,12 +22,8 @@ class App : Application() {
                 .setLogo(R.drawable.vic_jivosdk_logo)
                 .setBackground(R.drawable.bg_jivosdk_appbar)
                 .setTitle(R.string.jivosdk_title)
-                .setTitleTextColor(R.color.white)
                 .setSubtitle(R.string.jivosdk_subtitle)
-                .setSubtitleTextColor(R.color.white)
-                .setSubtitleTextColorAlpha(0.6f)
                 .setWelcomeMessage(R.string.jivosdk_welcome)
-                .setOutgoingMessageColor(Config.Color.GREY)
                 .build()
         )
     }

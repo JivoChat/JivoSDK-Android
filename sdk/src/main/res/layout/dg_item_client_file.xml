@@ -16,57 +16,50 @@
     </data>
 
     <LinearLayout
+        style="@style/JivoSDKThemeSwitcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:alpha="0.4"
-            android:text="@string/agent_name_you"
-            android:textSize="14sp"
-            android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}" />
+        <!--        <TextView
+                    android:id="@+id/agentName"
+                    style="@style/Widget.JivoSDK.TextView.IncomingBubble.AgentName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/agent_name_you"
+                    android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}" />-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bubble"
+            style="@style/JivoSDK.OutgoingBubbleBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_outgoing_message"
             android:paddingStart="16dp"
             android:paddingEnd="8dp"
             android:paddingBottom="4dp">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/picture"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                style="@style/Widget.JivoSDK.Image.OutgoingBubble.FileIcon"
                 android:layout_marginVertical="16dp"
-                android:background="@drawable/bg_outgoing_file"
-                android:tint="@color/darkPastelGreen"
                 app:fileIcon="@{viewModel.type}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/vic_file" />
+                tools:src="@drawable/vic_jivo_sdk_file" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/fileName"
+                style="@style/Widget.JivoSDK.TextView.OutgoingBubble.FileName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:ellipsize="middle"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
                 app:fileName="@{viewModel.state}"
-                app:layout_constraintBottom_toTopOf="@id/download"
+                app:layout_constraintBottom_toTopOf="@id/action"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/picture"
@@ -74,15 +67,12 @@
                 tools:text="file.zip" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/download"
+                android:id="@+id/action"
+                style="@style/Widget.JivoSDK.TextView.OutgoingBubble.Action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:clickable="true"
-                android:focusable="true"
                 android:onClick="@{() -> view.onDownload()}"
-                android:textColor="@color/white"
-                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/picture"
                 app:layout_constraintStart_toEndOf="@id/picture"
                 app:layout_constraintTop_toBottomOf="@id/fileName"
@@ -91,15 +81,14 @@
 
             <TextView
                 android:id="@+id/time"
+                style="@style/Widget.JivoSDK.TextView.OutgoingBubble.Time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="4dp"
-                android:textColor="@color/white85"
-                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/status"
-                app:layout_constraintTop_toBottomOf="@id/download"
+                app:layout_constraintTop_toBottomOf="@id/action"
                 app:time="@{viewModel.time}"
                 tools:text="13:20" />
 
@@ -108,9 +97,9 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/download"
+                app:layout_constraintTop_toBottomOf="@id/action"
                 app:messageStatus="@{viewModel.status}"
-                tools:src="@drawable/vic_message_status_sent" />
+                tools:src="@drawable/vic_jivo_sdk_message_status_sent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

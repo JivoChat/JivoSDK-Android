@@ -19,13 +19,14 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        android:background="@color/black"
+        android:theme="@style/Main.Theme.JivoSDK">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="0dp"
             android:layout_height="?android:actionBarSize"
-            android:background="@drawable/bg_toolbar"
+            android:background="@drawable/bg_ic_jivo_sdk_appbar"
             app:layout_constraintBottom_toTopOf="@id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,22 +74,22 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/bg_incoming_message"
+            android:background="@drawable/bg_jivo_sdk_incoming_bubble"
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recyclerView">
 
-            <androidx.appcompat.widget.AppCompatImageButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/send"
+                style="@style/Widget.JivoSDK.Button.SendMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?selectableItemBackgroundBorderless"
                 android:enabled="@{viewModel.canSend}"
                 android:onClick="@{() -> viewModel.send()}"
                 android:scaleType="center"
-                android:src="@drawable/ic_send"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 

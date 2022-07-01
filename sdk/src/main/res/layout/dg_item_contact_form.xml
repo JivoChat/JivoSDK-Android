@@ -17,6 +17,7 @@
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        style="@style/JivoSDKThemeSwitcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -28,13 +29,13 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:paddingHorizontal="36dp"
-            android:textColor="@color/color_on_surface"
+            android:textColor="@color/color_jivo_sdk_on_surface_60"
             android:textSize="14sp" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="8dp"
@@ -43,98 +44,79 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_contact_form"
                 android:orientation="vertical"
-                android:paddingHorizontal="16dp"
                 android:paddingVertical="12dp">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/name"
+                    style="@style/Widget.JivoSDK.TextInputLayoutAppearance.ContactForm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:checked="true"
                     android:enabled="@{!viewModel.hasSentContacts}"
-                    android:focusableInTouchMode="true"
-                    app:endIconDrawable="@drawable/ic_done"
-                    app:endIconMode="custom"
-                    app:endIconTint="@color/darkPastelGreen"
                     app:isEndIconVisible="@{viewModel.isNameValid}">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/userName"
+                        style="@style/Widget.JivoSDK.TextInputEditText.ContactForm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/contact_form.name.placeholder"
-                        android:inputType="textCapWords"
+                        android:inputType="textPersonName"
                         android:text="@={viewModel.name}"
-                        android:textColor="@color/color_input_text"
-                        android:textColorHint="@color/color_on_surface"
                         android:textSize="16sp"
                         tools:ignore="HardcodedText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.JivoSDK.TextInputLayoutAppearance.ContactForm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:enabled="@{!viewModel.hasSentContacts}"
-                    android:focusableInTouchMode="true"
-                    app:endIconDrawable="@drawable/ic_done"
-                    app:endIconMode="custom"
-                    app:endIconTint="@color/darkPastelGreen"
                     app:isEndIconVisible="@{viewModel.isPhoneValid}">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/userPhone"
+                        style="@style/Widget.JivoSDK.TextInputEditText.ContactForm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/contact_form.phone.placeholder"
                         android:inputType="phone"
                         android:text="@={viewModel.phone}"
-                        android:textColor="@color/color_input_text"
-                        android:textColorHint="@color/color_on_surface"
                         android:textSize="16sp"
                         tools:ignore="HardcodedText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.JivoSDK.TextInputLayoutAppearance.ContactForm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:enabled="@{!viewModel.hasSentContacts}"
-                    android:focusableInTouchMode="true"
-                    app:endIconDrawable="@drawable/ic_done"
-                    app:endIconMode="custom"
-                    app:endIconTint="@color/darkPastelGreen"
                     app:isEndIconVisible="@{viewModel.isEmailValid}">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/userEmail"
+                        style="@style/Widget.JivoSDK.TextInputEditText.ContactForm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/contact_form.email.placeholder"
                         android:inputType="textEmailAddress"
                         android:text="@={viewModel.email}"
-                        android:textColor="@color/color_input_text"
-                        android:textColorHint="@color/color_on_surface"
                         android:textSize="16sp"
                         tools:ignore="HardcodedText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/sendUserInfo"
+                    style="@style/Widget.JivoSDK.Button.SendContactForm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@color/btn_color_selector"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginTop="8dp"
                     android:enabled="@{viewModel.canSend}"
                     android:onClick="@{() -> viewModel.sendUserInfo()}"
                     android:textAllCaps="false"
-                    android:textColor="@color/color_text_btn_send_contact_form"
                     tools:ignore="HardcodedText"
                     tools:text="Send" />
 
@@ -148,7 +130,7 @@
             android:gravity="center"
             android:paddingHorizontal="36dp"
             android:text="Your message is being sent over to the team. They'll be in touch soon."
-            android:textColor="@color/color_on_surface"
+            android:textColor="@color/color_jivo_sdk_on_surface_60"
             android:textSize="14sp"
             android:visibility="@{viewModel.hasSentContacts? viewModel.hasAgentsOnline ? View.GONE : View.VISIBLE: View.GONE}" />
 

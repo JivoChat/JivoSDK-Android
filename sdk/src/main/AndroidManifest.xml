@@ -5,10 +5,10 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_notification_small" />
+            android:resource="@drawable/ic_jivo_sdk_notification_small" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/darkPastelGreen" />
+            android:resource="@color/jivo_sdk_primary_green_500" />
 
         <service
             android:name="com.jivosite.sdk.socket.JivoWebSocketService"
@@ -18,7 +18,7 @@
         <activity
             android:name=".ui.chat.JivoChatActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:theme="@style/Base.Theme.JivoSDK" />
 
         <activity
             android:name=".ui.imageviewer.ImageViewerActivity"

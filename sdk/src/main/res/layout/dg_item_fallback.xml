@@ -8,9 +8,9 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_dg_item_fallback"
+        android:background="@drawable/bg_jivo_sdk_dg_item_fallback"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="24sp" />
 
 </FrameLayout>

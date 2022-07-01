@@ -14,7 +14,7 @@ android {
         minSdkVersion 21
         targetSdkVersion sdkVersion
 
-        versionCode 102205301
+        versionCode 102206291
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -99,6 +99,8 @@ kapt {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(":sdk")
+    implementation project(":resources")
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
