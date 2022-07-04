@@ -141,7 +141,7 @@
 
     <!-- AppBar layout -->
     <style name="Widget.JivoSDK.AppBarLayout" parent="Widget.Material3.AppBarLayout">
-        <item name="android:background">@drawable/ic_bg_jivo_sdk_appbar</item>
+        <item name="android:background">@drawable/bg_jivo_sdk_appbar</item>
     </style>
 
     <!-- Toolbar -->
@@ -345,7 +345,7 @@
     </style>
 
     <!-- Outgoing bubble message appearance -->
-    <style name="Widget.JivoSDK.TextView.OutgoingBubble.Message" parent="ThemeOverlay.Material3.AutoCompleteTextView">
+    <style name="Widget.JivoSDK.TextView.OutgoingBubble.Message" parent="">
         <item name="android:textColor">@color/jivo_sdk_on_primary</item>
         <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Body1</item>
         <item name="android:textColorLink">?colorOnPrimary</item>
