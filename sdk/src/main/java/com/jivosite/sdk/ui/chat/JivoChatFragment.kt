@@ -2,18 +2,13 @@ package com.jivosite.sdk.ui.chat
 
 import android.content.ContentResolver
 import android.content.Context
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -25,7 +20,6 @@ import com.jivosite.sdk.R
 import com.jivosite.sdk.databinding.FragmentJivoChatBinding
 import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.repository.connection.ConnectionState
-import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.support.dg.adapters.SimpleDiffAdapter
 import com.jivosite.sdk.support.recycler.AutoScroller
 import com.jivosite.sdk.support.vm.ViewModelFactory
@@ -87,28 +81,11 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
             binding.fragment = this
             binding.viewModel = viewModel
             binding.lifecycleOwner = viewLifecycleOwner
-
-            binding.appbar.run {
-                background = AppCompatResources.getDrawable(context, Jivo.getConfig().background ?: R.drawable.bg_toolbar)
-            }
             binding.toolbar.run {
-                navigationIcon = AppCompatResources.getDrawable(context, R.drawable.vic_arrow_24dp)
-                navigationIcon?.setTint(
-                    ContextCompat.getColor(
-                        context,
-                        Jivo.getConfig().navigationIconTint ?: R.color.color_tint_navigation_icon
-                    )
-                )
                 setNavigationOnClickListener {
                     Jivo.getConfig().onBackPressedCallback?.invoke(this@JivoChatFragment) ?: activity?.onBackPressed()
                 }
             }
-
-            binding.subtitleView.text = getString(Jivo.getConfig().subtitle ?: R.string.chat_subtitle_placeholder)
-            val subtitleTextColor =
-                AppCompatResources.getColorStateList(view.context, Jivo.getConfig().subtitleTextColor ?: R.color.white30)
-            binding.subtitleView.setTextColor(subtitleTextColor)
-            binding.subtitleView.alpha = Jivo.getConfig().subtitleTextColorAlpha ?: 1f
 
             with(binding.recyclerView) {
                 itemAnimator = null
@@ -130,22 +107,6 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
             binding.inputText.doOnTextChanged { msg, _, _, _ ->
                 viewModel.message.value = msg.toString()
                 viewModel.clientTyping.setValue(msg.toString())
-            }
-            binding.inputText.run {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    AppCompatResources.getDrawable(context, R.drawable.bg_cursor)?.let { drawable ->
-                        val color = AppCompatResources.getColorStateList(context, Jivo.getConfig().outgoingMessageColor.color)
-                        drawable.setTintList(color)
-                        textCursorDrawable = drawable
-                    }
-                }
-            }
-
-            AppCompatResources.getDrawable(requireContext(), R.drawable.bg_outgoing_message)?.let { drawable ->
-                val color = AppCompatResources.getColorStateList(requireContext(), Jivo.getConfig().outgoingMessageColor.color)
-                drawable.setTintList(color)
-                binding.connectingView.indeterminateDrawable.colorFilter =
-                    PorterDuffColorFilter(color.defaultColor, PorterDuff.Mode.SRC_IN)
             }
         }
 
@@ -177,7 +138,6 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
 
         binding.banner.isVisible = viewModel.siteId == "1"
 
-        renderSendBtn()
     }
 
     override fun onResume() {
@@ -217,22 +177,6 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
 
     fun attach() {
         contentResultCallback.launch("*/*")
-    }
-
-    private fun renderSendBtn() {
-        viewModel.canSend.observe(viewLifecycleOwner) {
-            binding.sendBtn.setImageResource(
-                if (it) {
-                    when (Jivo.getConfig().outgoingMessageColor) {
-                        Config.Color.GREEN -> R.drawable.vic_send_green
-                        Config.Color.BLUE -> R.drawable.vic_send_blue
-                        Config.Color.GREY -> R.drawable.vic_send_gray
-                    }
-                } else {
-                    R.drawable.vic_send_disabled
-                }
-            )
-        }
     }
 
     private fun renderConnectionState(state: ConnectionState) {

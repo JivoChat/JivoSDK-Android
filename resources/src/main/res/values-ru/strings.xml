@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Имя оператора по умолчанию, если не подгрузилась информация -->
+    <string name="agent_name_default">Оператор</string>
+    <!-- Надпись к сообщениям клиента -->
+    <string name="agent_name_you">Вы</string>
+    <string name="Agent.DisplayName.Deleted">Удаленный оператор</string>
+    <!-- Normally user iOS device doesn't return "Restricted" camera access status. But for test purposes we've added an alert with this string message anyway. -->
+    <string name="Camera.Access.Restricted">Доступ к камере запрещён</string>
+    <string name="Camera.Access.Suggestion">Для съёмки фото требуется доступ к камере.\n\nПожалуйста, перейдите в [Настройки устройства &gt; Ваше приложение &gt; Камера], чтобы разрешить доступ.</string>
+    <!-- Alert with this message displays when you try to take a photo from camera on iOS simulator or when real device experiencing some technical issues. -->
+    <string name="Camera.Access.Unavailable">Камера недоступна</string>
+    <string name="chat_input.status.contact_info">Пожалуйста, укажите ваши контакты</string>
+    <!-- Подзаголовок окна чата по умолчанию -->
+    <string name="chat_subtitle_placeholder">На связи 24/7!</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что произошел разрыв соединения  с сервером. -->
+    <string name="chat_system_disconnected">Сетевая ошибка: %d,  сообщение: %s</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент несколько агентов набирают сообщение. -->
+    <string name="chat_system_few_agents_typing">%s, %s и %d набирают сообщение...</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент один агент набирает сообщение. -->
+    <string name="chat_system_one_agent_typing">%s набирает сообщение...</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент два агента набирают сообщение. -->
+    <string name="chat_system_two_agents_typing">%s и %s набирают сообщение...</string>
+    <!-- Заголовок окна чата по умолчанию -->
+    <string name="chat_title_placeholder">Чат с поддержкой</string>
+    <string name="chat.system.contact_form.introduce_in_chat">Представьтесь в чате</string>
+    <string name="chat.system.contact_form.must_fill">Укажите ваши контакты, чтобы мы смогли ответить вам</string>
+    <string name="chat.system.contact_form.status_sent">Теперь ваши сообщения не потеряются. Ответ операторов придет в чат и по указанным контактам.</string>
+    <string name="Chat.System.Media.Preparing">Подготовка файла...</string>
+    <string name="Chat.System.Media.Uploading">Отправка файла...</string>
+    <string name="Chat.System.NewMessages">Новые сообщения</string>
+    <string name="Client.Title">Клиент №%d</string>
+    <!-- Общая строка "Отмена" -->
+    <string name="common_cancel">Отмена</string>
+    <string name="common_done">Готово</string>
+    <!-- Универсальное сообщение о неизвестной ошибке. -->
+    <string name="common_unknown_error">Техническая ошибка</string>
+    <string name="Common.Open">Открыть</string>
+    <string name="common.send">Отправить</string>
+    <!-- Состояние подключения к сервису -->
+    <string name="connection_state_connecting">Подключение…</string>
+    <!-- Состояние отсутствия подключения -->
+    <string name="connection_state_disconnected">Нет подключения, повторная попытка через %d сек.</string>
+    <!-- Кнопка для повторного подключения к сервису, не дожидаясь таймаута  -->
+    <string name="connection_state_retry">Подключиться сейчас</string>
+    <string name="contact_form.email.placeholder">Ваш e-mail</string>
+    <string name="contact_form.name.placeholder">Ваше имя</string>
+    <string name="contact_form.phone.placeholder">Ваш телефон</string>
+    <string name="contact_form.status.sent">Спасибо!</string>
+    <!-- Статус загрузки - ошибка -->
+    <string name="download_status_error">Ошибка</string>
+    <!-- Статус загрузки - загрузка -->
+    <string name="download_status_loading">Загрузка...</string>
+    <!-- Ошибка загрузки файла, если ссылка устарела. -->
+    <string name="file_download_expired">Ссылка устарела</string>
+    <!-- Message letting user know that file is unavailable for download. -->
+    <string name="file_download_unavailable">Файл недоступен</string>
+    <!-- Проверка ссылки на файл -->
+    <string name="file_link_checking">Проверка...</string>
+    <!-- Default file name -->
+    <string name="file_name_unknown">Безымянный файл</string>
+    <string name="file_transfer_disabled">Передача файлов отключена</string>
+    <!-- Формат для размера файла в байтах -->
+    <string name="format_file_size_b">%.0f Б</string>
+    <!-- Формат для размера файла в килобайтах -->
+    <string name="format_file_size_kb">%.0f КБ</string>
+    <!-- Формат для размера файла в мегабайтах -->
+    <string name="format_file_size_mb">%.2f МБ</string>
+    <!-- Подсказка в окне ввода сообщения -->
+    <string name="input_message_placeholder">Введите ваше сообщение...</string>
+    <string name="jivo_business_messenger">Бизнес-месcенджер</string>
+    <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку открывает системный пикер документов. -->
+    <string name="media_upload_attachment_type_selecting_document">Документ</string>
+    <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку вызывает пикер фотогалереи. -->
+    <string name="media_upload_attachment_type_selecting_photo">Фото</string>
+    <!-- Заголовок с вопросом о том, какой тип вложения пользователь хочет прикрепить к сообщению. -->
+    <string name="media_upload_select_an_attachment_type_title">Что вы хотите отправить?</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент ведётся загрузка файла на сервер. -->
+    <string name="media_upload_sending_the_file">Отправка файла</string>
+    <string name="media_uploading_common_error">Ошибка загрузки файла</string>
+    <!-- Ошибка, возникающая при неудачной подготовке файла к загрузке. -->
+    <string name="media_uploading_extraction_error">Не удалось подготовить файл</string>
+    <!-- Превышение лимита выгружаемого файла -->
+    <string name="media_uploading_too_large">Размер файла не должен превышать %dМБ</string>
+    <string name="Media.Access.Missing">Разрешите доступ</string>
+    <string name="Media.Access.Suggestion">Для отправки фотографий и видео требуется доступ к галерее.
+
+Пожалуйста, перейдите в [Настройки устройства &gt; Ваше приложение &gt; Фото], чтобы разрешить доступ.</string>
+    <string name="Media.Picker.Camera">Камера</string>
+    <!-- Пункт меню "Копировать ссылку" -->
+    <string name="menu_action_copy">Копировать ссылку</string>
+    <!-- Пункт меню "Cкачать" -->
+    <string name="menu_action_download">Скачать</string>
+    <!-- Кнопка скачать для прикрепленного документа/файла -->
+    <string name="message_download">Скачать</string>
+    <!-- Системное сообщение о присоединении оператора к чату -->
+    <string name="message_system_operator_accepted">Оператор подключился к диалогу</string>
+    <!-- Unsupported file type -->
+    <string name="message_unsupported_media">Данный тип файла не поддерживается</string>
+    <string name="Message.Deleted">Сообщение удалено</string>
+    <string name="Message.Edited">(изменено)</string>
+    <string name="Message.Preview.Line">Диалог передан на вторую линию</string>
+    <string name="Message.Sender.You">Вы</string>
+    <string name="notification_channel_message_description">Сообщение из Jivo SDK</string>
+    <string name="notification_channel_message_name">Jivo</string>
+    <!-- Format for text message where $1 is agent name, $2 - text message -->
+    <string name="notification_message_text_format">%1$s: %2$s</string>
+    <string name="notification_message_title">Техподдержка</string>
+    <string name="offline_message_placeholder">Похоже операторы сейчас недоступны. Пожалуйста, оставьте своё сообщение и мы свяжемся с вами</string>
+    <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
+    <string name="options_copy">Копировать</string>
+    <!-- Пункт "Повторить отправку" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
+    <string name="options_resend">Повторить отправку</string>
+    <!--
+  Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway.
+  If there is an error then the alert should be displayed on photo library access try when starting to pick images.
+  -->
+    <string name="PhotoLibrary.Access.NoAvailableImages">Нет доступных изображений</string>
+    <!-- Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway -->
+    <string name="PhotoLibrary.Access.Unavailable">Библиотека фотографий недоступна</string>
+    <string name="toast_copied_to_clipboard">Скопировано</string>
+    <!-- Приветственное сообщение для пустого чата -->
+    <string name="welcome_message_placeholder">С мобильным приложением что-то пошло не так или просто что-то непонятно? Пишите, мы поможем!</string>
+</resources>

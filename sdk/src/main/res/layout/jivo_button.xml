@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@null"
-        android:src="@drawable/vic_bubble"
+        android:src="@drawable/vic_jivo_sdk_bubble"
         app:tint="@null"
         app:borderWidth="0dp" />
 

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.V28.TextAppearance.JivoSDK.Headline1" parent="Base.V21.TextAppearance.JivoSDK.Headline1">
+        <item name="android:lineHeight">36sp</item>
+    </style>
+
+    <style name="Base.TextAppearance.Headline1" parent="Base.V28.TextAppearance.JivoSDK.Headline1" />
+
+    <style name="Base.V28.TextAppearance.Jivo.Headline2" parent="Base.V21.TextAppearance.JivoSDK.Headline2" />
+
+    <style name="Base.TextAppearance.Headline2" parent="Base.V28.TextAppearance.Jivo.Headline2" />
+
+    <style name="Base.V28.TextAppearance.Jivo.Headline3" parent="Base.V21.TextAppearance.JivoSDK.Headline3">
+        <item name="android:lineHeight">24sp</item>
+    </style>
+
+    <style name="Base.TextAppearance.Headline3" parent="Base.V28.TextAppearance.Jivo.Headline3" />
+
+    <style name="Base.V28.TextAppearance.Jivo.Subtitle1" parent="Base.V21.TextAppearance.JivoSDK.Subtitle1">
+        <item name="android:lineHeight">24sp</item>
+    </style>
+
+    <style name="Base.TextAppearance.Subtitle1" parent="Base.V28.TextAppearance.Jivo.Subtitle1" />
+
+    <style name="Base.V28.TextAppearance.Jivo.Subtitle2" parent="Base.V21.TextAppearance.JivoSDK.Subtitle2">
+        <item name="android:lineHeight">24sp</item>
+    </style>
+
+    <style name="Base.TextAppearance.Subtitle2" parent="Base.V28.TextAppearance.Jivo.Subtitle2" />
+
+    <style name="Base.V28.TextAppearance.Jivo.Body1" parent="Base.V21.TextAppearance.JivoSDK.Body1">
+        <item name="android:lineHeight">24sp</item>
+    </style>
+
+    <style name="Base.TextAppearance.Body1" parent="Base.V28.TextAppearance.Jivo.Body1" />
+
+    <style name="Base.V28.TextAppearance.Jivo.Body2" parent="Base.V21.TextAppearance.JivoSDK.Body2">
+        <item name="android:lineHeight">20sp</item>
+    </style>
+
+    <style name="Base.TextAppearance.Body2" parent="Base.V28.TextAppearance.Jivo.Body2" />
+
+    <style name="Base.V28.TextAppearance.Jivo.Button" parent="Base.V21.TextAppearance.JivoSDK.Button">
+        <item name="android:lineHeight">16sp</item>
+    </style>
+
+    <style name="Base.TextAppearance.Button" parent="Base.V28.TextAppearance.Jivo.Button" />
+
+    <style name="Base.V28.TextAppearance.Jivo.Caption" parent="Base.V21.TextAppearance.JivoSDK.Caption">
+        <item name="android:lineHeight">16sp</item>
+    </style>
+
+    <style name="Base.TextAppearance.Caption" parent="Base.V28.TextAppearance.Jivo.Caption" />
+
+    <style name="Base.V28.TextAppearance.Jivo.Overline" parent="Base.V21.TextAppearance.JivoSDK.Overline">
+        <item name="android:lineHeight">16sp</item>
+    </style>
+
+    <style name="Base.TextAppearance.Overline" parent="Base.V28.TextAppearance.Jivo.Overline" />
+
+</resources>

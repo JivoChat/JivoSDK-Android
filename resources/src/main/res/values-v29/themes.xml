@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.V29.Theme.JivoSDK" parent="Base.Theme.JivoSDK">
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+
+    <style name="Main.Theme.JivoSDK" parent="Base.V29.Theme.JivoSDK" />
+
+</resources>

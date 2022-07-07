@@ -19,6 +19,7 @@
     </data>
 
     <FrameLayout
+        style="@style/JivoSDKThemeSwitcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -42,24 +43,21 @@
             app:agentImageLoader="@{viewModel.state}">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/name"
+                android:id="@+id/agentName"
+                style="@style/Widget.JivoSDK.TextView.IncomingBubble.AgentName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0.4"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textSize="14sp"
                 android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}"
                 app:agentName="@{viewModel.name}"
                 tools:text="@string/agent_name_default" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
+                style="@style/Widget.JivoSDK.TextView.ImageBubble.Background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:cardBackgroundColor="@color/color_background_incoming_message"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="18dp"
                 app:cardElevation="0dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,7 +68,7 @@
                         android:id="@+id/placeholder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_placeholder_image"
+                        android:src="@drawable/vic_jivo_sdk_placeholder_image"
                         app:layout_constraintBottom_toTopOf="@+id/error"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +86,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
+                        tools:src="@tools:sample/avatars"
+                        tools:visibility="invisible" />
 
                     <ProgressBar
                         android:id="@+id/progress"
@@ -103,15 +102,13 @@
 
                     <TextView
                         android:id="@+id/time"
+                        style="@style/Widget.JivoSDK.TextView.ImageBubble.Time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|end"
                         android:layout_marginEnd="6dp"
                         android:layout_marginBottom="6dp"
-                        android:background="@drawable/bg_time"
                         android:paddingHorizontal="4dp"
-                        android:textColor="@color/white85"
-                        android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:time="@{viewModel.time}"
@@ -120,13 +117,12 @@
 
                     <TextView
                         android:id="@+id/error"
+                        style="@style/Widget.JivoSDK.TextView.ImageBubble.Error"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:gravity="center"
                         android:text="@string/file_download_expired"
-                        android:textColor="@color/color_text_error"
-                        android:textSize="14sp"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/placeholder"

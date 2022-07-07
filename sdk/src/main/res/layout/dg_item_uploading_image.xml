@@ -17,34 +17,22 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/JivoSDKThemeSwitcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:alpha="0.4"
-            android:text="@string/agent_name_you"
-            android:textSize="14sp"
-            android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Вы" />
-
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
+            style="@style/Widget.JivoSDK.TextView.ImageBubble.Background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="80dp"
-            app:cardBackgroundColor="@color/color_background_incoming_message"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/mediaContainer"
@@ -52,7 +40,18 @@
                 android:layout_height="wrap_content"
                 app:clientImageLoader="@{viewModel.state}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name">
+                app:layout_constraintTop_toBottomOf="@id/agentName">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/placeholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/vic_jivo_sdk_placeholder_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/image"
@@ -64,7 +63,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@tools:sample/avatars" />
+                    tools:src="@tools:sample/avatars"
+                    tools:visibility="invisible" />
 
                 <ProgressBar
                     android:id="@+id/progress"
@@ -86,7 +86,7 @@
                     android:layout_marginBottom="6dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    tools:src="@drawable/vic_message_status_sending" />
+                    tools:src="@drawable/vic_jivo_sdk_message_status_sending" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

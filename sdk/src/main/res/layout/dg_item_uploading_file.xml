@@ -17,33 +17,34 @@
     </data>
 
     <LinearLayout
+        style="@style/JivoSDKThemeSwitcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:alpha="0.4"
-            android:text="@string/agent_name_you"
-            android:textSize="14sp"
-            android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Вы" />
+        <!--        <TextView
+                    android:id="@+id/agentName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:alpha="0.4"
+                    android:text="@string/agent_name_you"
+                    android:textSize="14sp"
+                    android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Вы" />-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mediaContainer"
+            style="@style/JivoSDK.OutgoingBubbleBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_outgoing_message"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name">
+            app:layout_constraintTop_toBottomOf="@id/agentName">
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -51,37 +52,32 @@
                 android:layout_height="40dp"
                 android:layout_marginVertical="16dp"
                 android:layout_marginStart="16dp"
-                android:background="@drawable/bg_outgoing_file"
                 android:visibility="@{viewModel.isError() ? View.INVISIBLE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/picture"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                style="@style/Widget.JivoSDK.Image.OutgoingBubble.FileIcon"
                 android:layout_marginVertical="16dp"
                 android:layout_marginStart="16dp"
-                android:background="@drawable/bg_outgoing_file"
-                android:src="@drawable/vic_close_24"
+                android:src="@drawable/vic_jivo_sdk_close_24"
                 android:visibility="@{viewModel.isError() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/fileName"
+                style="@style/Widget.JivoSDK.TextView.OutgoingBubble.FileName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
-                android:ellipsize="middle"
                 android:maxWidth="196dp"
-                android:singleLine="true"
                 android:text="@{viewModel.fileName}"
-                android:textColor="@color/white"
-                android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@id/uploadState"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
@@ -91,14 +87,11 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/uploadState"
+                style="@style/Widget.JivoSDK.TextView.OutgoingBubble.Action"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:textColor="@color/white"
-                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/progressBar"
                 app:layout_constraintStart_toEndOf="@id/progressBar"
                 app:layout_constraintTop_toBottomOf="@id/fileName"
@@ -107,12 +100,11 @@
 
             <TextView
                 android:id="@+id/time"
+                style="@style/Widget.JivoSDK.TextView.OutgoingBubble.Time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
-                android:textColor="@color/white85"
-                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/status"
                 app:layout_constraintTop_toBottomOf="@id/uploadState"
@@ -124,10 +116,10 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginEnd="8dp"
-                android:src="@{viewModel.isError() ? @drawable/vic_message_status_error : @drawable/vic_message_status_sending}"
+                android:src="@{viewModel.isError() ? @drawable/vic_jivo_sdk_message_status_error : @drawable/vic_jivo_sdk_message_status_sending}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/time"
-                tools:src="@drawable/vic_message_status_sending" />
+                tools:src="@drawable/vic_jivo_sdk_message_status_sending" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

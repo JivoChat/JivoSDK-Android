@@ -19,15 +19,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content"
+        style="@style/JivoSDKThemeSwitcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_on_background">
+        android:background="@color/jivo_sdk_chat_background">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
+            style="@style/Widget.JivoSDK.AppBarLayout"
             android:layout_width="0dp"
             android:layout_height="?android:actionBarSize"
-            android:background="@drawable/bg_toolbar"
             app:layout_constraintBottom_toTopOf="@id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,65 +37,12 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
+                style="@style/Widget.JivoSDK.Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
                 app:contentInsetStart="0dp"
-                app:contentInsetStartWithNavigation="0dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/titleView"
-                        appBarTitle="@{viewModel.agents}"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:ellipsize="end"
-                        android:fontFamily="sans-serif-medium"
-                        android:maxLines="1"
-                        android:textColor="@color/color_text_title"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toTopOf="@id/subtitleView"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toEndOf="@id/avatar"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@string/chat_title_placeholder" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/avatar"
-                        appBarAvatar="@{viewModel.agents}"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="8dp"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@string/chat_title_placeholder" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/subtitleView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="24dp"
-                        android:alpha="0.3"
-                        android:singleLine="true"
-                        android:textColor="@color/color_text_subtitle"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/avatar"
-                        app:layout_constraintTop_toBottomOf="@id/titleView"
-                        tools:text="@string/chat_subtitle_placeholder" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                app:contentInsetStartWithNavigation="0dp"
+                app:inflateToolbar="@{viewModel.agents}">
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -119,7 +67,6 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/color_on_background"
             android:paddingStart="56dp"
             android:paddingEnd="26dp"
             android:textColor="#636366"
@@ -135,13 +82,13 @@
             android:id="@+id/banner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/color_background_banner"
+            android:background="@drawable/bg_jivo_sdk_banner"
             android:drawablePadding="8dp"
             android:gravity="end"
             android:paddingHorizontal="16dp"
             android:paddingVertical="4dp"
             android:text="@string/jivo_business_messenger"
-            android:textColor="@color/color_text_banner"
+            android:textColor="@color/material_on_surface_emphasis_medium"
             android:textSize="14sp"
             app:drawableEndCompat="@drawable/vic_jivosite_logo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -154,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:visibility="gone"
-            app:cardBackgroundColor="@color/color_background_connection_state"
+            app:cardBackgroundColor="?colorSurface"
             app:cardCornerRadius="36dp"
             app:cardElevation="1dp"
             app:layout_constraintBottom_toTopOf="@id/controls"
@@ -184,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:textColor="@color/color_text_connection_state"
+                    android:textColor="@color/color_jivo_sdk_on_surface_87"
                     android:textSize="12sp"
                     app:layout_constraintStart_toEndOf="@id/connectingView"
                     app:layout_constraintTop_toTopOf="parent"
@@ -198,7 +145,7 @@
                     android:background="?selectableItemBackgroundBorderless"
                     android:onClick="@{() -> viewModel.retry()}"
                     android:text="@string/connection_state_retry"
-                    android:textColor="@color/persianBlue"
+                    android:textColor="?colorSecondary"
                     android:textSize="12sp"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -214,7 +161,6 @@
             android:id="@+id/controls"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_on_background"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -231,7 +177,7 @@
                 android:background="?android:selectableItemBackgroundBorderless"
                 android:enabled="@{viewModel.canAttach}"
                 android:onClick="@{() -> fragment.attach()}"
-                android:src="@drawable/ic_clip"
+                android:src="@drawable/vic_jivo_sdk_clip"
                 android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
                 android:visibility="@{viewModel.canUploadFile ? View.VISIBLE : View.GONE}" />
 
@@ -242,40 +188,27 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="6dp"
-                android:background="@drawable/bg_text_input"
+                android:background="@drawable/bg_jivo_sdk_text_input"
                 android:orientation="horizontal">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputText"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="14dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_text_input"
-                    android:focusable="true"
-                    android:maxHeight="120dp"
-                    android:maxLength="1000"
                     android:paddingVertical="8dp"
-                    android:paddingStart="20dp"
-                    android:textColor="@color/color_input_text"
-                    android:textColorHint="@color/color_text_hint"
-                    android:textCursorDrawable="@drawable/bg_cursor"
-                    android:textSize="16sp"
+                    android:theme="@style/Widget.JivoSDK.TextInputEditText.TextInput"
                     app:stateInputText="@{viewModel.canInputText}" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/sendBtn"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    style="@style/Widget.JivoSDK.Button.SendMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_marginVertical="6dp"
-                    android:layout_marginEnd="6dp"
-                    android:background="?selectableItemBackgroundBorderless"
-                    android:contentDescription="@null"
                     android:enabled="@{viewModel.canSend}"
-                    android:onClick="@{() -> fragment.send()}"
-                    tools:src="@drawable/vic_send_disabled" />
+                    android:onClick="@{() -> fragment.send()}" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -81,7 +81,7 @@ abstract class GeneralPushMessageDelegate<P>(
 
     protected fun getDefaultNotificationBuilder(): NotificationCompat.Builder {
         return NotificationCompat.Builder(context.appContext, getChannelId())
-            .setSmallIcon(Jivo.getConfig().notificationSmallIcon ?: R.drawable.ic_notification_small)
+            .setSmallIcon(Jivo.getConfig().notificationSmallIcon ?: R.drawable.ic_jivo_sdk_notification_small)
             .setColor(ContextCompat.getColor(context.appContext, Jivo.getConfig().notificationColorIcon ?: R.color.darkPastelGreen))
             .setAutoCancel(true)
     }

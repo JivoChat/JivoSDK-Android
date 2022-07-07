@@ -14,8 +14,8 @@ import com.jivosite.sdk.ui.logs.items.message.MessageDirection
 @BindingAdapter("messageDirection")
 fun setMessageStatus(view: AppCompatImageView, direction: MessageDirection?) {
     val iconResId = when (direction) {
-        is MessageDirection.Incoming -> R.drawable.vic_received_24
-        is MessageDirection.Outgoing -> R.drawable.vic_sent_24
+        is MessageDirection.Incoming -> R.drawable.vic_jivo_sdk_received_24
+        is MessageDirection.Outgoing -> R.drawable.vic_jivo_sdk_sent_24
         else -> 0
     }
     view.setImageResource(iconResId)
@@ -24,11 +24,11 @@ fun setMessageStatus(view: AppCompatImageView, direction: MessageDirection?) {
 @BindingAdapter("messageIcon")
 fun setMessageIcon(view: AppCompatImageView, message: LogMessage?) {
     val iconResId = when (message) {
-        is LogMessage.Connecting -> R.drawable.vic_connecting_24
-        is LogMessage.Connected -> R.drawable.vic_connected_24
-        is LogMessage.Disconnected -> R.drawable.vic_disconnected_24
-        is LogMessage.Ping -> R.drawable.vic_sent_24
-        is LogMessage.Pong -> R.drawable.vic_received_24
+        is LogMessage.Connecting -> R.drawable.vic_jivo_sdk_connecting_24
+        is LogMessage.Connected -> R.drawable.vic_jivo_sdk_connected_24
+        is LogMessage.Disconnected -> R.drawable.vic_jivo_sdk_disconnected_24
+        is LogMessage.Ping -> R.drawable.vic_jivo_sdk_sent_24
+        is LogMessage.Pong -> R.drawable.vic_jivo_sdk_received_24
         else -> 0
     }
     view.setImageResource(iconResId)
