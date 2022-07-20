@@ -19,11 +19,7 @@ class App : Application() {
         )
         Jivo.setConfig(
             Config.Builder()
-                .setLogo(R.drawable.vic_jivosdk_logo)
-                .setBackground(R.drawable.bg_jivosdk_appbar)
-                .setTitle(R.string.jivosdk_title)
-                .setSubtitle(R.string.jivosdk_subtitle)
-                .setWelcomeMessage(R.string.jivosdk_welcome)
+                .setWelcomeMessage(R.string.welcome)
                 .build()
         )
     }
