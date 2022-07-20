@@ -29,7 +29,7 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:paddingHorizontal="36dp"
-            android:textColor="@color/color_jivo_sdk_on_surface_60"
+            android:textColor="@color/jivo_sdk_color_on_surface_60"
             android:textSize="14sp" />
 
         <androidx.cardview.widget.CardView
@@ -130,7 +130,7 @@
             android:gravity="center"
             android:paddingHorizontal="36dp"
             android:text="@string/chat.system.contact_form.status_sent"
-            android:textColor="@color/color_jivo_sdk_on_surface_60"
+            android:textColor="@color/jivo_sdk_color_on_surface_60"
             android:textSize="14sp"
             android:visibility="@{viewModel.hasSentContacts? viewModel.hasAgentsOnline ? View.GONE : View.VISIBLE: View.GONE}" />
 

@@ -50,7 +50,6 @@ android {
 }
 
 dependencies {
-    implementation project(":resources")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"

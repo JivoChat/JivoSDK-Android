@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@null"
-        android:src="@drawable/vic_jivo_sdk_bubble"
+        android:src="@drawable/jivo_sdk_vic_bubble"
         app:tint="@null"
         app:borderWidth="0dp" />
 
@@ -15,7 +15,7 @@
         android:id="@+id/badge"
         android:layout_width="12dp"
         android:layout_height="12dp"
-        android:background="@drawable/bg_badge"
+        android:background="@drawable/jivo_sdk_bg_badge"
         android:elevation="12dp"
         android:visibility="visible" />
 

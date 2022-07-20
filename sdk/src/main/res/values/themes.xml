@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme.JivoSDK" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/jivo_sdk_primary_green_500</item>
+        <item name="colorOnPrimary">@color/jivo_sdk_on_primary</item>
+        <item name="colorPrimaryVariant">@color/jivo_sdk_primary_green_700</item>
+        <item name="colorSecondary">@color/jivo_sdk_primary_blue_500</item>
+        <item name="colorAccent">@color/jivo_sdk_primary_green_500</item>
+
+        <item name="colorSurface">@color/jivo_sdk_surface</item>
+        <item name="colorOnSurface">@color/jivo_sdk_on_surface</item>
+        <item name="android:colorBackground">@color/jivo_sdk_surface</item>
+    </style>
+
+    <style name="Main.Theme.JivoSDK" parent="Base.Theme.JivoSDK" />
+
+    <style name="Main.Theme.JivoSDK.Blue">
+        <item name="colorPrimary">@color/jivo_sdk_primary_blue_500</item>
+        <item name="colorPrimaryVariant">@color/jivo_sdk_primary_blue_700</item>
+        <item name="colorAccent">@color/jivo_sdk_primary_blue_500</item>
+    </style>
+
+    <style name="Main.Theme.JivoSDK.Graphite">
+        <item name="colorPrimary">@color/jivo_sdk_primary_graphite_500</item>
+        <item name="colorPrimaryVariant">@color/jivo_sdk_primary_graphite_700</item>
+        <item name="colorAccent">@color/jivo_sdk_primary_graphite_500</item>
+    </style>
+
+    <style name="ImageViewerTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+</resources>

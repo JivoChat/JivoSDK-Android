@@ -62,7 +62,7 @@
                 style="@style/Widget.JivoSDK.Image.OutgoingBubble.FileIcon"
                 android:layout_marginVertical="16dp"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/vic_jivo_sdk_close_24"
+                android:src="@drawable/jivo_sdk_vic_close_24"
                 android:visibility="@{viewModel.isError() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -116,10 +116,10 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginEnd="8dp"
-                android:src="@{viewModel.isError() ? @drawable/vic_jivo_sdk_message_status_error : @drawable/vic_jivo_sdk_message_status_sending}"
+                android:src="@{viewModel.isError() ? @drawable/jivo_sdk_vic_message_status_error : @drawable/jivo_sdk_vic_message_status_sending}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/time"
-                tools:src="@drawable/vic_jivo_sdk_message_status_sending" />
+                tools:src="@drawable/jivo_sdk_vic_message_status_sending" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

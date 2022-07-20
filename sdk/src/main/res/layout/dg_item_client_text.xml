@@ -64,7 +64,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/message"
                 app:messageStatus="@{viewModel.status}"
-                tools:src="@drawable/vic_jivo_sdk_message_status_sent" />
+                tools:src="@drawable/jivo_sdk_vic_message_status_sent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

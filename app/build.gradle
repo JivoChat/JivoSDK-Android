@@ -97,9 +97,7 @@ kapt {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(":sdk")
-    implementation project(":resources")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation 'androidx.core:core-ktx:1.7.0'
