@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Primary -->
+    <color name="jivo_sdk_primary_green_500">#18C139</color>
+    <color name="jivo_sdk_primary_green_700">#2B923F</color>
+    <color name="jivo_sdk_primary_green_disabled">#6118C139</color>
+
+    <color name="jivo_sdk_primary_blue_500">#0B82F7</color>
+    <color name="jivo_sdk_primary_blue_700">#086BCD</color>
+
+    <color name="jivo_sdk_primary_graphite_500">#445669</color>
+    <color name="jivo_sdk_primary_graphite_700">#303F4E</color>
+
+    <color name="jivo_sdk_on_primary">#FFFFFF</color>
+
+    <color name="jivo_sdk_secondary">#0B82F7</color>
+
+    <!-- Surface -->
+    <color name="jivo_sdk_surface">#FFFFFF</color>
+    <color name="jivo_sdk_surface_variant">#EDEDED</color>
+    <color name="jivo_sdk_on_surface">#000000</color>
+    <color name="jivo_sdk_on_surface_variant">#939393</color>
+
+    <color name="jivo_sdk_surface_gray">#EDEDED</color>
+    <color name="jivo_sdk_surface_overlay">#14212121</color>
+    <color name="jivo_sdk_surface_outline">#1F000000</color>
+    <color name="jivo_sdk_surface_comment">#FEFAE8</color>
+
+    <color name="jivo_sdk_chat_background">#F9FAFC</color>
+
+    <color name="jivo_sdk_system_red">#FF3B30</color>
+    <color name="jivo_sdk_error">#C73C03</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="darkPastelGreen">#18C139</color>
+    <color name="silver">#BABABA</color>
+    <color name="grey">#828282</color>
+    <color name="error">#FF4444</color>
+    <color name="apple">#5ABD4E</color>
+    <color name="wellRead">#9F3E43</color>
+    <color name="conifer">#B2FF59</color>
+    <color name="violetRed">#EC407A</color>
+    <color name="lawnGreen">#76FF03</color>
+</resources>

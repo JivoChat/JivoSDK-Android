@@ -21,7 +21,7 @@
         android:gravity="center"
         android:paddingHorizontal="36dp"
         android:text="@{@string/chat_system_disconnected(viewModel.code, viewModel.reason)}"
-        android:textColor="@color/color_jivo_sdk_on_surface_38"
+        android:textColor="@color/jivo_sdk_color_on_surface_38"
         android:textSize="14sp"
         tools:text="Event message"/>
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Primary -->
+    <color name="jivo_sdk_on_primary">#E0E0E0</color>
+
+    <!-- Surface -->
+    <color name="jivo_sdk_surface">#121212</color>
+    <color name="jivo_sdk_surface_variant">#333333</color>
+    <color name="jivo_sdk_on_surface">#FFFFFF</color>
+    <color name="jivo_sdk_on_surface_variant">#808080</color>
+
+    <color name="jivo_sdk_surface_gray">#333333</color>
+    <color name="jivo_sdk_surface_overlay">#14212121</color>
+    <color name="jivo_sdk_surface_outline">#1FFFFFFF</color>
+    <color name="jivo_sdk_surface_comment">#41403C</color>
+
+    <color name="jivo_sdk_chat_background">#121212</color>
+
+</resources>

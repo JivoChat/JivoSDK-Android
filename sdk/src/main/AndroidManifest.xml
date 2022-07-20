@@ -5,7 +5,7 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_jivo_sdk_notification_small" />
+            android:resource="@drawable/jivo_sdk_ic_notification_small" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/jivo_sdk_primary_green_500" />

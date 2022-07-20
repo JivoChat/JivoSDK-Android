@@ -19,10 +19,8 @@ import coil.imageLoader
 import coil.load
 import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
-import coil.transform.RoundedCornersTransformation
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputLayout
-import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.R
 import com.jivosite.sdk.api.ApiErrors.FILE_TRANSFER_DISABLED
 import com.jivosite.sdk.model.pojo.agent.Agent
@@ -51,26 +49,12 @@ import kotlin.math.pow
 @BindingAdapter("avatarUrl")
 fun loadAvatar(view: AppCompatImageView, url: String?) {
     if (url.isNullOrBlank()) {
-        view.setImageResource(R.drawable.vic_jivo_sdk_avatar_empty)
+        view.setImageResource(R.drawable.jivo_sdk_vic_avatar_empty)
     } else {
         view.load(url) {
-            placeholder(R.drawable.vic_jivo_sdk_avatar_empty)
-            error(R.drawable.vic_jivo_sdk_avatar_empty)
+            placeholder(R.drawable.jivo_sdk_vic_avatar_empty)
+            error(R.drawable.jivo_sdk_vic_avatar_empty)
             transformations(CircleCropTransformation())
-        }
-    }
-}
-
-@BindingAdapter("imageUrl")
-fun loadImage(view: AppCompatImageView, url: String?) {
-    if (url.isNullOrBlank()) {
-        view.setImageResource(R.drawable.vic_jivo_sdk_avatar_empty)
-    } else {
-        val cornerRadius = view.resources.getDimensionPixelSize(R.dimen.message_bubble_corner).toFloat()
-        view.load(url) {
-            placeholder(R.drawable.vic_jivo_sdk_avatar_empty)
-            error(R.drawable.vic_jivo_sdk_avatar_empty)
-            transformations(RoundedCornersTransformation(cornerRadius))
         }
     }
 }
@@ -114,10 +98,10 @@ fun <T> setItems(view: RecyclerView, items: List<AdapterDelegateItem<T>>?) {
 @BindingAdapter("messageStatus")
 fun setMessageStatus(view: AppCompatImageView, status: MessageStatus?) {
     val (isVisible, imageResId) = when (status) {
-        is MessageStatus.Sending -> true to R.drawable.vic_jivo_sdk_message_status_sending
-        is MessageStatus.Sent -> true to R.drawable.vic_jivo_sdk_message_status_sent
-        is MessageStatus.Delivered -> true to R.drawable.vic_jivo_sdk_message_status_delivered
-        is MessageStatus.Error -> true to R.drawable.vic_jivo_sdk_message_status_error
+        is MessageStatus.Sending -> true to R.drawable.jivo_sdk_vic_message_status_sending
+        is MessageStatus.Sent -> true to R.drawable.jivo_sdk_vic_message_status_sent
+        is MessageStatus.Delivered -> true to R.drawable.jivo_sdk_vic_message_status_delivered
+        is MessageStatus.Error -> true to R.drawable.jivo_sdk_vic_message_status_error
         else -> false to 0
     }
     view.setImageResource(imageResId)
@@ -125,7 +109,7 @@ fun setMessageStatus(view: AppCompatImageView, status: MessageStatus?) {
 }
 
 @BindingAdapter("typing")
-fun setAgentsTyping(view: AppCompatTextView, agents: List<Agent>) {
+fun setAgentsTyping(view: AppCompatTextView, agents: List<Agent>?) {
     view.isInvisible = agents.isNullOrEmpty()
     if (agents.isNullOrEmpty()) return
     val context = view.context
@@ -148,40 +132,14 @@ fun inflateToolbar(view: MaterialToolbar, agents: List<Agent>?) {
 
     view.refreshDrawableState()
 
-    agents?.filter { it.hasOnlineInChat && it.status !is AgentStatus.Offline }.let { list ->
+    agents?.filter { it.hasOnlineInChat && it.status !is AgentStatus.Offline }?.let { list ->
         when {
-            list.isNullOrEmpty() -> {
-                view.logo?.run {
-                    request
-                        .data(R.drawable.vic_jivo_sdk_logo)
-                        .size(40.dp)
-                        .transformations(CircleCropTransformation())
-                        .target {
-                            view.logo = it
-                        }
-                }
-                view.setTitle(Jivo.getConfig().title ?: R.string.chat_title_placeholder)
-            }
             list.size == 1 -> {
                 view.logo?.run {
                     request
                         .data(list[0].photo)
-                        .placeholder(R.drawable.vic_jivo_sdk_avatar_empty)
-                        .error(R.drawable.vic_jivo_sdk_avatar_empty)
-                        .size(40.dp)
-                        .transformations(CircleCropTransformation())
-                        .target {
-                            view.logo = it
-                        }
-                }
-                view.title = list[0].name
-            }
-            list.size > 1 -> {
-                view.logo?.run {
-                    request
-                        .data(list[0].photo)
-                        .placeholder(R.drawable.vic_jivo_sdk_avatar_empty)
-                        .error(R.drawable.vic_jivo_sdk_avatar_empty)
+                        .placeholder(R.drawable.jivo_sdk_vic_avatar_empty)
+                        .error(R.drawable.jivo_sdk_vic_avatar_empty)
                         .size(40.dp)
                         .transformations(CircleCropTransformation())
                         .target {
@@ -202,60 +160,18 @@ fun inflateToolbar(view: MaterialToolbar, agents: List<Agent>?) {
                 }.toString()
             }
         }
+    } ?: run {
+        view.logo?.run {
+            request
+                .data(R.drawable.jivo_sdk_vic_logo)
+                .size(40.dp)
+                .transformations(CircleCropTransformation())
+                .target {
+                    view.logo = it
+                }
+        }
     }
     imageLoader.enqueue(request.build())
-    view.setSubtitle(Jivo.getConfig().subtitle ?: R.string.chat_subtitle_placeholder)
-}
-
-@BindingAdapter("appBarAvatar")
-fun setAppBarAvatar(view: AppCompatImageView, agents: List<Agent>?) {
-
-    if (!Jivo.getConfig().isLogoVisible) {
-        view.isVisible = false
-        return
-    }
-
-    val agentsInChat = agents?.filter { it.hasOnlineInChat && it.status !is AgentStatus.Offline } ?: Collections.emptyList()
-    when {
-        agentsInChat.isEmpty() -> {
-            view.isVisible = true
-            view.load(Jivo.getConfig().logo ?: R.drawable.vic_jivo_sdk_logo) {
-                transformations(CircleCropTransformation())
-            }
-        }
-        agentsInChat.size == 1 -> {
-            view.isVisible = true
-            view.load(agentsInChat[0].photo) {
-                placeholder(R.drawable.vic_jivo_sdk_avatar_empty)
-                transformations(CircleCropTransformation())
-                error(R.drawable.vic_jivo_sdk_avatar_empty)
-            }
-        }
-        agentsInChat.size > 1 -> {
-            view.isVisible = false
-        }
-    }
-}
-
-@BindingAdapter("appBarTitle")
-fun setAppBarTitle(view: AppCompatTextView, agents: List<Agent>?) {
-    val agentsInChat = agents?.filter { it.hasOnlineInChat && it.status !is AgentStatus.Offline } ?: Collections.emptyList()
-    when {
-        agentsInChat.isEmpty() -> {
-            view.setText(Jivo.getConfig().title ?: R.string.chat_title_placeholder)
-        }
-        agentsInChat.size == 1 -> view.text = agentsInChat[0].name
-        agentsInChat.size > 1 -> {
-            view.text = SpannableStringBuilder().apply {
-                agentsInChat.forEachIndexed { index, agent ->
-                    append(agent.name.split(" ").first())
-                    if (index < agentsInChat.size - 1) {
-                        append(", ")
-                    }
-                }
-            }.toString()
-        }
-    }
 }
 
 @BindingAdapter("agentImageLoader")
@@ -336,8 +252,8 @@ fun clientImageLoader(layout: ViewGroup, state: FileState?) {
         viewHolder.progressView?.isVisible = state.uploadState is UploadState.Uploading
         viewHolder.status?.setImageResource(
             when (state.uploadState) {
-                is UploadState.Uploading -> R.drawable.vic_jivo_sdk_message_status_sending
-                is UploadState.Error -> R.drawable.vic_jivo_sdk_message_status_error
+                is UploadState.Uploading -> R.drawable.jivo_sdk_vic_message_status_sending
+                is UploadState.Error -> R.drawable.jivo_sdk_vic_message_status_error
             }
         )
         requestBuilder.target(
@@ -396,11 +312,11 @@ fun setFileIcon(view: AppCompatImageView, type: String?) {
 
     view.load(
         when (type?.getFileType()) {
-            TYPE_DOCUMENT -> R.drawable.vic_jivo_sdk_file
-            TYPE_IMAGE -> R.drawable.vic_jivo_sdk_image
-            TYPE_VIDEO -> R.drawable.vic_jivo_sdk_video
-            TYPE_AUDIO -> R.drawable.vic_jivo_sdk_audio
-            else -> R.drawable.vic_jivo_sdk_file
+            TYPE_DOCUMENT -> R.drawable.jivo_sdk_vic_file
+            TYPE_IMAGE -> R.drawable.jivo_sdk_vic_image
+            TYPE_VIDEO -> R.drawable.jivo_sdk_vic_video
+            TYPE_AUDIO -> R.drawable.jivo_sdk_vic_audio
+            else -> R.drawable.jivo_sdk_vic_file
         }
     )
 }

@@ -82,7 +82,7 @@
             android:id="@+id/banner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_jivo_sdk_banner"
+            android:background="@drawable/jivo_sdk_bg_banner"
             android:drawablePadding="8dp"
             android:gravity="end"
             android:paddingHorizontal="16dp"
@@ -131,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:textColor="@color/color_jivo_sdk_on_surface_87"
+                    android:textColor="@color/jivo_sdk_color_on_surface_87"
                     android:textSize="12sp"
                     app:layout_constraintStart_toEndOf="@id/connectingView"
                     app:layout_constraintTop_toTopOf="parent"
@@ -177,7 +177,7 @@
                 android:background="?android:selectableItemBackgroundBorderless"
                 android:enabled="@{viewModel.canAttach}"
                 android:onClick="@{() -> fragment.attach()}"
-                android:src="@drawable/vic_jivo_sdk_clip"
+                android:src="@drawable/jivo_sdk_vic_clip"
                 android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
                 android:visibility="@{viewModel.canUploadFile ? View.VISIBLE : View.GONE}" />
 
@@ -188,7 +188,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="6dp"
-                android:background="@drawable/bg_jivo_sdk_text_input"
+                android:background="@drawable/jivo_sdk_bg_text_input"
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputEditText

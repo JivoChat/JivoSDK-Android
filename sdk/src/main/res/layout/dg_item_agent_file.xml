@@ -64,7 +64,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/vic_jivo_sdk_file" />
+                    tools:src="@drawable/jivo_sdk_vic_file" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/fileName"
