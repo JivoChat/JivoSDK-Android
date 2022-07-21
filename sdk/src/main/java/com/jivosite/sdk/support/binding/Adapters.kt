@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
@@ -126,52 +127,67 @@ fun setAgentsTyping(view: AppCompatTextView, agents: List<Agent>?) {
 }
 
 @BindingAdapter("inflateToolbar")
-fun inflateToolbar(view: MaterialToolbar, agents: List<Agent>?) {
-    val imageLoader = view.context.imageLoader
-    val request = ImageRequest.Builder(view.context)
+fun inflateToolbar(view: MaterialToolbar, agents: List<Agent>) {
+    val context = view.context
 
-    view.refreshDrawableState()
+    val typedArray = context.theme.obtainStyledAttributes(R.style.Widget_JivoSDK_Toolbar, R.styleable.JivoSDKToolbar)
+    val logo = typedArray.getDrawable(R.styleable.JivoSDKToolbar_logo) ?: ContextCompat.getDrawable(context, R.drawable.jivo_sdk_vic_logo)
+    val hasLogo = typedArray.getBoolean(R.styleable.JivoSDKToolbar_hideLogo, false)
+    val title = typedArray.getString(R.styleable.JivoSDKToolbar_title) ?: context.getString(R.string.chat_title_placeholder)
+    val subtitle = typedArray.getString(R.styleable.JivoSDKToolbar_subtitle) ?: context.getString(R.string.chat_subtitle_placeholder)
+    typedArray.recycle()
 
-    agents?.filter { it.hasOnlineInChat && it.status !is AgentStatus.Offline }?.let { list ->
-        when {
-            list.size == 1 -> {
-                view.logo?.run {
-                    request
-                        .data(list[0].photo)
-                        .placeholder(R.drawable.jivo_sdk_vic_avatar_empty)
-                        .error(R.drawable.jivo_sdk_vic_avatar_empty)
-                        .size(40.dp)
-                        .transformations(CircleCropTransformation())
-                        .target {
-                            view.logo = it
-                        }
-                }
-                view.title = list[0].name
-            }
-            list.size > 1 -> {
-                view.logo = null
-                view.title = SpannableStringBuilder().apply {
-                    list.forEachIndexed { index, agent ->
-                        append(agent.name.split(" ").first())
-                        if (index < list.size - 1) {
-                            append(", ")
-                        }
+    val agentsInChat = agents.filter { it.hasOnlineInChat && it.status !is AgentStatus.Offline }
+
+    view.title = when {
+        agentsInChat.isEmpty() -> title
+        agentsInChat.size == 1 -> agentsInChat[0].name
+        else -> {
+            SpannableStringBuilder().apply {
+                agentsInChat.forEachIndexed { index, agent ->
+                    append(agent.name.split(" ").first())
+                    if (index < agentsInChat.size - 1) {
+                        append(", ")
                     }
-                }.toString()
-            }
-        }
-    } ?: run {
-        view.logo?.run {
-            request
-                .data(R.drawable.jivo_sdk_vic_logo)
-                .size(40.dp)
-                .transformations(CircleCropTransformation())
-                .target {
-                    view.logo = it
                 }
+            }.toString()
         }
     }
-    imageLoader.enqueue(request.build())
+
+    view.subtitle = subtitle
+
+    if (!hasLogo) {
+        val imageLoader = context.imageLoader
+        val request = ImageRequest.Builder(view.context)
+        when {
+            agentsInChat.isEmpty() -> {
+                request
+                    .data(logo)
+                    .size(40.dp)
+                    .transformations(CircleCropTransformation())
+                    .target {
+                        view.logo = it
+                    }
+            }
+            agentsInChat.size == 1 -> {
+                request
+                    .data(agentsInChat[0].photo)
+                    .placeholder(R.drawable.jivo_sdk_vic_avatar_empty)
+                    .error(R.drawable.jivo_sdk_vic_avatar_empty)
+                    .size(40.dp)
+                    .transformations(CircleCropTransformation())
+                    .target {
+                        view.logo = it
+                    }
+            }
+            agentsInChat.size > 1 -> {
+                view.logo = null
+            }
+        }
+        imageLoader.enqueue(request.build())
+    } else {
+        view.logo = null
+    }
 }
 
 @BindingAdapter("agentImageLoader")
