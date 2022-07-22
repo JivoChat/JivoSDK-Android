@@ -198,12 +198,13 @@
     </style>
 
     <!-- Contact form text input appearance -->
-    <style name="Widget.JivoSDK.TextInputLayoutAppearance.ContactForm" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="android:paddingTop">8dp</item>
+    <style name="Widget.JivoSDK.TextInputLayoutAppearance.ContactForm" parent="Widget.Material3.TextInputLayout.FilledBox">
         <item name="android:paddingEnd">16dp</item>
         <item name="android:paddingStart">16dp</item>
         <item name="android:textColor">@color/jivo_sdk_color_on_surface_87</item>
         <item name="android:textColorHint">@color/jivo_sdk_color_on_surface_60</item>
+        <item name="boxBackgroundColor">@color/jivo_sdk_surface</item>
+        <item name="boxStrokeColor">@color/jivo_sdk_box_stroke_color_selector</item>
 
         <item name="endIconDrawable">@drawable/jivo_sdk_vic_done</item>
         <item name="endIconMode">custom</item>
@@ -216,11 +217,12 @@
     <style name="Widget.JivoSDK.TextInputEditText.ContactForm" parent="ThemeOverlay.Material3.TextInputEditText">
         <item name="android:textAppearance">@style/Base.TextAppearance.Body2</item>
         <item name="android:textColorHighlight">@color/jivo_sdk_color_primary_20</item>
+        <item name="backgroundTint">@color/jivo_sdk_surface</item>
+        <item name="android:textColor">@color/jivo_sdk_color_on_surface_87</item>
     </style>
 
     <!-- Button send contact form -->
     <style name="Widget.JivoSDK.Button.SendContactForm" parent="Widget.Material3.Button">
-        <item name="cornerRadius">4dp</item>
         <item name="android:stateListAnimator">@animator/jivo_sdk_btn_state_list_animator</item>
         <item name="android:insetRight">8dp</item>
         <item name="android:insetLeft">8dp</item>

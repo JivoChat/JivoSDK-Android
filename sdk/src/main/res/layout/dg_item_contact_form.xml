@@ -44,13 +44,13 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingVertical="12dp">
+                android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.JivoSDK.TextInputLayoutAppearance.ContactForm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:enabled="@{!viewModel.hasSentContacts}"
                     app:isEndIconVisible="@{viewModel.isNameValid}">
 
@@ -113,7 +113,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="12dp"
                     android:enabled="@{viewModel.canSend}"
                     android:onClick="@{() -> viewModel.sendUserInfo()}"
                     android:textAllCaps="false"
