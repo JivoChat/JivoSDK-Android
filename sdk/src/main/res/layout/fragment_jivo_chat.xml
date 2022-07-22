@@ -193,12 +193,12 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputText"
+                    style="@style/Widget.JivoSDK.TextInputEditText.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:paddingVertical="8dp"
-                    android:theme="@style/Widget.JivoSDK.TextInputEditText.TextInput"
                     app:stateInputText="@{viewModel.canInputText}" />
 
                 <com.google.android.material.button.MaterialButton

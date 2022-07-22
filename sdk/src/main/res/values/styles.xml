@@ -73,7 +73,6 @@
 
     <!-- Body 1 -->
     <style name="Base.V21.TextAppearance.JivoSDK.Body1" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:lineSpacingExtra">5sp</item>
         <item name="android:letterSpacing">0.03</item>
@@ -88,6 +87,7 @@
     <style name="Base.V21.TextAppearance.JivoSDK.Body2" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:letterSpacing">0.02</item>
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
@@ -175,8 +175,8 @@
     </style>
 
     <!-- Text input appearance -->
-    <style name="Widget.JivoSDK.TextInputEditText.TextInput" parent="ThemeOverlay.Material3.TextInputEditText">
-        <item name="android:textAppearance">@style/Base.TextAppearance.Body2</item>
+    <style name="Widget.JivoSDK.TextInputEditText.TextInput" parent="Widget.Material3.TextInputEditText.FilledBox">
+        <item name="android:textAppearance">@style/Base.TextAppearance.Body1</item>
         <item name="android:paddingLeft">12dp</item>
         <item name="android:paddingRight">8dp</item>
         <item name="android:maxHeight">120dp</item>
@@ -190,6 +190,7 @@
 
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:checked">true</item>
+        <item name="boxBackgroundMode">none</item>
     </style>
 
     <!-- Contact form background -->
