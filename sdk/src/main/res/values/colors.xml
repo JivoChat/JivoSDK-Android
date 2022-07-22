@@ -27,7 +27,7 @@
     <color name="jivo_sdk_surface_outline">#1F000000</color>
     <color name="jivo_sdk_surface_comment">#FEFAE8</color>
 
-    <color name="jivo_sdk_chat_background">#F9FAFC</color>
+    <color name="jivo_sdk_chat_background">#FFFFFF</color>
 
     <color name="jivo_sdk_system_red">#FF3B30</color>
     <color name="jivo_sdk_error">#C73C03</color>
