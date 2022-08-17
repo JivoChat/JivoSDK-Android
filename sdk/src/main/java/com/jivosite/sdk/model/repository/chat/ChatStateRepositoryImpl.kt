@@ -1,7 +1,10 @@
 package com.jivosite.sdk.model.repository.chat
 
+import android.text.format.DateUtils
 import com.jivosite.sdk.model.repository.StateRepository
+import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.support.async.Schedulers
+import com.jivosite.sdk.support.utils.after
 import com.jivosite.sdk.support.vm.StateLiveData
 import javax.inject.Inject
 
@@ -11,8 +14,10 @@ import javax.inject.Inject
  * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class ChatStateRepositoryImpl @Inject constructor(
+    private val storage: SharedStorage,
     schedulers: Schedulers
-) : StateRepository<ChatState>(schedulers, "ChatState", ChatState()), ChatStateRepository {
+) : StateRepository<ChatState>(schedulers, "ChatState", ChatState(blacklisted = storage.blacklistedTime.after())),
+    ChatStateRepository {
 
     override val state: ChatState
         get() = _state
@@ -22,6 +27,12 @@ class ChatStateRepositoryImpl @Inject constructor(
 
     override fun setVisibility(isVisible: Boolean) = updateStateInDispatchingThread {
         transform { state -> state.copy(visible = isVisible) }
+    }
+
+    override fun setBlacklisted() = updateStateInRepositoryThread {
+        doBefore {storage.blacklistedTime == -1L  }
+        transform { state -> state.copy(blacklisted = true) }
+        doAfter { storage.blacklistedTime = System.currentTimeMillis() + DateUtils.DAY_IN_MILLIS }
     }
 
     override fun clear() = updateStateInRepositoryThread {

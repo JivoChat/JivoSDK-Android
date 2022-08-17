@@ -23,6 +23,38 @@
         android:layout_height="match_parent"
         android:background="@color/color_on_background">
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.isBlacklisted ? View.VISIBLE:View.INVISIBLE}">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vic_chat_not_available" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/chat.state_unavailable.title"
+                android:textColor="@color/color_on_surface"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:maxWidth="258dp"
+                android:text="@string/chat.state_unavailable.discription"
+                android:textColor="@color/color_on_surface"
+                android:textSize="12sp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="0dp"
@@ -32,7 +64,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed">
+            app:layout_constraintVertical_chainStyle="spread_inside">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
@@ -108,13 +140,15 @@
             android:overScrollMode="never"
             android:paddingTop="32dp"
             android:paddingBottom="16dp"
+            android:visibility="@{viewModel.isBlacklisted ? View.INVISIBLE:View.VISIBLE}"
             app:layout_constraintBottom_toTopOf="@id/controls"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appbar"
             tools:itemCount="10"
-            tools:listitem="@layout/dg_item_agent_text" />
+            tools:listitem="@layout/dg_item_agent_text"
+            tools:visibility="invisible" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
@@ -216,10 +250,12 @@
             android:layout_height="wrap_content"
             android:background="@color/color_on_background"
             android:orientation="horizontal"
+            android:visibility="@{viewModel.isBlacklisted ? View.INVISIBLE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recyclerView">
+            app:layout_constraintTop_toBottomOf="@id/recyclerView"
+            tools:visibility="invisible">
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/attachBtn"
