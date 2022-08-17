@@ -487,14 +487,19 @@ Jivo.setClientInfo(
 
 ### Уведомление о непрочитанных сообщениях.
 
-Для получения информации о непрочитанных сообщениях необходимо использовать статический метод `Jivo.addNewMessageListener()`. Данный метод принимает на вход объект типа `NewMessageListener`, у которого требуется реализовать метод обратного вызова `onNewMessage(hasUnread: Boolean)`. В параметр данного метода будет передаваться состояние о непрочитанных сообщениях. Ниже представлен пример кода:
+Для получения информации о непрочитанных сообщениях необходимо использовать статический метод `Jivo.addNewMessageListener()`. Данный метод принимает на вход объект типа `NewMessageListener`, у которого требуется реализовать метод обратного вызова `onNewMessage(hasUnread: Boolean)`. В параметр данного метода будет передаваться состояние о непрочитанных сообщениях. Для корректной работы необходимо реализовать интерфейс `NewMessageListener` в главной `Activity`, `Viewmodel` или в `Repository`. Ниже представлен пример кода:
 
 ```kotlin
-Jivo.addNewMessageListener(object : NewMessageListener {
+class MainViewModel: ViewModel(), NewMessageListener {
+
+    init {
+        Jivo.addNewMessageListener(this)
+    }
+    
     override fun onNewMessage(hasUnread: Boolean) {
         … //Some code
     }
-})
+}
 ```
 
 ### Очистка данных.
@@ -511,7 +516,7 @@ Jivo.addNewMessageListener(object : NewMessageListener {
 Пример формирования payload:
 ```kotlin
 {
-  id: 123, // Уникальный идентификатор клиента 
+  id: 123, // Уникальный идентификатор клиента, обязательным условием имя поля должно быть "id"
   … // Любые параметры на усмотрение клиента
 }
 ```
