@@ -23,7 +23,7 @@
     <string name="chat_system_two_agents_typing">%s и %s набирают сообщение...</string>
     <!-- Заголовок окна чата по умолчанию -->
     <string name="chat_title_placeholder">Чат с поддержкой</string>
-    <string name="chat.state_unavailable.discription">В настоящий момент чат временно недоступен. Попробуйте написать нам немного позже</string>
+    <string name="chat.state_unavailable.discription">В настоящий момент чат недоступен. Попробуйте написать нам немного позже.</string>
     <string name="chat.state_unavailable.title">Чат временно недоступен</string>
     <string name="chat.system.contact_form.introduce_in_chat">Представьтесь в чате</string>
     <string name="chat.system.contact_form.must_fill">Укажите ваши контакты, чтобы мы смогли ответить вам</string>
