@@ -46,6 +46,8 @@ class SharedStorage(context: Context) {
         private const val HAS_SENT_CONTACT_FORM = "hasSentContactForm"
 
         private const val CLIENT_MESSAGE = "clientMessage"
+
+        private const val BLACKLISTED_TIME = "blacklistedTime"
     }
 
     private val preferences: SharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
@@ -101,5 +103,7 @@ class SharedStorage(context: Context) {
     var clientMessage: String by SharedPreference(preferences, CLIENT_MESSAGE, "")
 
     var hasSentContactForm: Boolean by SharedPreference(preferences, HAS_SENT_CONTACT_FORM, false)
+
+    var blacklistedTime: Long by SharedPreference(preferences, BLACKLISTED_TIME, -1L)
 
 }

@@ -11,6 +11,7 @@ import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.logger.Logger
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
+import com.jivosite.sdk.model.repository.chat.ChatStateRepository
 import com.jivosite.sdk.model.repository.contacts.ContactFormRepository
 import com.jivosite.sdk.socket.endpoint.SocketEndpointProvider
 import com.jivosite.sdk.socket.handler.SocketMessageHandler
@@ -116,6 +117,9 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
     @Inject
     lateinit var contactFormRepository: ContactFormRepository
 
+    @Inject
+    lateinit var chatStateRepository: ChatStateRepository
+
     private lateinit var socketState: ServiceState
     private var webSocket: WebSocket? = null
     private var connectionKeeper: ConnectionKeeper? = null
@@ -159,6 +163,20 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             when (val state = getState()) {
                 is ConnectedState -> {
                     val reason = when (clientCloseFrame?.closeCode) {
+                        1000 -> {
+                            when (clientCloseFrame.closeReason) {
+                                DisconnectReason.BlackListed.toString() -> {
+                                    chatStateRepository.setBlacklisted()
+                                    DisconnectReason.BlackListed
+                                }
+                                else -> {
+                                    DisconnectReason.DisconnectedByServer(
+                                        1000,
+                                        clientCloseFrame.closeReason
+                                    )
+                                }
+                            }
+                        }
                         1013 -> DisconnectReason.DisconnectedByServer(
                             1013,
                             clientCloseFrame.closeReason

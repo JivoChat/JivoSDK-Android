@@ -18,5 +18,7 @@ interface ChatStateRepository {
 
     fun setVisibility(isVisible: Boolean)
 
+    fun setBlacklisted()
+
     fun clear()
 }
