@@ -41,7 +41,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/chat.state_unavailable.title"
                 android:textColor="@color/color_on_surface"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -49,9 +49,10 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:maxWidth="258dp"
+                android:alpha="0.74"
                 android:text="@string/chat.state_unavailable.discription"
                 android:textColor="@color/color_on_surface"
-                android:textSize="12sp" />
+                android:textSize="16sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
