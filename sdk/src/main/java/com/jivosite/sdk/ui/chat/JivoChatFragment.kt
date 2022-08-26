@@ -27,6 +27,7 @@ import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.repository.connection.ConnectionState
 import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.support.dg.adapters.SimpleDiffAdapter
+import com.jivosite.sdk.support.event.EventObserver
 import com.jivosite.sdk.support.recycler.AutoScroller
 import com.jivosite.sdk.support.vm.ViewModelFactory
 import com.jivosite.sdk.ui.chat.items.ChatEntry
@@ -153,19 +154,18 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
             chatAdapter.items = it
         }
 
-        viewModel.error.observe(viewLifecycleOwner) { error ->
+        viewModel.errorAttachState.observe(viewLifecycleOwner, EventObserver { error ->
             val message = when (error) {
-                is Error.Network -> error.message
-                is Error.UnsupportedType -> requireContext().getString(
+                is ErrorAttachState.UnsupportedType -> requireContext().getString(
                     R.string.message_unsupported_media
                 )
-                is Error.FileOversize -> requireContext().getString(
+                is ErrorAttachState.FileOversize -> requireContext().getString(
                     R.string.media_uploading_too_large,
                     MAX_FILE_SIZE_IN_MB
                 )
             }
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-        }
+        })
 
         viewModel.connectionState.observe(viewLifecycleOwner) { state ->
             renderConnectionState(state)
