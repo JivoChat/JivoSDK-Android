@@ -30,9 +30,8 @@ class ChatStateRepositoryImpl @Inject constructor(
     }
 
     override fun setBlacklisted() = updateStateInRepositoryThread {
-        doBefore {storage.blacklistedTime == -1L  }
         transform { state -> state.copy(blacklisted = true) }
-        doAfter { storage.blacklistedTime = System.currentTimeMillis() + DateUtils.DAY_IN_MILLIS }
+        doAfter { storage.blacklistedTime = System.currentTimeMillis() + DateUtils.HOUR_IN_MILLIS}
     }
 
     override fun clear() = updateStateInRepositoryThread {
