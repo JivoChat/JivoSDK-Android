@@ -37,11 +37,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 style="@style/JivoSDK.IncomingBubbleBackground"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="4dp">
+                android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/agentName"
@@ -53,6 +49,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/agent_name_default" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label"
+                    style="@style/Widget.JivoSDK.TextView.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.labelVisibility ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintStart_toEndOf="@id/agentName"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/message"

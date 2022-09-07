@@ -172,6 +172,10 @@
     <!-- Incoming bubble background -->
     <style name="JivoSDK.IncomingBubbleBackground" parent="Main.Theme.JivoSDK">
         <item name="android:background">@drawable/jivo_sdk_bg_incoming_bubble</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingBottom">4dp</item>
     </style>
 
     <!-- Text input appearance -->
@@ -372,6 +376,18 @@
         <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Body1</item>
         <item name="android:background">@drawable/jivo_sdk_bg_incoming_bubble</item>
         <item name="android:text">@string/offline_message_placeholder</item>
+    </style>
+
+    <!-- Bot label appearance  -->
+    <style name="Widget.JivoSDK.TextView.Label" parent="">
+        <item name="android:textColor">@color/jivo_sdk_on_primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Subtitle2</item>
+        <item name="android:paddingStart">2dp</item>
+        <item name="android:paddingEnd">2dp</item>
+        <item name="android:background">@drawable/jivo_sdk_bg_tag</item>
+        <item name="android:text">@string/messages.label.bot</item>
+        <item name="android:layout_marginStart">4dp</item>
     </style>
 
 </resources>

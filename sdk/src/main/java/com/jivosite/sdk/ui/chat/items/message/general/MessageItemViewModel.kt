@@ -7,6 +7,7 @@ import com.jivosite.sdk.model.repository.agent.AgentRepository
 import com.jivosite.sdk.support.vm.AbsentLiveData
 import com.jivosite.sdk.ui.chat.items.EntryPosition
 import com.jivosite.sdk.ui.chat.items.MessageEntry
+import okhttp3.internal.toLongOrDefault
 
 /**
  * Created on 16.09.2020.
@@ -49,6 +50,10 @@ open class MessageItemViewModel<T : MessageEntry>(agentRepository: AgentReposito
             is EntryPosition.Last, EntryPosition.Single -> true
             else -> false
         }
+    }
+
+    val labelVisibility: LiveData<Boolean> = Transformations.map(_entry) { entry ->
+        entry.from.toLongOrDefault(0) < 0
     }
 
     val time: LiveData<Long> = Transformations.map(_entry) {

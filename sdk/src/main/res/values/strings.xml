@@ -23,6 +23,8 @@
     <string name="chat_system_two_agents_typing">%s and %s are typing...</string>
     <!-- Заголовок окна чата по умолчанию -->
     <string name="chat_title_placeholder">Report an issue</string>
+    <string name="chat.state_unavailable.discription">Live chat is temporarily unavailable at the moment. Please try again later.</string>
+    <string name="chat.state_unavailable.title">Chat is temporarily unavailable</string>
     <string name="chat.system.contact_form.introduce_in_chat">Please introduce yourself in chat</string>
     <string name="chat.system.contact_form.must_fill">Please fill in your contact information to send this message</string>
     <string name="chat.system.contact_form.status_sent">"Your message is being sent over to the team. They\'ll be in touch soon. "</string>
@@ -101,6 +103,7 @@ Please go to [Settings &gt; Your App &gt; Photos] to give access.</string>
     <string name="Message.Edited">(edited)</string>
     <string name="Message.Preview.Line">The chat was transferred to the second line</string>
     <string name="Message.Sender.You">You</string>
+    <string name="messages.label.bot">bot</string>
     <string name="notification_channel_message_description">Message from Jivo SDK</string>
     <string name="notification_channel_message_name">Jivo</string>
     <!-- Format for text message where $1 is agent name, $2 - text message -->

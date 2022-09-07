@@ -38,32 +38,39 @@
             android:layout_marginEnd="80dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/agentName"
-                style="@style/Widget.JivoSDK.TextView.IncomingBubble.AgentName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.name ?? @string/agent_name_default}"
-                android:textSize="14sp"
-                android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}"
-                tools:text="@string/agent_name_default" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 style="@style/JivoSDK.IncomingBubbleBackground"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="6dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="4dp">
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/agentName"
+                    style="@style/Widget.JivoSDK.TextView.IncomingBubble.AgentName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.name ?? @string/agent_name_default}"
+                    android:textSize="14sp"
+                    android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/agent_name_default" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label"
+                    style="@style/Widget.JivoSDK.TextView.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.labelVisibility ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintStart_toEndOf="@id/agentName"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/picture"
                     style="@style/Widget.JivoSDK.Image.IncomingBubble.FileIcon"
-                    android:layout_marginVertical="16dp"
+                    android:layout_marginTop="2dp"
                     app:fileIcon="@{viewModel.type}"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/agentName"
                     tools:src="@drawable/jivo_sdk_vic_file" />
 
                 <androidx.appcompat.widget.AppCompatTextView

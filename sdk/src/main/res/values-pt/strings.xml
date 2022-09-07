@@ -23,6 +23,8 @@
     <string name="chat_system_two_agents_typing">%s e %s estão digitando...</string>
     <!-- Заголовок окна чата по умолчанию -->
     <string name="chat_title_placeholder">Reportar um problema</string>
+    <string name="chat.state_unavailable.discription">O chat ao vivo está temporariamente indisponível no momento. Por favor, tente novamente mais tarde.</string>
+    <string name="chat.state_unavailable.title">O bate-papo está temporariamente indisponível</string>
     <string name="chat.system.contact_form.introduce_in_chat">Por favor, apresente-se no chat</string>
     <string name="chat.system.contact_form.must_fill">Por favor, insira seus dados de contato para enviar esta mensagem</string>
     <string name="chat.system.contact_form.status_sent">Sua mensagem está sendo enviada para a nossa equipe. Entraremos em contato em breve. Fique à vontade para deixar mais mensagens abaixo caso deseje completar sua mensagem.</string>
