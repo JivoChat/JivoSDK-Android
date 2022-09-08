@@ -21,7 +21,7 @@ open class MessageItemViewModel<T : MessageEntry>(agentRepository: AgentReposito
     val position: EntryPosition
         get() = entry?.position ?: EntryPosition.Single
 
-    private val agent: LiveData<Agent> = Transformations.switchMap(_entry) { entry ->
+    val agent: LiveData<Agent> = Transformations.switchMap(_entry) { entry ->
         val from = entry.from
         if (from.isNotBlank()) {
             agentRepository.observeAgent(from)

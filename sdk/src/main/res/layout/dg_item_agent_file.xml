@@ -28,7 +28,7 @@
             android:layout_gravity="bottom|start"
             android:layout_marginStart="16dp"
             android:visibility="@{viewModel.avatarVisibility ? View.VISIBLE : View.GONE}"
-            app:avatarUrl="@{viewModel.avatar}"
+            app:agent="@{viewModel.agent}"
             tools:src="@tools:sample/avatars" />
 
         <LinearLayout

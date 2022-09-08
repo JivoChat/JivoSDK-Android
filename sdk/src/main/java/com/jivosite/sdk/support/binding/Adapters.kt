@@ -26,6 +26,7 @@ import com.jivosite.sdk.R
 import com.jivosite.sdk.api.ApiErrors.FILE_TRANSFER_DISABLED
 import com.jivosite.sdk.model.pojo.agent.Agent
 import com.jivosite.sdk.model.pojo.agent.AgentStatus
+import com.jivosite.sdk.model.pojo.agent.isBot
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_AUDIO
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_DOCUMENT
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_IMAGE
@@ -47,16 +48,16 @@ import kotlin.math.pow
  *
  * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
-@BindingAdapter("avatarUrl")
-fun loadAvatar(view: AppCompatImageView, url: String?) {
-    if (url.isNullOrBlank()) {
-        view.setImageResource(R.drawable.jivo_sdk_vic_avatar_empty)
-    } else {
-        view.load(url) {
+@BindingAdapter("agent")
+fun loadAvatar(view: AppCompatImageView, agent: Agent?) {
+    if (agent != null) {
+        view.load(agent.photo) {
             placeholder(R.drawable.jivo_sdk_vic_avatar_empty)
-            error(R.drawable.jivo_sdk_vic_avatar_empty)
+            error(if (agent.isBot()) R.drawable.jivo_sdk_ic_avatar_bot else R.drawable.jivo_sdk_vic_avatar_empty)
             transformations(CircleCropTransformation())
         }
+    } else {
+        view.setImageResource(R.drawable.jivo_sdk_vic_avatar_empty)
     }
 }
 
@@ -173,7 +174,7 @@ fun inflateToolbar(view: MaterialToolbar, agents: List<Agent>) {
                 request
                     .data(agentsInChat[0].photo)
                     .placeholder(R.drawable.jivo_sdk_vic_avatar_empty)
-                    .error(R.drawable.jivo_sdk_vic_avatar_empty)
+                    .error(if (agentsInChat[0].isBot()) R.drawable.jivo_sdk_ic_avatar_bot else R.drawable.jivo_sdk_vic_avatar_empty)
                     .size(40.dp)
                     .transformations(CircleCropTransformation())
                     .target {
