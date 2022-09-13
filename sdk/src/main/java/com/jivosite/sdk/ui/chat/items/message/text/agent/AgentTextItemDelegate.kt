@@ -7,6 +7,7 @@ import com.jivosite.sdk.support.dg.AdapterDelegate
 import com.jivosite.sdk.support.dg.AdapterDelegateViewHolder
 import com.jivosite.sdk.ui.chat.items.ChatEntry
 import com.jivosite.sdk.ui.chat.items.ChatItem.Companion.VT_AGENT_TEXT
+import io.noties.markwon.Markwon
 import javax.inject.Provider
 
 /**
@@ -16,10 +17,11 @@ import javax.inject.Provider
  */
 class AgentTextItemDelegate(
     private val lifecycleOwner: LifecycleOwner,
-    private val viewModelProvider: Provider<AgentTextItemViewModel>
+    private val viewModelProvider: Provider<AgentTextItemViewModel>,
+    private val markwonProvider: Provider<Markwon>
 ) : AdapterDelegate<ChatEntry>(VT_AGENT_TEXT, R.layout.dg_item_agent_text) {
 
     override fun createViewHolder(itemView: View): AdapterDelegateViewHolder<ChatEntry> {
-        return AgentTextItemViewHolder(itemView, lifecycleOwner, viewModelProvider.get())
+        return AgentTextItemViewHolder(itemView, lifecycleOwner, viewModelProvider.get(), markwonProvider.get())
     }
 }

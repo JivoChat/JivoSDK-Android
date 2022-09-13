@@ -278,7 +278,6 @@
         <item name="android:textColor">@color/jivo_sdk_color_on_surface_87</item>
         <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Body1</item>
         <item name="android:textColorLink">@color/jivo_sdk_secondary</item>
-        <item name="android:autoLink">all</item>
     </style>
 
     <!-- Incoming bubble file name appearance  -->

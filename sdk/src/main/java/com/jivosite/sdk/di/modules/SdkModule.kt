@@ -13,6 +13,8 @@ import com.jivosite.sdk.support.async.Schedulers
 import com.jivosite.sdk.support.async.SchedulersImpl
 import dagger.Module
 import dagger.Provides
+import io.noties.markwon.Markwon
+import io.noties.markwon.linkify.LinkifyPlugin
 import javax.inject.Singleton
 
 /**
@@ -53,5 +55,13 @@ class SdkModule(appContext: Context, widgetId: String) {
     @Singleton
     fun provideTransmitter(transmitter: DefaultTransmitter): Transmitter {
         return transmitter
+    }
+
+    @Provides
+    @Singleton
+    fun provideMarkwon(): Markwon {
+        return Markwon.builder(sdkContext.appContext)
+            .usePlugin(LinkifyPlugin.create())
+            .build()
     }
 }

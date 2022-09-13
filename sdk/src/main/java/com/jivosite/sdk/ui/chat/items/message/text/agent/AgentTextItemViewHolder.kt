@@ -7,6 +7,7 @@ import com.jivosite.sdk.support.dg.AdapterDelegateItem
 import com.jivosite.sdk.ui.chat.items.AgentMessageEntry
 import com.jivosite.sdk.ui.chat.items.ChatEntry
 import com.jivosite.sdk.ui.chat.items.message.general.MessageItemViewHolder
+import io.noties.markwon.Markwon
 
 /**
  * Created on 16.09.2020.
@@ -16,7 +17,8 @@ import com.jivosite.sdk.ui.chat.items.message.general.MessageItemViewHolder
 class AgentTextItemViewHolder(
     itemView: View,
     lifecycleOwner: LifecycleOwner,
-    private val viewModel: AgentTextItemViewModel
+    private val viewModel: AgentTextItemViewModel,
+    private val markwon: Markwon
 ) : MessageItemViewHolder<AgentMessageEntry>(itemView, viewModel) {
 
     init {
@@ -27,6 +29,9 @@ class AgentTextItemViewHolder(
         itemView.setOnLongClickListener {
             copyToClipboard(viewModel.text.value)
             true
+        }
+        viewModel.text.observe(lifecycleOwner) { message ->
+            markwon.setMarkdown(binding.message, message)
         }
     }
 
