@@ -289,7 +289,7 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
                 Jivo.i("Try to connect to endpoint: $endpoint")
                 addHeader(
                     "User-Agent",
-                    "sdk/${BuildConfig.VERSION_NAME} (Android ${Build.VERSION.RELEASE})"
+                    "JivoSDK-Android/${BuildConfig.VERSION_NAME} (Mobile; Device=${Build.MANUFACTURER}/${Build.MODEL}; Platform=Android/${Build.VERSION.RELEASE},${Build.VERSION.SDK_INT}; Host=${sdkContext.appContext.packageName}; WebSocket)"
                 )
                 addListener(webSocketListener)
                 connectAsynchronously()
