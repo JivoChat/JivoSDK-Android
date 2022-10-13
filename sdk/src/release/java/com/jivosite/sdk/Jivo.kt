@@ -24,6 +24,7 @@ import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.ClientInfo
 import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.support.ext.toMD5
+import com.jivosite.sdk.ui.chat.NotificationPermissionListener
 import timber.log.Timber
 import java.lang.ref.WeakReference
 
@@ -41,6 +42,7 @@ object Jivo {
     private var chatComponent: JivoChatComponent? = null
 
     private val newMessageListeners: ArrayList<WeakReference<NewMessageListener>> = ArrayList()
+    private val notificationPermissionListener: ArrayList<WeakReference<NotificationPermissionListener>> = ArrayList()
 
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
@@ -134,6 +136,11 @@ object Jivo {
     }
 
     @JvmStatic
+    fun addNotificationPermissionListener(l: NotificationPermissionListener) {
+        notificationPermissionListener.add(WeakReference(l))
+    }
+
+    @JvmStatic
     fun setUserToken(userToken: String) {
         if (Jivo::jivoSdkComponent.isInitialized) {
             val md5 = userToken.toMD5()
@@ -197,6 +204,19 @@ object Jivo {
         newMessageListeners.forEach {
             it.get()?.onNewMessage(hasNewMessage)
         }
+    }
+
+    internal fun isPermissionGranted(isGranted: Boolean): Boolean {
+        val filteredList = notificationPermissionListener.filter { it.get() != null }
+        notificationPermissionListener.clear()
+
+        if (filteredList.isEmpty()) return false
+
+        notificationPermissionListener.addAll(filteredList)
+        notificationPermissionListener.forEach {
+            it.get()?.onNotificationPermissionGranted(isGranted)
+        }
+        return true
     }
 
     internal fun getConfig(): Config {

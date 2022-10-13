@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jivosite.sdk">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
     <application>
 
         <meta-data
@@ -18,7 +20,7 @@
         <activity
             android:name=".ui.chat.JivoChatActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
 
         <activity
             android:name=".ui.imageviewer.ImageViewerActivity"
