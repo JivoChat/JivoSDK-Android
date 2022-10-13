@@ -1,7 +1,9 @@
 package com.jivosite.sdk.ui.chat
 
+import android.Manifest
 import android.content.ContentResolver
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.net.Uri
@@ -59,6 +61,7 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
     }
 
     private lateinit var contentResultCallback: ActivityResultLauncher<String>
+    private lateinit var pushNotificationPermissionLauncher: ActivityResultLauncher<String>
 
     private lateinit var contentUri: Uri
     private lateinit var contentResolver: ContentResolver
@@ -71,6 +74,10 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         super.onAttach(context)
         contentResultCallback = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             if (uri != null) handleContent(uri)
+        }
+
+        if (Build.VERSION.SDK_INT >= 33) {
+            pushNotificationPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
         }
     }
 
@@ -212,6 +219,16 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
                 binding.inputText.text?.clear()
                 viewModel.sendMessage(ClientMessage.createText(it))
             }
+        }
+
+        if (Build.VERSION.SDK_INT >= 33 && !Jivo.isPermissionGranted(
+                ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED
+            )
+        ) {
+            pushNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 
