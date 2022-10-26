@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import com.jivosite.sdk.di.ui.UIScope
 import com.jivosite.sdk.support.dg.AdapterDelegate
 import com.jivosite.sdk.support.dg.adapters.SimpleDiffAdapter
+import com.jivosite.sdk.ui.chat.JivoChatFragment
 import com.jivosite.sdk.ui.chat.items.ChatEntry
 import com.jivosite.sdk.ui.chat.items.contacts.ContactFormItemDelegate
 import com.jivosite.sdk.ui.chat.items.contacts.ContactFormItemViewModel
@@ -111,6 +112,7 @@ class JivoChatFragmentModule(private val fragment: Fragment) {
         return AgentTextItemDelegate(
             fragment.viewLifecycleOwner,
             viewModelProvider,
+            (fragment as JivoChatFragment).viewModel,
             markwonProvider
         )
     }

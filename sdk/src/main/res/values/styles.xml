@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:ns1="http://schemas.android.com/apk/res-auto">
 
     <style name="JivoSDKThemeSwitcher">
         <item name="android:theme">@style/Main.Theme.JivoSDK</item>
@@ -387,6 +387,28 @@
         <item name="android:background">@drawable/jivo_sdk_bg_tag</item>
         <item name="android:text">@string/messages.label.bot</item>
         <item name="android:layout_marginStart">4dp</item>
+    </style>
+
+    <style name="Widget.JivoSDK.ChipGroup.Buttons" parent="Widget.MaterialComponents.ChipGroup">
+        <item name="colorPrimary">?attr/colorPrimary</item>
+        <item name="chipSpacingHorizontal">10dp</item>
+        <item name="chipSpacingVertical">-6dp</item>
+        <item name="singleSelection">true</item>
+    </style>
+
+    <style name="Widget.JivoSDK.Chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Body1</item>
+        <item name="colorPrimary">?attr/colorPrimary</item>
+        <item name="chipStrokeColor">?attr/colorPrimary</item>
+        <item name="chipCornerRadius">36dp</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textColor">@color/jivo_sdk_choice_chip_text_color</item>
+        <item name="chipBackgroundColor">@color/jivo_sdk_choice_chip_background_color</item>
+        <item name="chipMinHeight">36dp</item>
+        <item name="android:checkable">true</item>
+        <item name="android:stateListAnimator" ns1:ignore="NewApi">
+            @animator/jivo_sdk_chip_state_list_anim
+        </item>
     </style>
 
 </resources>

@@ -177,9 +177,18 @@ fun inflateToolbar(view: MaterialToolbar, agents: List<Agent>) {
                     .error(if (agentsInChat[0].isBot()) R.drawable.jivo_sdk_ic_avatar_bot else R.drawable.jivo_sdk_vic_avatar_empty)
                     .size(40.dp)
                     .transformations(CircleCropTransformation())
-                    .target {
-                        view.logo = it
-                    }
+                    .target(
+                        onStart = {
+                            view.logo = it
+                        },
+                        onError = {
+                            view.logo = it
+                        },
+                        onSuccess = {
+                            view.logo = it
+                        }
+
+                    )
             }
             agentsInChat.size > 1 -> {
                 view.logo = null

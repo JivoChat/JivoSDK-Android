@@ -7,12 +7,16 @@
         <import type="android.view.View" />
 
         <variable
+            name="view"
+            type="com.jivosite.sdk.ui.chat.items.message.text.agent.AgentTextItemViewHolder" />
+
+        <variable
             name="viewModel"
             type="com.jivosite.sdk.ui.chat.items.message.text.agent.AgentTextItemViewModel" />
 
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/JivoSDKThemeSwitcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -21,76 +25,87 @@
             android:id="@+id/avatar"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_gravity="bottom|start"
             android:layout_marginStart="16dp"
             android:visibility="@{viewModel.avatarVisibility ? View.VISIBLE : View.GONE}"
             app:agent="@{viewModel.agent}"
+            app:layout_constraintBottom_toBottomOf="@id/messageContainer"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
             tools:src="@tools:sample/avatars" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/messageContainer"
+            style="@style/JivoSDK.IncomingBubbleBackground"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginEnd="40dp"
-            android:orientation="vertical">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginStart="56dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                style="@style/JivoSDK.IncomingBubbleBackground"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/agentName"
+                style="@style/Widget.JivoSDK.TextView.IncomingBubble.AgentName"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                app:agentName="@{viewModel.name}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/agent_name_default" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/agentName"
-                    style="@style/Widget.JivoSDK.TextView.IncomingBubble.AgentName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    app:agentName="@{viewModel.name}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@string/agent_name_default" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/label"
+                style="@style/Widget.JivoSDK.TextView.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.labelVisibility ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toEndOf="@id/agentName"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/label"
-                    style="@style/Widget.JivoSDK.TextView.Label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.labelVisibility ? View.VISIBLE : View.GONE}"
-                    app:layout_constraintStart_toEndOf="@id/agentName"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/message"
+                style="@style/Widget.JivoSDK.TextView.IncomingBubble.Message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:layout_constraintBottom_toTopOf="@id/time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/agentName"
+                tools:text="Спасибо,что обратились в Jivo! edwedwedwed" />
 
-                <TextView
-                    android:id="@+id/message"
-                    style="@style/Widget.JivoSDK.TextView.IncomingBubble.Message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    app:layout_constraintBottom_toTopOf="@id/time"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/agentName"
-                    tools:text="Спасибо,что обратились в Jivo!" />
+            <TextView
+                android:id="@+id/time"
+                style="@style/Widget.JivoSDK.TextView.IncomingBubble.Time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/message"
+                app:time="@{viewModel.time}"
+                tools:text="13:20" />
 
-                <TextView
-                    android:id="@+id/time"
-                    style="@style/Widget.JivoSDK.TextView.IncomingBubble.Time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/message"
-                    app:time="@{viewModel.time}"
-                    tools:text="13:20" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/buttons"
+            style="@style/Widget.JivoSDK.ChipGroup.Buttons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/messageContainer"
+            app:layout_constraintStart_toStartOf="@id/messageContainer"
+            app:layout_constraintTop_toBottomOf="@id/messageContainer"
+            app:singleSelection="true" />
 
-        </LinearLayout>
-
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
