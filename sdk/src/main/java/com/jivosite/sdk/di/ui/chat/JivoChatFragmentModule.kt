@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import com.jivosite.sdk.di.ui.UIScope
 import com.jivosite.sdk.support.dg.AdapterDelegate
 import com.jivosite.sdk.support.dg.adapters.SimpleDiffAdapter
+import com.jivosite.sdk.ui.chat.JivoChatFragment
 import com.jivosite.sdk.ui.chat.items.ChatEntry
 import com.jivosite.sdk.ui.chat.items.contacts.ContactFormItemDelegate
 import com.jivosite.sdk.ui.chat.items.contacts.ContactFormItemViewModel
@@ -30,6 +31,7 @@ import com.jivosite.sdk.ui.chat.items.message.welcome.WelcomeMessageItemDelegate
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoSet
+import io.noties.markwon.Markwon
 import javax.inject.Provider
 
 /**
@@ -104,11 +106,14 @@ class JivoChatFragmentModule(private val fragment: Fragment) {
     @IntoSet
     @Provides
     fun provideAgentTextItemDelegate(
-        viewModelProvider: Provider<AgentTextItemViewModel>
+        viewModelProvider: Provider<AgentTextItemViewModel>,
+        markwonProvider: Provider<Markwon>
     ): AdapterDelegate<ChatEntry> {
         return AgentTextItemDelegate(
             fragment.viewLifecycleOwner,
-            viewModelProvider
+            viewModelProvider,
+            (fragment as JivoChatFragment).viewModel,
+            markwonProvider
         )
     }
 

@@ -30,7 +30,7 @@
             android:layout_gravity="bottom|start"
             android:layout_marginStart="16dp"
             android:visibility="@{viewModel.avatarVisibility ? View.VISIBLE : View.GONE}"
-            app:avatarUrl="@{viewModel.avatar}"
+            app:agent="@{viewModel.agent}"
             tools:src="@tools:sample/avatars" />
 
         <LinearLayout
@@ -41,15 +41,6 @@
             android:layout_marginEnd="40dp"
             android:orientation="vertical"
             app:agentImageLoader="@{viewModel.state}">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/agentName"
-                style="@style/Widget.JivoSDK.TextView.IncomingBubble.AgentName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}"
-                app:agentName="@{viewModel.name}"
-                tools:text="@string/agent_name_default" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"

@@ -107,7 +107,8 @@ object OfflineMessageEntry : MessageEntry() {
 
 sealed class HistoryMessageEntry : MessageEntry()
 
-data class AgentMessageEntry(val message: HistoryMessage, override val position: EntryPosition) : HistoryMessageEntry()
+data class AgentMessageEntry(val message: HistoryMessage, override val position: EntryPosition, val isLastMessage: Boolean) : HistoryMessageEntry()
+
 data class ClientMessageEntry(val message: HistoryMessage, override val position: EntryPosition) : HistoryMessageEntry()
 
 data class SendingMessageEntry(val message: ClientMessage, override val position: EntryPosition) : MessageEntry()

@@ -11,6 +11,7 @@
         <item name="colorSurface">@color/jivo_sdk_surface</item>
         <item name="colorOnSurface">@color/jivo_sdk_on_surface</item>
         <item name="android:colorBackground">@color/jivo_sdk_surface</item>
+        <item name="chipStyle">@style/Widget.JivoSDK.Chip</item>
     </style>
 
     <style name="Main.Theme.JivoSDK" parent="Base.Theme.JivoSDK" />

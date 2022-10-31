@@ -23,6 +23,8 @@
     <string name="chat_system_two_agents_typing">%s y %s están escribiendo...</string>
     <!-- Заголовок окна чата по умолчанию -->
     <string name="chat_title_placeholder">"Reportar un problema "</string>
+    <string name="chat.state_unavailable.discription">El chat en vivo no está disponible temporalmente en este momento. Por favor, inténtelo de nuevo más tarde.</string>
+    <string name="chat.state_unavailable.title">El chat no está disponible temporalmente</string>
     <string name="chat.system.contact_form.introduce_in_chat">Por favor, preséntese en el chat</string>
     <string name="chat.system.contact_form.must_fill">Por favor ingrese sus datos de contacto para enviar este mensaje</string>
     <string name="chat.system.contact_form.status_sent">Su mensaje fue enviado a nuestro equipo. Le contactaremos lo más pronto posible.</string>

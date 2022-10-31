@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.webkit.MimeTypeMap
 import androidx.lifecycle.*
+import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.logger.LogMessage
 import com.jivosite.sdk.logger.LogsRepository
 import com.jivosite.sdk.model.SdkContext
@@ -231,7 +232,9 @@ class JivoChatViewModel @Inject constructor(
                 if (it.from == state.myId) {
                     putOrIncrementKey(it.timestamp, ClientMessageEntry(it, EntryPosition.Single))
                 } else {
-                    putOrIncrementKey(it.timestamp, AgentMessageEntry(it, EntryPosition.Single))
+                    putOrIncrementKey(it.timestamp, AgentMessageEntry(it, EntryPosition.Single,
+                        it.timestamp >= (state.historyState.messages.lastOrNull()?.timestamp ?: 0)
+                    ))
                 }
             }
 

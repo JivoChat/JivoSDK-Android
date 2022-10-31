@@ -1,5 +1,7 @@
 package com.jivosite.sdk.model.pojo.agent
 
+import okhttp3.internal.toLongOrDefault
+
 /**
  * Created on 12/12/20.
  *
@@ -29,4 +31,8 @@ sealed class AgentStatus {
             }
         }
     }
+}
+
+fun Agent.isBot(): Boolean {
+    return this.id.toLongOrDefault(0) < 0
 }

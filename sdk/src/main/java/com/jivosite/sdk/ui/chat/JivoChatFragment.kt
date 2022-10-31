@@ -47,7 +47,7 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<JivoChatViewModel>
-    private val viewModel by lazy {
+    open val viewModel by lazy {
         ViewModelProvider(requireActivity(), viewModelFactory).get(JivoChatViewModel::class.java)
     }
 
