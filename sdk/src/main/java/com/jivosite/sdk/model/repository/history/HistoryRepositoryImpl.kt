@@ -8,6 +8,7 @@ import com.jivosite.sdk.model.repository.StateRepository
 import com.jivosite.sdk.model.repository.profile.ProfileRepository
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.support.async.Schedulers
+import com.jivosite.sdk.support.utils.transformMessageIfNeed
 import com.jivosite.sdk.support.vm.StateLiveData
 import java.util.*
 import javax.inject.Inject
@@ -43,7 +44,7 @@ class HistoryRepositoryImpl @Inject constructor(
      */
     override fun addMessage(message: HistoryMessage) = updateStateInRepositoryThread {
         transform { state ->
-            messagesCache[message.number] = message
+            messagesCache[message.number] = transformMessageIfNeed(message)
             state.copy(messages = messagesCache.entries.map { it.value })
         }
         doAfter {
