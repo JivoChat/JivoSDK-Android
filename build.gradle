@@ -3,7 +3,7 @@ apply plugin: 'binary-compatibility-validator'
 buildscript {
 
     ext {
-        sdkVersion = 31
+        sdkVersion = 33
         buildTools = "30.0.3"
         ext.kotlinVersion = "1.6.10"
     }

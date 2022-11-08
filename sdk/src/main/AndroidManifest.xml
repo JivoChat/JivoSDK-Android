@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jivosite.sdk">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
     <application>
 
         <meta-data

@@ -35,6 +35,7 @@ class SharedStorage(context: Context) {
         private const val LOG_DO_NOT_SHOW_PINGS = "doNotShowPings"
 
         private const val LAST_READ_MSG_ID = "lastReadMsgId"
+        private const val LAST_UNREAD_MSG_ID = "lastUnreadMsgId"
 
         private const val NIGHT_MODE = "nightMode"
 
@@ -46,6 +47,8 @@ class SharedStorage(context: Context) {
         private const val HAS_SENT_CONTACT_FORM = "hasSentContactForm"
 
         private const val CLIENT_MESSAGE = "clientMessage"
+
+        private const val BLACKLISTED_TIME = "blacklistedTime"
     }
 
     private val preferences: SharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
@@ -76,6 +79,7 @@ class SharedStorage(context: Context) {
     var doNotShowPings: Boolean by SharedPreference(preferences, LOG_DO_NOT_SHOW_PINGS, false)
 
     var lastReadMsgId: Long by SharedPreference(preferences, LAST_READ_MSG_ID, 0)
+    var lastUnreadMsgId: Long by SharedPreference(preferences, LAST_UNREAD_MSG_ID, 0)
 
     var inAppNotificationEnabled: Boolean by SharedPreference(preferences, IN_APP_NOTIFICATION_ENABLED, true)
 
@@ -101,5 +105,7 @@ class SharedStorage(context: Context) {
     var clientMessage: String by SharedPreference(preferences, CLIENT_MESSAGE, "")
 
     var hasSentContactForm: Boolean by SharedPreference(preferences, HAS_SENT_CONTACT_FORM, false)
+
+    var blacklistedTime: Long by SharedPreference(preferences, BLACKLISTED_TIME, -1L)
 
 }

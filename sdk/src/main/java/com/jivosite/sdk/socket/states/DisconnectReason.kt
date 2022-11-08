@@ -17,6 +17,12 @@ sealed class DisconnectReason {
 
     data class BadInstance(val host: String) : DisconnectReason()
 
+    object BlackListed : DisconnectReason() {
+        override fun toString(): String {
+            return "Blacklisted"
+        }
+    }
+
     object ChangeInstance : DisconnectReason() {
         override fun toString(): String {
             return "ChangeInstance"

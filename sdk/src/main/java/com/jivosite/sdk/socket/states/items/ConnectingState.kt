@@ -59,6 +59,10 @@ class ConnectingState @Inject constructor(
         connectionStateRepository.setState(ConnectionState.Disconnected(0))
 
         val force = when (reason) {
+            DisconnectReason.BlackListed -> {
+                stateContext.getState().stop()
+                false
+            }
             else -> {
                 Jivo.e("Unhandled disconnected reason $reason in connecting state, try reconnect")
                 false

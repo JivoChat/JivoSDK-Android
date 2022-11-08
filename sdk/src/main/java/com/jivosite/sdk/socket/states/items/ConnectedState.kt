@@ -63,17 +63,21 @@ class ConnectedState @Inject constructor(
         service.releaseConnectionKeeper()
         service.unsubscribeFromTransmitter()
 
-        val force = when (reason) {
+        when (reason) {
             is DisconnectReason.ChangeInstance -> {
                 service.disconnect()
-                true
+                stateContext.getState().reconnect(true)
+            }
+            is DisconnectReason.BlackListed -> {
+                service.disconnect()
+                stateContext.getState().stop()
             }
             else -> {
                 Jivo.e("Unhandled disconnected reason $reason in connected state, try reconnect")
-                false
+                stateContext.getState().reconnect(false)
             }
         }
-        stateContext.getState().reconnect(force)
+
     }
 
     override fun restart() {

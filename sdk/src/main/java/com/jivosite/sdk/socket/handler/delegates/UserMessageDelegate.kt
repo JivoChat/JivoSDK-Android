@@ -42,12 +42,14 @@ abstract class UserMessageDelegate constructor(
             paginationRepository.handleHistoryMessage()
 
             if (!profileRepository.isMe(historyMessage.from)) {
+                val msgId = historyMessage.number
                 if (chatStateRepository.state.visible) {
                     historyRepository.markAsRead(historyMessage.number)
                     messageTransmitter.sendMessage(SocketMessage.ack(historyMessage.id))
-                } else if (historyMessage.number > historyRepository.state.lastReadMsgId) {
+                } else if (msgId > historyRepository.state.lastReadMsgId) {
                     historyRepository.setHasUnreadMessages(true)
-                    if (storage.inAppNotificationEnabled) {
+                    if (storage.inAppNotificationEnabled && msgId > storage.lastUnreadMsgId) {
+                        storage.lastUnreadMsgId = msgId
                         handler.handle(
                             PushData.map(
                                 agentRepository.getAgent(message.from ?: ""),
