@@ -24,7 +24,7 @@
 
         <activity
             android:name=".ui.imageviewer.ImageViewerActivity"
-            android:theme="@style/ImageViewerTheme" />
+            android:theme="@style/JivoSDK.ImageViewerTheme" />
 
         <provider
             android:name=".fileprovider.JivoSdkFileProvider"
