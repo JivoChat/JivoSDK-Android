@@ -1,14 +1,18 @@
 package com.jivosite.sdk.ui.chat
 
+import android.Manifest
 import android.content.ContentResolver
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -21,6 +25,7 @@ import com.jivosite.sdk.databinding.FragmentJivoChatBinding
 import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.repository.connection.ConnectionState
 import com.jivosite.sdk.support.dg.adapters.SimpleDiffAdapter
+import com.jivosite.sdk.support.event.EventObserver
 import com.jivosite.sdk.support.recycler.AutoScroller
 import com.jivosite.sdk.support.vm.ViewModelFactory
 import com.jivosite.sdk.ui.chat.items.ChatEntry
@@ -52,6 +57,7 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
     }
 
     private lateinit var contentResultCallback: ActivityResultLauncher<String>
+    private lateinit var pushNotificationPermissionLauncher: ActivityResultLauncher<String>
 
     private lateinit var contentUri: Uri
     private lateinit var contentResolver: ContentResolver
@@ -64,6 +70,10 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         super.onAttach(context)
         contentResultCallback = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             if (uri != null) handleContent(uri)
+        }
+
+        if (Build.VERSION.SDK_INT >= 33) {
+            pushNotificationPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
         }
     }
 
@@ -114,19 +124,18 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
             chatAdapter.items = it
         }
 
-        viewModel.error.observe(viewLifecycleOwner) { error ->
+        viewModel.errorAttachState.observe(viewLifecycleOwner, EventObserver { error ->
             val message = when (error) {
-                is Error.Network -> error.message
-                is Error.UnsupportedType -> requireContext().getString(
+                is ErrorAttachState.UnsupportedType -> requireContext().getString(
                     R.string.message_unsupported_media
                 )
-                is Error.FileOversize -> requireContext().getString(
+                is ErrorAttachState.FileOversize -> requireContext().getString(
                     R.string.media_uploading_too_large,
                     MAX_FILE_SIZE_IN_MB
                 )
             }
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-        }
+        })
 
         viewModel.connectionState.observe(viewLifecycleOwner) { state ->
             renderConnectionState(state)
@@ -172,6 +181,16 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
                 binding.inputText.text?.clear()
                 viewModel.sendMessage(ClientMessage.createText(it))
             }
+        }
+
+        if (Build.VERSION.SDK_INT >= 33 && !Jivo.isPermissionGranted(
+                ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED
+            )
+        ) {
+            pushNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 

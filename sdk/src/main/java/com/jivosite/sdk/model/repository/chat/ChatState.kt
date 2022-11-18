@@ -9,5 +9,6 @@ package com.jivosite.sdk.model.repository.chat
  * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 data class ChatState(
-    val visible: Boolean = false
+    val visible: Boolean = false,
+    val blacklisted: Boolean = false
 )

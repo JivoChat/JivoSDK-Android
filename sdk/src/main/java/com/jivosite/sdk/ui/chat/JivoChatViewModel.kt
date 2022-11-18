@@ -4,7 +4,6 @@ import android.os.Handler
 import android.os.Looper
 import android.webkit.MimeTypeMap
 import androidx.lifecycle.*
-import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.logger.LogMessage
 import com.jivosite.sdk.logger.LogsRepository
 import com.jivosite.sdk.model.SdkContext
@@ -38,6 +37,7 @@ import com.jivosite.sdk.model.repository.upload.UploadRepository
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.socket.transmitter.Transmitter
+import com.jivosite.sdk.support.event.Event
 import com.jivosite.sdk.support.ext.getSupportFileType
 import com.jivosite.sdk.support.livedata.ClientTypingDebounceLiveData
 import com.jivosite.sdk.ui.chat.items.*
@@ -164,6 +164,10 @@ class JivoChatViewModel @Inject constructor(
         it.agents
     }
 
+    val isBlacklisted: LiveData<Boolean> = Transformations.map(chatStateRepository.observableState) {
+        it.blacklisted
+    }
+
     private val _canSendState = MediatorLiveData<CanSendState>().apply {
         value = CanSendState()
         addSource(message) {
@@ -185,9 +189,9 @@ class JivoChatViewModel @Inject constructor(
 
     private val _isLoading = MutableLiveData<Boolean>()
 
-    private val _error = MutableLiveData<Error>()
-    val error: LiveData<Error>
-        get() = _error
+    private val _errorAttachState = MutableLiveData<Event<ErrorAttachState>>()
+    val errorAttachState: LiveData<Event<ErrorAttachState>>
+        get() = _errorAttachState
 
     private val _canAttachState = MediatorLiveData<CanAttachState>().apply {
         value = CanAttachState()
@@ -232,9 +236,12 @@ class JivoChatViewModel @Inject constructor(
                 if (it.from == state.myId) {
                     putOrIncrementKey(it.timestamp, ClientMessageEntry(it, EntryPosition.Single))
                 } else {
-                    putOrIncrementKey(it.timestamp, AgentMessageEntry(it, EntryPosition.Single,
-                        it.timestamp >= (state.historyState.messages.lastOrNull()?.timestamp ?: 0)
-                    ))
+                    putOrIncrementKey(
+                        it.timestamp, AgentMessageEntry(
+                            it, EntryPosition.Single,
+                            it.timestamp >= (state.historyState.messages.lastOrNull()?.timestamp ?: 0)
+                        )
+                    )
                 }
             }
 
@@ -398,14 +405,14 @@ class JivoChatViewModel @Inject constructor(
     ) {
 
         if (fileSize.toInt() > MAX_FILE_SIZE * 1024 * 1024) {
-            _error.value = Error.FileOversize
+            _errorAttachState.value = Event(ErrorAttachState.FileOversize)
             return
         }
 
         val extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType) ?: ""
         val type = FILE_TYPES[extension] ?: TYPE_UNKNOWN
         if (type == TYPE_UNKNOWN) {
-            _error.value = Error.UnsupportedType
+            _errorAttachState.value = Event(ErrorAttachState.UnsupportedType)
             return
         }
 
@@ -498,13 +505,9 @@ class JivoChatViewModel @Inject constructor(
     }
 }
 
-sealed class Error {
+sealed class ErrorAttachState {
 
-    data class Network(
-        val message: String
-    ) : Error()
+    object FileOversize : ErrorAttachState()
 
-    object FileOversize : Error()
-
-    object UnsupportedType : Error()
+    object UnsupportedType : ErrorAttachState()
 }

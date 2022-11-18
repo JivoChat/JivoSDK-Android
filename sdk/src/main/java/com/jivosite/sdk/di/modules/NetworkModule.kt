@@ -5,19 +5,17 @@ import com.jivosite.sdk.api.MediaApi
 import com.jivosite.sdk.api.PushApi
 import com.jivosite.sdk.api.SdkApi
 import com.jivosite.sdk.api.TelemetryApi
+import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.network.response.ApiResponse
 import com.jivosite.sdk.network.response.ApiResponseFactory
 import com.jivosite.sdk.network.retrofit.ChangeUrlInterceptor
-import com.jivosite.sdk.network.retrofit.DistrictInterceptor
 import com.jivosite.sdk.network.retrofit.LiveDataCallAdapterFactory
 import com.jivosite.sdk.network.retrofit.UserAgentInterceptor
 import com.jivosite.sdk.support.async.Schedulers
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
-import dagger.multibindings.IntoSet
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.CallAdapter
@@ -49,11 +47,11 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(storage: SharedStorage): OkHttpClient = OkHttpClient.Builder()
+    fun provideOkHttpClient(sdkContext: SdkContext, storage: SharedStorage): OkHttpClient = OkHttpClient.Builder()
         .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
         .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
         .addInterceptor(ChangeUrlInterceptor(storage))
-        .addInterceptor(UserAgentInterceptor())
+        .addInterceptor(UserAgentInterceptor(sdkContext.appContext))
         .addInterceptor(HttpLoggingInterceptor().apply { level = LOG_LEVEL })
         .build()
 

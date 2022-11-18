@@ -17,9 +17,9 @@
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
-    <style name="Base.TextAppearance.Headline1" parent="Base.V21.TextAppearance.JivoSDK.Headline1" />
+    <style name="Base.TextAppearance.JivoSDK.Headline1" parent="Base.V21.TextAppearance.JivoSDK.Headline1" />
 
-    <style name="TextAppearance.JivoSDK.Headline1" parent="Base.TextAppearance.Headline1" />
+    <style name="TextAppearance.JivoSDK.Headline1" parent="Base.TextAppearance.JivoSDK.Headline1" />
 
     <!-- Headline 2 -->
     <style name="Base.V21.TextAppearance.JivoSDK.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
@@ -29,9 +29,9 @@
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
-    <style name="Base.TextAppearance.Headline2" parent="Base.V21.TextAppearance.JivoSDK.Headline2" />
+    <style name="Base.TextAppearance.JivoSDK.Headline2" parent="Base.V21.TextAppearance.JivoSDK.Headline2" />
 
-    <style name="TextAppearance.JivoSDK.Headline2" parent="Base.TextAppearance.Headline2" />
+    <style name="TextAppearance.JivoSDK.Headline2" parent="Base.TextAppearance.JivoSDK.Headline2" />
 
     <!-- Headline 3 -->
     <style name="Base.V21.TextAppearance.JivoSDK.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
@@ -41,9 +41,9 @@
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
-    <style name="Base.TextAppearance.Headline3" parent="Base.V21.TextAppearance.JivoSDK.Headline3" />
+    <style name="Base.TextAppearance.JivoSDK.Headline3" parent="Base.V21.TextAppearance.JivoSDK.Headline3" />
 
-    <style name="TextAppearance.JivoSDK.Headline3" parent="Base.TextAppearance.Headline3" />
+    <style name="TextAppearance.JivoSDK.Headline3" parent="Base.TextAppearance.JivoSDK.Headline3" />
 
     <style name="TextAppearance.JivoSDK.Headline3.Main">
         <item name="android:textSize">18sp</item>
@@ -56,9 +56,9 @@
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
-    <style name="Base.TextAppearance.Subtitle1" parent="Base.V21.TextAppearance.JivoSDK.Subtitle1" />
+    <style name="Base.TextAppearance.JivoSDK.Subtitle1" parent="Base.V21.TextAppearance.JivoSDK.Subtitle1" />
 
-    <style name="TextAppearance.JivoSDK.Subtitle1" parent="Base.TextAppearance.Subtitle1" />
+    <style name="TextAppearance.JivoSDK.Subtitle1" parent="Base.TextAppearance.JivoSDK.Subtitle1" />
 
     <!-- Subtitle 2 -->
     <style name="Base.V21.TextAppearance.JivoSDK.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
@@ -67,9 +67,9 @@
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
-    <style name="Base.TextAppearance.Subtitle2" parent="Base.V21.TextAppearance.JivoSDK.Subtitle2" />
+    <style name="Base.TextAppearance.JivoSDK.Subtitle2" parent="Base.V21.TextAppearance.JivoSDK.Subtitle2" />
 
-    <style name="TextAppearance.JivoSDK.Subtitle2" parent="Base.TextAppearance.Subtitle2" />
+    <style name="TextAppearance.JivoSDK.Subtitle2" parent="Base.TextAppearance.JivoSDK.Subtitle2" />
 
     <!-- Body 1 -->
     <style name="Base.V21.TextAppearance.JivoSDK.Body1" parent="TextAppearance.MaterialComponents.Body1">
@@ -79,9 +79,9 @@
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
-    <style name="Base.TextAppearance.Body1" parent="Base.V21.TextAppearance.JivoSDK.Body1" />
+    <style name="Base.TextAppearance.JivoSDK.Body1" parent="Base.V21.TextAppearance.JivoSDK.Body1" />
 
-    <style name="TextAppearance.JivoSDK.Body1" parent="Base.TextAppearance.Body1" />
+    <style name="TextAppearance.JivoSDK.Body1" parent="Base.TextAppearance.JivoSDK.Body1" />
 
     <!-- Body 2 -->
     <style name="Base.V21.TextAppearance.JivoSDK.Body2" parent="TextAppearance.MaterialComponents.Body2">
@@ -91,9 +91,9 @@
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
-    <style name="Base.TextAppearance.Body2" parent="Base.V21.TextAppearance.JivoSDK.Body2" />
+    <style name="Base.TextAppearance.JivoSDK.Body2" parent="Base.V21.TextAppearance.JivoSDK.Body2" />
 
-    <style name="TextAppearance.JivoSDK.Body2" parent="Base.TextAppearance.Body2" />
+    <style name="TextAppearance.JivoSDK.Body2" parent="Base.TextAppearance.JivoSDK.Body2" />
 
     <!-- Button -->
     <style name="Base.V21.TextAppearance.JivoSDK.Button" parent="TextAppearance.MaterialComponents.Button">
@@ -101,9 +101,9 @@
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
-    <style name="Base.TextAppearance.Button" parent="Base.V21.TextAppearance.JivoSDK.Button" />
+    <style name="Base.TextAppearance.JivoSDK.Button" parent="Base.V21.TextAppearance.JivoSDK.Button" />
 
-    <style name="TextAppearance.JivoSDK.Button" parent="Base.TextAppearance.Button" />
+    <style name="TextAppearance.JivoSDK.Button" parent="Base.TextAppearance.JivoSDK.Button" />
 
     <!-- Caption -->
     <style name="Base.V21.TextAppearance.JivoSDK.Caption" parent="TextAppearance.MaterialComponents.Caption">
@@ -113,9 +113,9 @@
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
-    <style name="Base.TextAppearance.Caption" parent="Base.V21.TextAppearance.JivoSDK.Caption" />
+    <style name="Base.TextAppearance.JivoSDK.Caption" parent="Base.V21.TextAppearance.JivoSDK.Caption" />
 
-    <style name="TextAppearance.JivoSDK.Caption" parent="Base.TextAppearance.Caption" />
+    <style name="TextAppearance.JivoSDK.Caption" parent="Base.TextAppearance.JivoSDK.Caption" />
 
     <!-- Overline -->
     <style name="Base.V21.TextAppearance.JivoSDK.Overline" parent="TextAppearance.MaterialComponents.Overline">
@@ -124,20 +124,20 @@
         <item name="fontFamily">@font/roboto_medium</item>
     </style>
 
-    <style name="Base.TextAppearance.Overline" parent="Base.V21.TextAppearance.JivoSDK.Overline" />
+    <style name="Base.TextAppearance.JivoSDK.Overline" parent="Base.V21.TextAppearance.JivoSDK.Overline" />
 
-    <style name="TextAppearance.JivoSDK.Overline" parent="Base.TextAppearance.Overline" />
+    <style name="TextAppearance.JivoSDK.Overline" parent="Base.TextAppearance.JivoSDK.Overline" />
 
-    <style name="Base.V21.TextAppearance.Jivo.Menu" parent="TextAppearance.MaterialComponents.Button">
+    <style name="Base.V21.TextAppearance.JivoSDK.Menu" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="fontFamily">@font/roboto_medium</item>
         <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="Base.TextAppearance.Menu" parent="Base.V21.TextAppearance.Jivo.Menu" />
+    <style name="Base.TextAppearance.JivoSDK.Menu" parent="Base.V21.TextAppearance.JivoSDK.Menu" />
 
-    <style name="TextAppearance.JivoSDK.Menu" parent="Base.TextAppearance.Menu" />
+    <style name="TextAppearance.JivoSDK.Menu" parent="Base.TextAppearance.JivoSDK.Menu" />
 
 
     <!-- AppBar layout -->
@@ -180,7 +180,7 @@
 
     <!-- Text input appearance -->
     <style name="Widget.JivoSDK.TextInputEditText.TextInput" parent="Widget.Material3.TextInputEditText.FilledBox">
-        <item name="android:textAppearance">@style/Base.TextAppearance.Body1</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.JivoSDK.Body1</item>
         <item name="android:paddingLeft">12dp</item>
         <item name="android:paddingRight">8dp</item>
         <item name="android:maxHeight">120dp</item>
@@ -220,7 +220,7 @@
     </style>
 
     <style name="Widget.JivoSDK.TextInputEditText.ContactForm" parent="ThemeOverlay.Material3.TextInputEditText">
-        <item name="android:textAppearance">@style/Base.TextAppearance.Body2</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.JivoSDK.Body2</item>
         <item name="android:textColorHighlight">@color/jivo_sdk_color_primary_20</item>
         <item name="backgroundTint">@color/jivo_sdk_surface</item>
         <item name="android:textColor">@color/jivo_sdk_color_on_surface_87</item>
