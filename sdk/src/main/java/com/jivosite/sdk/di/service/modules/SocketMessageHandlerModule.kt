@@ -2,6 +2,7 @@ package com.jivosite.sdk.di.service.modules
 
 import com.jivosite.sdk.BuildConfig
 import com.jivosite.sdk.di.service.ServiceScope
+import com.jivosite.sdk.model.repository.unsupported.UnsupportedRepository
 import com.jivosite.sdk.socket.handler.SocketMessageDelegate
 import com.jivosite.sdk.socket.handler.SocketMessageHandler
 import com.jivosite.sdk.socket.handler.delegates.*
@@ -134,7 +135,8 @@ class SocketMessageHandlerModule {
 
     @ServiceScope
     @Provides
-    fun provideFallbackDelegate(): FallbackDelegate = FallbackDelegate()
+    fun provideFallbackDelegate(unsupportedRepository: UnsupportedRepository): FallbackDelegate =
+        FallbackDelegate(unsupportedRepository)
 
     @Provides
     fun provideMessageObfuscator(moshi: Moshi): MessageObfuscator =

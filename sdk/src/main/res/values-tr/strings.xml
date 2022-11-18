@@ -34,6 +34,7 @@
     <string name="Client.Title">Ziyaretçi #%d</string>
     <!-- Общая строка "Отмена" -->
     <string name="common_cancel">İptal</string>
+    <string name="common_close">Kapat</string>
     <string name="common_done">Tamam</string>
     <!-- Универсальное сообщение о неизвестной ошибке. -->
     <string name="common_unknown_error">Bilinmeyen hata</string>
@@ -103,11 +104,13 @@ Lütfen [Ayarlar &gt; App &gt; Fotoğraflar] yoluyla izin verin.</string>
     <string name="Message.Edited">(düzenlendi)</string>
     <string name="Message.Preview.Line">Sohbet ikincil hatta aktarıldı</string>
     <string name="Message.Sender.You">Ben</string>
+    <string name="messages.label.bot">bot</string>
     <string name="notification_channel_message_description">Jivo SDK\'dan mesaj</string>
     <string name="notification_channel_message_name">Jivo</string>
     <!-- Format for text message where $1 is agent name, $2 - text message -->
     <string name="notification_message_text_format">%1$s: %2$s</string>
     <string name="notification_message_title">Yardım</string>
+    <string name="offline_message_placeholder">Görünüşe göre temsilcilerimiz şu anda müsait değiller. Dilerseniz mesajınızı buraya bırakabilirsiniz. Sizinle en kısa sürede iletişime geçeceğiz.</string>
     <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
     <string name="options_copy">Kopyala</string>
     <!-- Пункт "Повторить отправку" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
@@ -120,6 +123,12 @@ Lütfen [Ayarlar &gt; App &gt; Fotoğraflar] yoluyla izin verin.</string>
     <!-- Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway -->
     <string name="PhotoLibrary.Access.Unavailable">Fotoğraf kitaplığı kullanılamıyor</string>
     <string name="toast_copied_to_clipboard">Kopyalandı</string>
+    <!-- Unsupported message type bubble discription -->
+    <string name="unsupported_message_description">Uygulama sürümü güncel değil. Mesaj Detayları:</string>
+    <!-- postfix -->
+    <string name="unsupported_message_postfix">daha fazla göster</string>
+    <!-- Title for unsupported message bubble  -->
+    <string name="unsupported_message_title">Desteklenmeyen mesaj türü</string>
     <!-- Приветственное сообщение для пустого чата -->
     <string name="welcome_message_placeholder">Destek ekibimize yazın ve karşılaştığınız hataları bize iletin</string>
 </resources>

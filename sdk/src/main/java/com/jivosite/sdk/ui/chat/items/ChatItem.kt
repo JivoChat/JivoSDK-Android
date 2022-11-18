@@ -4,6 +4,7 @@ import android.net.Uri
 import android.webkit.URLUtil
 import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.pojo.message.HistoryMessage
+import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import com.jivosite.sdk.model.repository.contacts.ContactFormState
 import com.jivosite.sdk.model.repository.upload.FileState
 import com.jivosite.sdk.support.dg.AdapterDelegateItem
@@ -34,6 +35,8 @@ open class ChatItem(viewType: Int, data: ChatEntry) : AdapterDelegateItem<ChatEn
         const val VT_OFFLINE = VT_ITEM + 10
 
         const val VT_CONTACT_FORM = VT_ITEM + 11
+
+        const val VT_UNSUPPORTED = VT_ITEM + 12
     }
 }
 
@@ -48,6 +51,8 @@ open class ChatItem(viewType: Int, data: ChatEntry) : AdapterDelegateItem<ChatEn
 sealed class ChatEntry
 
 data class EventEntry(val code: Int, val reason: String) : ChatEntry()
+
+data class UnsupportedEntry(val message: SocketMessage) : ChatEntry()
 
 sealed class MessageEntry : ChatEntry() {
 

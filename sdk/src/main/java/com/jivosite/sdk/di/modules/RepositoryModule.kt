@@ -24,6 +24,8 @@ import com.jivosite.sdk.model.repository.send.SendMessageRepository
 import com.jivosite.sdk.model.repository.send.SendMessageRepositoryImpl
 import com.jivosite.sdk.model.repository.typing.TypingRepository
 import com.jivosite.sdk.model.repository.typing.TypingRepositoryImpl
+import com.jivosite.sdk.model.repository.unsupported.UnsupportedRepository
+import com.jivosite.sdk.model.repository.unsupported.UnsupportedRepositoryImpl
 import com.jivosite.sdk.model.repository.upload.UploadRepository
 import com.jivosite.sdk.model.repository.upload.UploadRepositoryImpl
 import dagger.Binds
@@ -89,4 +91,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun provideContactFormRepository(repository: ContactFormRepositoryImpl): ContactFormRepository
+
+    @Binds
+    @Singleton
+    abstract fun provideUnsupportedRepository(repository: UnsupportedRepositoryImpl): UnsupportedRepository
 }

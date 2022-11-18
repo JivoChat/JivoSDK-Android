@@ -46,6 +46,7 @@ class SocketMessageHandler(
                 Jivo.i("""Socket message has been successfully handled "${message.type}"""")
             } else {
                 fallbackDelegate.handle(message)
+                Jivo.w("""There is unhandled message "$message"""")
             }
         }
     }

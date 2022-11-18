@@ -411,4 +411,29 @@
         </item>
     </style>
 
+    <!-- Unsupported bubble background -->
+    <style name="JivoSDK.UnsupportedBubbleBackground" parent="Main.Theme.JivoSDK">
+        <item name="android:background">@drawable/jivo_sdk_bg_incoming_bubble</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <!-- Unsupported bubble title appearance  -->
+    <style name="Widget.JivoSDK.TextView.UnsupportedBubble.Title" parent="">
+        <item name="android:textColor">@color/jivo_sdk_color_on_surface_60</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Subtitle2</item>
+    </style>
+
+    <!-- Unsupported bubble title appearance  -->
+    <style name="Widget.JivoSDK.TextView.UnsupportedBubble.Description" parent="">
+        <item name="android:textColor">@color/jivo_sdk_color_on_surface_60</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Body2</item>
+    </style>
+
 </resources>
