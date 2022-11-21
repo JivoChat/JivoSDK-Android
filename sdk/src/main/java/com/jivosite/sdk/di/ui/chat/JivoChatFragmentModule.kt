@@ -28,6 +28,8 @@ import com.jivosite.sdk.ui.chat.items.message.uploading.file.UploadingFileItemVi
 import com.jivosite.sdk.ui.chat.items.message.uploading.image.UploadingImageItemDelegate
 import com.jivosite.sdk.ui.chat.items.message.uploading.image.UploadingImageItemViewModel
 import com.jivosite.sdk.ui.chat.items.message.welcome.WelcomeMessageItemDelegate
+import com.jivosite.sdk.ui.chat.items.unsupported.UnsupportedItemDelegate
+import com.jivosite.sdk.ui.chat.items.unsupported.UnsupportedItemViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoSet
@@ -162,6 +164,17 @@ class JivoChatFragmentModule(private val fragment: Fragment) {
         viewModelProvider: Provider<ContactFormItemViewModel>
     ): AdapterDelegate<ChatEntry> {
         return ContactFormItemDelegate(
+            fragment.viewLifecycleOwner,
+            viewModelProvider,
+        )
+    }
+
+    @IntoSet
+    @Provides
+    fun provideUnsupportedItemDelegate(
+        viewModelProvider: Provider<UnsupportedItemViewModel>
+    ): AdapterDelegate<ChatEntry> {
+        return UnsupportedItemDelegate(
             fragment.viewLifecycleOwner,
             viewModelProvider,
         )

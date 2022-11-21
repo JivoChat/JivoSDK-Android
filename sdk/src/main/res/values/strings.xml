@@ -34,6 +34,7 @@
     <string name="Client.Title">Client #%d</string>
     <!-- Общая строка "Отмена" -->
     <string name="common_cancel">Cancel</string>
+    <string name="common_close">Close</string>
     <string name="common_done">Done</string>
     <!-- Универсальное сообщение о неизвестной ошибке. -->
     <string name="common_unknown_error">Unknown error</string>
@@ -122,6 +123,12 @@ Please go to [Settings &gt; Your App &gt; Photos] to give access.</string>
     <!-- Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway -->
     <string name="PhotoLibrary.Access.Unavailable">Photo library is unavailable</string>
     <string name="toast_copied_to_clipboard">Copied</string>
+    <!-- Unsupported message type bubble discription -->
+    <string name="unsupported_message_description">The app version is outdated. Message details: %s</string>
+    <!-- postfix -->
+    <string name="unsupported_message_postfix">show more \u0020</string>
+    <!-- Title for unsupported message bubble  -->
+    <string name="unsupported_message_title">Unsupported message type</string>
     <!-- Приветственное сообщение для пустого чата -->
     <string name="welcome_message_placeholder">Chat with our customer support team and let us know if there\'s any bugs we can fix</string>
 </resources>

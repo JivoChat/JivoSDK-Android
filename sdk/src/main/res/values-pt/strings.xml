@@ -34,6 +34,7 @@
     <string name="Client.Title">Cliente #%d</string>
     <!-- Общая строка "Отмена" -->
     <string name="common_cancel">Cancelar</string>
+    <string name="common_close">Fechar</string>
     <string name="common_done">Concluído</string>
     <!-- Универсальное сообщение о неизвестной ошибке. -->
     <string name="common_unknown_error">Erro desconhecido</string>
@@ -103,11 +104,13 @@ Favor ir até [Ajustes &gt; App &gt; Fotos] para permitir o acesso.</string>
     <string name="Message.Edited">(editado)</string>
     <string name="Message.Preview.Line">O chat foi transferido para a linha secundária</string>
     <string name="Message.Sender.You">Você</string>
+    <string name="messages.label.bot">bot</string>
     <string name="notification_channel_message_description">Mensagem do Jivo SDK</string>
     <string name="notification_channel_message_name">Jivo</string>
     <!-- Format for text message where $1 is agent name, $2 - text message -->
     <string name="notification_message_text_format">%1$s: %2$s</string>
     <string name="notification_message_title">Apoio</string>
+    <string name="offline_message_placeholder">Ops, no momento nossos operadores não estão disponíveis. Deixe sua mensagem aqui no chat que nós entraremos em contato com você em breve.</string>
     <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
     <string name="options_copy">Copiar</string>
     <!-- Пункт "Повторить отправку" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
@@ -120,6 +123,12 @@ Favor ir até [Ajustes &gt; App &gt; Fotos] para permitir o acesso.</string>
     <!-- Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway -->
     <string name="PhotoLibrary.Access.Unavailable">A biblioteca de fotos não está disponível</string>
     <string name="toast_copied_to_clipboard">Copiado</string>
+    <!-- Unsupported message type bubble discription -->
+    <string name="unsupported_message_description">A versão do aplicativo está desatualizada. Detalhes da mensagem:</string>
+    <!-- postfix -->
+    <string name="unsupported_message_postfix">mostrar mais</string>
+    <!-- Title for unsupported message bubble  -->
+    <string name="unsupported_message_title">Tipo de mensagem incompatível</string>
     <!-- Приветственное сообщение для пустого чата -->
     <string name="welcome_message_placeholder">Converse com nossa equipe de atendimento e nos diga se encontrar qualquer erro para que possamos consertá-lo</string>
 </resources>

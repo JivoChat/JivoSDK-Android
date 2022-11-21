@@ -7,6 +7,7 @@ import com.jivosite.sdk.support.ext.dp
 import com.jivosite.sdk.ui.chat.items.EntryPosition
 import com.jivosite.sdk.ui.chat.items.contacts.ContactFormItemViewHolder
 import com.jivosite.sdk.ui.chat.items.message.general.MessageItemViewHolder
+import com.jivosite.sdk.ui.chat.items.unsupported.UnsupportedItemViewHolder
 
 /**
  * Created on 29.09.2020.
@@ -33,6 +34,9 @@ class JivoChatDecoration : RecyclerView.ItemDecoration() {
                     }
                 }
                 is ContactFormItemViewHolder -> {
+                    outRect.top = paddingTopBig
+                }
+                is UnsupportedItemViewHolder -> {
                     outRect.top = paddingTopBig
                 }
             }

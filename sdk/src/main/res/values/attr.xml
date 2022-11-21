@@ -11,4 +11,9 @@
         <attr name="title" format="string" />
         <attr name="subtitle" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="ExpandableTextView">
+        <attr name="collapsedMaxLines" format="dimension" />
+        <attr name="postfix" format="string" />
+    </declare-styleable>
 </resources>

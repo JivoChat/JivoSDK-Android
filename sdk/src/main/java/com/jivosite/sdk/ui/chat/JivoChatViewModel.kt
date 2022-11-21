@@ -16,6 +16,7 @@ import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_IMAGE
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_UNKNOWN
 import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.pojo.message.MessageStatus
+import com.jivosite.sdk.model.pojo.message.splitIdTimestamp
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import com.jivosite.sdk.model.repository.agent.AgentRepository
 import com.jivosite.sdk.model.repository.chat.ChatStateRepository
@@ -32,6 +33,8 @@ import com.jivosite.sdk.model.repository.profile.ProfileRepository
 import com.jivosite.sdk.model.repository.send.SendMessageRepository
 import com.jivosite.sdk.model.repository.send.SendMessageState
 import com.jivosite.sdk.model.repository.typing.TypingRepository
+import com.jivosite.sdk.model.repository.unsupported.UnsupportedRepository
+import com.jivosite.sdk.model.repository.unsupported.UnsupportedState
 import com.jivosite.sdk.model.repository.upload.UploadFilesState
 import com.jivosite.sdk.model.repository.upload.UploadRepository
 import com.jivosite.sdk.model.storage.SharedStorage
@@ -53,6 +56,7 @@ import com.jivosite.sdk.ui.chat.items.message.text.client.ClientTextItem
 import com.jivosite.sdk.ui.chat.items.message.uploading.file.UploadingFileItem
 import com.jivosite.sdk.ui.chat.items.message.uploading.image.UploadingImageItem
 import com.jivosite.sdk.ui.chat.items.message.welcome.WelcomeMessageItem
+import com.jivosite.sdk.ui.chat.items.unsupported.UnsupportedItem
 import java.io.InputStream
 import java.util.*
 import javax.inject.Inject
@@ -77,7 +81,8 @@ class JivoChatViewModel @Inject constructor(
     private val storage: SharedStorage,
     private val sdkContext: SdkContext,
     private val pendingRepository: PendingRepository,
-    private val contactFormRepository: ContactFormRepository
+    private val contactFormRepository: ContactFormRepository,
+    private val unsupportedRepository: UnsupportedRepository
 ) : ViewModel() {
 
     companion object {
@@ -143,6 +148,7 @@ class JivoChatViewModel @Inject constructor(
         }
         addSource(logsRepository.messages) { value = value?.copy(eventMessages = prepareEventMessages(it)) }
         addSource(uploadRepository.observableState) { value = value?.copy(uploadFilesState = it) }
+        addSource(unsupportedRepository.observableState) { value = value?.copy(unsupportedState = it) }
     }
 
     val items: LiveData<List<ChatItem>> = Transformations.map(messagesState) { handleMessagesState(it) }
@@ -269,6 +275,9 @@ class JivoChatViewModel @Inject constructor(
                     )
                 }
             }
+            state.unsupportedState.messages.forEach {
+                putOrIncrementKey(it.id.splitIdTimestamp().second, UnsupportedEntry(it))
+            }
         }
 
         val result = ArrayList<ChatItem>(state.size)
@@ -296,6 +305,10 @@ class JivoChatViewModel @Inject constructor(
                 is ContactFormEntry -> {
                     dropBuffer(state.myId, buffer, result)
                     result.add(ContactFormItem(message))
+                }
+                is UnsupportedEntry -> {
+                    dropBuffer(state.myId, buffer, result)
+                    result.add(UnsupportedItem(message))
                 }
             }
         }
@@ -498,7 +511,8 @@ class JivoChatViewModel @Inject constructor(
         val eventMessages: List<LogMessage.Disconnected> = Collections.emptyList(),
         val uploadFilesState: UploadFilesState = UploadFilesState(),
         val pendingState: PendingState = PendingState(),
-        val contactFormState: ContactFormState = ContactFormState()
+        val contactFormState: ContactFormState = ContactFormState(),
+        val unsupportedState: UnsupportedState = UnsupportedState()
     ) {
         val size: Int
             get() = historyState.messages.size + sendMessageState.messages.size + eventMessages.size + uploadFilesState.files.size + pendingState.size + contactFormState.size
