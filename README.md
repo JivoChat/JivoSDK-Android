@@ -17,13 +17,11 @@ Jivo Mobile SDK - Android
 -   Индикатор новых сообщений внутри приложения интегратора
 -   Push-уведомления
 
-### Актуальная версия: 1.1.0-alpha03
+### Актуальная версия: 1.1.0
 
 Список изменений:
 
--   добавлена настройка toolbar-a с помощью атрибутов;
--   удалены настройки UI из конфига;
--   исправлены ошибки UI;
+-   добавлена поддержка сообщений чат-бота;
 
 ### Известные проблемы:
 - На устройствах марки **Xiaomi**, возникают проблемы с отображением цветов в чате **SDK**. Решение, добавить флаг в стили вашего приложения:
@@ -203,59 +201,35 @@ class MainFragment: Fragment(R.layout.main_fragment) {
 Настройка UI JivoSDK
 --------------------
 
-Для **настройки UI** в статический метод `Jivo.setConfig()` требуется передать объект типа `Config`. Данный объект можно сконфигурировать с помощью класса `Builder`, пример кода ниже:
+В версии SDK 1.1.0 внесены изменения **настройки UI**, на текущий момент все настройки UI реализованы с помощью тем и стилей. 
+На выбор доступны три основные темы:
+-   **Main.Theme.JivoSDK**
+-   **Main.Theme.JivoSDK.Blue**
+-   **Main.Theme.JivoSDK.Graphite**
 
+Пример переопределения основной темы SDK, добавьте данную конструкцию в стили вашего приложения:
 ```kotlin
-Jivo.setConfig(
-    Config.Builder()
-        .setLogo(R.drawable.vic_jivosdk_logo)
-        .setBackground(R.drawable.bg_jivosdk_appbar)
-        .setTitle(R.string.jivosdk_title)
-        .setTitleTextColor(R.color.white)
-        .setSubtitle(R.string.jivosdk_subtitle)
-        .setSubtitleTextColor(R.color.white)
-        .setSubtitleTextColorAlpha(0.6f)
-        .setWelcomeMessage(R.string.jivosdk_welcome)
-        .setOutgoingMessageColor(Config.Color.GREY)
-        .build()
-)
+<style name="JivoSDKThemeSwitcher">
+   <item name="theme">@style/Main.Theme.JivoSDK.Blue</item>
+</style>
 ```
+Для более тонкой тонкой настройки UI необходимо переопределить стиль элемента, список всех элементов находится в **sdk/src/main/res/values/styles.xml**
 
-Разберем по отдельности каждый параметр:
-
--   ~~**setLogo()** - изменяет логотип appbar-a, принимает на вход ресурс изображения, например векторное изображение.~~
--   ~~**setBackground()** - изменяет фон appbar-a, принимает на вход ресурс изображения, позволяет использовать градиент, картинки,  например векторное изображение, пример:~~
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item>
-        <shape>
-            <gradient
-                android:angle="180"
-                android:endColor="#18C139"
-                android:startColor="#222D38"
-                android:type="linear" />
-        </shape>
-    </item>
-
-    <item android:drawable="@drawable/bitmap_bg_appbar" />
-
-</layer-list>
+Пример переопределния стиля:
+```kotlin
+<style name="Widget.JivoSDK.Toolbar" parent="">
+   <item name="navigationIcon">@drawable/jivo_sdk_vic_arrow_24dp</item>
+   <item name="navigationIconTint">?attr/colorOnPrimary</item>
+   <item name="title">@string/title</item>
+   <item name="subtitle">@string/subtitle</item>
+   <item name="titleTextAppearance">?attr/textAppearanceSubtitle2</item>
+   <item name="titleTextColor">?attr/colorOnPrimary</item>
+   <item name="subtitleTextColor">@color/jivo_sdk_color_on_surface_84</item>
+   <item name="subtitleTextAppearance">?attr/textAppearanceCaption</item>
+   <item name="logo">@drawable/vic_logo</item>
+   <item name="titleMarginStart">8dp</item>
+</style>
 ```
--   ~~**setTitle()** - строковый ресурс, изменяет текст заголовка appbar-a~~
--   ~~**setTitleTextColor()** - цветовой ресурс, изменяет цвет текста заголовка appbar-a~~
--   ~~**setSubtitle()** - строковый ресурс, изменяет текст подзаголовка appbar-a~~
--   ~~**setSubtitleTextColor()** - цветовой ресурс, изменяет цвет текста подзаголовка appbar-a~~
--   ~~**setSubtitleTextColorAlpha()** - принимает на входит значение типа `Float`, изменяет прозрачность цвета текста подзаголовка appbar-a~~
--   **setWelcomeMessage()** - строковый ресурс, изменяет текст приветственного сообщения.
--   ~~**setOutgoingMessageColor()** - принимает на вход enum, изменяет цвет фона исходящего сообщения. Доступны три основных цвета на выбор(`Config.Color.GREEN, Config.Color.GREY, Config.Color.BLUE`)~~
--   ~~**hideLogo()** - скрывает логотип.~~
--   **setOfflineMessage()** - строковый ресурс, изменяет текст оповещения об отсутствии операторов на канале.
--   **setNotificationSmallIcon()** - изменяет иконку push-уведомления, принимает на вход ресурс изображения.
--   **setNotificationColorIcon()** - цветовой ресурс, изменяет иконку push-уведомления.
-
 Настройка push notifications.
 -----------------------------
 
@@ -443,6 +417,43 @@ class PushService : FirebaseMessagingService() {
 
 Дополнительные настройки JivoSDK.
 ---------------------------------
+
+### Приветственное сообщение.
+
+Приветственное сообщение отображается при отсутствия сообщений в чате.
+В функцию `setWelcomeMessage()` требуется передать строковый ресурс. 
+Пример реализации:
+```kotlin
+Jivo.setConfig(
+   Config.Builder()                  
+       .setWelcomeMessage(R.string.welcome)
+       .build()
+)
+```
+
+### Оповещение об отсутствии операторов на канале.
+
+Оповещение об отсутствии операторов на канале, отображается в случае отсутствия операторов на канале.
+В функцию `setOfflineMessage()`, требуется передать строковый ресурс. 
+Пример реализации:
+```kotlin
+Jivo.setConfig(
+   Config.Builder()                  
+       .setOfflineMessage(R.string.offline)
+       .build()
+)
+```
+
+### Установка кастомного звука push-уведомления.
+
+В функцию `setUriNotificationSound()` требуется передать объект типа `Uri`, содержащий ссылку на звуковой ресурс. Пример реализации:
+```kotlin
+Jivo.setConfig(
+   Config.Builder()                  
+       .setUriNotificationSound(getUriNotificationSound(applicationContext))
+       .build()
+)
+```
 
 ### Включение логирования.
 
@@ -781,24 +792,12 @@ export default function App() {
 Changelog
 =========
 
-1.1.0-alpha03 (2022-07-22)
------------------------
-
-### Bug Fixes:
-
-- исправлены ошибки UI;
-
-### Features:
-
-- добавлена настройка toolbar-a с помощью атрибутов;
-- удалены настройки UI из конфига;
-
-1.1.0-alpha02 (2022-07-20)
+1.1.0 (2022-11-25)
 -----------------------
 
 ### Features:
 
-- добавлена более гибкая настройка UI с помощью стилей;
+- добавлена поддержка сообщений чат-бота;
 
 1.0.7 (2022-10-13)
 -----------------------
@@ -818,6 +817,25 @@ Changelog
 ### Features:
 
 - добавлено новое состояние чата, если клиент добавлен в черный список;
+
+1.1.0-alpha03 (2022-07-22)
+-----------------------
+
+### Bug Fixes:
+
+- исправлены ошибки UI;
+
+### Features:
+
+- добавлена настройка toolbar-a с помощью атрибутов;
+- удалены настройки UI из конфига;
+
+1.1.0-alpha02 (2022-07-20)
+-----------------------
+
+### Features:
+
+- добавлена более гибкая настройка UI с помощью стилей;
 
 1.0.5 (2022-06-14)
 -----------------------
