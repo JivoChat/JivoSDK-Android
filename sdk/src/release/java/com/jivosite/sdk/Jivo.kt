@@ -27,6 +27,8 @@ import com.jivosite.sdk.support.ext.toMD5
 import com.jivosite.sdk.ui.chat.NotificationPermissionListener
 import timber.log.Timber
 import java.lang.ref.WeakReference
+import com.jivosite.sdk.support.usecase.SdkConfigUseCase
+import javax.inject.Provider
 
 /**
  * Created on 02.09.2020.
@@ -47,6 +49,8 @@ object Jivo {
     private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
     private lateinit var storage: SharedStorage
+
+    private lateinit var sdkConfigUseCaseProvider: Provider<SdkConfigUseCase>
 
     private var config: Config = Config.Builder().build()
 
@@ -80,6 +84,24 @@ object Jivo {
 
         lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
+    }
+
+    @JvmStatic
+    fun changeChannelId(widgetId: String) {
+        if (widgetId != storage.widgetId) {
+            handler.removeCallbacks(updatePushTokenCallback)
+            if (Jivo::jivoSdkComponent.isInitialized) {
+                jivoSdkComponent.clearUseCaseProvider().get().execute()
+                unsubscribeFromPush()
+                storage.widgetId = widgetId
+                sdkConfigUseCaseProvider.get().run {
+                    onRestart {
+                        JivoWebSocketService.changeChannelId(sdkContext.appContext)
+                    }
+                    restart()
+                }
+            }
+        }
     }
 
     @JvmStatic

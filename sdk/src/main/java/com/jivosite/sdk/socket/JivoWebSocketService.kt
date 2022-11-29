@@ -46,6 +46,9 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_SET_CLIENT_INFO"
         private const val ACTION_RECONNECT =
             "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_RECONNECT"
+        private const val ACTION_CHANGE_CHANNEL_ID =
+            "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_CHANGE_CHANNEL_ID"
+
 
         const val REASON_STOPPED = 4000
         const val REASON_TIMEOUT = 4001
@@ -91,6 +94,13 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
         fun reconnect(appContext: Context) {
             val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
                 action = ACTION_RECONNECT
+            }
+            appContext.startService(intent)
+        }
+
+        fun changeChannelId(appContext: Context) {
+            val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
+                action = ACTION_CHANGE_CHANNEL_ID
             }
             appContext.startService(intent)
         }
@@ -251,6 +261,14 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             ACTION_RECONNECT -> {
                 Jivo.i("Received reconnect command")
                 getState().reconnect(true)
+            }
+
+            ACTION_CHANGE_CHANNEL_ID -> {
+                Jivo.i("Change channel id")
+                when (val state = getState()) {
+                    is InitialState, is StoppedState -> state.start()
+                    else -> state.reconnect(true)
+                }
             }
 
             else -> Jivo.w("Unknown command $action")
