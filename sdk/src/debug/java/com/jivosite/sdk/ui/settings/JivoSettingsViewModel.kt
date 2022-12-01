@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.logger.LogsRepository
+import com.jivosite.sdk.model.pojo.CustomData
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.support.builders.ClientInfo
 import com.jivosite.sdk.support.ext.requireValue
@@ -28,6 +29,11 @@ class JivoSettingsViewModel @Inject constructor(
     val userEmail = MutableLiveData("")
     val userPhone = MutableLiveData("")
     val userDescription = MutableLiveData("")
+
+    val title = MutableLiveData("")
+    val key = MutableLiveData("")
+    val content = MutableLiveData("")
+    val link = MutableLiveData("")
 
     val userToken = MutableLiveData("")
 
@@ -65,6 +71,19 @@ class JivoSettingsViewModel @Inject constructor(
                 .setPhone(userPhone.value ?: "")
                 .setDescription(userDescription.value ?: "")
                 .build()
+        )
+    }
+
+    fun sendCustomData() {
+        Jivo.setCustomData(
+            listOf(
+                CustomData(
+                    title = title.value ?: "",
+                    key = key.value ?: "",
+                    content = content.value ?: "",
+                    link = link.value ?: ""
+                )
+            )
         )
     }
 

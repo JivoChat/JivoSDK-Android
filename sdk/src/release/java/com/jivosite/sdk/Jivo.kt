@@ -29,6 +29,7 @@ import timber.log.Timber
 import java.lang.ref.WeakReference
 import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import javax.inject.Provider
+import com.squareup.moshi.Types
 
 /**
  * Created on 02.09.2020.
@@ -115,6 +116,18 @@ object Jivo {
                 "clientId" to jivoSdkComponent.storage().clientId
             )
             JivoWebSocketService.setClientInfo(sdkContext.appContext, args)
+        }
+    }
+
+    @JvmStatic
+    fun setCustomData(customDataFields: List<CustomData>?) {
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            val payload = jivoSdkComponent.moshi()
+                .adapter<List<CustomData>>(Types.newParameterizedType(List::class.java, CustomData::class.java))
+                .toJson(customDataFields)
+
+            val args = bundleOf("customData" to payload)
+            JivoWebSocketService.setCustomData(sdkContext.appContext, args)
         }
     }
 
