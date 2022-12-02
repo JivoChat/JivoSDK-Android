@@ -48,6 +48,8 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_RECONNECT"
         private const val ACTION_CHANGE_CHANNEL_ID =
             "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_CHANGE_CHANNEL_ID"
+        private const val ACTION_SET_CUSTOM_DATA =
+            "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_SET_CUSTOM_DATA"
 
 
         const val REASON_STOPPED = 4000
@@ -101,6 +103,14 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
         fun changeChannelId(appContext: Context) {
             val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
                 action = ACTION_CHANGE_CHANNEL_ID
+            }
+            appContext.startService(intent)
+        }
+
+        fun setCustomData(appContext: Context, args: Bundle) {
+            val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
+                action = ACTION_SET_CUSTOM_DATA
+                putExtras(args)
             }
             appContext.startService(intent)
         }
@@ -268,6 +278,14 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
                 when (val state = getState()) {
                     is InitialState, is StoppedState -> state.start()
                     else -> state.reconnect(true)
+                }
+            }
+
+            ACTION_SET_CUSTOM_DATA -> {
+                Jivo.i("Received set custom data command")
+                val customData = intent.getStringExtra("customData")
+                if (!customData.isNullOrBlank()) {
+                    getState().send(SocketMessage.customData(customData))
                 }
             }
 

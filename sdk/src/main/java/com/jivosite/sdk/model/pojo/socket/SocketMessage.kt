@@ -100,5 +100,13 @@ data class SocketMessage(
         fun clientInfo(type: String, data: String, clientId: String): SocketMessage {
             return SocketMessage(type, data = data, id = clientId)
         }
+
+        /**
+         * Сообщение передачи дополнительных данных о клиенте.
+         * @param data Данные о клиенте.
+         */
+        fun customData(data: String): SocketMessage {
+            return SocketMessage("atom/user.custom-data", data = data)
+        }
     }
 }

@@ -22,6 +22,7 @@ import com.jivosite.sdk.di.ui.settings.JivoSettingsComponent
 import com.jivosite.sdk.di.ui.settings.JivoSettingsFragmentModule
 import com.jivosite.sdk.lifecycle.JivoLifecycleObserver
 import com.jivosite.sdk.model.SdkContext
+import com.jivosite.sdk.model.pojo.CustomData
 import com.jivosite.sdk.model.repository.history.NewMessageListener
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.JivoWebSocketService
@@ -32,6 +33,7 @@ import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import com.jivosite.sdk.ui.chat.NotificationPermissionListener
 import com.jivosite.sdk.ui.logs.JivoLogsFragment
 import com.jivosite.sdk.ui.settings.JivoSettingsFragment
+import com.squareup.moshi.Types
 import timber.log.Timber
 import java.lang.ref.WeakReference
 import javax.inject.Provider
@@ -123,6 +125,18 @@ object Jivo {
                 "clientId" to jivoSdkComponent.storage().clientId
             )
             JivoWebSocketService.setClientInfo(sdkContext.appContext, args)
+        }
+    }
+
+    @JvmStatic
+    fun setCustomData(customDataFields: List<CustomData>) {
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            val payload = jivoSdkComponent.moshi()
+                .adapter<List<CustomData>>(Types.newParameterizedType(List::class.java, CustomData::class.java))
+                .toJson(customDataFields)
+
+            val args = bundleOf("customData" to payload)
+            JivoWebSocketService.setCustomData(sdkContext.appContext, args)
         }
     }
 
