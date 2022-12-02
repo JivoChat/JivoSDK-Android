@@ -120,7 +120,7 @@ object Jivo {
     }
 
     @JvmStatic
-    fun setCustomData(customDataFields: List<CustomData>?) {
+    fun setCustomData(customDataFields: List<CustomData>) {
         if (Jivo::jivoSdkComponent.isInitialized) {
             val payload = jivoSdkComponent.moshi()
                 .adapter<List<CustomData>>(Types.newParameterizedType(List::class.java, CustomData::class.java))
