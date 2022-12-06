@@ -18,18 +18,19 @@ import com.jivosite.sdk.di.ui.chat.JivoChatComponent
 import com.jivosite.sdk.di.ui.chat.JivoChatFragmentModule
 import com.jivosite.sdk.lifecycle.JivoLifecycleObserver
 import com.jivosite.sdk.model.SdkContext
+import com.jivosite.sdk.model.pojo.CustomData
 import com.jivosite.sdk.model.repository.history.NewMessageListener
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.ClientInfo
 import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.support.ext.toMD5
+import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import com.jivosite.sdk.ui.chat.NotificationPermissionListener
+import com.squareup.moshi.Types
 import timber.log.Timber
 import java.lang.ref.WeakReference
-import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import javax.inject.Provider
-import com.squareup.moshi.Types
 
 /**
  * Created on 02.09.2020.
