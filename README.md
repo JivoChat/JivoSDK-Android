@@ -17,11 +17,12 @@ Jivo Mobile SDK - Android
 -   Индикатор новых сообщений внутри приложения интегратора
 -   Push-уведомления
 
-### Актуальная версия: 1.1.0
+### Актуальная версия: 1.2.0
 
 Список изменений:
 
--   добавлена поддержка сообщений чат-бота;
+-   добавлена возможность смены канала чата;
+-   добавлена передача дополнительной информации о клиенте;
 
 ### Известные проблемы:
 - На устройствах марки **Xiaomi**, возникают проблемы с отображением цветов в чате **SDK**. Решение, добавить флаг в стили вашего приложения:
@@ -112,7 +113,7 @@ android {
 dependencies {
    ...
    //JivoSDK
-   implementation 'com.jivosite.sdk:android-sdk:1.1.0-alpha03'
+   implementation 'com.jivosite.sdk:android-sdk:1.2.0'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -507,6 +508,19 @@ Jivo.setClientInfo(
 <img src="https://user-images.githubusercontent.com/81690520/195782798-8fec2d2d-3275-43c1-b0ae-300443822eca.png" width="300">
 
 
+### Передача дополнительной информации о клиенте.
+
+Для передачи дополнительной информации о клиенте требуется вызвать статический метод  `Jivo.setCustomData()` и передать массив типа `CustomData`, пример кода ниже:
+
+```kotlin
+Jivo.setCustomData(
+    listOf(
+        CustomData(content = "Some content", title = "Some title", link = "Some link", key = "Some key")
+    )
+)
+```       
+Примичание - На текущий момент размер массива не должен превышать шести элементов.
+
 
 ### Уведомление о непрочитанных сообщениях.
 
@@ -615,6 +629,13 @@ class MainActivity: NotificationPermissionListener {
 }
 ```
 
+### Смена канала чата.
+Для смены канала чата необходимо использовать статический метод `Jivo.changeChannelId()` и передать параметр `widgetId`, ниже представлен пример кода:
+```kotlin
+Jivo.changeChannelId("xXxXxXxXx")
+```
+Примечание - После вызова `Jivo.changeChannelId()`, не требуется вызывать статические методы `Jivo.clear()`, `Jivo.unsubscribeFromPush()`.
+
 Интеграция JivoSDK(React Native).
 =================================
 
@@ -648,7 +669,7 @@ android {
 dependencies {
    ...
    //JivoSDK
-   implementation 'com.jivosite.sdk:android-sdk:1.0.3'
+   implementation 'com.jivosite.sdk:android-sdk:1.2.0'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -791,6 +812,14 @@ export default function App() {
 
 Changelog
 =========
+
+1.2.0 (2022-12-06)
+-----------------------
+
+### Features:
+
+-   добавлена возможность смены канала чата;
+-   добавлена передача дополнительной информации о клиенте;
 
 1.1.0 (2022-11-25)
 -----------------------
