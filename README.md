@@ -630,9 +630,10 @@ class MainActivity: NotificationPermissionListener {
 ```
 
 ### Смена канала чата.
-Для смены канала чата необходимо использовать статический метод `Jivo.changeChannelId()` и передать параметр `widgetId`, ниже представлен пример кода:
+Для смены канала чата необходимо использовать статический метод `Jivo.changeChannelId()` и передать параметр `widgetId` и затем вызвать статический метод `Jivo.updatePushToken()`, ниже представлен пример кода:
 ```kotlin
 Jivo.changeChannelId("xXxXxXxXx")
+Jivo.updatePushToken(token)
 ```
 Примечание - После вызова `Jivo.changeChannelId()`, не требуется вызывать статические методы `Jivo.clear()`, `Jivo.unsubscribeFromPush()`.
 
