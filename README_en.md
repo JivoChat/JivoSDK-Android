@@ -61,7 +61,7 @@ Next, you need to enter the channel name of your future channel:
 
 Within the same **Mobile SDK** channel, you can connect one application for each platform: iOS and Android. Use one common **widget_id**.
 
-<img src="https://user-images.githubusercontent.com/81690520/144238692-6e76b28f-4429-4e02-afda-a453199a7809.png" width="630">
+<img src="./README_en/channel_setup_3_en.jpg" width=630 />
 
 Jivo SDK integration
 --------------------
@@ -293,19 +293,13 @@ To generate a private key, click **Generate new private key** and save the new k
 
 ### Adding a private key to an SDK channel.
 
-To add a private key, you need to go to the [Jivo app](http://app.jivosite.com/), then go to **Manage > Channels**, in the Channel section, find the channel you need to setup and click the Settings button .
-
-<img src="https://user-images.githubusercontent.com/81690520/144239039-5a435d45-2e06-4aba-b022-c149ae0a7cdb.png" width="630">
-
+To add a private key, you need to go to the [Jivo app](http://app.jivosite.com/), then go to **Manage > Channels**, in the Channel section, find the channel you need to setup and click the Settings button.
 
 In the channel settings, select **PUSH Settings** and then click the **Upload JSON** button, then select a private key and wait for upload.
 
 Within the same **Mobile SDK** channel, you can connect two applications: one for **iOS** and one for **Android** platform. The relevant **P8 certificate** download interface for **PUSH notifications** via **Apple APNS** see below.
 
-<img src="https://user-images.githubusercontent.com/81690520/144239059-4de99283-4010-4584-9a8b-c903feaa2271.png" width="630">
-
-
-<img src="https://user-images.githubusercontent.com/81690520/144239071-c8b0a486-996b-4376-be2d-3123e444c222.png" width="630">
+<img src="./README_en/channel_setup_4_en.jpg" width=630 />
 
 
 ### Adding dependencies.
