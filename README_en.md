@@ -499,7 +499,7 @@ The transferred data will be displayed in the main Jivo application in the info 
 
 The contact form is displayed if the static method `Jivo.setClientInfo()` has not been called.
 
-<img src="./README_en/Resources/jivo_contact_form.jpg" width=300 />
+<img src="./README_en/jivo_contact_form.jpg" width=300 />
 
 
 ### Transfer of additional information about the client.
