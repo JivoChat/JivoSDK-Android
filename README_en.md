@@ -494,12 +494,12 @@ Let's analyze each parameter separately:
 
 The transferred data will be displayed in the main Jivo application in the info panel to the right of the dialog.
 
-<img src="https://user-images.githubusercontent.com/81690520/144239118-bb809274-a096-4e78-884c-74316804b37d.png" width="300">
 
 ### Contact form.
 
 The contact form is displayed if the static method `Jivo.setClientInfo()` has not been called.
-<img src="https://user-images.githubusercontent.com/81690520/195782798-8fec2d2d-3275-43c1-b0ae-300443822eca.png" width="300">
+
+<img src="./README_en/Resources/jivo_contact_form.jpg" width=300 />
 
 
 ### Transfer of additional information about the client.
