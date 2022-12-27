@@ -51,13 +51,11 @@ Adding a new Mobile SDK channel
 
 To add a new mobile SDK channel you need to go to [Jivo app] (https://app.jivosite.com/), then go to **Manage > Channels** and find the item **Mobile SDK** in the **Connect new channels** section, then click **Connect**.
 
-<img src="https://user-images.githubusercontent.com/81690520/144237727-fbc36415-946b-4822-9a86-b6a49e6b51d6.png" width="630">
+<img src="./README_en/channel_setup_1_en.jpg" width=630 />
 
 Next, you need to enter the channel name of your future channel:
 
-<img src="https://user-images.githubusercontent.com/81690520/144238618-8fdd66c2-1b56-4f48-9722-c283dc741e65.png" width="630">
-
-<img src="https://user-images.githubusercontent.com/81690520/144238660-698a94b5-7ed3-4d16-95ee-3b3f20fe5467.png" width="630">
+<img src="./README_en/channel_setup_2_en.jpg" width=630 />
 
 ### Channel settings will automatically open after adding a new channel. Save the widget_id for further Jivo SDK integration.
 
