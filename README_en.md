@@ -5,6 +5,8 @@ Jivo Mobile SDK - Android
   <a href="https://github.com/JivoChat/JivoSDK-Android/releases"><img src="https://img.shields.io/github/v/release/JivoChat/JivoSDK-Android" /></a>
 </p>
 
+![Jivo Logo](./README_en/jivo_logo.svg)
+
 The **Jivo Mobile SDK** allows you to embed a chat into your native **Android** mobile applications to receive customer requests. The integration takes just a few minutes, as the chat interface with the message feed is already implemented - you only need to add a few lines of code to your project.
 
 ### Current version features
