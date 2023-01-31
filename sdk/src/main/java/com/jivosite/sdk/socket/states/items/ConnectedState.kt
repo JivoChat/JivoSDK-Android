@@ -68,7 +68,7 @@ class ConnectedState @Inject constructor(
                 service.disconnect()
                 stateContext.getState().reconnect(true)
             }
-            is DisconnectReason.BlackListed -> {
+            is DisconnectReason.BlackListed, DisconnectReason.Sanctioned -> {
                 service.disconnect()
                 stateContext.getState().stop()
             }

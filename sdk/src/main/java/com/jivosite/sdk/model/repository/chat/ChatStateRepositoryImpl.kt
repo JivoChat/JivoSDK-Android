@@ -16,7 +16,10 @@ import javax.inject.Inject
 class ChatStateRepositoryImpl @Inject constructor(
     private val storage: SharedStorage,
     schedulers: Schedulers
-) : StateRepository<ChatState>(schedulers, "ChatState", ChatState(blacklisted = storage.blacklistedTime.after())),
+) : StateRepository<ChatState>(
+    schedulers, "ChatState",
+    ChatState(blacklisted = storage.blacklistedTime.after(), sanctioned = storage.blacklistedTime.after())
+),
     ChatStateRepository {
 
     override val state: ChatState
@@ -32,6 +35,11 @@ class ChatStateRepositoryImpl @Inject constructor(
     override fun setBlacklisted() = updateStateInRepositoryThread {
         transform { state -> state.copy(blacklisted = true) }
         doAfter { storage.blacklistedTime = System.currentTimeMillis() + DateUtils.HOUR_IN_MILLIS }
+    }
+
+    override fun setSanctioned() = updateStateInRepositoryThread {
+        transform { state -> state.copy(sanctioned = true) }
+        doAfter { storage.sanctionedTime = System.currentTimeMillis() + DateUtils.HOUR_IN_MILLIS }
     }
 
     override fun clear() = updateStateInRepositoryThread {

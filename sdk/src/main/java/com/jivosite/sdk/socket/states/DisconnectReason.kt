@@ -23,6 +23,12 @@ sealed class DisconnectReason {
         }
     }
 
+    object Sanctioned : DisconnectReason() {
+        override fun toString(): String {
+            return "Sanctions"
+        }
+    }
+
     object ChangeInstance : DisconnectReason() {
         override fun toString(): String {
             return "ChangeInstance"

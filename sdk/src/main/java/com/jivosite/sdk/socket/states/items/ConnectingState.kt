@@ -59,7 +59,7 @@ class ConnectingState @Inject constructor(
         connectionStateRepository.setState(ConnectionState.Disconnected(0))
 
         val force = when (reason) {
-            DisconnectReason.BlackListed -> {
+            DisconnectReason.BlackListed, DisconnectReason.Sanctioned -> {
                 stateContext.getState().stop()
                 false
             }
