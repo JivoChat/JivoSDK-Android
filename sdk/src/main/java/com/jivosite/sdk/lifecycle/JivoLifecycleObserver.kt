@@ -35,6 +35,10 @@ class JivoLifecycleObserver(
                 isStartedService = false
                 Jivo.d("Blacklisted until ${convertTimeMillisToDateFormat(storage.blacklistedTime)}, service is turned off")
             }
+            storage.sanctionedTime.after() -> {
+                isStartedService = false
+                Jivo.d("Sanctioned until ${convertTimeMillisToDateFormat(storage.sanctionedTime)}, service is turned off")
+            }
             storage.startOnInitialization -> {
                 isStartedService = true
                 sdkConfigUseCase.onSuccess {
@@ -66,6 +70,9 @@ class JivoLifecycleObserver(
             }
             storage.blacklistedTime.after() -> {
                 Jivo.d("Application moved to background. Blacklisted until ${convertTimeMillisToDateFormat(storage.blacklistedTime)}, service is turned off")
+            }
+            storage.sanctionedTime.after() -> {
+                Jivo.d("Application moved to background. Sanctioned until ${convertTimeMillisToDateFormat(storage.sanctionedTime)}, service is turned off")
             }
             storage.startOnInitialization -> {
                 Jivo.d("Application moved to background, stop service")

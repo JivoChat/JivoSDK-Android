@@ -170,8 +170,8 @@ class JivoChatViewModel @Inject constructor(
         it.agents
     }
 
-    val isBlacklisted: LiveData<Boolean> = Transformations.map(chatStateRepository.observableState) {
-        it.blacklisted
+    val isUnavailable: LiveData<Boolean> = Transformations.map(chatStateRepository.observableState) {
+        it.blacklisted || it.sanctioned
     }
 
     private val _canSendState = MediatorLiveData<CanSendState>().apply {

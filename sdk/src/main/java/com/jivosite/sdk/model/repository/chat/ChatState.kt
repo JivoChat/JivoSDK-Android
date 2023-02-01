@@ -10,5 +10,6 @@ package com.jivosite.sdk.model.repository.chat
  */
 data class ChatState(
     val visible: Boolean = false,
-    val blacklisted: Boolean = false
+    val blacklisted: Boolean = false,
+    val sanctioned:Boolean = false
 )

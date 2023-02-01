@@ -20,5 +20,7 @@ interface ChatStateRepository {
 
     fun setBlacklisted()
 
+    fun setSanctioned()
+
     fun clear()
 }
