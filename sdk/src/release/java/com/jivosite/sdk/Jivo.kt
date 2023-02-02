@@ -82,7 +82,7 @@ object Jivo {
             storage.host = host
         }
 
-        val sdkConfigUseCaseProvider = jivoSdkComponent.sdkConfigUseCaseProvider()
+        sdkConfigUseCaseProvider = jivoSdkComponent.sdkConfigUseCaseProvider()
 
         lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
