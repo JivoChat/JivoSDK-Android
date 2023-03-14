@@ -24,7 +24,6 @@ class JivoLifecycleObserver(
 
     private var isStartedService = false
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onForeground() {
         when {
             sdkContext.widgetId.isBlank() -> {
@@ -39,7 +38,7 @@ class JivoLifecycleObserver(
                 isStartedService = false
                 Jivo.d("Sanctioned until ${convertTimeMillisToDateFormat(storage.sanctionedTime)}, service is turned off")
             }
-            storage.startOnInitialization -> {
+            storage.startOnInitialization && !isStartedService -> {
                 isStartedService = true
                 sdkConfigUseCase.onSuccess {
                     if (isStartedService) {

@@ -83,9 +83,6 @@ object Jivo {
         }
 
         sdkConfigUseCaseProvider = jivoSdkComponent.sdkConfigUseCaseProvider()
-
-        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
-        ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
     }
 
     @JvmStatic
@@ -229,6 +226,20 @@ object Jivo {
         if (Jivo::jivoSdkComponent.isInitialized) {
             val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
             useCaseProvider.get().execute("")
+        }
+    }
+
+    internal fun startSession() {
+        if (lifecycleObserver == null) {
+            lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
+
+            lifecycleObserver?.let {
+                ProcessLifecycleOwner.get().lifecycle.addObserver(it.apply {
+                    onForeground()
+                })
+            }
+        } else {
+            lifecycleObserver?.onForeground()
         }
     }
 

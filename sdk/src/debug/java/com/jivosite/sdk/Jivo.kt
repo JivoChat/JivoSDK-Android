@@ -56,7 +56,7 @@ object Jivo {
     private val newMessageListeners: ArrayList<WeakReference<NewMessageListener>> = ArrayList()
     private val notificationPermissionListener: ArrayList<WeakReference<NotificationPermissionListener>> = ArrayList()
 
-    private lateinit var lifecycleObserver: JivoLifecycleObserver
+    private var lifecycleObserver: JivoLifecycleObserver? = null
     private lateinit var sdkContext: SdkContext
     private lateinit var storage: SharedStorage
 
@@ -91,9 +91,6 @@ object Jivo {
         }
 
         sdkConfigUseCaseProvider = jivoSdkComponent.sdkConfigUseCaseProvider()
-
-        lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
-        ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
     }
 
     @JvmStatic
@@ -241,6 +238,20 @@ object Jivo {
         }
     }
 
+    internal fun startSession() {
+        if (lifecycleObserver == null) {
+            lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
+
+            lifecycleObserver?.let {
+                ProcessLifecycleOwner.get().lifecycle.addObserver(it.apply {
+                    onForeground()
+                })
+            }
+        } else {
+            lifecycleObserver?.onForeground()
+        }
+    }
+
     internal fun onNewMessage(hasNewMessage: Boolean) {
         val filteredList = newMessageListeners.filter { it.get() != null }
         newMessageListeners.clear()
@@ -313,7 +324,7 @@ object Jivo {
     internal fun restart() {
         sdkContext.pendingIntent.clear()
         Handler(Looper.getMainLooper()).postDelayed({
-            lifecycleObserver.onForeground()
+            lifecycleObserver?.onForeground()
         }, 10)
     }
 

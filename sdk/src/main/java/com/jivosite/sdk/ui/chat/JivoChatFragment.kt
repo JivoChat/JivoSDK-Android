@@ -152,6 +152,7 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
     override fun onResume() {
         super.onResume()
         viewModel.setVisibility(true)
+        Jivo.startSession()
     }
 
     override fun onPause() {
