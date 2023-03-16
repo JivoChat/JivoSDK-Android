@@ -51,6 +51,8 @@ class SharedStorage(context: Context) {
         private const val BLACKLISTED_TIME = "blacklistedTime"
 
         private const val SANCTIONED_TIME = "sanctionedTime"
+
+        private const val HAS_SENT_PUSH_TOKEN = "hasSentPushToken"
     }
 
     private val preferences: SharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
@@ -111,5 +113,7 @@ class SharedStorage(context: Context) {
     var blacklistedTime: Long by SharedPreference(preferences, BLACKLISTED_TIME, -1L)
 
     var sanctionedTime: Long by SharedPreference(preferences, SANCTIONED_TIME, -1L)
+
+    var hasSentPushToken: Boolean by SharedPreference(preferences, HAS_SENT_PUSH_TOKEN, false)
 
 }

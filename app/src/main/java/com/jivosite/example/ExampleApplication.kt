@@ -3,6 +3,8 @@ package com.jivosite.example
 import android.app.Application
 import android.app.PendingIntent
 import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.jivosite.example.MainActivity.Companion.EXTRA_TARGET
 import com.jivosite.example.MainActivity.Companion.TARGET_CHAT
 import com.jivosite.sdk.Jivo
@@ -17,6 +19,7 @@ import timber.log.Timber
  */
 class ExampleApplication : Application() {
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
@@ -31,7 +34,7 @@ class ExampleApplication : Application() {
                     Intent(this, MainActivity::class.java).apply {
                         putExtra(EXTRA_TARGET, TARGET_CHAT)
                     },
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                    PendingIntent.FLAG_IMMUTABLE
                 )
             }
             .build()

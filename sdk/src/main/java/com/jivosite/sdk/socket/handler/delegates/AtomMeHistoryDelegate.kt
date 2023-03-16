@@ -20,7 +20,6 @@ import javax.inject.Provider
 class AtomMeHistoryDelegate @Inject constructor(
     private val historyRepository: HistoryRepository,
     private val paginationRepository: PaginationRepository,
-    private val updatePushTokenUseCaseProvider: Provider<UpdatePushTokenUseCase>,
     private val messageTransmitter: Transmitter
 ) : SocketMessageDelegate {
 

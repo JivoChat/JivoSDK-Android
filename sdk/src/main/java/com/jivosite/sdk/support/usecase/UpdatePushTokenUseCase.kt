@@ -30,20 +30,34 @@ class UpdatePushTokenUseCase @Inject constructor(
 ) : UseCase {
 
     override fun execute() {
-        FirebaseMessaging.getInstance().token
-            .addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Jivo.e(Throwable(task.exception), "Fetching FCM registration token failed")
-                    return@OnCompleteListener
+        val token = storage.pushToken
+        val hasSentPushToken = storage.hasSentPushToken
+
+        when {
+            token.isBlank() && !hasSentPushToken -> {
+                FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Jivo.e(Throwable(task.exception), "Fetching FCM registration token failed")
+                        return@OnCompleteListener
+                    }
+                    task.result?.run {
+                        prepareData(this)
+                    }
+                }).addOnFailureListener {
+                    Jivo.e(Throwable(it), "Fetching FCM registration token failed")
                 }
-                task.result?.run { execute(this) }
-            })
-            .addOnFailureListener {
-                Jivo.e(Throwable(it), "Fetching FCM registration token failed")
             }
+            token.isNotBlank() && !hasSentPushToken -> {
+                prepareData(token)
+            }
+
+            token.isBlank() && hasSentPushToken -> {
+                prepareData(token)
+            }
+        }
     }
 
-    fun execute(token: String) {
+    private fun prepareData(token: String) {
         if (profileRepository.id.isBlank()) {
             Jivo.w("Can not update push token without client id")
             return
@@ -54,30 +68,23 @@ class UpdatePushTokenUseCase @Inject constructor(
         }
 
         val deviceInfo = Device(
-            deviceId = storage.deviceId,
-            token = token
+            deviceId = storage.deviceId, token = token
         )
 
-        if (storage.pushToken != token) {
-            storage.pushToken = token
-            schedulers.ui.execute {
-                createRequest(deviceInfo).loadSilently()
-            }
+        schedulers.ui.execute {
+            createRequest(deviceInfo).loadSilently()
         }
+        storage.hasSentPushToken = true
     }
 
-    private fun createRequest(device: Device): LiveData<Resource<Unit>> {
-        return NetworkResource.Builder<Unit, Unit>(schedulers)
-            .createCall {
-                pushApi.setPushToken(
-                    profileRepository.id,
-                    storage.siteId.toLong(),
-                    storage.widgetId.ifBlank { sdkContext.widgetId },
-                    device
-                )
-            }
-            .handleResponse { }
-            .build()
-            .asLiveData()
+    private fun createRequest(device: Device): LiveData<Resource<Any>> {
+        return NetworkResource.Builder<Any, Any>(schedulers).createCall {
+            pushApi.sendDeviceInfo(
+                profileRepository.id,
+                storage.siteId.toLong(),
+                storage.widgetId.ifBlank { sdkContext.widgetId },
+                device
+            )
+        }.handleResponse { }.build().asLiveData()
     }
 }

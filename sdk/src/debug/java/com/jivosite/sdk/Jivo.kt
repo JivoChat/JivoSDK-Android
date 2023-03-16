@@ -66,17 +66,6 @@ object Jivo {
 
     private var loggingEnabled = false
 
-    private val handler = Handler(Looper.getMainLooper())
-    private val updatePushTokenCallback = object : Runnable {
-        lateinit var token: String
-        override fun run() {
-            if (Jivo::jivoSdkComponent.isInitialized) {
-                val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
-                useCaseProvider.get().execute(token)
-            }
-        }
-    }
-
     @JvmStatic
     fun init(appContext: Context, widgetId: String, host: String = "") {
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
@@ -96,7 +85,6 @@ object Jivo {
     @JvmStatic
     fun changeChannelId(widgetId: String) {
         if (widgetId != storage.widgetId) {
-            handler.removeCallbacks(updatePushTokenCallback)
             if (Jivo::jivoSdkComponent.isInitialized) {
                 jivoSdkComponent.clearUseCaseProvider().get().execute()
                 unsubscribeFromPush()
@@ -149,8 +137,12 @@ object Jivo {
 
     @JvmStatic
     fun updatePushToken(token: String) {
-        handler.removeCallbacks(updatePushTokenCallback)
-        handler.postDelayed(updatePushTokenCallback.also { it.token = token }, 1000)
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            if (storage.pushToken != token) {
+                storage.pushToken = token
+                storage.hasSentPushToken = false
+            }
+        }
     }
 
     @JvmStatic
@@ -216,7 +208,6 @@ object Jivo {
 
     @JvmStatic
     fun clear() {
-        handler.removeCallbacks(updatePushTokenCallback)
         if (Jivo::jivoSdkComponent.isInitialized) {
             unsubscribeFromPush()
             jivoSdkComponent.clearUseCaseProvider().get().execute()
@@ -234,7 +225,7 @@ object Jivo {
     fun unsubscribeFromPush() {
         if (Jivo::jivoSdkComponent.isInitialized) {
             val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
-            useCaseProvider.get().execute("")
+            useCaseProvider.get().execute()
         }
     }
 

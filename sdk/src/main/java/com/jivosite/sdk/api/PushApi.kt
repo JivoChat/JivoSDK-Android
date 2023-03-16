@@ -18,12 +18,12 @@ interface PushApi {
 
     @POST("/client/{siteId}/{widgetPublicId}/device")
     @Headers("$URL:$NODE")
-    fun setPushToken(
+    fun sendDeviceInfo(
         @Header("x-jv-client-id") clientId: String,
         @Path("siteId") siteId: Long,
         @Path("widgetPublicId") widgetPublicId: String,
         @Body body: Device
-    ): LiveData<ApiResponse<Unit>>
+    ): LiveData<ApiResponse<Any>>
 
     @POST("push/delivery/{site_id}/{client_id}/{push_id}?platform=android")
     @Headers("$URL:$PUSH")

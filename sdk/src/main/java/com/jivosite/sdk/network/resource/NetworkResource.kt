@@ -48,12 +48,17 @@ abstract class NetworkResource<ResultType, RequestType>(schedulers: Schedulers) 
                             val error = JivoApiException(errors)
                             result.value = Resource.error(error.localizedMessage, error)
                         }
-                    } else {
+                    } else if(body is Any) {
+                        Jivo.w("Body response is Empty")
+                    }
+                    else {
                         Jivo.e("There is something wrong in body response")
                         result.value = Resource.error(null, null)
                     }
-                } else {
+                }
+                else {
                     val error = apiResponse.throwable
+                    Jivo.e("There is something wrong, code = ${apiResponse.code}, error = ${error?.localizedMessage}")
                     result.value = Resource.error(error?.localizedMessage, error)
                 }
             } else {
