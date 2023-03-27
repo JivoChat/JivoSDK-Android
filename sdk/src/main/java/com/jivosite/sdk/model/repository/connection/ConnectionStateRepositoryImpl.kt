@@ -1,7 +1,6 @@
 package com.jivosite.sdk.model.repository.connection
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.jivosite.sdk.support.vm.CountDownLiveData
 import javax.inject.Inject
 

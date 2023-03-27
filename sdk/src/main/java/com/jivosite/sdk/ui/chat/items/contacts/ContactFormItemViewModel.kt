@@ -43,7 +43,7 @@ class ContactFormItemViewModel @Inject constructor(
         value = CanSendState()
 
         addSource(_entry) {
-            value = value?.copy(hasSentContactForm = it.state.hasSentContactForm)
+            value = value?.copy(hasSentContactForm = it.state.hasSentContactInfo)
         }
 
         addSource(name) {
@@ -70,7 +70,7 @@ class ContactFormItemViewModel @Inject constructor(
     }
 
     val hasSentContacts = Transformations.map(_entry) {
-        it.state.hasSentContactForm
+        it.state.hasSentContactInfo
     }
 
     val canSend = Transformations.map(_canSendState) {
@@ -81,13 +81,14 @@ class ContactFormItemViewModel @Inject constructor(
         it
     }
 
-    fun sendUserInfo() {
-        val contactsForm = ContactForm(
-            name = name.requireValue(),
-            phone = phone.requireValue(),
-            email = email.requireValue()
+    fun sendContactForm() {
+        contactFormRepository.sendContactForm(
+            ContactForm(
+                name = name.requireValue(),
+                phone = phone.requireValue(),
+                email = email.requireValue()
+            )
         )
-        contactFormRepository.sendContactForm(contactsForm)
     }
 
     private data class CanSendState(

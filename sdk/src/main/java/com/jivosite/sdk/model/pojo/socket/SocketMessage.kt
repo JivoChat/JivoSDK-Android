@@ -92,12 +92,12 @@ data class SocketMessage(
         }
 
         /**
-         * Сообщение передачи данных о клиенте.
+         * Сообщение передачи контактных данных клиента.
          * @param type Тип сообщения(atom/user.name, atom/user.email, atom/user.phone, atom/user.desc).
          * @param data Данные о клиенте.
          * @param clientId Идентификатор клиента.
          */
-        fun clientInfo(type: String, data: String, clientId: String): SocketMessage {
+        fun contactInfo(type: String, data: String, clientId: String): SocketMessage {
             return SocketMessage(type, data = data, id = clientId)
         }
 

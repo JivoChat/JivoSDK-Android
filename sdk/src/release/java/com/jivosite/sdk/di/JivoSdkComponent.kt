@@ -10,6 +10,7 @@ import com.jivosite.sdk.di.service.modules.WebSocketServiceModule
 import com.jivosite.sdk.di.ui.chat.JivoChatComponent
 import com.jivosite.sdk.di.ui.chat.JivoChatFragmentModule
 import com.jivosite.sdk.model.SdkContext
+import com.jivosite.sdk.model.repository.contacts.ContactFormRepository
 import com.jivosite.sdk.model.repository.history.HistoryRepository
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.push.RemoteMessageHandler
@@ -69,4 +70,6 @@ interface JivoSdkComponent {
     fun historyRepository(): HistoryRepository
 
     fun moshi(): Moshi
+
+    fun contactFormRepository(): ContactFormRepository
 }

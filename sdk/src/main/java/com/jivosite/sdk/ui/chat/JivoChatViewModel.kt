@@ -111,7 +111,7 @@ class JivoChatViewModel @Inject constructor(
         }
         addSource(contactFormRepository.observableState) {
             value = value?.copy(contactFormState = it)
-            if (it.hasSentContactForm) {
+            if (it.hasSentContactInfo) {
                 val currentState = value ?: return@addSource
                 currentState.pendingState.message?.let { clientMessage ->
                     sendMessage(clientMessage)
@@ -128,7 +128,7 @@ class JivoChatViewModel @Inject constructor(
                 handler.removeCallbacks(addWelcomeMessageCallback)
             }
             handleOfflineMessage(currentState)
-            if (!storage.hasSentContactForm && it.messages.isNotEmpty()) {
+            if (!storage.hasSentContactInfo && it.messages.isNotEmpty()) {
                 contactFormRepository.createContactForm(it.messages.size == 1)
             }
         }
@@ -316,7 +316,7 @@ class JivoChatViewModel @Inject constructor(
             dropBuffer(state.myId, buffer, result)
         }
 
-        if (state.hasOffline && storage.hasSentContactForm && result.isNotEmpty()) {
+        if (state.hasOffline && storage.hasSentContactInfo && result.isNotEmpty()) {
             val agentList = agents.value ?: emptyList()
             if (!agentList.any { it.status == AgentStatus.Online }) {
                 val data = result.first().data
@@ -448,7 +448,7 @@ class JivoChatViewModel @Inject constructor(
 
     fun sendMessage(message: ClientMessage) {
         val historyMessages = messagesState.value?.historyState?.messages
-        if (!storage.hasSentContactForm && agents.value.isNullOrEmpty() && historyMessages.isNullOrEmpty()) {
+        if (!storage.hasSentContactInfo && agents.value.isNullOrEmpty() && historyMessages.isNullOrEmpty()) {
             pendingRepository.addMessage(message)
         } else {
             sendMessageRepository.addMessage(message)

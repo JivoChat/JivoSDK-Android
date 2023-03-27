@@ -1,5 +1,6 @@
 package com.jivosite.sdk.model.repository.contacts
 
+import com.jivosite.sdk.support.builders.ContactInfo
 import com.jivosite.sdk.support.vm.StateLiveData
 
 /**
@@ -19,7 +20,7 @@ interface ContactFormRepository {
 
     fun sendContactForm(contactForm: ContactForm)
 
-    fun sentContactForm()
+    fun prepareToSendContactInfo(contactInfo: ContactInfo? = null)
 
     fun clear()
 }

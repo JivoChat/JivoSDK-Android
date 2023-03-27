@@ -7,7 +7,7 @@ import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.logger.LogsRepository
 import com.jivosite.sdk.model.pojo.CustomData
 import com.jivosite.sdk.model.storage.SharedStorage
-import com.jivosite.sdk.support.builders.ClientInfo
+import com.jivosite.sdk.support.builders.ContactInfo.Companion.contactInfo
 import com.jivosite.sdk.support.ext.requireValue
 import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import javax.inject.Inject
@@ -64,13 +64,13 @@ class JivoSettingsViewModel @Inject constructor(
     }
 
     fun sendUserInfo() {
-        Jivo.setClientInfo(
-            ClientInfo.Builder()
-                .setName(userName.value ?: "")
-                .setEmail(userEmail.value ?: "")
-                .setPhone(userPhone.value ?: "")
-                .setDescription(userDescription.value ?: "")
-                .build()
+        Jivo.setContactInfo(
+            contactInfo {
+                name = userName.value
+                email = userEmail.value ?: ""
+                phone = userPhone.value ?: ""
+                description = userDescription.value
+            }
         )
     }
 

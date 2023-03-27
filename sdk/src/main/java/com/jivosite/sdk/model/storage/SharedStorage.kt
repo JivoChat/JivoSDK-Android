@@ -44,7 +44,7 @@ class SharedStorage(context: Context) {
 
         private const val IN_APP_NOTIFICATION_ENABLED = "notification"
 
-        private const val HAS_SENT_CONTACT_FORM = "hasSentContactForm"
+        private const val HAS_SENT_CONTACT_INFO = "hasSentContactInfo"
 
         private const val CLIENT_MESSAGE = "clientMessage"
 
@@ -53,6 +53,8 @@ class SharedStorage(context: Context) {
         private const val SANCTIONED_TIME = "sanctionedTime"
 
         private const val HAS_SENT_PUSH_TOKEN = "hasSentPushToken"
+
+        private const val CONTACT_INFO = "contactInfo"
     }
 
     private val preferences: SharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
@@ -108,7 +110,9 @@ class SharedStorage(context: Context) {
 
     var clientMessage: String by SharedPreference(preferences, CLIENT_MESSAGE, "")
 
-    var hasSentContactForm: Boolean by SharedPreference(preferences, HAS_SENT_CONTACT_FORM, false)
+    var contactInfo: String by SharedPreference(preferences, CONTACT_INFO, "")
+
+    var hasSentContactInfo: Boolean by SharedPreference(preferences, HAS_SENT_CONTACT_INFO, false)
 
     var blacklistedTime: Long by SharedPreference(preferences, BLACKLISTED_TIME, -1L)
 

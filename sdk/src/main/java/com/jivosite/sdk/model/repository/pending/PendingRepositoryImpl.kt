@@ -4,8 +4,8 @@ import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.repository.StateRepository
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.support.async.Schedulers
-import com.jivosite.sdk.support.ext.fromJsonClientMessage
-import com.jivosite.sdk.support.ext.toJsonClientMessage
+import com.jivosite.sdk.support.ext.fromJson
+import com.jivosite.sdk.support.ext.toJson
 import com.jivosite.sdk.support.vm.StateLiveData
 import com.squareup.moshi.Moshi
 import javax.inject.Inject
@@ -22,7 +22,7 @@ class PendingRepositoryImpl @Inject constructor(
 ) : StateRepository<PendingState>(
     schedulers,
     "Pending",
-    PendingState(message = moshi.fromJsonClientMessage(storage.clientMessage))
+    PendingState(message = moshi.fromJson(storage.clientMessage))
 ), PendingRepository {
 
     override val observableState: StateLiveData<PendingState>
@@ -30,7 +30,7 @@ class PendingRepositoryImpl @Inject constructor(
 
     override fun addMessage(clientMessage: ClientMessage) = updateStateInRepositoryThread {
         transform { state -> state.copy(message = clientMessage) }
-        doAfter { storage.clientMessage = moshi.toJsonClientMessage(clientMessage) }
+        doAfter { storage.clientMessage = moshi.toJson(clientMessage) }
     }
 
     override fun removeMessage() = updateStateInRepositoryThread {

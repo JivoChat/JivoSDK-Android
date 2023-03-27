@@ -9,7 +9,7 @@ import com.squareup.moshi.JsonClass
  * @author Aleksandr Tavtorkin (tavtorkin@jivosite.com)
  */
 data class ContactFormState(
-    val hasSentContactForm: Boolean = false,
+    val hasSentContactInfo: Boolean = false,
     val contactForm: ContactForm? = null
 ) {
     val size: Int

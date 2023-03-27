@@ -42,8 +42,6 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
         private const val ACTION_STOP = "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_STOP"
         private const val ACTION_RESTART =
             "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_RESTART"
-        private const val ACTION_SET_CLIENT_INFO =
-            "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_SET_CLIENT_INFO"
         private const val ACTION_RECONNECT =
             "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_RECONNECT"
         private const val ACTION_CHANGE_CHANNEL_ID =
@@ -81,14 +79,6 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
                 action = ACTION_RESTART
                 if (args != null) putExtras(args)
-            }
-            appContext.startService(intent)
-        }
-
-        fun setClientInfo(appContext: Context, args: Bundle) {
-            val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
-                action = ACTION_SET_CLIENT_INFO
-                putExtras(args)
             }
             appContext.startService(intent)
         }
@@ -246,26 +236,6 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
                     sdkContext.userToken = it
                 }
                 getState().restart()
-            }
-
-            ACTION_SET_CLIENT_INFO -> {
-                Jivo.i("Received set client info command")
-                val clientInfo = mapOf(
-                    "atom/user.name" to intent.getStringExtra("name"),
-                    "atom/user.email" to intent.getStringExtra("email"),
-                    "atom/user.phone" to intent.getStringExtra("phone"),
-                    "atom/user.desc" to intent.getStringExtra("description")
-                )
-
-                val clientId = intent.getStringExtra("clientId")
-
-                for ((key, value) in clientInfo) {
-                    if (!value.isNullOrBlank() && !clientId.isNullOrBlank()) {
-                        getState().send(SocketMessage.clientInfo(key, value, clientId))
-                    }
-                }
-
-                contactFormRepository.sentContactForm()
             }
 
             ACTION_RECONNECT -> {

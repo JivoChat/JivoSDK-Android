@@ -22,7 +22,7 @@ import com.jivosite.sdk.model.pojo.CustomData
 import com.jivosite.sdk.model.repository.history.NewMessageListener
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.JivoWebSocketService
-import com.jivosite.sdk.support.builders.ClientInfo
+import com.jivosite.sdk.support.builders.ContactInfo
 import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.support.ext.toMD5
 import com.jivosite.sdk.support.usecase.SdkConfigUseCase
@@ -92,16 +92,9 @@ object Jivo {
     }
 
     @JvmStatic
-    fun setClientInfo(clientInfo: ClientInfo) {
+    fun setContactInfo(contactInfo: ContactInfo) {
         if (Jivo::jivoSdkComponent.isInitialized) {
-            val args = bundleOf(
-                "name" to clientInfo.name,
-                "email" to clientInfo.email,
-                "phone" to clientInfo.phone,
-                "description" to clientInfo.description,
-                "clientId" to jivoSdkComponent.storage().clientId
-            )
-            JivoWebSocketService.setClientInfo(sdkContext.appContext, args)
+            jivoSdkComponent.contactFormRepository().prepareContactInfo(contactInfo)
         }
     }
 

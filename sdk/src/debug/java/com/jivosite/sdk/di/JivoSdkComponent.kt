@@ -14,6 +14,7 @@ import com.jivosite.sdk.di.ui.logs.JivoLogsFragmentModule
 import com.jivosite.sdk.di.ui.settings.JivoSettingsComponent
 import com.jivosite.sdk.di.ui.settings.JivoSettingsFragmentModule
 import com.jivosite.sdk.model.SdkContext
+import com.jivosite.sdk.model.repository.contacts.ContactFormRepository
 import com.jivosite.sdk.model.repository.history.HistoryRepository
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.push.RemoteMessageHandler
@@ -77,4 +78,6 @@ interface JivoSdkComponent {
     fun historyRepository(): HistoryRepository
 
     fun moshi(): Moshi
+
+    fun contactFormRepository(): ContactFormRepository
 }
