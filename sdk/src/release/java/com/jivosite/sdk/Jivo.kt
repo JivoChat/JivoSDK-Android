@@ -27,7 +27,6 @@ import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.support.ext.toMD5
 import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import com.jivosite.sdk.ui.chat.NotificationPermissionListener
-import com.squareup.moshi.Types
 import timber.log.Timber
 import java.lang.ref.WeakReference
 import javax.inject.Provider
@@ -99,14 +98,9 @@ object Jivo {
     }
 
     @JvmStatic
-    fun setCustomData(customDataFields: List<CustomData>) {
+    fun setContactInfo(contactInfo: ContactInfo) {
         if (Jivo::jivoSdkComponent.isInitialized) {
-            val payload = jivoSdkComponent.moshi()
-                .adapter<List<CustomData>>(Types.newParameterizedType(List::class.java, CustomData::class.java))
-                .toJson(customDataFields)
-
-            val args = bundleOf("customData" to payload)
-            JivoWebSocketService.setCustomData(sdkContext.appContext, args)
+            jivoSdkComponent.contactFormRepository().prepareToSendContactInfo(contactInfo)
         }
     }
 

@@ -34,6 +34,7 @@ class AtomMeIdDelegate @Inject constructor(
             schedulers.ui.execute {
                 updatePushTokenUseCaseProvider.get().execute()
                 contactFormRepository.prepareToSendContactInfo()
+                contactFormRepository.sendCustomData()
             }
         }
     }

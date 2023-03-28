@@ -55,6 +55,10 @@ class SharedStorage(context: Context) {
         private const val HAS_SENT_PUSH_TOKEN = "hasSentPushToken"
 
         private const val CONTACT_INFO = "contactInfo"
+
+        private const val CUSTOM_DATA = "customData"
+
+        private const val HAS_SENT_CUSTOM_DATA = "hasSentCustomData"
     }
 
     private val preferences: SharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
@@ -119,5 +123,9 @@ class SharedStorage(context: Context) {
     var sanctionedTime: Long by SharedPreference(preferences, SANCTIONED_TIME, -1L)
 
     var hasSentPushToken: Boolean by SharedPreference(preferences, HAS_SENT_PUSH_TOKEN, false)
+
+    var customData: String by SharedPreference(preferences, CUSTOM_DATA, "")
+
+    var hasSentCustomData: Boolean by SharedPreference(preferences, HAS_SENT_CUSTOM_DATA, false)
 
 }

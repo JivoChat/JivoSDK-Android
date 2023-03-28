@@ -1,6 +1,7 @@
 package com.jivosite.sdk.model.repository.contacts
 
 import com.jivosite.sdk.Jivo
+import com.jivosite.sdk.model.pojo.CustomData
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import com.jivosite.sdk.model.repository.StateRepository
 import com.jivosite.sdk.model.repository.connection.ConnectionState
@@ -15,6 +16,7 @@ import com.jivosite.sdk.support.ext.fromJson
 import com.jivosite.sdk.support.ext.toJson
 import com.jivosite.sdk.support.vm.StateLiveData
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import javax.inject.Inject
 
 /**
@@ -101,6 +103,29 @@ class ContactFormRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun sendCustomData(customDataFields: List<CustomData>?) {
+        if (customDataFields != null) {
+            val jsonCustomData =
+                moshi.adapter<List<CustomData>>(Types.newParameterizedType(List::class.java, CustomData::class.java))
+                    .toJson(customDataFields)
+
+            if (jsonCustomData != storage.customData) {
+                storage.hasSentCustomData = false
+                storage.customData = jsonCustomData
+            }
+
+            if (checkTermsToSend() && !storage.hasSentCustomData) {
+                messageTransmitter.sendMessage(SocketMessage.customData(jsonCustomData))
+                storage.customData = jsonCustomData
+                storage.hasSentCustomData = true
+            }
+
+        } else if (checkTermsToSend() && !storage.hasSentCustomData && storage.customData.isNotBlank()) {
+            messageTransmitter.sendMessage(SocketMessage.customData(storage.customData))
+            storage.hasSentCustomData = true
+        }
+    }
+
     private fun checkTermsToSend(): Boolean {
         clientId = storage.clientId
 
@@ -139,9 +164,15 @@ class ContactFormRepositoryImpl @Inject constructor(
 
     override fun clear() = updateStateInRepositoryThread {
         transform {
-            storage.hasSentContactInfo = false
-            storage.contactInfo = ""
             ContactFormState()
+        }
+        doAfter {
+            storage.apply {
+                hasSentContactInfo = false
+                contactInfo = ""
+                hasSentCustomData = false
+                customData = ""
+            }
         }
     }
 }

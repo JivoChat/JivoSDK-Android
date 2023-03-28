@@ -40,6 +40,7 @@ class ConnectingState @Inject constructor(
         connectionStateRepository.setState(ConnectionState.Connected)
         agentRepository.onConnectionStateChanged()
         contactFormRepository.prepareToSendContactInfo()
+        contactFormRepository.sendCustomData()
         service.keepConnection()
         reconnectStrategy.reset()
         service.subscribeToTransmitter()
