@@ -1,8 +1,6 @@
 package com.jivosite.sdk.lifecycle
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.*
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.storage.SharedStorage
@@ -52,11 +50,11 @@ class JivoLifecycleObserver(
                         JivoWebSocketService.restart(sdkContext.appContext)
                     }
                 }
-                Jivo.d("Application moved to foreground, start service")
+                Jivo.d("SDK moved to foreground, start service")
             }
             else -> {
                 isStartedService = false
-                Jivo.d("Application moved to foreground, service is turned off")
+                Jivo.d("SDK moved to foreground, service is turned off")
             }
         }
     }
@@ -80,5 +78,11 @@ class JivoLifecycleObserver(
         }
         Jivo.d("JivoLifecycle: Stop SDK")
         isStartedService = false
+    }
+
+    fun onStop() {
+        JivoWebSocketService.stop(sdkContext.appContext)
+        isStartedService = false
+        Jivo.d("Force stop the service")
     }
 }

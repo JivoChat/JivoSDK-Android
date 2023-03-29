@@ -189,7 +189,7 @@ object Jivo {
         if (Jivo::jivoSdkComponent.isInitialized) {
             unsubscribeFromPush()
             jivoSdkComponent.clearUseCaseProvider().get().execute()
-            JivoWebSocketService.restart(sdkContext.appContext)
+            lifecycleObserver?.onStop()
         }
     }
 
