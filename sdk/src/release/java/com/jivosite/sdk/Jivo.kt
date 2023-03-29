@@ -18,6 +18,7 @@ import com.jivosite.sdk.di.ui.chat.JivoChatComponent
 import com.jivosite.sdk.di.ui.chat.JivoChatFragmentModule
 import com.jivosite.sdk.lifecycle.JivoLifecycleObserver
 import com.jivosite.sdk.model.SdkContext
+import com.jivosite.sdk.model.pojo.CustomData
 import com.jivosite.sdk.model.repository.history.NewMessageListener
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.JivoWebSocketService
@@ -85,14 +86,14 @@ object Jivo {
     @JvmStatic
     fun setContactInfo(contactInfo: ContactInfo) {
         if (Jivo::jivoSdkComponent.isInitialized) {
-            jivoSdkComponent.contactFormRepository().prepareContactInfo(contactInfo)
+            jivoSdkComponent.contactFormRepository().prepareToSendContactInfo(contactInfo)
         }
     }
 
     @JvmStatic
-    fun setContactInfo(contactInfo: ContactInfo) {
+    fun setCustomData(customDataFields: List<CustomData>) {
         if (Jivo::jivoSdkComponent.isInitialized) {
-            jivoSdkComponent.contactFormRepository().prepareToSendContactInfo(contactInfo)
+            jivoSdkComponent.contactFormRepository().sendCustomData(customDataFields)
         }
     }
 
