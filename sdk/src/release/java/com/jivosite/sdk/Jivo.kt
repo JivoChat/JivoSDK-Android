@@ -18,7 +18,6 @@ import com.jivosite.sdk.di.ui.chat.JivoChatComponent
 import com.jivosite.sdk.di.ui.chat.JivoChatFragmentModule
 import com.jivosite.sdk.lifecycle.JivoLifecycleObserver
 import com.jivosite.sdk.model.SdkContext
-import com.jivosite.sdk.model.pojo.CustomData
 import com.jivosite.sdk.model.repository.history.NewMessageListener
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.JivoWebSocketService
@@ -75,18 +74,11 @@ object Jivo {
 
     @JvmStatic
     fun changeChannelId(widgetId: String) {
-        if (widgetId != storage.widgetId) {
-            if (Jivo::jivoSdkComponent.isInitialized) {
-                jivoSdkComponent.clearUseCaseProvider().get().execute()
-                unsubscribeFromPush()
-                storage.widgetId = widgetId
-                sdkConfigUseCaseProvider.get().run {
-                    onRestart {
-                        JivoWebSocketService.changeChannelId(sdkContext.appContext)
-                    }
-                    restart()
-                }
-            }
+        if (widgetId != storage.widgetId && Jivo::jivoSdkComponent.isInitialized) {
+            jivoSdkComponent.clearUseCaseProvider().get().execute()
+            unsubscribeFromPush()
+            storage.widgetId = widgetId
+            lifecycleObserver?.restart()
         }
     }
 

@@ -83,18 +83,11 @@ object Jivo {
 
     @JvmStatic
     fun changeChannelId(widgetId: String) {
-        if (widgetId != storage.widgetId) {
-            if (Jivo::jivoSdkComponent.isInitialized) {
-                jivoSdkComponent.clearUseCaseProvider().get().execute()
-                unsubscribeFromPush()
-                storage.widgetId = widgetId
-                sdkConfigUseCaseProvider.get().run {
-                    onRestart {
-                        JivoWebSocketService.changeChannelId(sdkContext.appContext)
-                    }
-                    restart()
-                }
-            }
+        if (widgetId != storage.widgetId && Jivo::jivoSdkComponent.isInitialized) {
+            jivoSdkComponent.clearUseCaseProvider().get().execute()
+            unsubscribeFromPush()
+            storage.widgetId = widgetId
+            lifecycleObserver?.restart()
         }
     }
 
