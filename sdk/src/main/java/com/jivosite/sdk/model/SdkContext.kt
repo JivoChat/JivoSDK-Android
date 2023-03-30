@@ -15,6 +15,4 @@ data class SdkContext(
 ) {
 
     val pendingIntent: MutableList<ServiceState> = LinkedList()
-
-    var userToken: String = ""
 }

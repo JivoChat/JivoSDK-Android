@@ -22,7 +22,7 @@ class DefaultSocketEndpointProvider @Inject constructor(
                     "wss://${storage.chatserverHost}/atom/" +
                             "${storage.siteId}:" +
                             storage.widgetId.ifBlank { sdkContext.widgetId } +
-                            getQuery(sdkContext.userToken)
+                            getQuery(storage.userToken)
                 )
             } else {
                 URI.create("wss://${storage.chatserverHost}/atom${it}")

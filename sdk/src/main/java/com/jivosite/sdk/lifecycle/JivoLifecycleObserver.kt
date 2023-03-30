@@ -86,7 +86,7 @@ class JivoLifecycleObserver(
         Jivo.d("Force stop the service")
     }
 
-    fun restart() {
+    fun loadConfigAndRestartService() {
         if (storage.startOnInitialization && isStartedService) {
             sdkConfigUseCase.run {
                 onRestart {
@@ -95,6 +95,13 @@ class JivoLifecycleObserver(
                 }
                 restart()
             }
+        }
+    }
+
+    fun restartService() {
+        if (storage.startOnInitialization && isStartedService) {
+            JivoWebSocketService.restart(sdkContext.appContext)
+            Jivo.d("Force restart service")
         }
     }
 }

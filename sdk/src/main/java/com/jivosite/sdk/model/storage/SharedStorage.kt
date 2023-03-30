@@ -39,7 +39,7 @@ class SharedStorage(context: Context) {
 
         private const val NIGHT_MODE = "nightMode"
 
-        private const val USER_TOKEN_HASH = "userTokenHash"
+        private const val USER_TOKEN = "userToken"
         private const val PUSH_TOKEN = "pushToken"
 
         private const val IN_APP_NOTIFICATION_ENABLED = "notification"
@@ -83,7 +83,7 @@ class SharedStorage(context: Context) {
     var siteId: String by SharedPreference(preferences, SITE_ID, "")
     var widgetId: String by SharedPreference(preferences, WIDGET_ID, "")
 
-    var userTokenHash: String by SharedPreference(preferences, USER_TOKEN_HASH, "")
+    var userToken: String by SharedPreference(preferences, USER_TOKEN, "")
     var pushToken: String by SharedPreference(preferences, PUSH_TOKEN, "")
 
     var doNotShowPings: Boolean by SharedPreference(preferences, LOG_DO_NOT_SHOW_PINGS, false)

@@ -223,9 +223,6 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             }
             ACTION_RESTART -> {
                 Jivo.i("Received restart command")
-                intent.getStringExtra("userToken")?.let {
-                    sdkContext.userToken = it
-                }
                 getState().restart()
             }
 

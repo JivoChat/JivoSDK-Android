@@ -3,7 +3,6 @@ package com.jivosite.sdk
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.firebase.messaging.RemoteMessage
@@ -28,7 +27,6 @@ import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.ContactInfo
 import com.jivosite.sdk.support.builders.Config
-import com.jivosite.sdk.support.ext.toMD5
 import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import com.jivosite.sdk.ui.chat.NotificationPermissionListener
 import com.jivosite.sdk.ui.logs.JivoLogsFragment
@@ -87,7 +85,7 @@ object Jivo {
             jivoSdkComponent.clearUseCaseProvider().get().execute()
             unsubscribeFromPush()
             storage.widgetId = widgetId
-            lifecycleObserver?.restart()
+            lifecycleObserver?.loadConfigAndRestartService()
         }
     }
 
@@ -156,14 +154,10 @@ object Jivo {
     @JvmStatic
     fun setUserToken(userToken: String) {
         if (Jivo::jivoSdkComponent.isInitialized) {
-            val md5 = userToken.toMD5()
-            if (md5 != storage.userTokenHash) {
-
+            if (userToken.isNotBlank() && userToken != storage.userToken) {
                 jivoSdkComponent.clearUseCaseProvider().get().execute()
-                storage.userTokenHash = md5
-
-                val args = bundleOf("userToken" to userToken)
-                JivoWebSocketService.restart(sdkContext.appContext, args)
+                storage.userToken = userToken
+                lifecycleObserver?.restartService()
             }
         }
     }
