@@ -35,7 +35,8 @@ class ContactFormRepositoryImpl @Inject constructor(
 ),
     ContactFormRepository {
 
-    private lateinit var clientId: String
+    private val hasConnected: Boolean
+        get() = connectionStateRepository.state.value == ConnectionState.Connected
 
     override val observableState: StateLiveData<ContactFormState>
         get() = _stateLive
@@ -47,27 +48,26 @@ class ContactFormRepositoryImpl @Inject constructor(
             transform { state -> state.copy(contactForm = ContactForm()) }
         }
 
-    override fun sendContactForm(contactForm: ContactForm) = updateStateInRepositoryThread {
+
+    override fun setContactForm(contactForm: ContactForm) = updateStateInRepositoryThread {
         transform { state ->
-            sendContactInfo(
-                contactInfo {
-                    name = contactForm.name
-                    email = contactForm.email
-                    phone = contactForm.phone
-                }
-            )
             state.copy(
-                contactForm = contactForm.copy(
+                hasSentContactInfo = true,
+                contactForm = state.contactForm?.copy(
                     name = contactForm.name,
                     phone = contactForm.phone,
                     email = contactForm.email
-                ),
-                hasSentContactInfo = true
+                )
             )
         }
-        doAfter {
-            storage.contactInfo = moshi.toJson(contactForm)
-            storage.hasSentContactInfo = true
+        doAfter { state ->
+            sendContactInfo(
+                contactInfo {
+                    name = state.contactForm?.name
+                    phone = state.contactForm?.phone ?: ""
+                    email = state.contactForm?.email ?: ""
+                }
+            )
         }
     }
 
@@ -77,28 +77,16 @@ class ContactFormRepositoryImpl @Inject constructor(
 
             if (jsonContactInfo != storage.contactInfo) {
                 storage.hasSentContactInfo = false
-            }
-
-            if (checkTermsToSend()) {
-                if (!storage.hasSentContactInfo && jsonContactInfo != storage.contactInfo) {
-                    storage.contactInfo = jsonContactInfo
-                    sendContactInfo(contactInfo)
-
-                    if (contactInfo.email.isNotBlank() || contactInfo.phone.isNotBlank()) {
-                        setHasSentContactInfo()
-                        storage.hasSentContactInfo = true
-                    }
-                }
-            } else if (jsonContactInfo != storage.contactInfo) {
                 storage.contactInfo = jsonContactInfo
-                storage.hasSentContactInfo = false
             }
 
+            if (hasConnected && !storage.hasSentContactInfo) {
+                sendContactInfo(contactInfo)
+            }
 
-        } else if (checkTermsToSend() && !storage.hasSentContactInfo && storage.contactInfo.isNotBlank()) {
+        } else if (hasConnected && !storage.hasSentContactInfo && storage.contactInfo.isNotBlank()) {
             moshi.fromJson<ContactInfo>(storage.contactInfo)?.let {
                 sendContactInfo(it)
-                storage.hasSentContactInfo = true
             }
         }
     }
@@ -114,51 +102,14 @@ class ContactFormRepositoryImpl @Inject constructor(
                 storage.customData = jsonCustomData
             }
 
-            if (checkTermsToSend() && !storage.hasSentCustomData) {
+            if (hasConnected && !storage.hasSentCustomData) {
                 messageTransmitter.sendMessage(SocketMessage.customData(jsonCustomData))
-                storage.customData = jsonCustomData
                 storage.hasSentCustomData = true
             }
 
-        } else if (checkTermsToSend() && !storage.hasSentCustomData && storage.customData.isNotBlank()) {
+        } else if (hasConnected && !storage.hasSentCustomData && storage.customData.isNotBlank()) {
             messageTransmitter.sendMessage(SocketMessage.customData(storage.customData))
             storage.hasSentCustomData = true
-        }
-    }
-
-    private fun checkTermsToSend(): Boolean {
-        clientId = storage.clientId
-
-        if (clientId.isBlank()) {
-            Jivo.w("Can not send contact info without client id = $clientId")
-            return false
-        }
-
-        if (connectionStateRepository.state.value != ConnectionState.Connected) {
-            return false
-        }
-        return true
-    }
-
-    private fun sendContactInfo(contactInfo: ContactInfo) {
-        val map = mapOf(
-            "atom/user.name" to contactInfo.name,
-            "atom/user.email" to contactInfo.email,
-            "atom/user.phone" to contactInfo.phone,
-            "atom/user.desc" to contactInfo.description
-        )
-
-        for ((key, value) in map) {
-            if (!value.isNullOrBlank()) {
-                messageTransmitter.sendMessage(SocketMessage.contactInfo(key, value, clientId))
-            }
-        }
-        Jivo.i("Contact info sent successfully")
-    }
-
-    private fun setHasSentContactInfo() = updateStateInRepositoryThread {
-        transform { state ->
-            state.copy(hasSentContactInfo = true)
         }
     }
 
@@ -174,5 +125,24 @@ class ContactFormRepositoryImpl @Inject constructor(
                 customData = ""
             }
         }
+    }
+
+    private fun sendContactInfo(contactInfo: ContactInfo) {
+        val map = mapOf(
+            "atom/user.name" to contactInfo.name,
+            "atom/user.email" to contactInfo.email,
+            "atom/user.phone" to contactInfo.phone,
+            "atom/user.desc" to contactInfo.description
+        )
+
+        for ((key, value) in map) {
+            if (!value.isNullOrBlank()) {
+                messageTransmitter.sendMessage(SocketMessage.contactInfo(key, value))
+            }
+        }
+        if (contactInfo.email.isNotBlank() || contactInfo.phone.isNotBlank()) {
+            storage.hasSentContactInfo = true
+        }
+        Jivo.i("Contact info sent successfully")
     }
 }

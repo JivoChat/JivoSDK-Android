@@ -82,7 +82,7 @@ class ContactFormItemViewModel @Inject constructor(
     }
 
     fun sendContactForm() {
-        contactFormRepository.sendContactForm(
+        contactFormRepository.setContactForm(
             ContactForm(
                 name = name.requireValue(),
                 phone = phone.requireValue(),

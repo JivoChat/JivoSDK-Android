@@ -69,10 +69,9 @@ object Jivo {
             .sdkModule(SdkModule(appContext, widgetId))
             .build()
         sdkContext = jivoSdkComponent.sdkContext()
-
         storage = jivoSdkComponent.storage()
 
-        if (host.isNotBlank()) {
+        if (host != storage.host) {
             storage.host = host
         }
 

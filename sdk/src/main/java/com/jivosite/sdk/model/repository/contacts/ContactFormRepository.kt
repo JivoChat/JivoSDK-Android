@@ -17,9 +17,9 @@ interface ContactFormRepository {
 
     val observableState: StateLiveData<ContactFormState>
 
-    fun createContactForm(hasTimeout: Boolean = false)
+    fun setContactForm(contactForm: ContactForm)
 
-    fun sendContactForm(contactForm: ContactForm)
+    fun createContactForm(hasTimeout: Boolean = false)
 
     fun prepareToSendContactInfo(contactInfo: ContactInfo? = null)
 
