@@ -59,5 +59,10 @@ fun String.isPhoneValid(): Boolean {
     return this.isNotBlank() && Patterns.PHONE.matcher(this).matches()
 }
 
+fun String.verifyHostName(): Boolean {
+    return this.isNotBlank() && Pattern.compile("^((?!-)[A-Za-z0–9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}\$").matcher(this).matches()
+}
+
+
 
 

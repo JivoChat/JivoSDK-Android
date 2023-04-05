@@ -23,6 +23,7 @@ import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.ContactInfo
 import com.jivosite.sdk.support.builders.Config
+import com.jivosite.sdk.support.ext.verifyHostName
 import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import com.jivosite.sdk.ui.chat.NotificationPermissionListener
 import timber.log.Timber
@@ -63,7 +64,7 @@ object Jivo {
         sdkContext = jivoSdkComponent.sdkContext()
         storage = jivoSdkComponent.storage()
 
-        if (host != storage.host) {
+        if (host.verifyHostName()) {
             storage.host = host
         }
 

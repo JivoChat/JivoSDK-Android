@@ -45,17 +45,11 @@ class JivoSettingsViewModel @Inject constructor(
 
     fun saveAndRestart() {
         storage.host = host.requireValue().trim()
-        storage.widgetId = widgetId.requireValue().trim()
 
-        storage.path = ""
-
-        sdkConfigUseCase.restart()
+        Jivo.changeChannelId(widgetId.requireValue().trim())
     }
 
     fun clearAndRestart() {
-        host.value = ""
-        widgetId.value = ""
-
         Jivo.clear()
     }
 
