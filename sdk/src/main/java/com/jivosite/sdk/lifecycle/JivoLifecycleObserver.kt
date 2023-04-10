@@ -5,7 +5,6 @@ import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.JivoWebSocketService
-import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import com.jivosite.sdk.support.utils.after
 import com.jivosite.sdk.support.utils.convertTimeMillisToDateFormat
 
@@ -16,44 +15,25 @@ import com.jivosite.sdk.support.utils.convertTimeMillisToDateFormat
  */
 class JivoLifecycleObserver(
     private val sdkContext: SdkContext,
-    private val storage: SharedStorage,
-    private val sdkConfigUseCase: SdkConfigUseCase
+    private val storage: SharedStorage
 ) : LifecycleObserver {
-
-    private var isStartedService = false
 
     fun onForeground() {
         when {
             sdkContext.widgetId.isBlank() -> {
-                isStartedService = false
                 Jivo.d("WidgetId is empty, service is turned off")
             }
             storage.blacklistedTime.after() -> {
-                isStartedService = false
                 Jivo.d("Blacklisted until ${convertTimeMillisToDateFormat(storage.blacklistedTime)}, service is turned off")
             }
             storage.sanctionedTime.after() -> {
-                isStartedService = false
                 Jivo.d("Sanctioned until ${convertTimeMillisToDateFormat(storage.sanctionedTime)}, service is turned off")
             }
-            storage.startOnInitialization && !isStartedService -> {
-                isStartedService = true
-                sdkConfigUseCase.onSuccess {
-                    if (isStartedService) {
-                        Jivo.d("JivoLifecycle: Start SDK")
-                        JivoWebSocketService.start(sdkContext.appContext)
-                    }
-                }.execute()
-
-                sdkConfigUseCase.onRestart {
-                    if (isStartedService) {
-                        JivoWebSocketService.restart(sdkContext.appContext)
-                    }
-                }
-                Jivo.d("SDK moved to foreground, start service")
+            storage.startOnInitialization -> {
+                JivoWebSocketService.loadConfig(sdkContext.appContext)
+                Jivo.d("SDK moved to foreground, load config")
             }
             else -> {
-                isStartedService = false
                 Jivo.d("SDK moved to foreground, service is turned off")
             }
         }
@@ -77,31 +57,5 @@ class JivoLifecycleObserver(
             }
         }
         Jivo.d("JivoLifecycle: Stop SDK")
-        isStartedService = false
-    }
-
-    fun onStop() {
-        JivoWebSocketService.stop(sdkContext.appContext)
-        isStartedService = false
-        Jivo.d("Force stop the service")
-    }
-
-    fun loadConfigAndRestartService() {
-        if (storage.startOnInitialization && isStartedService) {
-            sdkConfigUseCase.run {
-                onRestart {
-                    JivoWebSocketService.restart(sdkContext.appContext)
-                    Jivo.d("Force restart service")
-                }
-                restart()
-            }
-        }
-    }
-
-    fun restartService() {
-        if (storage.startOnInitialization && isStartedService) {
-            JivoWebSocketService.restart(sdkContext.appContext)
-            Jivo.d("Force restart service")
-        }
     }
 }

@@ -9,7 +9,6 @@ import com.jivosite.sdk.model.pojo.CustomData
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.support.builders.ContactInfo.Companion.contactInfo
 import com.jivosite.sdk.support.ext.requireValue
-import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import javax.inject.Inject
 
 /**
@@ -19,8 +18,7 @@ import javax.inject.Inject
  */
 class JivoSettingsViewModel @Inject constructor(
     private val storage: SharedStorage,
-    private val logsRepository: LogsRepository,
-    private val sdkConfigUseCase: SdkConfigUseCase
+    private val logsRepository: LogsRepository
 ) : ViewModel() {
 
     val host = MutableLiveData(storage.host)

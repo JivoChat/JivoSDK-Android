@@ -1,31 +1,30 @@
 package com.jivosite.sdk.socket.states.items
 
-import com.jivosite.sdk.Jivo
-import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.socket.states.DisconnectReason
 import com.jivosite.sdk.socket.states.ServiceState
 import com.jivosite.sdk.socket.states.ServiceStateContext
+import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import javax.inject.Inject
 
 /**
- * Created on 26.11.2020.
+ * Created on 05.04.2023.
  *
- * @author Alexandr Shibelev (shibelev@jivosite.com)
+ * @author Aleksandr Tavtorkin (tavtorkin@jivosite.com)
  */
-class StoppedState @Inject constructor(
+class LoadConfigState @Inject constructor(
     stateContext: ServiceStateContext,
     private val service: JivoWebSocketService,
-    private val sdkContext: SdkContext
+    private val sdkConfigUseCase: SdkConfigUseCase,
 ) : ServiceState(stateContext) {
 
     override fun load() {
-        logImpossibleAction("load")
+        sdkConfigUseCase.execute()
     }
 
     override fun start() {
-        sdkContext.pendingIntent.add(stateContext.getState())
+        logImpossibleAction("start")
     }
 
     override fun reconnect(force: Boolean) {
@@ -45,14 +44,13 @@ class StoppedState @Inject constructor(
     }
 
     override fun stop() {
-        Jivo.w("Call stop on stopped state, maybe something wrong, just ignore action")
-    }
-
-    override fun setDisconnected(reason: DisconnectReason) {
-        Jivo.i("Service successfully stopped")
         service.releaseConnectionKeeper()
         service.unsubscribeFromTransmitter()
         service.stopSelf()
+    }
+
+    override fun setDisconnected(reason: DisconnectReason) {
+        logImpossibleAction("setDisconnected")
     }
 
     override fun restart() {
@@ -62,4 +60,5 @@ class StoppedState @Inject constructor(
     override fun error(reason: String) {
         logImpossibleAction("error")
     }
+
 }

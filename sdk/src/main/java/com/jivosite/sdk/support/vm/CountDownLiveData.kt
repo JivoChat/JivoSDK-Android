@@ -33,22 +33,37 @@ class CountDownLiveData : LiveData<ConnectionState>() {
         countDownTimer?.cancel()
         countDownTimer = null
 
-        if (state !is ConnectionState.Disconnected) {
-            return
+        if (state is ConnectionState.Disconnected) {
+            val leftTime = state.timeToReconnect - System.currentTimeMillis()
+            if (state.timeToReconnect == 0L || leftTime <= 1000) {
+                postValue(state.copy(seconds = 0))
+                return
+            }
+
+            postValue(state.copy(seconds = leftTime / 1000))
+            if (Thread.currentThread() == Looper.getMainLooper().thread) {
+                start(leftTime)
+            } else {
+                handler.post { start(leftTime) }
+            }
         }
 
-        val leftTime = state.timeToReconnect - System.currentTimeMillis()
-        if (state.timeToReconnect == 0L || leftTime <= 1000) {
-            postValue(state.copy(seconds = 0))
-            return
+        if (state is ConnectionState.Error) {
+            val leftTime = state.timeToReconnect - System.currentTimeMillis()
+            if (state.timeToReconnect == 0L || leftTime <= 1000) {
+                postValue(state.copy(seconds = 0))
+                return
+            }
+
+            postValue(state.copy(seconds = leftTime / 1000))
+            if (Thread.currentThread() == Looper.getMainLooper().thread) {
+                start(leftTime)
+            } else {
+                handler.post { start(leftTime) }
+            }
         }
 
-        postValue(state.copy(seconds = leftTime / 1000))
-        if (Thread.currentThread() == Looper.getMainLooper().thread) {
-            start(leftTime)
-        } else {
-            handler.post { start(leftTime) }
-        }
+
     }
 
     @MainThread
@@ -68,6 +83,9 @@ class CountDownLiveData : LiveData<ConnectionState>() {
                 private fun updateState(millisUntilFinished: Long) {
                     val currentState = value
                     if (currentState is ConnectionState.Disconnected) {
+                        postValue(currentState.copy(seconds = millisUntilFinished / 1000))
+                    }
+                    if (currentState is ConnectionState.Error) {
                         postValue(currentState.copy(seconds = millisUntilFinished / 1000))
                     }
                 }

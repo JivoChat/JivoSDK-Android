@@ -32,6 +32,10 @@ class DisconnectedState @Inject constructor(
         service.connect()
     }
 
+    override fun load() {
+        logImpossibleAction("load")
+    }
+
     override fun start() {
         logImpossibleAction("start")
     }
@@ -75,5 +79,9 @@ class DisconnectedState @Inject constructor(
 
     override fun restart() {
         logImpossibleAction("restart")
+    }
+
+    override fun error(reason: String) {
+        logImpossibleAction("error")
     }
 }

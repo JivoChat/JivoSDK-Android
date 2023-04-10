@@ -28,13 +28,11 @@ import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.ContactInfo
 import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.support.ext.verifyHostName
-import com.jivosite.sdk.support.usecase.SdkConfigUseCase
 import com.jivosite.sdk.ui.chat.NotificationPermissionListener
 import com.jivosite.sdk.ui.logs.JivoLogsFragment
 import com.jivosite.sdk.ui.settings.JivoSettingsFragment
 import timber.log.Timber
 import java.lang.ref.WeakReference
-import javax.inject.Provider
 
 /**
  * Created on 02.09.2020.
@@ -58,8 +56,6 @@ object Jivo {
     private lateinit var sdkContext: SdkContext
     private lateinit var storage: SharedStorage
 
-    private lateinit var sdkConfigUseCaseProvider: Provider<SdkConfigUseCase>
-
     private var config: Config = Config.Builder().build()
 
     private var loggingEnabled = false
@@ -75,17 +71,15 @@ object Jivo {
         if (host.verifyHostName()) {
             storage.host = host
         }
-
-        sdkConfigUseCaseProvider = jivoSdkComponent.sdkConfigUseCaseProvider()
     }
 
     @JvmStatic
     fun changeChannelId(widgetId: String) {
-        if (widgetId != storage.widgetId && Jivo::jivoSdkComponent.isInitialized) {
+        if (Jivo::jivoSdkComponent.isInitialized && widgetId != storage.widgetId) {
             jivoSdkComponent.clearUseCaseProvider().get().execute()
             unsubscribeFromPush()
             storage.widgetId = widgetId
-            lifecycleObserver?.loadConfigAndRestartService()
+            JivoWebSocketService.loadConfig(sdkContext.appContext)
         }
     }
 
@@ -157,7 +151,7 @@ object Jivo {
             if (userToken.isNotBlank() && userToken != storage.userToken) {
                 jivoSdkComponent.clearUseCaseProvider().get().execute()
                 storage.userToken = userToken
-                lifecycleObserver?.restartService()
+                JivoWebSocketService.restart(sdkContext.appContext)
             }
         }
     }
@@ -185,7 +179,7 @@ object Jivo {
         if (Jivo::jivoSdkComponent.isInitialized) {
             unsubscribeFromPush()
             jivoSdkComponent.clearUseCaseProvider().get().execute()
-            lifecycleObserver?.onStop()
+            JivoWebSocketService.stop(sdkContext.appContext)
         }
     }
 
@@ -205,7 +199,7 @@ object Jivo {
 
     internal fun startSession() {
         if (lifecycleObserver == null) {
-            lifecycleObserver = JivoLifecycleObserver(sdkContext, storage, sdkConfigUseCaseProvider.get())
+            lifecycleObserver = JivoLifecycleObserver(sdkContext, storage)
 
             lifecycleObserver?.let {
                 ProcessLifecycleOwner.get().lifecycle.addObserver(it.apply {

@@ -204,13 +204,19 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
             is ConnectionState.Initial, ConnectionState.Connected, ConnectionState.Stopped -> {
                 false
             }
-            is ConnectionState.Connecting -> {
+            is ConnectionState.LoadConfig, ConnectionState.Connecting -> {
                 binding.connectingView.isVisible = true
                 binding.connectionStateName.setText(R.string.connection_state_connecting)
                 binding.connectionRetry.isVisible = false
                 true
             }
             is ConnectionState.Disconnected -> {
+                binding.connectingView.isVisible = false
+                binding.connectionStateName.text = getString(R.string.connection_state_disconnected, state.seconds)
+                binding.connectionRetry.isVisible = true
+                true
+            }
+            is ConnectionState.Error -> {
                 binding.connectingView.isVisible = false
                 binding.connectionStateName.text = getString(R.string.connection_state_disconnected, state.seconds)
                 binding.connectionRetry.isVisible = true

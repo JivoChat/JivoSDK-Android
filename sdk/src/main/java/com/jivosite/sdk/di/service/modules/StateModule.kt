@@ -24,6 +24,11 @@ class StateModule {
 
         @Binds
         @IntoMap
+        @StateKey(LoadConfigState::class)
+        fun provideLoadConfigState(state: LoadConfigState): ServiceState
+
+        @Binds
+        @IntoMap
         @StateKey(InitialState::class)
         fun provideInitialState(state: InitialState): ServiceState
 
@@ -46,6 +51,11 @@ class StateModule {
         @IntoMap
         @StateKey(StoppedState::class)
         fun provideStoppedState(state: StoppedState): ServiceState
+
+        @Binds
+        @IntoMap
+        @StateKey(ErrorState::class)
+        fun provideErrorState(state: ErrorState): ServiceState
     }
 
     @ServiceScope

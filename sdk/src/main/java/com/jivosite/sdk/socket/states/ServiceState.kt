@@ -10,6 +10,8 @@ import com.jivosite.sdk.model.pojo.socket.SocketMessage
  */
 abstract class ServiceState(protected val stateContext: ServiceStateContext) {
 
+    abstract fun load()
+
     abstract fun start()
 
     abstract fun reconnect(force: Boolean)
@@ -25,6 +27,8 @@ abstract class ServiceState(protected val stateContext: ServiceStateContext) {
     abstract fun setDisconnected(reason: DisconnectReason)
 
     abstract fun restart()
+
+    abstract fun error(reason: String)
 
     override fun toString(): String {
         return this.javaClass.simpleName

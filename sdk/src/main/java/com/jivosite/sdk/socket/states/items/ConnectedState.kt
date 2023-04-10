@@ -24,6 +24,14 @@ class ConnectedState @Inject constructor(
     private val agentRepository: AgentRepository
 ) : ServiceState(stateContext) {
 
+    override fun load() {
+        stateContext.changeState(LoadConfigState::class.java)
+        connectionStateRepository.setState(ConnectionState.LoadConfig)
+        service.releaseConnectionKeeper()
+        service.unsubscribeFromTransmitter()
+        stateContext.getState().load()
+    }
+
     override fun start() {
         logImpossibleAction("start")
     }
@@ -86,5 +94,9 @@ class ConnectedState @Inject constructor(
         service.releaseConnectionKeeper()
         service.unsubscribeFromTransmitter()
         stateContext.getState().reconnect(true)
+    }
+
+    override fun error(reason: String) {
+        logImpossibleAction("error")
     }
 }

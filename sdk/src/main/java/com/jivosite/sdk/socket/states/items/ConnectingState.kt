@@ -27,8 +27,14 @@ class ConnectingState @Inject constructor(
     private val contactFormRepository: ContactFormRepository
 ) : ServiceState(stateContext) {
 
+    override fun load() {
+        logImpossibleAction("load")
+    }
+
     override fun start() {
-        Jivo.w("Call start command on connecting state, just ignore action")
+        stateContext.changeState(ConnectingState::class.java)
+        connectionStateRepository.setState(ConnectionState.Connecting)
+        service.connect()
     }
 
     override fun reconnect(force: Boolean) {
@@ -77,5 +83,9 @@ class ConnectingState @Inject constructor(
 
     override fun restart() {
         logImpossibleAction("restart")
+    }
+
+    override fun error(reason: String) {
+        logImpossibleAction("error")
     }
 }

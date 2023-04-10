@@ -38,6 +38,7 @@ import javax.inject.Provider
 class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscriber {
 
     companion object {
+        private const val ACTION_LOAD_CONFIG = "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_LOAD_CONFIG"
         private const val ACTION_START = "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_START"
         private const val ACTION_STOP = "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_STOP"
         private const val ACTION_RESTART =
@@ -47,6 +48,17 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
 
         const val REASON_STOPPED = 4000
         const val REASON_TIMEOUT = 4001
+
+        fun loadConfig(appContext: Context) {
+            val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
+                action = ACTION_LOAD_CONFIG
+            }
+            try {
+                appContext.startService(intent)
+            } catch (e: IllegalStateException) {
+                Jivo.e(e, "Can not start jivo sdk service from background")
+            }
+        }
 
         fun start(appContext: Context) {
             val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
@@ -203,10 +215,16 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val action = intent?.action ?: return START_NOT_STICKY
         when (action) {
+            ACTION_LOAD_CONFIG -> {
+                Jivo.i("Received load config command")
+                getState().load()
+            }
+
             ACTION_START -> {
                 Jivo.i("Received start command")
-                getState().start()
+                getState().load()
             }
+
             ACTION_STOP -> {
                 Jivo.i("Received stop command")
                 getState().stop()
