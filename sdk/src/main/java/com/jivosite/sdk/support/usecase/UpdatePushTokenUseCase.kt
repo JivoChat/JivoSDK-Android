@@ -29,9 +29,16 @@ class UpdatePushTokenUseCase @Inject constructor(
     private val profileRepository: ProfileRepository
 ) : UseCase {
 
+    private lateinit var widgetId: String
+
     override fun execute() {
+        if (profileRepository.id.isBlank()) {
+            return
+        }
+
         val token = storage.pushToken
         val hasSentPushToken = storage.hasSentPushToken
+        widgetId = storage.widgetId
 
         when {
             token.isBlank() && !hasSentPushToken -> {
@@ -41,7 +48,9 @@ class UpdatePushTokenUseCase @Inject constructor(
                         return@OnCompleteListener
                     }
                     task.result?.run {
+                        storage.pushToken = this
                         prepareData(this)
+                        storage.hasSentPushToken = true
                     }
                 }).addOnFailureListener {
                     Jivo.e(Throwable(it), "Fetching FCM registration token failed")
@@ -49,24 +58,22 @@ class UpdatePushTokenUseCase @Inject constructor(
             }
             token.isNotBlank() && !hasSentPushToken -> {
                 prepareData(token)
+                storage.hasSentPushToken = true
             }
 
             token.isBlank() && hasSentPushToken -> {
                 prepareData(token)
+                storage.hasSentPushToken = false
             }
         }
     }
 
     private fun prepareData(token: String) {
-        if (profileRepository.id.isBlank()) {
-            Jivo.w("Can not update push token without client id")
-            return
-        }
-
         if (storage.deviceId.isBlank()) {
             storage.deviceId = UUID.randomUUID().toString()
         }
 
+        Jivo.w("token = $token")
         val deviceInfo = Device(
             deviceId = storage.deviceId, token = token
         )
@@ -74,7 +81,6 @@ class UpdatePushTokenUseCase @Inject constructor(
         schedulers.ui.execute {
             createRequest(deviceInfo).loadSilently()
         }
-        storage.hasSentPushToken = true
     }
 
     private fun createRequest(device: Device): LiveData<Resource<Any>> {
@@ -82,7 +88,7 @@ class UpdatePushTokenUseCase @Inject constructor(
             pushApi.sendDeviceInfo(
                 profileRepository.id,
                 storage.siteId.toLong(),
-                storage.widgetId.ifBlank { sdkContext.widgetId },
+                widgetId.ifBlank { sdkContext.widgetId },
                 device
             )
         }.handleResponse { }.build().asLiveData()

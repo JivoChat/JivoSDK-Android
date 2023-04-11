@@ -113,6 +113,7 @@ object Jivo {
             if (storage.pushToken != token) {
                 storage.pushToken = token
                 storage.hasSentPushToken = false
+                jivoSdkComponent.updatePushTokenUseCaseProvider().get().execute()
             }
         }
     }
@@ -183,17 +184,11 @@ object Jivo {
         }
     }
 
-    fun subscribeToPush() {
-        if (Jivo::jivoSdkComponent.isInitialized) {
-            val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
-            useCaseProvider.get().execute()
-        }
-    }
-
+    @JvmStatic
     fun unsubscribeFromPush() {
         if (Jivo::jivoSdkComponent.isInitialized) {
-            val useCaseProvider = jivoSdkComponent.updatePushTokenUseCaseProvider()
-            useCaseProvider.get().execute()
+            storage.pushToken = ""
+            jivoSdkComponent.updatePushTokenUseCaseProvider().get().execute()
         }
     }
 

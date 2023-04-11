@@ -23,7 +23,7 @@ class ExampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        Jivo.init(this, "Q7Bc1PYNqCG")
+        Jivo.init(this, "Q7BcPYNqCG")
         Jivo.enableLogging()
 
         Jivo.setConfig(Config.Builder()
