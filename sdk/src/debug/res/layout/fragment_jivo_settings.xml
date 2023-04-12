@@ -443,7 +443,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Link"
                     android:inputType="textUri"
-                    android:text="@={viewModel.userDescription}"
+                    android:text="@={viewModel.link}"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText" />
 
