@@ -12,7 +12,4 @@ import java.util.*
 data class SdkContext(
     val appContext: Context,
     val widgetId: String
-) {
-
-    val pendingIntent: MutableList<ServiceState> = LinkedList()
-}
+)

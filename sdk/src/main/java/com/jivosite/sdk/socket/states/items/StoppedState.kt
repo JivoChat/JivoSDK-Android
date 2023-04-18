@@ -25,7 +25,7 @@ class StoppedState @Inject constructor(
     }
 
     override fun start() {
-        sdkContext.pendingIntent.add(stateContext.getState())
+        logImpossibleAction("start")
     }
 
     override fun reconnect(force: Boolean) {

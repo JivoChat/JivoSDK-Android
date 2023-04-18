@@ -250,9 +250,6 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
         super.onDestroy()
         Jivo.clearServiceComponent()
         Jivo.i("Service has been destroyed")
-        if (sdkContext.pendingIntent.isNotEmpty()) {
-            Jivo.restart()
-        }
     }
 
     override fun getState(): ServiceState = socketState
