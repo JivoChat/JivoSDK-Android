@@ -71,6 +71,15 @@ object Jivo {
         if (host.verifyHostName()) {
             storage.host = host
         }
+
+        lifecycleObserver = JivoLifecycleObserver(
+            sdkContext,
+            storage,
+            jivoSdkComponent.historyUseCase().get()
+        ).apply {
+            ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+        }
+
     }
 
     @JvmStatic
@@ -193,17 +202,7 @@ object Jivo {
     }
 
     internal fun startSession() {
-        if (lifecycleObserver == null) {
-            lifecycleObserver = JivoLifecycleObserver(sdkContext, storage)
-
-            lifecycleObserver?.let {
-                ProcessLifecycleOwner.get().lifecycle.addObserver(it.apply {
-                    onForeground()
-                })
-            }
-        } else {
-            lifecycleObserver?.onForeground()
-        }
+        lifecycleObserver?.onForeground()
     }
 
     internal fun onNewMessage(hasNewMessage: Boolean) {
