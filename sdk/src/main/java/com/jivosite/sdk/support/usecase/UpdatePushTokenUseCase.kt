@@ -73,7 +73,6 @@ class UpdatePushTokenUseCase @Inject constructor(
             storage.deviceId = UUID.randomUUID().toString()
         }
 
-        Jivo.w("token = $token")
         val deviceInfo = Device(
             deviceId = storage.deviceId, token = token
         )

@@ -48,7 +48,7 @@ class ErrorState @Inject constructor(
             handler.post(reconnectCallback)
         } else {
             val timeout = reconnectStrategy.nextTime()
-            Jivo.i("Wait for $timeout ms and reconnect")
+            Jivo.i("Wait for $timeout ms and retry loading config")
             connectionStateRepository.setState(ConnectionState.Error(System.currentTimeMillis() + timeout))
             handler.postDelayed(reconnectCallback, timeout)
         }
@@ -67,6 +67,7 @@ class ErrorState @Inject constructor(
     }
 
     override fun stop() {
+        handler.removeCallbacks(reconnectCallback)
         service.stopSelf()
     }
 
@@ -79,7 +80,6 @@ class ErrorState @Inject constructor(
     }
 
     override fun error(reason: String) {
-        logImpossibleAction("error")
         stateContext.getState().reconnect(false)
     }
 }

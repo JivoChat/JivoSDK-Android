@@ -30,7 +30,6 @@ class InitialState @Inject constructor(
 
     override fun start() {
         service.connect()
-        logImpossibleAction("start")
     }
 
     override fun reconnect(force: Boolean) {
