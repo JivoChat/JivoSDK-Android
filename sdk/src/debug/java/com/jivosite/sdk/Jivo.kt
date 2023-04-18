@@ -50,7 +50,7 @@ object Jivo {
     private val newMessageListeners: ArrayList<WeakReference<NewMessageListener>> = ArrayList()
     private val notificationPermissionListener: ArrayList<WeakReference<NotificationPermissionListener>> = ArrayList()
 
-    private var lifecycleObserver: JivoLifecycleObserver? = null
+    private lateinit var lifecycleObserver: JivoLifecycleObserver
     private lateinit var sdkContext: SdkContext
     private lateinit var storage: SharedStorage
 
@@ -77,7 +77,6 @@ object Jivo {
         ).apply {
             ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         }
-
     }
 
     @JvmStatic
@@ -200,7 +199,7 @@ object Jivo {
     }
 
     internal fun startSession() {
-        lifecycleObserver?.onForeground()
+        lifecycleObserver.onForeground()
     }
 
     internal fun onNewMessage(hasNewMessage: Boolean) {
