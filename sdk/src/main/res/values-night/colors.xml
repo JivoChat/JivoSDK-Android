@@ -15,6 +15,6 @@
     <color name="jivo_sdk_surface_outline">#1FFFFFFF</color>
     <color name="jivo_sdk_surface_comment">#41403C</color>
 
-    <color name="jivo_sdk_chat_background">#121212</color>
+    <color name="jivo_sdk_chat_background">#1E1E1E</color>
 
 </resources>

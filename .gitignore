@@ -13,3 +13,4 @@
 *.gpg
 /sdk/gpg-keys/
 /.phraseapp.yml
+/.phrase.yml

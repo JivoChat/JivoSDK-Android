@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Имя оператора по умолчанию, если не подгрузилась информация -->
+    <string name="agent_name_default">Օպերատոր</string>
+    <!-- Надпись к сообщениям клиента -->
+    <string name="agent_name_you">Դուք</string>
+    <string name="Agent.DisplayName.Deleted">Հեռացված օպերատոր</string>
+    <!-- Normally user iOS device doesn't return "Restricted" camera access status. But for test purposes we've added an alert with this string message anyway. -->
+    <string name="Camera.Access.Restricted">Տեսախցիկի մուտքն արգելված է</string>
+    <string name="Camera.Access.Suggestion">Լուսանկարելու համար անհրաժեշտ է տեսախցիկի հասանելիություն թույլտվությունը</string>
+    <!-- Alert with this message displays when you try to take a photo from camera on iOS simulator or when real device experiencing some technical issues. -->
+    <string name="Camera.Access.Unavailable">Տեսախցիկը հասանելի չէ</string>
+    <string name="chat_input.status.contact_info">Խնդրում ենք մուտքագրել ձեր կոնտակտները</string>
+    <!-- Подзаголовок окна чата по умолчанию -->
+    <string name="chat_subtitle_placeholder">Կապի մեջ 24/7!</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что произошел разрыв соединения  с сервером. -->
+    <string name="chat_system_disconnected">Ցանցային խնդիր: %d, սխալի հաղորդագրություն: %s</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент несколько агентов набирают сообщение. -->
+    <string name="chat_system_few_agents_typing">%s, %s և %d մուտքագրում է հաղորդագրություն...</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент один агент набирает сообщение. -->
+    <string name="chat_system_one_agent_typing">%s մուտքագրում է հաղորդագրություն...</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент два агента набирают сообщение. -->
+    <string name="chat_system_two_agents_typing">%s and %s մուտքագրում են հաղորդագրություն...</string>
+    <!-- Заголовок окна чата по умолчанию -->
+    <string name="chat_title_placeholder">Օնլայն աջակցություն</string>
+    <string name="chat.state_unavailable.discription">Օնլայն աջակցությունը այս պահին ժամանակավորապես անհասանելի է: Խնդրում եմ փորձեք մի փոքր ուշ.</string>
+    <string name="chat.state_unavailable.title">Օնլայն աջակցությունը ժամանակավորապես անհասանելի է</string>
+    <string name="chat.system.contact_form.introduce_in_chat">Խնդրում ենք ներկայանալ չաթում</string>
+    <string name="chat.system.contact_form.must_fill">Խնդրում ենք մուտքագրել ձեր կոնտակտային տվյալները, որպեսզի մենք կարողանանք պատասխանել ձեզ</string>
+    <string name="chat.system.contact_form.status_sent">Ձեր հաղորդագրությունն ուղարկվում է թիմին: Նրանք շուտով կապի մեջ կլինեն:</string>
+    <string name="Chat.System.Media.Preparing">Ֆայլի պատրաստում...</string>
+    <string name="Chat.System.Media.Uploading">Ֆայլի ուղարկում...</string>
+    <string name="Chat.System.NewMessages">Նոր հաղորդագրություններ</string>
+    <string name="Client.Title">Հաճախորդ #%d</string>
+    <!-- Общая строка "Отмена" -->
+    <string name="common_cancel">Չեղարկել</string>
+    <string name="common_close">Փակել</string>
+    <string name="common_done">Կատարված է</string>
+    <string name="common_understand">Got it!</string>
+    <!-- Универсальное сообщение о неизвестной ошибке. -->
+    <string name="common_unknown_error">Տեխնիկական սխալ</string>
+    <string name="Common.Open">Բացել</string>
+    <string name="common.send">Ուղարկել</string>
+    <!-- Состояние подключения к сервису -->
+    <string name="connection_state_connecting">Միացում…</string>
+    <!-- Состояние отсутствия подключения -->
+    <string name="connection_state_disconnected">Միացումը ձախողվեց, նորից փորձեք %d վայրկյանից</string>
+    <!-- Кнопка для повторного подключения к сервису, не дожидаясь таймаута  -->
+    <string name="connection_state_retry">Միանալ հիմա</string>
+    <string name="contact_form.email.placeholder">Ձեր էլ.փոստը</string>
+    <string name="contact_form.name.placeholder">Ձեր անունը</string>
+    <string name="contact_form.phone.placeholder">Ձեր հեռախոսահամարը</string>
+    <string name="contact_form.status.sent">Շնորհակալություն!</string>
+    <!-- Статус загрузки - ошибка -->
+    <string name="download_status_error">Սխալ</string>
+    <!-- Статус загрузки - загрузка -->
+    <string name="download_status_loading">Ներբեռնում...</string>
+    <!-- Ошибка загрузки файла, если ссылка устарела. -->
+    <string name="file_download_expired">Հղման ժամկետը սպառվել է</string>
+    <!-- Message letting user know that file is unavailable for download. -->
+    <string name="file_download_unavailable">Ֆայլը հասանելի չէ</string>
+    <!-- Проверка ссылки на файл -->
+    <string name="file_link_checking">Ստուգում...</string>
+    <!-- Default file name -->
+    <string name="file_name_unknown">անանուն ֆայլ</string>
+    <string name="file_transfer_disabled">Ֆայլի փոխանցումն անջատված է</string>
+    <!-- Формат для размера файла в байтах -->
+    <string name="format_file_size_b">%.0f Բ</string>
+    <!-- Формат для размера файла в килобайтах -->
+    <string name="format_file_size_kb">%.0f ԿԲ</string>
+    <!-- Формат для размера файла в мегабайтах -->
+    <string name="format_file_size_mb">%.2f ՄԲ</string>
+    <!-- Подсказка в окне ввода сообщения -->
+    <string name="input_message_placeholder">Մուտքագրեք ձեր հաղորդագրությունը...</string>
+    <string name="jivo_business_messenger">Բիզնես մեսենջեր</string>
+    <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку открывает системный пикер документов. -->
+    <string name="media_upload_attachment_type_selecting_document">Փաստաթուղթ</string>
+    <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку вызывает пикер фотогалереи. -->
+    <string name="media_upload_attachment_type_selecting_photo">Լուսանկար</string>
+    <!-- Заголовок с вопросом о том, какой тип вложения пользователь хочет прикрепить к сообщению. -->
+    <string name="media_upload_select_an_attachment_type_title">Ի՞նչ եք ցանկանում ուղարկել:</string>
+    <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент ведётся загрузка файла на сервер. -->
+    <string name="media_upload_sending_the_file">Ֆայլը ներբեռնվում է</string>
+    <string name="media_uploading_common_error">Ֆայլի ներբեռնման սխալ</string>
+    <!-- Ошибка, возникающая при неудачной подготовке файла к загрузке. -->
+    <string name="media_uploading_extraction_error">Չհաջողվեց ներբեռնել ֆայլը</string>
+    <!-- Превышение лимита выгружаемого файла -->
+    <string name="media_uploading_too_large">Ֆայլի չափը չպետք է գերազանցի %dՄԲ</string>
+    <string name="Media.Access.Missing">Թույլատրել մուտքը</string>
+    <string name="Media.Access.Suggestion">Լուսանկարներ և տեսանյութեր ուղարկելու համար անհրաժեշտ է մուտքի թույլատրություն պատկերասրահ.
+
+ Խնդրում ենք անցնել [Settings &gt; Your App &gt; Photos] և տալ թույլատրություն.</string>
+    <string name="Media.Picker.Camera">Տեսախցիկ</string>
+    <!-- Пункт меню "Копировать ссылку" -->
+    <string name="menu_action_copy">Պատճենել հղումը</string>
+    <!-- Пункт меню "Cкачать" -->
+    <string name="menu_action_download">Բեռնել</string>
+    <!-- Кнопка скачать для прикрепленного документа/файла -->
+    <string name="message_download">Բեռնել</string>
+    <!-- Системное сообщение о присоединении оператора к чату -->
+    <string name="message_system_operator_accepted">Օպերատորը միացած երկխոսությանը</string>
+    <!-- Unsupported file type -->
+    <string name="message_unsupported_media">Այս ֆայլի տեսակ չի աջակցվում</string>
+    <string name="Message.Deleted">հաղորդագրությունը ջնջվել է</string>
+    <string name="Message.Edited">(փոփոխված է)</string>
+    <string name="Message.Preview.Line">Զրույցը տեղափոխվեց երկրորդ գիծ</string>
+    <string name="Message.Sender.Bot">բոտ</string>
+    <string name="Message.Sender.You">Դուք</string>
+    <string name="messages.label.bot">բոտ</string>
+    <string name="notification_channel_message_description">Jivo SDK-ից հաղորդագրություն</string>
+    <string name="notification_channel_message_name">Jivo</string>
+    <!-- Format for text message where $1 is agent name, $2 - text message -->
+    <string name="notification_message_text_format">%1$s: %2$s</string>
+    <string name="notification_message_title">Աջակցություն</string>
+    <string name="offline_message_placeholder">Ներկայումս օպերատորները անհասանելի են: Խնդրում ենք թողնել ձեր հաղորդագրությունը, և մենք կկապվենք ձեզ հետ:</string>
+    <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
+    <string name="options_copy">Պատճենահանել</string>
+    <string name="options_delete">Delete</string>
+    <!-- Пункт "Повторить отправку" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
+    <string name="options_resend">Կրկին ուղարկել</string>
+    <!--
+  Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway.
+  If there is an error then the alert should be displayed on photo library access try when starting to pick images.
+  -->
+    <string name="PhotoLibrary.Access.NoAvailableImages">Հասանելի նկարներ չկան</string>
+    <!-- Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway -->
+    <string name="PhotoLibrary.Access.Unavailable">Ֆոտադարանը անհասանելի է</string>
+    <string name="status_missing_connection">Missing Connection</string>
+    <string name="suggest_check_internet_access">Please check your internet access</string>
+    <string name="toast_copied_to_clipboard">Պատճենված է</string>
+    <!-- Unsupported message type bubble discription -->
+    <string name="unsupported_message_description">Հավելվածի տարբերակը հնացած է։ Մանրամասները հաղորդագրության մեջ. %s</string>
+    <!-- postfix -->
+    <string name="unsupported_message_postfix">մանրամասն \u0020</string>
+    <!-- Title for unsupported message bubble  -->
+    <string name="unsupported_message_title">Չաջակցվող հաղորդագրության տեսակ</string>
+    <!-- Приветственное сообщение для пустого чата -->
+    <string name="welcome_message_placeholder">Բջջային հավելվածի հետ ինչ-որ բան այն չէ՞, թե՞ պարզ չէ: Գրեք, մենք կաջակցենք։</string>
+</resources>

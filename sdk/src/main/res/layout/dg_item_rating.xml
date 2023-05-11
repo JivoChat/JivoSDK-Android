@@ -1,0 +1,191 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="view"
+            type="com.jivosite.sdk.ui.chat.items.rate.RatingItemViewHolder" />
+
+        <variable
+            name="viewModel"
+            type="com.jivosite.sdk.ui.chat.items.rate.RateItemViewModel" />
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        style="@style/JivoSDKThemeSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:ratingState="@{viewModel.ratingState}">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/jivo_sdk_bg_form"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="?android:selectableItemBackgroundBorderless"
+                    android:onClick="@{() -> viewModel.close()}"
+                    android:src="@drawable/jivo_sdk_vic_close_10"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/title"
+                    style="@style/Base.TextAppearance.JivoSDK.Subtitle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/jivo_sdk_color_on_surface_87"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/description"
+                    style="@style/Base.TextAppearance.JivoSDK.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="43dp"
+                    android:textColor="@color/jivo_sdk_color_on_surface_87"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
+
+                <com.jivosite.sdk.ui.views.JivoRatingBar
+                    android:id="@+id/rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintTop_toBottomOf="@id/description">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/icon_first"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?android:selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintEnd_toStartOf="@+id/icon_second"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/icon_second"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="30dp"
+                        android:background="?android:selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintEnd_toStartOf="@+id/icon_third"
+                        app:layout_constraintStart_toEndOf="@id/icon_first"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/icon_third"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="30dp"
+                        android:background="?android:selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintEnd_toStartOf="@+id/icon_fourth"
+                        app:layout_constraintStart_toEndOf="@id/icon_second"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/icon_fourth"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="30dp"
+                        android:background="?android:selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintEnd_toStartOf="@+id/icon_fifth"
+                        app:layout_constraintStart_toEndOf="@id/icon_third"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/icon_fifth"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="30dp"
+                        android:background="?android:selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintStart_toEndOf="@id/icon_fourth"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </com.jivosite.sdk.ui.views.JivoRatingBar>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/commentLayout"
+                    style="@style/Widget.JivoSDK.TextInputLayoutAppearance.Rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rating">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/comment"
+                        style="@style/Widget.JivoSDK.TextInputEditText.Rating"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/rate_form.comment_title"
+                        android:inputType="textPersonName"
+                        android:textSize="16sp"
+                        tools:ignore="HardcodedText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/sendUserInfo"
+                    style="@style/Widget.JivoSDK.Button.SendRate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginTop="16dp"
+                    android:onClick="@{() -> viewModel.sendRate()}"
+                    android:text="@string/rate_form.send"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/commentLayout"
+                    tools:ignore="HardcodedText" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

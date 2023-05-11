@@ -20,6 +20,8 @@ import com.jivosite.sdk.model.repository.pending.PendingRepository
 import com.jivosite.sdk.model.repository.pending.PendingRepositoryImpl
 import com.jivosite.sdk.model.repository.profile.ProfileRepository
 import com.jivosite.sdk.model.repository.profile.ProfileRepositoryImpl
+import com.jivosite.sdk.model.repository.rating.RatingRepository
+import com.jivosite.sdk.model.repository.rating.RatingRepositoryImpl
 import com.jivosite.sdk.model.repository.send.SendMessageRepository
 import com.jivosite.sdk.model.repository.send.SendMessageRepositoryImpl
 import com.jivosite.sdk.model.repository.typing.TypingRepository
@@ -95,4 +97,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun provideUnsupportedRepository(repository: UnsupportedRepositoryImpl): UnsupportedRepository
+
+    @Binds
+    @Singleton
+    abstract fun provideRatingRepository(repository: RatingRepositoryImpl): RatingRepository
 }

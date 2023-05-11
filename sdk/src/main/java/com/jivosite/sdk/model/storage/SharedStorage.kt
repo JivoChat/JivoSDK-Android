@@ -59,6 +59,8 @@ class SharedStorage(context: Context) {
         private const val CUSTOM_DATA = "customData"
 
         private const val HAS_SENT_CUSTOM_DATA = "hasSentCustomData"
+
+        private const val CHAT_ID = "chatID"
     }
 
     private val preferences: SharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
@@ -69,9 +71,7 @@ class SharedStorage(context: Context) {
     var path: String by SharedPreference(preferences, PATH, "")
 
     var startOnInitialization: Boolean by SharedPreference(
-        preferences,
-        START_ON_INITIALIZATION,
-        BuildConfig.START_ON_INITIALIZATION
+        preferences, START_ON_INITIALIZATION, BuildConfig.START_ON_INITIALIZATION
     )
 
     var chatserverHost: String by SharedPreference(preferences, CHATSERVER_HOST, "")
@@ -127,5 +127,7 @@ class SharedStorage(context: Context) {
     var customData: String by SharedPreference(preferences, CUSTOM_DATA, "")
 
     var hasSentCustomData: Boolean by SharedPreference(preferences, HAS_SENT_CUSTOM_DATA, false)
+
+    var chatId: String by SharedPreference(preferences, CHAT_ID, "")
 
 }

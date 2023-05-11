@@ -30,6 +30,9 @@ import com.jivosite.sdk.model.repository.pagination.PaginationRepository
 import com.jivosite.sdk.model.repository.pending.PendingRepository
 import com.jivosite.sdk.model.repository.pending.PendingState
 import com.jivosite.sdk.model.repository.profile.ProfileRepository
+import com.jivosite.sdk.model.repository.rating.RatingFormState
+import com.jivosite.sdk.model.repository.rating.RatingRepository
+import com.jivosite.sdk.model.repository.rating.RatingState
 import com.jivosite.sdk.model.repository.send.SendMessageRepository
 import com.jivosite.sdk.model.repository.send.SendMessageState
 import com.jivosite.sdk.model.repository.typing.TypingRepository
@@ -56,6 +59,7 @@ import com.jivosite.sdk.ui.chat.items.message.text.client.ClientTextItem
 import com.jivosite.sdk.ui.chat.items.message.uploading.file.UploadingFileItem
 import com.jivosite.sdk.ui.chat.items.message.uploading.image.UploadingImageItem
 import com.jivosite.sdk.ui.chat.items.message.welcome.WelcomeMessageItem
+import com.jivosite.sdk.ui.chat.items.rate.RatingItem
 import com.jivosite.sdk.ui.chat.items.unsupported.UnsupportedItem
 import java.io.InputStream
 import java.util.*
@@ -82,7 +86,8 @@ class JivoChatViewModel @Inject constructor(
     private val sdkContext: SdkContext,
     private val pendingRepository: PendingRepository,
     private val contactFormRepository: ContactFormRepository,
-    private val unsupportedRepository: UnsupportedRepository
+    private val unsupportedRepository: UnsupportedRepository,
+    private val ratingRepository: RatingRepository
 ) : ViewModel() {
 
     companion object {
@@ -149,6 +154,7 @@ class JivoChatViewModel @Inject constructor(
         addSource(logsRepository.messages) { value = value?.copy(eventMessages = prepareEventMessages(it)) }
         addSource(uploadRepository.observableState) { value = value?.copy(uploadFilesState = it) }
         addSource(unsupportedRepository.observableState) { value = value?.copy(unsupportedState = it) }
+        addSource(ratingRepository.observableState) { value = value?.copy(ratingState = it) }
     }
 
     val items: LiveData<List<ChatItem>> = Transformations.map(messagesState) { handleMessagesState(it) }
@@ -268,7 +274,7 @@ class JivoChatViewModel @Inject constructor(
             }
 
             state.contactFormState.run {
-                if (this.contactForm != null) {
+                this.contactForm?.let {
                     putOrIncrementKey(
                         state.historyState.messages.firstOrNull()?.timestamp?.inc() ?: this.contactForm.timestamp,
                         ContactFormEntry(this)
@@ -277,6 +283,12 @@ class JivoChatViewModel @Inject constructor(
             }
             state.unsupportedState.messages.forEach {
                 putOrIncrementKey(it.id.splitIdTimestamp().second, UnsupportedEntry(it))
+            }
+
+            state.ratingState.also { state ->
+                if (state.ratingFormState !is RatingFormState.Initial) {
+                    putOrIncrementKey(state.timestamp, RatingEntry(state))
+                }
             }
         }
 
@@ -309,6 +321,10 @@ class JivoChatViewModel @Inject constructor(
                 is UnsupportedEntry -> {
                     dropBuffer(state.myId, buffer, result)
                     result.add(UnsupportedItem(message))
+                }
+                is RatingEntry -> {
+                    dropBuffer(state.myId, buffer, result)
+                    result.add(RatingItem(message))
                 }
             }
         }
@@ -512,10 +528,11 @@ class JivoChatViewModel @Inject constructor(
         val uploadFilesState: UploadFilesState = UploadFilesState(),
         val pendingState: PendingState = PendingState(),
         val contactFormState: ContactFormState = ContactFormState(),
-        val unsupportedState: UnsupportedState = UnsupportedState()
+        val unsupportedState: UnsupportedState = UnsupportedState(),
+        val ratingState: RatingState = RatingState()
     ) {
         val size: Int
-            get() = historyState.messages.size + sendMessageState.messages.size + eventMessages.size + uploadFilesState.files.size + pendingState.size + contactFormState.size
+            get() = historyState.messages.size + sendMessageState.messages.size + eventMessages.size + uploadFilesState.files.size + pendingState.size + contactFormState.size + unsupportedState.messages.size + ratingState.size
     }
 }
 
