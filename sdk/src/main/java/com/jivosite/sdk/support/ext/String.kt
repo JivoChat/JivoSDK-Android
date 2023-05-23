@@ -2,6 +2,7 @@ package com.jivosite.sdk.support.ext
 
 import android.util.Patterns
 import android.webkit.MimeTypeMap
+import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes
 import java.net.URLDecoder
 import java.security.MessageDigest
@@ -28,7 +29,6 @@ fun String.getSupportFileType(): String? {
 
 fun String?.parseContentDisposition(): String {
     if (this == null) return ""
-
     var s = ""
 
     try {
@@ -41,10 +41,11 @@ fun String?.parseContentDisposition(): String {
                 s = group(2) ?: ""
             }
         }
-    } catch (e: IllegalStateException) {
+        s = URLDecoder.decode(s, "UTF-8")
+    } catch (e: Exception) {
+        Jivo.e(e, "Content disposition parsing problem")
     }
-
-    return if (s.isBlank()) s else URLDecoder.decode(s, "UTF-8")
+    return s
 }
 
 fun String.toMD5() = MessageDigest.getInstance("MD5")
