@@ -1,6 +1,5 @@
 package com.jivosite.sdk.support.utils
 
-import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -20,6 +19,6 @@ fun String?.copyToClipboard(context: Context): Boolean {
 }
 
 fun Context.hideKeyboard(view: View) {
-    val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(view.windowToken, 0)
+    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+    imm?.hideSoftInputFromWindow(view.windowToken, 0)
 }

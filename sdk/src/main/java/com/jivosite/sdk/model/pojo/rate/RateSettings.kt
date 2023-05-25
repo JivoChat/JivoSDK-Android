@@ -33,7 +33,7 @@ data class RateSettings(
         FIVE("five");
 
         companion object {
-            fun fromValueOrNull(value: String): Type {
+            fun fromValue(value: String): Type {
                 return values().firstOrNull { it.type == value } ?: UNKNOWN
             }
         }
@@ -45,7 +45,7 @@ data class RateSettings(
         STAR("star");
 
         companion object {
-            fun fromValueOrNull(value: String): Icon {
+            fun fromValue(value: String): Icon {
                 return values().firstOrNull { it.icon == value } ?: UNKNOWN
             }
         }

@@ -60,7 +60,7 @@ fun String.isPhoneValid(): Boolean {
 }
 
 fun String.verifyHostName(): Boolean {
-    return this.isNotBlank() && Pattern.compile("^((?!-)[A-Za-z0–9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}\$").matcher(this).matches()
+    return this.isNotBlank() && Pattern.compile("^([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}\$").matcher(this.lowercase()).matches()
 }
 
 

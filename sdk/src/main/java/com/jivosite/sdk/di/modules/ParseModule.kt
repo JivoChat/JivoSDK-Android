@@ -44,7 +44,7 @@ class RateSettingsTypeJsonAdapter : JsonAdapter<RateSettings.Type>() {
     @FromJson
     override fun fromJson(reader: JsonReader): RateSettings.Type? {
         return if (reader.peek() != JsonReader.Token.NULL) {
-            RateSettings.Type.fromValueOrNull(reader.nextString())
+            RateSettings.Type.fromValue(reader.nextString())
         } else {
             reader.nextNull()
         }
@@ -61,7 +61,7 @@ class RateSettingsIconJsonAdapter : JsonAdapter<RateSettings.Icon>() {
     @FromJson
     override fun fromJson(reader: JsonReader): RateSettings.Icon? {
         return if (reader.peek() != JsonReader.Token.NULL) {
-            RateSettings.Icon.fromValueOrNull(reader.nextString())
+            RateSettings.Icon.fromValue(reader.nextString())
         } else {
             reader.nextNull()
         }

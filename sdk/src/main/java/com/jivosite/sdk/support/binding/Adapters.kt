@@ -215,6 +215,7 @@ fun agentImageLoader(layout: ViewGroup, state: MediaItemState?) {
     var viewHolder: ImageViewHolder? = layout.tag as ImageViewHolder?
     if (viewHolder == null) {
         viewHolder = ImageViewHolder(layout)
+        layout.tag = viewHolder
     }
 
     viewHolder.imageView.setImageDrawable(null)
@@ -272,6 +273,7 @@ fun clientImageLoader(layout: ViewGroup, state: FileState?) {
     var viewHolder: ImageViewHolder? = layout.tag as ImageViewHolder?
     if (viewHolder == null) {
         viewHolder = ImageViewHolder(layout)
+        layout.tag = viewHolder
     }
 
     viewHolder.imageView.setImageDrawable(null)
@@ -433,6 +435,7 @@ fun ratingState(layout: ViewGroup, state: RatingState?) {
 
         if (viewHolder == null) {
             viewHolder = RatingViewHolder(layout)
+            layout.tag = viewHolder
         }
 
         val rateSettings = state.rateSettings

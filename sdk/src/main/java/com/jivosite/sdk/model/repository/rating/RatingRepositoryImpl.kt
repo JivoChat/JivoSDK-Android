@@ -39,11 +39,7 @@ class RatingRepositoryImpl @Inject constructor(
         transform { state ->
             state.copy(ratingFormState = RatingFormState.Ready, timestamp = System.currentTimeMillis() / 1000)
         }
-        doAfter {
-            if (storage.chatId != chatId) {
-                storage.chatId = chatId
-            }
-        }
+        doAfter { storage.chatId = chatId }
     }
 
     override fun setRate(rate: String) = updateStateInRepositoryThread {

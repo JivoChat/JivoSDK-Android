@@ -92,58 +92,52 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:background="?android:selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
                         app:layout_constraintEnd_toStartOf="@+id/icon_second"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/jivo_sdk_vic_star_rate_24" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/icon_second"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginStart="30dp"
                         android:background="?android:selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:layout_constraintEnd_toStartOf="@+id/icon_third"
+                        app:layout_constraintEnd_toStartOf="@id/icon_third"
                         app:layout_constraintStart_toEndOf="@id/icon_first"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/jivo_sdk_vic_star_rate_24" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/icon_third"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginStart="30dp"
                         android:background="?android:selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:layout_constraintEnd_toStartOf="@+id/icon_fourth"
+                        app:layout_constraintEnd_toStartOf="@id/icon_fourth"
                         app:layout_constraintStart_toEndOf="@id/icon_second"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/jivo_sdk_vic_star_rate_24" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/icon_fourth"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginStart="30dp"
                         android:background="?android:selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:layout_constraintEnd_toStartOf="@+id/icon_fifth"
+                        app:layout_constraintEnd_toStartOf="@id/icon_fifth"
                         app:layout_constraintStart_toEndOf="@id/icon_third"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/jivo_sdk_vic_star_rate_24" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/icon_fifth"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginStart="30dp"
                         android:background="?android:selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/icon_fourth"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/jivo_sdk_vic_star_rate_24"
+                        tools:visibility="invisible" />
 
                 </com.jivosite.sdk.ui.views.JivoRatingBar>
 
