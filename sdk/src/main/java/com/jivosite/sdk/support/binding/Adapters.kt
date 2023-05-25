@@ -44,6 +44,7 @@ import com.jivosite.sdk.support.dg.adapters.BaseAdapter
 import com.jivosite.sdk.support.ext.cutName
 import com.jivosite.sdk.support.ext.dp
 import com.jivosite.sdk.support.ext.getFileType
+import com.jivosite.sdk.support.utils.hideKeyboard
 import com.jivosite.sdk.ui.views.JivoRatingBar
 import java.util.*
 import kotlin.math.pow
@@ -476,6 +477,7 @@ fun ratingState(layout: ViewGroup, state: RatingState?) {
                 viewHolder.rating?.isVisible = false
                 viewHolder.comment?.isVisible = false
                 viewHolder.sendRating?.isVisible = false
+                context.hideKeyboard(layout)
             }
         }
     }
