@@ -467,4 +467,41 @@
         <item name="android:paddingEnd">0dp</item>
     </style>
 
+    <!-- Connection state card view appearance -->
+    <style name="Widget.JivoSDK.CardView.ConnectionState" parent="CardView">
+        <item name="contentPaddingLeft">16dp</item>
+        <item name="contentPaddingRight">16dp</item>
+        <item name="contentPaddingBottom">8dp</item>
+        <item name="contentPaddingTop">8dp</item>
+        <item name="cardCornerRadius">10dp</item>
+        <item name="cardElevation">5dp</item>
+        <item name="cardBackgroundColor">?colorSurface</item>
+        <item name="android:layout_marginBottom">12dp</item>
+    </style>
+
+    <!-- Connection state name appearance  -->
+    <style name="Widget.JivoSDK.TextView.ConnectionState.Name" parent="">
+        <item name="android:textColor">@color/jivo_sdk_color_on_surface_87</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Caption</item>
+    </style>
+
+    <!-- Connection state retry appearance  -->
+    <style name="Widget.JivoSDK.TextView.Connection.Retry" parent="">
+        <item name="android:textColor">?colorSecondary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Caption</item>
+        <item name="android:background">?selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="Widget.JivoSDK.CircularProgressIndicator.Connection" parent="Widget.Material3.CircularProgressIndicator.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="indicatorColor">?colorPrimary</item>
+        <item name="android:indeterminate">true</item>
+        <item name="indicatorSize">20dp</item>
+        <item name="trackThickness">2.5dp</item>
+    </style>
+
 </resources>
