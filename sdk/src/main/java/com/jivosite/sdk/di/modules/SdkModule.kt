@@ -13,8 +13,11 @@ import com.jivosite.sdk.support.async.Schedulers
 import com.jivosite.sdk.support.async.SchedulersImpl
 import dagger.Module
 import dagger.Provides
+import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
+import io.noties.markwon.MarkwonVisitor
 import io.noties.markwon.linkify.LinkifyPlugin
+import org.commonmark.node.SoftLineBreak
 import javax.inject.Singleton
 
 /**
@@ -60,8 +63,11 @@ class SdkModule(appContext: Context, widgetId: String) {
     @Provides
     @Singleton
     fun provideMarkwon(): Markwon {
-        return Markwon.builder(sdkContext.appContext)
-            .usePlugin(LinkifyPlugin.create())
-            .build()
+        return Markwon.builder(sdkContext.appContext).usePlugin(LinkifyPlugin.create())
+            .usePlugin(object : AbstractMarkwonPlugin() {
+                override fun configureVisitor(builder: MarkwonVisitor.Builder) {
+                    builder.on(SoftLineBreak::class.java) { visitor, _ -> visitor.forceNewLine() }
+                }
+            }).build()
     }
 }
