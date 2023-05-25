@@ -456,9 +456,12 @@ fun ratingState(layout: ViewGroup, state: RatingState?) {
                 viewHolder.rating?.init(rateSettings?.type?.type, rateSettings?.icon?.icon, state.ratingFormState.rate)
 
                 val comment = state.ratingFormState.comment
-                val editText = viewHolder.comment?.editText
-                if (!comment.isNullOrBlank() && comment != editText?.text.toString()) {
-                    editText?.setText(comment)
+                viewHolder.comment?.editText?.let {
+                    if (comment == null) {
+                        it.text.clear()
+                    } else if (comment != it.text.toString()) {
+                        it.setText(comment)
+                    }
                 }
             }
 

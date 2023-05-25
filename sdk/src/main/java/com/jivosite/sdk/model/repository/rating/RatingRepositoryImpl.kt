@@ -41,7 +41,7 @@ class RatingRepositoryImpl @Inject constructor(
     }
 
     override fun setChatId(chatId: String) {
-        if (chatId.isNotBlank() || chatId != storage.clientId) {
+        if (chatId.isNotBlank()) {
             storage.chatId = chatId
             updateState()
         }
