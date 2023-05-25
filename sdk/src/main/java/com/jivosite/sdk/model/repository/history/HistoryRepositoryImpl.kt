@@ -45,7 +45,9 @@ class HistoryRepositoryImpl @Inject constructor(
     override fun addMessage(message: HistoryMessage) = updateStateInRepositoryThread {
         transform { state ->
             messagesCache[message.number] = transformMessageIfNeed(message)
-            state.copy(messages = messagesCache.entries.map { it.value })
+            state.copy(messages = messagesCache.entries.map {
+                it.value.copy(status = if (message.number <= storage.lastAckMsgId) MessageStatus.Delivered else MessageStatus.Sent)
+            })
         }
         doAfter {
             if (profileRepository.isMe(message.from)) {
@@ -77,6 +79,7 @@ class HistoryRepositoryImpl @Inject constructor(
 
     override fun markAsDelivered(msgId: String) = updateStateInRepositoryThread {
         val (number, timestamp) = msgId.splitIdTimestamp()
+        storage.lastAckMsgId = number
         doBefore { messagesCache[number] != null }
         transform { state ->
             val messages = state.messages.map { message ->

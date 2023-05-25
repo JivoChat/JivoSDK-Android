@@ -36,6 +36,7 @@ class SharedStorage(context: Context) {
 
         private const val LAST_READ_MSG_ID = "lastReadMsgId"
         private const val LAST_UNREAD_MSG_ID = "lastUnreadMsgId"
+        private const val LAST_ACK_MSG_ID = "lastMsgAckId"
 
         private const val NIGHT_MODE = "nightMode"
 
@@ -90,6 +91,7 @@ class SharedStorage(context: Context) {
 
     var lastReadMsgId: Long by SharedPreference(preferences, LAST_READ_MSG_ID, 0)
     var lastUnreadMsgId: Long by SharedPreference(preferences, LAST_UNREAD_MSG_ID, 0)
+    var lastAckMsgId: Long by SharedPreference(preferences, LAST_ACK_MSG_ID, 0)
 
     var inAppNotificationEnabled: Boolean by SharedPreference(preferences, IN_APP_NOTIFICATION_ENABLED, true)
 
