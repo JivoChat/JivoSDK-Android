@@ -25,12 +25,6 @@ class RatingRepositoryImpl @Inject constructor(
 
 ) : StateRepository<RatingState>(schedulers, "Rating", RatingState()), RatingRepository {
 
-    init {
-        if (storage.chatId.isNotBlank()) {
-            updateState()
-        }
-    }
-
     override val observableState: StateLiveData<RatingState>
         get() = _stateLive
 
@@ -40,10 +34,15 @@ class RatingRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun setChatId(chatId: String) {
-        if (chatId.isNotBlank()) {
-            storage.chatId = chatId
-            updateState()
+    override fun setChatId(chatId: String) = updateStateInRepositoryThread {
+        doBefore { chatId.isNotBlank() }
+        transform { state ->
+            state.copy(ratingFormState = RatingFormState.Ready, timestamp = System.currentTimeMillis() / 1000)
+        }
+        doAfter {
+            if (storage.chatId != chatId) {
+                storage.chatId = chatId
+            }
         }
     }
 
@@ -97,12 +96,6 @@ class RatingRepositoryImpl @Inject constructor(
         transform {
             storage.chatId = ""
             RatingState(ratingFormState = RatingFormState.Initial)
-        }
-    }
-
-    private fun updateState() = updateStateInRepositoryThread {
-        transform { state ->
-            state.copy(ratingFormState = RatingFormState.Ready, timestamp = System.currentTimeMillis() / 1000)
         }
     }
 }

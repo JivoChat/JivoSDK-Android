@@ -136,6 +136,9 @@ class JivoChatViewModel @Inject constructor(
             if (!storage.hasSentContactInfo && it.messages.isNotEmpty()) {
                 contactFormRepository.createContactForm(it.messages.size == 1)
             }
+            if (storage.chatId.isNotBlank() && it.messages.isNotEmpty()) {
+                ratingRepository.setChatId(storage.chatId)
+            }
         }
         addSource(agentRepository.observableState) { state ->
             handleOfflineMessage(value ?: return@addSource)
