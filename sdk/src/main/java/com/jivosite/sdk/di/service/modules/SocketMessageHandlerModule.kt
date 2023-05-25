@@ -131,6 +131,11 @@ class SocketMessageHandlerModule {
         @IntoMap
         @StringKey(DocumentZipDelegate.TYPE)
         fun provideDocumentZipDelegate(delegate: DocumentZipDelegate): SocketMessageDelegate
+
+        @Binds
+        @IntoMap
+        @StringKey(AtomRateDelegate.TYPE)
+        fun provideAtomRateDelegate(delegate: AtomRateDelegate): SocketMessageDelegate
     }
 
     @ServiceScope

@@ -1,6 +1,7 @@
 package com.jivosite.sdk.model.pojo.socket
 
 import com.jivosite.sdk.model.pojo.message.ClientMessage
+import com.jivosite.sdk.socket.handler.delegates.AtomRateDelegate
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.*
@@ -107,6 +108,15 @@ data class SocketMessage(
          */
         fun customData(data: String): SocketMessage {
             return SocketMessage("atom/user.custom-data", data = data)
+        }
+
+        /**
+         * Сообщение об оценке качества обслуживания.
+         * @param data Данные об оценке качества обслуживания.
+         * @param chatId Идентификатор чата.
+         */
+        fun rating(data: String, chatId: String): SocketMessage {
+            return SocketMessage(AtomRateDelegate.TYPE, data = data, id = chatId)
         }
     }
 }

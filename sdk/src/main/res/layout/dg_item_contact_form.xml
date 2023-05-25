@@ -44,7 +44,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/jivo_sdk_bg_contact_form"
+                android:background="@drawable/jivo_sdk_bg_form"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout

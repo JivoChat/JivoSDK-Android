@@ -21,6 +21,7 @@ import coil.load
 import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.jivosite.sdk.R
 import com.jivosite.sdk.api.ApiErrors.FILE_TRANSFER_DISABLED
@@ -32,7 +33,10 @@ import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_DOCUMENT
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_IMAGE
 import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_VIDEO
 import com.jivosite.sdk.model.pojo.message.MessageStatus
+import com.jivosite.sdk.model.pojo.rate.RateSettings
 import com.jivosite.sdk.model.repository.media.MediaItemState
+import com.jivosite.sdk.model.repository.rating.RatingFormState
+import com.jivosite.sdk.model.repository.rating.RatingState
 import com.jivosite.sdk.model.repository.upload.FileState
 import com.jivosite.sdk.model.repository.upload.UploadState
 import com.jivosite.sdk.support.dg.AdapterDelegateItem
@@ -40,6 +44,8 @@ import com.jivosite.sdk.support.dg.adapters.BaseAdapter
 import com.jivosite.sdk.support.ext.cutName
 import com.jivosite.sdk.support.ext.dp
 import com.jivosite.sdk.support.ext.getFileType
+import com.jivosite.sdk.support.utils.hideKeyboard
+import com.jivosite.sdk.ui.views.JivoRatingBar
 import java.util.*
 import kotlin.math.pow
 
@@ -209,6 +215,7 @@ fun agentImageLoader(layout: ViewGroup, state: MediaItemState?) {
     var viewHolder: ImageViewHolder? = layout.tag as ImageViewHolder?
     if (viewHolder == null) {
         viewHolder = ImageViewHolder(layout)
+        layout.tag = viewHolder
     }
 
     viewHolder.imageView.setImageDrawable(null)
@@ -266,6 +273,7 @@ fun clientImageLoader(layout: ViewGroup, state: FileState?) {
     var viewHolder: ImageViewHolder? = layout.tag as ImageViewHolder?
     if (viewHolder == null) {
         viewHolder = ImageViewHolder(layout)
+        layout.tag = viewHolder
     }
 
     viewHolder.imageView.setImageDrawable(null)
@@ -417,6 +425,73 @@ fun setStateInputText(view: AppCompatEditText, isEnabled: Boolean) {
 @BindingAdapter("isEndIconVisible")
 fun setEndIconVisible(view: TextInputLayout, isVisible: Boolean) {
     view.isEndIconVisible = isVisible
+}
+
+@BindingAdapter("ratingState")
+fun ratingState(layout: ViewGroup, state: RatingState?) {
+    if (state != null) {
+        val context = layout.context
+        var viewHolder: RatingViewHolder? = layout.tag as RatingViewHolder?
+
+        if (viewHolder == null) {
+            viewHolder = RatingViewHolder(layout)
+            layout.tag = viewHolder
+        }
+
+        val rateSettings = state.rateSettings
+
+        when (state.ratingFormState) {
+            is RatingFormState.Initial -> {}
+
+            is RatingFormState.Ready -> {
+                viewHolder.title?.text = context.getString(R.string.rate_form_title)
+                viewHolder.description?.text = rateSettings?.customTitle
+                viewHolder.rating?.isVisible = true
+                viewHolder.comment?.isVisible = false
+                viewHolder.sendRating?.isVisible = false
+                viewHolder.rating?.init(rateSettings?.type?.type, rateSettings?.icon?.icon)
+            }
+
+            is RatingFormState.Draft -> {
+                viewHolder.title?.text = context.getString(R.string.rate_form_title)
+                viewHolder.description?.text = rateSettings?.customTitle
+                viewHolder.comment?.isVisible = true
+                viewHolder.sendRating?.isVisible = true
+                viewHolder.rating?.init(rateSettings?.type?.type, rateSettings?.icon?.icon, state.ratingFormState.rate)
+
+                val comment = state.ratingFormState.comment
+                viewHolder.comment?.editText?.let {
+                    if (comment == null) {
+                        it.text.clear()
+                    } else if (comment != it.text.toString()) {
+                        it.setText(comment)
+                    }
+                }
+            }
+
+            is RatingFormState.Sent -> {
+                viewHolder.title?.text = context.getString(R.string.rate_form_finish_title)
+                viewHolder.description?.text = when (state.ratingFormState.rate) {
+                    RateSettings.Rate.GOOD.rate,
+                    RateSettings.Rate.GOOD_NORMAL.rate,
+                    RateSettings.Rate.NORMAL.rate -> rateSettings?.goodRateTitle
+                    else -> rateSettings?.badRateTitle
+                }
+                viewHolder.rating?.isVisible = false
+                viewHolder.comment?.isVisible = false
+                viewHolder.sendRating?.isVisible = false
+                context.hideKeyboard(layout)
+            }
+        }
+    }
+}
+
+private class RatingViewHolder(layout: ViewGroup) {
+    val title: TextView? = layout.findViewById(R.id.title)
+    val description: TextView? = layout.findViewById(R.id.description)
+    val rating: JivoRatingBar? = layout.findViewById(R.id.rating)
+    val comment: TextInputLayout? = layout.findViewById(R.id.commentLayout)
+    val sendRating: MaterialButton? = layout.findViewById(R.id.sendUserInfo)
 }
 
 

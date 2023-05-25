@@ -6,6 +6,7 @@ import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.pojo.message.HistoryMessage
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import com.jivosite.sdk.model.repository.contacts.ContactFormState
+import com.jivosite.sdk.model.repository.rating.RatingState
 import com.jivosite.sdk.model.repository.upload.FileState
 import com.jivosite.sdk.support.dg.AdapterDelegateItem
 
@@ -37,6 +38,8 @@ open class ChatItem(viewType: Int, data: ChatEntry) : AdapterDelegateItem<ChatEn
         const val VT_CONTACT_FORM = VT_ITEM + 11
 
         const val VT_UNSUPPORTED = VT_ITEM + 12
+
+        const val VT_RATING = VT_ITEM + 13
     }
 }
 
@@ -121,6 +124,8 @@ data class SendingMessageEntry(val message: ClientMessage, override val position
 data class UploadingFileEntry(val state: FileState, override val position: EntryPosition) : MessageEntry()
 
 data class ContactFormEntry(val state: ContactFormState) : ChatEntry()
+
+data class RatingEntry(val state: RatingState) : ChatEntry()
 
 sealed class EntryPosition {
     object First : EntryPosition()

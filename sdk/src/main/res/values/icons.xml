@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="jivo_sdk_thumb_icons">
+        <item>@drawable/jivo_sdk_thumb_up_selector</item>
+        <item>@drawable/jivo_sdk_thumb_down_selector</item>
+    </integer-array>
+
+    <integer-array name="jivo_sdk_emoji_icons">
+        <item>@drawable/jivo_sdk_emoji_bad_selector</item>
+        <item>@drawable/jivo_sdk_emoji_bad_normal_selector</item>
+        <item>@drawable/jivo_sdk_emoji_normal_selector</item>
+        <item>@drawable/jivo_sdk_emoji_good_normal_selector</item>
+        <item>@drawable/jivo_sdk_emoji_good_selector</item>
+    </integer-array>
+</resources>

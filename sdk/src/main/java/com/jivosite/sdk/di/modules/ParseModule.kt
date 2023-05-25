@@ -1,9 +1,8 @@
 package com.jivosite.sdk.di.modules
 
 import com.jivosite.sdk.model.pojo.message.MessageStatus
+import com.jivosite.sdk.model.pojo.rate.RateSettings
 import com.squareup.moshi.*
-import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -21,6 +20,8 @@ class ParseModule {
     fun provideParser(): Moshi {
         return Moshi.Builder()
             .add(MessageStatusJsonAdapter())
+            .add(RateSettingsTypeJsonAdapter())
+            .add(RateSettingsIconJsonAdapter())
             .build()
     }
 }
@@ -34,6 +35,40 @@ class MessageStatusJsonAdapter {
 
     @FromJson
     fun fromJson(status: String): MessageStatus {
-       return MessageStatus.Sending
+        return MessageStatus.Sending
+    }
+}
+
+class RateSettingsTypeJsonAdapter : JsonAdapter<RateSettings.Type>() {
+
+    @FromJson
+    override fun fromJson(reader: JsonReader): RateSettings.Type? {
+        return if (reader.peek() != JsonReader.Token.NULL) {
+            RateSettings.Type.fromValue(reader.nextString())
+        } else {
+            reader.nextNull()
+        }
+    }
+
+    @ToJson
+    override fun toJson(writer: JsonWriter, value: RateSettings.Type?) {
+        writer.value(value?.type)
+    }
+}
+
+class RateSettingsIconJsonAdapter : JsonAdapter<RateSettings.Icon>() {
+
+    @FromJson
+    override fun fromJson(reader: JsonReader): RateSettings.Icon? {
+        return if (reader.peek() != JsonReader.Token.NULL) {
+            RateSettings.Icon.fromValue(reader.nextString())
+        } else {
+            reader.nextNull()
+        }
+    }
+
+    @ToJson
+    override fun toJson(writer: JsonWriter, value: RateSettings.Icon?) {
+        writer.value(value?.icon)
     }
 }

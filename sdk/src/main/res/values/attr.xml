@@ -16,4 +16,5 @@
         <attr name="collapsedMaxLines" format="dimension" />
         <attr name="postfix" format="string" />
     </declare-styleable>
+
 </resources>

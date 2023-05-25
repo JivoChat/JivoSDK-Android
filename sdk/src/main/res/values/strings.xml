@@ -36,6 +36,7 @@
     <string name="common_cancel">Cancel</string>
     <string name="common_close">Close</string>
     <string name="common_done">Done</string>
+    <string name="common_understand">Got it!</string>
     <!-- Универсальное сообщение о неизвестной ошибке. -->
     <string name="common_unknown_error">Unknown error</string>
     <string name="Common.Open">Open</string>
@@ -75,7 +76,7 @@
     <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку открывает системный пикер документов. -->
     <string name="media_upload_attachment_type_selecting_document">Document</string>
     <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку вызывает пикер фотогалереи. -->
-    <string name="media_upload_attachment_type_selecting_photo">Photo</string>
+    <string name="media_upload_attachment_type_selecting_photo">Gallery</string>
     <!-- Заголовок с вопросом о том, какой тип вложения пользователь хочет прикрепить к сообщению. -->
     <string name="media_upload_select_an_attachment_type_title">What would you like to attach?</string>
     <!-- Системное сообщение в ленте чата, говорящее о том, что в данный момент ведётся загрузка файла на сервер. -->
@@ -103,6 +104,7 @@ Please go to [Settings &gt; Your App &gt; Photos] to give access.</string>
     <string name="Message.Deleted">Message was deleted</string>
     <string name="Message.Edited">(edited)</string>
     <string name="Message.Preview.Line">The chat was transferred to the second line</string>
+    <string name="Message.Sender.Bot">bot</string>
     <string name="Message.Sender.You">You</string>
     <string name="messages.label.bot">bot</string>
     <string name="notification_channel_message_description">Message from Jivo SDK</string>
@@ -113,6 +115,7 @@ Please go to [Settings &gt; Your App &gt; Photos] to give access.</string>
     <string name="offline_message_placeholder">Oops, it seems that our agents are not available now. You can leave your message here in chat and they will contact you soon.</string>
     <!-- Пункт "Копировать" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
     <string name="options_copy">Copy</string>
+    <string name="options_delete">Delete</string>
     <!-- Пункт "Повторить отправку" контекстного меню, вызываемого долгим тапом по бабблу сообщения. -->
     <string name="options_resend">Resend</string>
     <!--
@@ -122,6 +125,12 @@ Please go to [Settings &gt; Your App &gt; Photos] to give access.</string>
     <string name="PhotoLibrary.Access.NoAvailableImages">No available images</string>
     <!-- Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway -->
     <string name="PhotoLibrary.Access.Unavailable">Photo library is unavailable</string>
+    <string name="rate_form.comment_title">Your comment</string>
+    <string name="rate_form.finish_title">Thanks for your feedback</string>
+    <string name="rate_form.send">Send</string>
+    <string name="rate_form.title">Leave a review</string>
+    <string name="status_missing_connection">Missing Connection</string>
+    <string name="suggest_check_internet_access">Please check your internet access</string>
     <string name="toast_copied_to_clipboard">Copied</string>
     <!-- Unsupported message type bubble discription -->
     <string name="unsupported_message_description">The app version is outdated. Message details: %s</string>

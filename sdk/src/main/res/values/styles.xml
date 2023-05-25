@@ -199,7 +199,7 @@
 
     <!-- Contact form background -->
     <style name="Main.Theme.JivoSDK.ContactFormBackground">
-        <item name="android:background">@drawable/jivo_sdk_bg_contact_form</item>
+        <item name="android:background">@drawable/jivo_sdk_bg_form</item>
     </style>
 
     <!-- Contact form text input appearance -->
@@ -434,6 +434,37 @@
         <item name="android:textSize">14sp</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Body2</item>
+    </style>
+
+    <!-- Button send rate -->
+    <style name="Widget.JivoSDK.Button.SendRate" parent="Widget.Material3.Button">
+        <item name="cornerRadius">4dp</item>
+        <item name="android:stateListAnimator">@animator/jivo_sdk_btn_state_list_animator</item>
+        <item name="android:insetRight">8dp</item>
+        <item name="android:insetLeft">8dp</item>
+        <item name="backgroundTint">@color/jivo_sdk_btn_contained_bg_color_selector</item>
+        <item name="android:textColor">@color/jivo_sdk_btn_contained_txt_color_selector</item>
+    </style>
+
+    <!-- Rate text input appearance -->
+    <style name="Widget.JivoSDK.TextInputLayoutAppearance.Rating" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:textColor">@color/jivo_sdk_color_on_surface_87</item>
+        <item name="android:textColorHint">@color/jivo_sdk_color_on_surface_60</item>
+        <item name="boxBackgroundColor">@color/jivo_sdk_surface</item>
+        <item name="boxStrokeColor">@color/jivo_sdk_box_stroke_color_selector</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:checked">true</item>
+    </style>
+
+    <style name="Widget.JivoSDK.TextInputEditText.Rating" parent="ThemeOverlay.Material3.TextInputEditText">
+        <item name="android:textAppearance">@style/Base.TextAppearance.JivoSDK.Body2</item>
+        <item name="android:textColorHighlight">@color/jivo_sdk_color_primary_20</item>
+        <item name="backgroundTint">@color/jivo_sdk_surface</item>
+        <item name="android:textColor">@color/jivo_sdk_color_on_surface_87</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
     </style>
 
 </resources>
