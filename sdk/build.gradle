@@ -22,6 +22,7 @@ android {
         consumerProguardFiles "consumer-rules.pro"
 
         buildConfigField "String", "VERSION_NAME", "\"$PUBLISH_VERSION\""
+        buildConfigField "String", "VERSION_CODE", "\"$appVersionCode\""
         buildConfigField "String", "WSS_DEFAULT_HOST", '"node.jivosite.com:443"'
         buildConfigField "int", "CONNECTION_TIMEOUT", '15000'
         buildConfigField "Long", "PING_INTERVAL", '20000L'

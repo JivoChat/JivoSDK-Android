@@ -1,11 +1,13 @@
 package com.jivosite.sdk.ui.settings
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.jivosite.sdk.BuildConfig
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.R
 import com.jivosite.sdk.databinding.FragmentJivoSettingsBinding
@@ -39,6 +41,9 @@ class JivoSettingsFragment : Fragment(R.layout.fragment_jivo_settings) {
             binding.fragment = this
             binding.viewModel = viewModel
             binding.lifecycleOwner = viewLifecycleOwner
+            binding.appVersion.text = "App build version: ${BuildConfig.VERSION_CODE}"
+            binding.sdkVersion.text = "SDK version : ${BuildConfig.VERSION_NAME}"
+            binding.osVersion.text = "Android: ${Build.VERSION.RELEASE} (level ${Build.VERSION.SDK_INT})"
         }
     }
 
