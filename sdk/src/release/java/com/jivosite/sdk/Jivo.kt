@@ -148,9 +148,7 @@ object Jivo {
     fun setUserToken(userToken: String) {
         if (Jivo::jivoSdkComponent.isInitialized) {
             if (userToken.isNotBlank() && userToken != storage.userToken) {
-                jivoSdkComponent.clearUseCaseProvider().get().execute()
                 storage.userToken = userToken
-                JivoWebSocketService.restart(sdkContext.appContext)
             }
         }
     }
@@ -178,7 +176,7 @@ object Jivo {
         if (Jivo::jivoSdkComponent.isInitialized) {
             unsubscribeFromPush()
             jivoSdkComponent.clearUseCaseProvider().get().execute()
-            JivoWebSocketService.stop(sdkContext.appContext)
+            lifecycleObserver.onClear()
         }
     }
 

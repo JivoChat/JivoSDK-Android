@@ -21,7 +21,7 @@ class StoppedState @Inject constructor(
 ) : ServiceState(stateContext) {
 
     override fun load() {
-        logImpossibleAction("load")
+        stateContext.changeState(InitialState::class.java).load()
     }
 
     override fun start() {
