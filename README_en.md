@@ -19,10 +19,15 @@ The **Jivo Mobile SDK** allows you to embed a chat into your native **Android** 
 -   New messages indicator inside the integrated app
 -   PUSH notifications
 
-### Current version: 1.2.1
+### Current version: 2.0.0
 
 List of changes:
 
+-   added quality of service assessment;
+-   redesigned API responsible for SDK connections;
+-   renamed Jivo.setClientInfo() method to Jivo.setContactInfo() method for transferring client contact data;
+-   added support for connection status customization;
+-   fixed incorrect message status display;
 -   fixed some bugs that caused the SDK to crash and work incorrectly;
 
 ### Known Issues:
@@ -112,7 +117,7 @@ android {
 dependencies {
    ...
    //JivoSDK
-   implementation 'com.jivosite.sdk:android-sdk:1.2.0'
+   implementation 'com.jivosite.sdk:android-sdk:2.0.0'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -122,7 +127,11 @@ dependencies {
 
 ### Jivo SDK initialization
 
-To initialize **JivoSDK** in a class inherited from the `Application` class, add a call to the static method `Jivo.init()` in the body of the overridden `onCreate()` method. The static method `Jivo.init()` takes the following parameters:
+To initialize **JivoSDK** in a class inherited from the `Application` class, add a call to the static method `Jivo.init()` in the body of the overridden `onCreate()` method.
+
+**Attention!** If the application has more than one process, initialise the SDK in the main application process.
+
+The static method `Jivo.init()` takes the following parameters:
 
 -   **appContext** - application context.
 -   **widgetId** - unique id - widget_id.
@@ -403,11 +412,21 @@ class PushService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         ...
         if (!Jivo.handleRemoteMessage(message)) {
-            //Выполнить обработку сообщения.
+            //Execute message processing.
         }
     }
 }
 ```
+
+Additional functionality of JivoSDK.
+---------------------------------
+
+### Assessing the quality of service.
+
+When working with customers in chat rooms, there is often a need to get feedback in order to evaluate employee performance and to understand what can be improved.
+Detailed information and settings are available at the [link](https://www.jivo.ru/help/customization/kak-vkliuchyt-otsenku-kachestva-obsluzhyvanyia.html)
+
+<img src="./README_en/jivosdk_rating_en.png" width=200>
 
 Additional Jivo SDK settings.
 ---------------------------------
@@ -472,16 +491,18 @@ Demonstration of logging using the built-in tool **Logcat**:
 
 ### Transfer of information about the client.
 
-To pass information about the client, you need to call the static method `Jivo.setClientInfo()` and pass an object of type `ClientInfo`. This object can be configured using the `Builder` class, code example below:
+Sets the visitor's contact details. The data is displayed to the operator as if entered by the visitor in the contact form.
+To pass the customer information, the static method `Jivo.setContactInfo()` must be called and an object of type `ContactInfo` must be passed. This object can be configured using `Builder` class, code example below:
 
 ```kotlin
-Jivo.setClientInfo(
-    ClientInfo.Builder()
-        .setName("John Doe")
-        .setEmail("example@email.tld")
-        .setPhone("+18001234567")
-        .setDescription("Awesome client")
-        .build())
+Jivo.setContactInfo(
+    contactInfo {
+        name = userName.value
+        email = userEmail.value ?: ""
+        phone = userPhone.value ?: ""
+        description = userDescription.value
+    }
+)
 ```       
 
 Let's analyze each parameter separately:
@@ -538,7 +559,7 @@ To clear data, call the `Jivo.clear()` static method. This method is recommended
 
 ### Passing user-token.
 
-To pass **user-token'a**, you need to call the static method `Jivo.setUserToken()`. This method is recommended to be called after successful user authorization. In the parameter of which you can pass both **JWT-token** and a unique string.
+To pass **user-token'a**, you need to call the static method `Jivo.setUserToken()`. This method is recommended to be called after successful user authorization. In the parameter of which you can pass both **JWT-token**.
 
 ### Using the JWT mechanism
 To save the correspondence, you need to generate a **JWT token**. To sign a **JWT token**, you will need to generate a **SECRET** and pass it to Jivo (Ask support team). Store **SECRET** only on you **backend**, otherwise the security will be compromised.
@@ -663,7 +684,7 @@ android {
 dependencies {
    ...
    //Jivo SDK
-   implementation 'com.jivosite.sdk:android-sdk:1.2.0'
+   implementation 'com.jivosite.sdk:android-sdk:2.0.0'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -674,7 +695,11 @@ dependencies {
 Initializing the Jivo SDK.
 ----------------------
 
-To initialize the **Jivo SDK** in the `MainApplication.java` class, which is located in the `android/app/src/main/java/com/your-app-name/` folder, into the body of the overridden `onCreate()` method add a call to the static method `Jivo.init()`. The static method `Jivo.init()` takes the following parameters:
+To initialize the **Jivo SDK** in the `MainApplication.java` class, which is located in the `android/app/src/main/java/com/your-app-name/` folder, into the body of the overridden `onCreate()` method add a call to the static method `Jivo.init()`.
+
+**Attention!** If the application has more than one process, initialise the SDK in the main application process. 
+
+The static method `Jivo.init()` takes the following parameters:
 
 -   **appContext** - application context.
 -   **widgetId** - unique `id` - Jivo widget_id.
@@ -807,7 +832,22 @@ export default function App() {
 Changelog
 =========
 
-1.2.1 (02/28/2022)
+2.0.0 (05/30/2023)
+-----------------------
+
+### Bug Fixes:
+
+-   fixed incorrect message status display;
+-   fixed some bugs that caused the SDK to crash and work incorrectly;
+
+### Features:
+
+-   added quality of service assessment;
+-   redesigned API responsible for SDK connections;
+-   renamed Jivo.setClientInfo() method to Jivo.setContactInfo() method for transferring client contact data;
+-   added support for connection status customization;
+
+1.2.1 (02/28/2023)
 -----------------------
 
 ### Bug Fixes:
