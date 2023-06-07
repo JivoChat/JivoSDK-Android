@@ -268,7 +268,7 @@ Wait for the project build.
 
 <img src="https://user-images.githubusercontent.com/81690520/144238882-ceabd77c-ac50-40c0-ba81-4b36857e2c2e.png" width="630">
 
-### Get the google-services.json.
+### How to get the google-services.json.
 
 Click on the <img src="https://user-images.githubusercontent.com/81690520/144238902-8f6a0074-132a-4dd3-a13b-d00dfea81929.png" width="16"> button, then choose **Project settings**.
 
