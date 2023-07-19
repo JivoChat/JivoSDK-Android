@@ -241,7 +241,7 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
 
             else -> Jivo.w("Unknown command $action")
         }
-        return START_REDELIVER_INTENT
+        return START_NOT_STICKY
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
