@@ -44,7 +44,7 @@ class ContactFormRepositoryImpl @Inject constructor(
     override fun createContactForm(hasTimeout: Boolean) =
         updateStateInRepositoryThread(CREATE_CONTACT_FORM_TIMEOUT.takeIf { hasTimeout } ?: 0L
         ) {
-            doBefore { state -> state.contactForm == null }
+            doBefore { state -> state.contactForm == null && !storage.hasSentContactInfo }
             transform { state -> state.copy(contactForm = ContactForm()) }
         }
 
