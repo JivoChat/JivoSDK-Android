@@ -147,19 +147,20 @@
                 <TextView
                     android:id="@+id/connectionStateName"
                     style="@style/Widget.JivoSDK.TextView.ConnectionState.Name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toTopOf="@+id/connectionRetry"
                     app:layout_constraintEnd_toStartOf="@+id/connectingView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@string/connection_state_connecting" />
+                    tools:text="rfwefwefwfwefewjhvjvjvhjhvhjfjgjkjgkjkbjjhjhvjvjvjvhjhvjvhjvjvhjvjvjvhvjvjv" />
 
                 <TextView
                     android:id="@+id/connectionRetry"
                     style="@style/Widget.JivoSDK.TextView.Connection.Retry"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:onClick="@{() -> viewModel.retry()}"
                     android:text="@string/connection_state_retry"
                     android:visibility="gone"
