@@ -36,6 +36,7 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_close">Fechar</string>
     <string name="common_done">Concluído</string>
+    <string name="common_understand">Consegui!</string>
     <!-- Универсальное сообщение о неизвестной ошибке. -->
     <string name="common_unknown_error">Erro desconhecido</string>
     <string name="Common.Open">Abrir</string>
@@ -103,7 +104,6 @@ Favor ir até [Ajustes &gt; App &gt; Fotos] para permitir o acesso.</string>
     <string name="Message.Deleted">A mensagem foi excluída</string>
     <string name="Message.Edited">(editado)</string>
     <string name="Message.Preview.Line">O chat foi transferido para a linha secundária</string>
-    <string name="Message.Sender.Bot">bot</string>
     <string name="Message.Sender.You">Você</string>
     <string name="messages.label.bot">bot</string>
     <string name="notification_channel_message_description">Mensagem do Jivo SDK</string>
@@ -125,9 +125,14 @@ Favor ir até [Ajustes &gt; App &gt; Fotos] para permitir o acesso.</string>
     <!-- Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway -->
     <string name="PhotoLibrary.Access.Unavailable">A biblioteca de fotos não está disponível</string>
     <string name="rate_form.comment_title">Seu comentário</string>
+    <string name="rate_form.description">"Esse atendimento foi útil para você? Me fale o quão satisfeito você está "</string>
+    <string name="rate_form.finish_description_bad">Nós nos esforçamos para entregar o melhor serviço para você. Precisamos melhorar!</string>
+    <string name="rate_form.finish_description_good">Ficamos felizes que tenha gostado!</string>
     <string name="rate_form.finish_title">Obrigado pelo feedback</string>
     <string name="rate_form.send">Enviar</string>
     <string name="rate_form.title">Deixar uma avaliação</string>
+    <string name="status_missing_connection">Sem conexão</string>
+    <string name="suggest_check_internet_access">Por favor, verifique sua conexão à internet</string>
     <string name="toast_copied_to_clipboard">Copiado</string>
     <!-- Unsupported message type bubble discription -->
     <string name="unsupported_message_description">A versão do aplicativo está desatualizada. Detalhes da mensagem: %s</string>

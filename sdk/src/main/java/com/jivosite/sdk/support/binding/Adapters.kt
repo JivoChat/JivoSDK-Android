@@ -23,6 +23,7 @@ import coil.transform.CircleCropTransformation
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
+import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.R
 import com.jivosite.sdk.api.ApiErrors.FILE_TRANSFER_DISABLED
 import com.jivosite.sdk.model.pojo.agent.Agent
@@ -445,7 +446,8 @@ fun ratingState(layout: ViewGroup, state: RatingState?) {
 
             is RatingFormState.Ready -> {
                 viewHolder.title?.text = context.getString(R.string.rate_form_title)
-                viewHolder.description?.text = rateSettings?.customTitle
+                viewHolder.description?.text =
+                    if (Jivo.getConfig().useRattingStringsRes) context.getString(R.string.rate_form_description) else rateSettings?.customTitle
                 viewHolder.rating?.isVisible = true
                 viewHolder.comment?.isVisible = false
                 viewHolder.sendRating?.isVisible = false
@@ -454,7 +456,8 @@ fun ratingState(layout: ViewGroup, state: RatingState?) {
 
             is RatingFormState.Draft -> {
                 viewHolder.title?.text = context.getString(R.string.rate_form_title)
-                viewHolder.description?.text = rateSettings?.customTitle
+                viewHolder.description?.text =
+                    if (Jivo.getConfig().useRattingStringsRes) context.getString(R.string.rate_form_description) else rateSettings?.customTitle
                 viewHolder.comment?.isVisible = true
                 viewHolder.sendRating?.isVisible = true
                 viewHolder.rating?.init(rateSettings?.type?.type, rateSettings?.icon?.icon, state.ratingFormState.rate)
@@ -474,8 +477,8 @@ fun ratingState(layout: ViewGroup, state: RatingState?) {
                 viewHolder.description?.text = when (state.ratingFormState.rate) {
                     RateSettings.Rate.GOOD.rate,
                     RateSettings.Rate.GOOD_NORMAL.rate,
-                    RateSettings.Rate.NORMAL.rate -> rateSettings?.goodRateTitle
-                    else -> rateSettings?.badRateTitle
+                    RateSettings.Rate.NORMAL.rate -> if (Jivo.getConfig().useRattingStringsRes) context.getString(R.string.rate_form_finish_description_good) else rateSettings?.goodRateTitle
+                    else -> if (Jivo.getConfig().useRattingStringsRes) context.getString(R.string.rate_form_finish_description_bad) else rateSettings?.badRateTitle
                 }
                 viewHolder.rating?.isVisible = false
                 viewHolder.comment?.isVisible = false

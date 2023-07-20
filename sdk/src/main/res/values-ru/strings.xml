@@ -104,7 +104,6 @@
     <string name="Message.Deleted">Сообщение удалено</string>
     <string name="Message.Edited">(изменено)</string>
     <string name="Message.Preview.Line">Диалог передан на вторую линию</string>
-    <string name="Message.Sender.Bot">бот</string>
     <string name="Message.Sender.You">Вы</string>
     <string name="messages.label.bot">бот</string>
     <string name="notification_channel_message_description">Сообщение из Jivo SDK</string>
@@ -126,6 +125,9 @@
     <!-- Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway -->
     <string name="PhotoLibrary.Access.Unavailable">Библиотека фотографий недоступна</string>
     <string name="rate_form.comment_title">Ваш комментарий</string>
+    <string name="rate_form.description">Насколько вы удовлетворены ответами в чате?</string>
+    <string name="rate_form.finish_description_bad">Мы стремимся делать лучший сервис для вас, будем работать над ошибками. Спасибо за вашу оценку!</string>
+    <string name="rate_form.finish_description_good">Рады, что вам понравилось :)</string>
     <string name="rate_form.finish_title">Спасибо за оценку</string>
     <string name="rate_form.send">Отправить</string>
     <string name="rate_form.title">Оставьте отзыв</string>

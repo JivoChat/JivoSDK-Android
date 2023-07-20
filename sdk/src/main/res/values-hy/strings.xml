@@ -36,7 +36,7 @@
     <string name="common_cancel">Չեղարկել</string>
     <string name="common_close">Փակել</string>
     <string name="common_done">Կատարված է</string>
-    <string name="common_understand">Got it!</string>
+    <string name="common_understand">Հասկացա!</string>
     <!-- Универсальное сообщение о неизвестной ошибке. -->
     <string name="common_unknown_error">Տեխնիկական սխալ</string>
     <string name="Common.Open">Բացել</string>
@@ -104,7 +104,6 @@
     <string name="Message.Deleted">հաղորդագրությունը ջնջվել է</string>
     <string name="Message.Edited">(փոփոխված է)</string>
     <string name="Message.Preview.Line">Զրույցը տեղափոխվեց երկրորդ գիծ</string>
-    <string name="Message.Sender.Bot">բոտ</string>
     <string name="Message.Sender.You">Դուք</string>
     <string name="messages.label.bot">բոտ</string>
     <string name="notification_channel_message_description">Jivo SDK-ից հաղորդագրություն</string>
@@ -125,8 +124,15 @@
     <string name="PhotoLibrary.Access.NoAvailableImages">Հասանելի նկարներ չկան</string>
     <!-- Normally an alert with this message shouldn't be displayed but for test purposes it was added to SDK anyway -->
     <string name="PhotoLibrary.Access.Unavailable">Ֆոտադարանը անհասանելի է</string>
-    <string name="status_missing_connection">Missing Connection</string>
-    <string name="suggest_check_internet_access">Please check your internet access</string>
+    <string name="rate_form.comment_title">Ձեր մեկնաբանությունը</string>
+    <string name="rate_form.description">Որքանո՞վ եք բավարարված գործակալի պատասխաններից։</string>
+    <string name="rate_form.finish_description_bad">Մենք ձգտում ենք լավագույն ծառայությունը մատուցել ձեզ: Մենք աշխատելու բան ունենք։</string>
+    <string name="rate_form.finish_description_good">Մենք ուրախ ենք, որ այն ձեզ դուր եկավ</string>
+    <string name="rate_form.finish_title">Շնորհակալություն ձեր արձագանքի համար:</string>
+    <string name="rate_form.send">Ուղարկել</string>
+    <string name="rate_form.title">Թողնել կարծիք</string>
+    <string name="status_missing_connection">Կապ չկա</string>
+    <string name="suggest_check_internet_access">Խնդրում ենք ստուգել ձեր ինտերնետ կապը</string>
     <string name="toast_copied_to_clipboard">Պատճենված է</string>
     <!-- Unsupported message type bubble discription -->
     <string name="unsupported_message_description">Հավելվածի տարբերակը հնացած է։ Մանրամասները հաղորդագրության մեջ. %s</string>
