@@ -133,7 +133,7 @@ class JivoChatViewModel @Inject constructor(
                 handler.removeCallbacks(addWelcomeMessageCallback)
             }
             handleOfflineMessage(currentState)
-            if (!storage.hasSentContactInfo && it.messages.isNotEmpty()) {
+            if (it.messages.isNotEmpty()) {
                 contactFormRepository.createContactForm(it.messages.size == 1)
             }
             if (storage.chatId.isNotBlank() && it.messages.isNotEmpty()) {

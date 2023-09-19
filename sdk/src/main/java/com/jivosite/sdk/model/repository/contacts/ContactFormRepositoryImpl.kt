@@ -4,8 +4,6 @@ import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.model.pojo.CustomData
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import com.jivosite.sdk.model.repository.StateRepository
-import com.jivosite.sdk.model.repository.connection.ConnectionState
-import com.jivosite.sdk.model.repository.connection.ConnectionStateRepository
 import com.jivosite.sdk.model.repository.contacts.ContactFormRepository.Companion.CREATE_CONTACT_FORM_TIMEOUT
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.transmitter.Transmitter
@@ -28,15 +26,11 @@ class ContactFormRepositoryImpl @Inject constructor(
     schedulers: Schedulers,
     private val storage: SharedStorage,
     private val moshi: Moshi,
-    private val messageTransmitter: Transmitter,
-    private val connectionStateRepository: ConnectionStateRepository
+    private val messageTransmitter: Transmitter
 ) : StateRepository<ContactFormState>(
     schedulers, "ContactForm", ContactFormState(hasSentContactInfo = storage.hasSentContactInfo)
 ),
     ContactFormRepository {
-
-    private val hasConnected: Boolean
-        get() = connectionStateRepository.state.value == ConnectionState.Connected
 
     override val observableState: StateLiveData<ContactFormState>
         get() = _stateLive
@@ -78,13 +72,10 @@ class ContactFormRepositoryImpl @Inject constructor(
             if (jsonContactInfo != storage.contactInfo) {
                 storage.hasSentContactInfo = false
                 storage.contactInfo = jsonContactInfo
-            }
-
-            if (hasConnected && !storage.hasSentContactInfo) {
                 sendContactInfo(contactInfo)
             }
 
-        } else if (hasConnected && !storage.hasSentContactInfo && storage.contactInfo.isNotBlank()) {
+        } else if (!storage.hasSentContactInfo && storage.contactInfo.isNotBlank()) {
             moshi.fromJson<ContactInfo>(storage.contactInfo)?.let {
                 sendContactInfo(it)
             }
@@ -102,12 +93,12 @@ class ContactFormRepositoryImpl @Inject constructor(
                 storage.customData = jsonCustomData
             }
 
-            if (hasConnected && !storage.hasSentCustomData) {
+            if (!storage.hasSentCustomData) {
                 messageTransmitter.sendMessage(SocketMessage.customData(jsonCustomData))
                 storage.hasSentCustomData = true
             }
 
-        } else if (hasConnected && !storage.hasSentCustomData && storage.customData.isNotBlank()) {
+        } else if (!storage.hasSentCustomData && storage.customData.isNotBlank()) {
             messageTransmitter.sendMessage(SocketMessage.customData(storage.customData))
             storage.hasSentCustomData = true
         }
