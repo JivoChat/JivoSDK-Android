@@ -69,7 +69,9 @@ class JivoLifecycleObserver(
     }
 
     fun onClear() {
-        isStartedService = false
-        JivoWebSocketService.stop(sdkContext.appContext)
+        if (isStartedService) {
+            isStartedService = false
+            JivoWebSocketService.stop(sdkContext.appContext)
+        }
     }
 }
