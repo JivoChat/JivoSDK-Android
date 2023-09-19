@@ -19,13 +19,13 @@ Jivo Mobile SDK - Android
 -   Индикатор новых сообщений внутри приложения интегратора
 -   Push-уведомления
 
-### Актуальная версия: 2.1.0
+### Актуальная версия: 2.1.1
 
 Список изменений:
 
--   добавлена возможность использования собственных переводов для оценки качества обслуживания;
--   отключен перезапуск сервиса;
--   исправлены ошибки UI;
+-   исправлено падение при вызове функции `setContactInfo()` из фонового потока;
+-   исправлено некорректное отображение контактной формы после перезапуска приложения;
+-   отключено резервное копирование пользовательских данных с помощью функции автоматического резервного копирования;
 
 ### Известные проблемы:
 - На устройствах марки **Xiaomi**, возникают проблемы с отображением цветов в чате **SDK**. Решение, добавить флаг в стили вашего приложения:
@@ -116,7 +116,7 @@ android {
 dependencies {
    ...
    //JivoSDK
-   implementation 'com.jivosite.sdk:android-sdk:2.0.0'
+   implementation 'com.jivosite.sdk:android-sdk:2.1.1'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -687,7 +687,7 @@ android {
 dependencies {
    ...
    //JivoSDK
-   implementation 'com.jivosite.sdk:android-sdk:2.0.0'
+   implementation 'com.jivosite.sdk:android-sdk:2.1.1'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -832,6 +832,18 @@ export default function App() {
 
 Changelog
 =========
+
+2.1.1 (2023-09-20)
+-----------------------
+
+### Bug Fixes:
+
+-   исправлено падение при вызове функции `setContactInfo()` из фонового потока;
+-   исправлено некорректное отображение контактной формы после перезапуска приложения;
+
+### Features:
+
+-   отключено резервное копирование пользовательских данных с помощью функции автоматического резервного копирования;
 
 2.1.0 (2023-07-20)
 -----------------------
