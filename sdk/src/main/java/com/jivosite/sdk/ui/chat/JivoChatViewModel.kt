@@ -277,13 +277,16 @@ class JivoChatViewModel @Inject constructor(
             }
 
             state.contactFormState.run {
-                this.contactForm?.let {
-                    putOrIncrementKey(
-                        state.historyState.messages.firstOrNull()?.timestamp?.inc() ?: this.contactForm.timestamp,
-                        ContactFormEntry(this)
-                    )
+                if (!storage.hasSentContactInfo) {
+                    this.contactForm?.let {
+                        putOrIncrementKey(
+                            state.historyState.messages.firstOrNull()?.timestamp?.inc() ?: this.contactForm.timestamp,
+                            ContactFormEntry(this)
+                        )
+                    }
                 }
             }
+
             state.unsupportedState.messages.forEach {
                 putOrIncrementKey(it.id.splitIdTimestamp().second, UnsupportedEntry(it))
             }

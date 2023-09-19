@@ -13,7 +13,7 @@ data class ContactFormState(
     val contactForm: ContactForm? = null
 ) {
     val size: Int
-        get() = if (contactForm != null) 1 else 0
+        get() = if (contactForm != null && !hasSentContactInfo) 1 else 0
 }
 
 @JsonClass(generateAdapter = true)
