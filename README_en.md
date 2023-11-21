@@ -19,13 +19,13 @@ The **Jivo Mobile SDK** allows you to embed a chat into your native **Android** 
 -   New messages indicator inside the integrated app
 -   PUSH notifications
 
-### Current version: 2.1.1
+### Current version: 2.2
 
 List of changes:
 
--   fixed crash when calling `setContactInfo()` function from background thread;
--   fixed incorrect display of contact form after restarting application;
--   disabled backing up user data using the auto backup function;
+-   fixed incorrect display of `markdown` list;
+-   added support for customizing the chat button;
+-   added support for customizing a message with a picture;
 
 ### Known Issues:
 - There is a problem with displaying colors in **SDK** chat on **Xiaomi** devices. Solution - add a flag to your application's styles:
@@ -114,7 +114,7 @@ android {
 dependencies {
    ...
    //JivoSDK
-   implementation 'com.jivosite.sdk:android-sdk:2.1.1'
+   implementation 'com.jivosite.sdk:android-sdk:2.2'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -681,7 +681,7 @@ android {
 dependencies {
    ...
    //Jivo SDK
-   implementation 'com.jivosite.sdk:android-sdk:2.1.1'
+   implementation 'com.jivosite.sdk:android-sdk:2.2'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -828,6 +828,18 @@ export default function App() {
 
 Changelog
 =========
+
+2.2 (11/21/2023)
+-----------------------
+
+### Bug Fixes:
+
+-   fixed incorrect display of `markdown` list;
+
+### Features:
+
+-   added support for customizing the chat button;
+-   added support for customizing a message with a picture;
 
 2.1.1 (09/20/2023)
 -----------------------
