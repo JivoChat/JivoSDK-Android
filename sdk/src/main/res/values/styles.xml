@@ -509,4 +509,9 @@
         <item name="trackThickness">2.5dp</item>
     </style>
 
+    <style name="Widget.JivoSDK.JivoChatButton" parent="Widget.Design.FloatingActionButton">
+        <item name="backgroundTintList">@color/jivo_sdk_chat_button_background_color</item>
+        <item name="badgeColor">@color/jivo_sdk_system_red</item>
+    </style>
+
 </resources>

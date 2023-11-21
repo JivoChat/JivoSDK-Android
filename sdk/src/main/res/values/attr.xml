@@ -3,6 +3,8 @@
     <declare-styleable name="JivoChatButton">
         <attr name="clipToPadding" format="boolean" />
         <attr name="padding" format="dimension" />
+        <attr name="backgroundTintList" format="reference" />
+        <attr name="badgeColor" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="JivoSDKToolbar">

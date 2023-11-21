@@ -41,11 +41,11 @@ class JivoChatButton @JvmOverloads constructor(context: Context, attrs: Attribut
     @Dimension
     private var padding = 0
     private var optionalClipToPadding = false
+    private var backgroundTintList: ColorStateList? = null
 
     private val stateObserver = Observer<JivoChatButtonViewModel.ButtonState> {
         badge.isVisible = it.hasNewMessage
-        button.backgroundTintList =
-            ColorStateList.valueOf(ContextCompat.getColor(context, if (it.isOnline) R.color.darkPastelGreen else R.color.silver))
+        button.isActivated = it.isOnline
     }
 
     @Inject
@@ -56,7 +56,7 @@ class JivoChatButton @JvmOverloads constructor(context: Context, attrs: Attribut
 
     init {
         if (attrs != null) {
-            val ta = context.obtainStyledAttributes(attrs, R.styleable.JivoChatButton)
+            val ta = context.obtainStyledAttributes(R.style.Widget_JivoSDK_JivoChatButton, R.styleable.JivoChatButton)
             padding = ta.getInt(
                 R.styleable.JivoChatButton_padding,
                 DEFAULT_PADDING_IN_DP
@@ -65,6 +65,8 @@ class JivoChatButton @JvmOverloads constructor(context: Context, attrs: Attribut
                 R.styleable.JivoChatButton_clipToPadding,
                 DEFAULT_CLIP_TO_PADDING
             )
+            backgroundTintList = ta.getColorStateList(R.styleable.JivoChatButton_backgroundTintList)
+
             ta.recycle()
         } else {
             padding = DEFAULT_PADDING_IN_DP.dp
@@ -85,6 +87,8 @@ class JivoChatButton @JvmOverloads constructor(context: Context, attrs: Attribut
         super.onFinishInflate()
         button = findViewById(R.id.button)
         badge = findViewById(R.id.badge)
+
+        button.backgroundTintList = backgroundTintList
 
         if (!isInEditMode) {
             Jivo.jivoSdkComponent.inject(this)
