@@ -24,13 +24,11 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            style="@style/Widget.JivoSDK.TextView.ImageBubble.Background"
+            style="@style/Widget.JivoSDK.ImageBubble"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="80dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

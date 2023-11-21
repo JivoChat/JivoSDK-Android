@@ -305,9 +305,13 @@
         <item name="android:textAppearance">@style/TextAppearance.JivoSDK.Caption</item>
     </style>
 
-    <!-- Background image bubble -->
-    <style name="Widget.JivoSDK.TextView.ImageBubble.Background" parent="">
+    <!-- Image bubble appearance -->
+    <style name="Widget.JivoSDK.ImageBubble" parent="">
         <item name="cardBackgroundColor">@color/jivo_sdk_surface_variant</item>
+        <item name="borderWidth">1dp</item>
+        <item name="strokeColor">@color/jivo_sdk_surface_outline</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cardCornerRadius">18dp</item>
     </style>
 
     <!-- Image bubble time appearance -->

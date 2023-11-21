@@ -42,14 +42,12 @@
             android:orientation="vertical"
             app:agentImageLoader="@{viewModel.state}">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView"
-                style="@style/Widget.JivoSDK.TextView.ImageBubble.Background"
+                style="@style/Widget.JivoSDK.ImageBubble"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:cardCornerRadius="18dp"
-                app:cardElevation="0dp">
+                android:layout_gravity="center">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -122,7 +120,7 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
