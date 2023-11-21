@@ -17,7 +17,15 @@ import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonVisitor
 import io.noties.markwon.linkify.LinkifyPlugin
+import org.commonmark.node.Block
+import org.commonmark.node.BlockQuote
+import org.commonmark.node.FencedCodeBlock
+import org.commonmark.node.Heading
+import org.commonmark.node.HtmlBlock
+import org.commonmark.node.IndentedCodeBlock
 import org.commonmark.node.SoftLineBreak
+import org.commonmark.node.ThematicBreak
+import org.commonmark.parser.Parser
 import javax.inject.Singleton
 
 /**
@@ -63,10 +71,24 @@ class SdkModule(appContext: Context, widgetId: String) {
     @Provides
     @Singleton
     fun provideMarkwon(): Markwon {
-        return Markwon.builder(sdkContext.appContext).usePlugin(LinkifyPlugin.create())
+        return Markwon.builder(sdkContext.appContext)
+            .usePlugin(LinkifyPlugin.create())
             .usePlugin(object : AbstractMarkwonPlugin() {
                 override fun configureVisitor(builder: MarkwonVisitor.Builder) {
                     builder.on(SoftLineBreak::class.java) { visitor, _ -> visitor.forceNewLine() }
+                }
+
+                override fun configureParser(builder: Parser.Builder) {
+                    builder.enabledBlockTypes(
+                        mutableSetOf(
+                            BlockQuote::class.java,
+                            Heading::class.java,
+                            FencedCodeBlock::class.java,
+                            HtmlBlock::class.java,
+                            ThematicBreak::class.java,
+                            IndentedCodeBlock::class.java
+                        ) as Set<Class<out Block>>?
+                    )
                 }
             }).build()
     }
