@@ -20,6 +20,9 @@ class App : Application() {
         Jivo.setConfig(
             Config.Builder()
                 .setWelcomeMessage(R.string.welcome)
+                .setOnBackPressed {
+                    activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+                }
                 .build()
         )
     }
