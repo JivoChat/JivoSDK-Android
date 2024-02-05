@@ -33,7 +33,7 @@ class JivoSettingsViewModel @Inject constructor(
     val content = MutableLiveData("")
     val link = MutableLiveData("")
 
-    val userToken = MutableLiveData("")
+    val userToken = MutableLiveData(storage.userToken)
 
     private val _doNotShowPings = MutableLiveData(storage.doNotShowPings)
     val doNotShowPings: LiveData<Boolean>
@@ -42,17 +42,11 @@ class JivoSettingsViewModel @Inject constructor(
     val hasNightModeChecked = MutableLiveData(storage.nightMode)
 
     fun saveAndRestart() {
-        storage.host = host.requireValue().trim()
-
-        Jivo.changeChannelId(widgetId.requireValue().trim())
+        Jivo.setData(widgetId.requireValue().trim(), userToken.requireValue().trim(), host.requireValue().trim())
     }
 
     fun clearAndRestart() {
         Jivo.clear()
-    }
-
-    fun setUserToken() {
-        Jivo.setUserToken(userToken.requireValue())
     }
 
     fun sendUserInfo() {

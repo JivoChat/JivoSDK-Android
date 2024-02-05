@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -122,6 +121,26 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userToken"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="User Token"
+                    android:inputType="text"
+                    android:text="@={viewModel.userToken}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <LinearLayout
                 style="?android:attr/buttonBarStyle"
                 android:layout_width="match_parent"
@@ -137,9 +156,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:onClick="@{() -> viewModel.saveAndRestart()}"
-                    android:text="save and restart"
+                    android:text="save"
                     tools:ignore="HardcodedText" />
 
                 <Button
@@ -283,45 +302,6 @@
                 android:backgroundTint="@color/darkPastelGreen"
                 android:onClick="@{() -> viewModel.sendUserInfo()}"
                 android:text="Send"
-                android:textColor="@color/white"
-                tools:ignore="HardcodedText" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/grey" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="12dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/userToken"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="User Token"
-                    android:inputType="text"
-                    android:text="@={viewModel.userToken}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    tools:ignore="HardcodedText" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <Button
-                android:id="@+id/setUserToken"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="12dp"
-                android:backgroundTint="@color/darkPastelGreen"
-                android:onClick="@{() -> viewModel.setUserToken()}"
-                android:text="Set user token"
                 android:textColor="@color/white"
                 tools:ignore="HardcodedText" />
 

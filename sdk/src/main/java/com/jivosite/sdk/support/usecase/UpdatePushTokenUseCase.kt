@@ -5,7 +5,6 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.api.PushApi
-import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.push.Device
 import com.jivosite.sdk.model.repository.profile.ProfileRepository
 import com.jivosite.sdk.model.storage.SharedStorage
@@ -22,7 +21,6 @@ import javax.inject.Inject
  * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class UpdatePushTokenUseCase @Inject constructor(
-    private val sdkContext: SdkContext,
     private val schedulers: Schedulers,
     private val storage: SharedStorage,
     private val pushApi: PushApi,
@@ -87,7 +85,7 @@ class UpdatePushTokenUseCase @Inject constructor(
             pushApi.sendDeviceInfo(
                 profileRepository.id,
                 storage.siteId.toLong(),
-                widgetId.ifBlank { sdkContext.widgetId },
+                widgetId,
                 device
             )
         }.handleResponse { }.build().asLiveData()

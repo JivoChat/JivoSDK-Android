@@ -3,7 +3,6 @@ package com.jivosite.sdk.support.usecase
 import androidx.lifecycle.LiveData
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.api.SdkApi
-import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.history.HistoryMessage
 import com.jivosite.sdk.model.pojo.history.HistoryResult
 import com.jivosite.sdk.model.repository.history.HistoryRepository
@@ -21,7 +20,6 @@ import javax.inject.Inject
  */
 
 class HistoryUseCase @Inject constructor(
-    private val sdkContext: SdkContext,
     private val schedulers: Schedulers,
     private val sdkApi: SdkApi,
     private val storage: SharedStorage,
@@ -32,7 +30,7 @@ class HistoryUseCase @Inject constructor(
         val clientId = storage.clientId
         if (clientId.isBlank()) return
 
-        val widgetId = storage.widgetId.ifBlank { sdkContext.widgetId }
+        val widgetId = storage.widgetId
 
         schedulers.ui.execute {
             createRequest(clientId, storage.siteId.toLong(), widgetId).loadSilentlyResource {

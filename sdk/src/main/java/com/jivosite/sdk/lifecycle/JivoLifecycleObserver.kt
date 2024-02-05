@@ -28,7 +28,7 @@ class JivoLifecycleObserver(
 
     override fun onStop(owner: LifecycleOwner) {
         when {
-            sdkContext.widgetId.isBlank() -> {
+            storage.widgetId.isBlank() -> {
                 Jivo.d("WidgetId is empty, service is turned off")
             }
             storage.blacklistedTime.after() -> {
@@ -48,7 +48,7 @@ class JivoLifecycleObserver(
 
     fun onForeground() {
         when {
-            sdkContext.widgetId.isBlank() -> {
+            storage.widgetId.isBlank() -> {
                 Jivo.d("WidgetId is empty, service is turned off")
             }
             storage.blacklistedTime.after() -> {

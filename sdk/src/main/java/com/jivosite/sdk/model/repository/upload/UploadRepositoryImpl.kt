@@ -112,7 +112,7 @@ class UploadRepositoryImpl @Inject constructor(
 
     private fun createRequest(file: File): LiveData<Resource<String>> {
         val siteId = storage.siteId.toLong()
-        val widgetId = storage.widgetId.ifBlank { sdkContext.widgetId }
+        val widgetId = storage.widgetId
         return MediaResource.Builder(schedulers)
             .getAccess {
                 api.getSign(

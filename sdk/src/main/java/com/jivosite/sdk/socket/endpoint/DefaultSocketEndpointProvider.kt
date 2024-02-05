@@ -11,7 +11,6 @@ import javax.inject.Inject
  * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
 class DefaultSocketEndpointProvider @Inject constructor(
-    private val sdkContext: SdkContext,
     private val storage: SharedStorage,
 ) : SocketEndpointProvider {
 
@@ -21,7 +20,7 @@ class DefaultSocketEndpointProvider @Inject constructor(
                 URI.create(
                     "wss://${storage.chatserverHost}/atom/" +
                             "${storage.siteId}:" +
-                            storage.widgetId.ifBlank { sdkContext.widgetId } +
+                            storage.widgetId +
                             getQuery(storage.userToken)
                 )
             } else {

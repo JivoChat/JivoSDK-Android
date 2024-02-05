@@ -59,16 +59,12 @@ object Jivo {
     private var loggingEnabled = false
 
     @JvmStatic
-    fun init(appContext: Context, widgetId: String, host: String = "") {
+    fun init(appContext: Context) {
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
-            .sdkModule(SdkModule(appContext, widgetId))
+            .sdkModule(SdkModule(appContext))
             .build()
         sdkContext = jivoSdkComponent.sdkContext()
         storage = jivoSdkComponent.storage()
-
-        if (host.verifyHostName()) {
-            storage.host = host
-        }
 
         lifecycleObserver = JivoLifecycleObserver(
             sdkContext,
@@ -80,12 +76,35 @@ object Jivo {
     }
 
     @JvmStatic
-    fun changeChannelId(widgetId: String) {
-        if (Jivo::jivoSdkComponent.isInitialized && widgetId != storage.widgetId) {
-            jivoSdkComponent.clearUseCaseProvider().get().execute()
-            unsubscribeFromPush()
-            storage.widgetId = widgetId
-            JivoWebSocketService.loadConfig(sdkContext.appContext)
+    fun setData(widgetId: String, userToken: String = "", host: String = "") {
+        if (Jivo::jivoSdkComponent.isInitialized) {
+
+            if (widgetId.isNotBlank()) {
+
+                if (host.verifyHostName()) {
+                    storage.host = host
+                }
+
+                if (widgetId != storage.widgetId) {
+                    if (userToken.isNotBlank() && userToken != storage.userToken) {
+                        if (storage.clientId.isNotBlank()) {
+                            clear()
+                        }
+                        storage.userToken = userToken
+                    } else {
+                        clear()
+                    }
+                    storage.widgetId = widgetId
+                } else {
+                    if (userToken.isNotBlank() && userToken != storage.userToken) {
+                        if (storage.clientId.isNotBlank()) {
+                            clear()
+                        }
+                        storage.userToken = userToken
+                        storage.widgetId = widgetId
+                    }
+                }
+            }
         }
     }
 
@@ -150,15 +169,6 @@ object Jivo {
     @JvmStatic
     fun addNotificationPermissionListener(l: NotificationPermissionListener) {
         notificationPermissionListener.add(WeakReference(l))
-    }
-
-    @JvmStatic
-    fun setUserToken(userToken: String) {
-        if (Jivo::jivoSdkComponent.isInitialized) {
-            if (userToken.isNotBlank() && userToken != storage.userToken) {
-                storage.userToken = userToken
-            }
-        }
     }
 
     fun turnOn() {
