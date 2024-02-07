@@ -50,7 +50,7 @@ class ConnectingState @Inject constructor(
         contactFormRepository.prepareToSendContactInfo()
         contactFormRepository.sendCustomData()
         service.keepConnection()
-        reconnectStrategy.reset()
+        //reconnectStrategy.reset()
         service.subscribeToTransmitter()
         subscribePushTokenUseCase.execute()
     }
