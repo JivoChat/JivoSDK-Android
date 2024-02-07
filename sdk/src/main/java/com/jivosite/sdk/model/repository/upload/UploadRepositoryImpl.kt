@@ -74,10 +74,8 @@ class UploadRepositoryImpl @Inject constructor(
         updateStateInRepositoryThread {
             transform { state ->
                 val files = HashMap<String, FileState>()
-                files.putAll(state.files)
-
-                if (files.isNotEmpty()) {
-                    for ((k, v) in files) {
+                if (state.files.isNotEmpty()) {
+                    for ((k, v) in state.files) {
                         if (k == file.uri) {
                             files[file.uri] = v.copy(uploadState = UploadState.Uploading(size))
                             break
