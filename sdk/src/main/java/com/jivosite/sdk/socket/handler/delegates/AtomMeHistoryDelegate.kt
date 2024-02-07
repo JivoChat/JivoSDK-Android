@@ -5,9 +5,7 @@ import com.jivosite.sdk.model.repository.history.HistoryRepository
 import com.jivosite.sdk.model.repository.pagination.PaginationRepository
 import com.jivosite.sdk.socket.handler.SocketMessageDelegate
 import com.jivosite.sdk.socket.transmitter.Transmitter
-import com.jivosite.sdk.support.usecase.UpdatePushTokenUseCase
 import javax.inject.Inject
-import javax.inject.Provider
 
 /**
  * Created on 12/5/20.

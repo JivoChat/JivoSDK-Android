@@ -23,7 +23,7 @@ interface PushApi {
         @Path("siteId") siteId: Long,
         @Path("widgetPublicId") widgetPublicId: String,
         @Body body: Device
-    ): LiveData<ApiResponse<Any>>
+    ): LiveData<ApiResponse<Unit>>
 
     @POST("push/delivery/{site_id}/{client_id}/{push_id}?platform=android")
     @Headers("$URL:$PUSH")

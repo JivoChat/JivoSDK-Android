@@ -11,6 +11,7 @@ import com.jivosite.sdk.socket.states.DisconnectReason
 import com.jivosite.sdk.socket.states.ServiceState
 import com.jivosite.sdk.socket.states.ServiceStateContext
 import com.jivosite.sdk.socket.support.ReconnectStrategy
+import com.jivosite.sdk.support.usecase.SubscribePushTokenUseCase
 import javax.inject.Inject
 
 /**
@@ -24,7 +25,8 @@ class ConnectingState @Inject constructor(
     private val reconnectStrategy: ReconnectStrategy,
     private val connectionStateRepository: ConnectionStateRepository,
     private val agentRepository: AgentRepository,
-    private val contactFormRepository: ContactFormRepository
+    private val contactFormRepository: ContactFormRepository,
+    private val subscribePushTokenUseCase: SubscribePushTokenUseCase
 ) : ServiceState(stateContext) {
 
     override fun load() {
@@ -50,6 +52,7 @@ class ConnectingState @Inject constructor(
         service.keepConnection()
         reconnectStrategy.reset()
         service.subscribeToTransmitter()
+        subscribePushTokenUseCase.execute()
     }
 
     override fun send(message: SocketMessage) {

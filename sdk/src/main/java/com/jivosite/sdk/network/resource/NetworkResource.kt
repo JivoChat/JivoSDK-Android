@@ -50,6 +50,7 @@ abstract class NetworkResource<ResultType, RequestType>(schedulers: Schedulers) 
                         }
                     } else if(body is Any) {
                         Jivo.w("Body response is Empty")
+                        result.value = Resource.success(handleResponse(body))
                     }
                     else {
                         Jivo.e("There is something wrong in body response")

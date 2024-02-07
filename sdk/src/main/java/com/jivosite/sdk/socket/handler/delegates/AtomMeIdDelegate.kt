@@ -5,7 +5,7 @@ import com.jivosite.sdk.model.repository.contacts.ContactFormRepository
 import com.jivosite.sdk.model.repository.profile.ProfileRepository
 import com.jivosite.sdk.socket.handler.SocketMessageDelegate
 import com.jivosite.sdk.support.async.Schedulers
-import com.jivosite.sdk.support.usecase.UpdatePushTokenUseCase
+import com.jivosite.sdk.support.usecase.SubscribePushTokenUseCase
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -19,7 +19,7 @@ import javax.inject.Provider
  */
 class AtomMeIdDelegate @Inject constructor(
     private val profileRepository: ProfileRepository,
-    private val updatePushTokenUseCaseProvider: Provider<UpdatePushTokenUseCase>,
+    private val subscribePushTokenUseCase: Provider<SubscribePushTokenUseCase>,
     private val schedulers: Schedulers,
     private val contactFormRepository: ContactFormRepository
 ) : SocketMessageDelegate {
@@ -32,7 +32,7 @@ class AtomMeIdDelegate @Inject constructor(
         message.data?.run {
             profileRepository.setId(this)
             schedulers.ui.execute {
-                updatePushTokenUseCaseProvider.get().execute()
+                subscribePushTokenUseCase.get().execute()
                 contactFormRepository.prepareToSendContactInfo()
                 contactFormRepository.sendCustomData()
             }

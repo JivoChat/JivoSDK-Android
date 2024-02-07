@@ -16,7 +16,8 @@ import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.push.RemoteMessageHandler
 import com.jivosite.sdk.support.usecase.ClearUseCase
 import com.jivosite.sdk.support.usecase.HistoryUseCase
-import com.jivosite.sdk.support.usecase.UpdatePushTokenUseCase
+import com.jivosite.sdk.support.usecase.SubscribePushTokenUseCase
+import com.jivosite.sdk.support.usecase.UnsubscribePushTokenUseCase
 import com.jivosite.sdk.ui.views.JivoChatButton
 import com.squareup.moshi.Moshi
 import dagger.Component
@@ -55,7 +56,9 @@ interface JivoSdkComponent {
 
     fun sdkContext(): SdkContext
 
-    fun updatePushTokenUseCaseProvider(): Provider<UpdatePushTokenUseCase>
+    fun subscribePushTokenUseCaseProvider(): Provider<SubscribePushTokenUseCase>
+
+    fun unsubscribePushTokenUseCaseProvider(): Provider<UnsubscribePushTokenUseCase>
 
     fun sdkApi(): SdkApi
 

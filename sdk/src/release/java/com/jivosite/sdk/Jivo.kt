@@ -70,32 +70,22 @@ object Jivo {
     @JvmStatic
     fun setData(widgetId: String, userToken: String = "", host: String = "") {
         if (Jivo::jivoSdkComponent.isInitialized) {
-
-            if (widgetId.isNotBlank()) {
-
-                if (host.verifyHostName()) {
-                    storage.host = host
-                }
-
-                if (widgetId != storage.widgetId) {
-                    if (userToken.isNotBlank() && userToken != storage.userToken) {
-                        if (storage.clientId.isNotBlank()) {
-                            clear()
-                        }
-                        storage.userToken = userToken
-                    } else {
-                        clear()
-                    }
-                    storage.widgetId = widgetId
-                } else {
-                    if (userToken.isNotBlank() && userToken != storage.userToken) {
-                        if (storage.clientId.isNotBlank()) {
-                            clear()
-                        }
+            if (widgetId != storage.widgetId || userToken != storage.userToken) {
+                if (storage.clientId.isNotBlank()) {
+                    jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().onSuccess {
+                        jivoSdkComponent.clearUseCaseProvider().get().execute()
+                        lifecycleObserver.onClear()
                         storage.userToken = userToken
                         storage.widgetId = widgetId
-                    }
+                    }.execute()
+                } else {
+                    storage.userToken = userToken
+                    storage.widgetId = widgetId
                 }
+            }
+
+            if (host.verifyHostName()) {
+                storage.host = host
             }
         }
     }
@@ -128,9 +118,8 @@ object Jivo {
     fun updatePushToken(token: String) {
         if (Jivo::jivoSdkComponent.isInitialized) {
             if (storage.pushToken != token) {
-                storage.pushToken = token
                 storage.hasSentPushToken = false
-                jivoSdkComponent.updatePushTokenUseCaseProvider().get().execute()
+                storage.pushToken = token
             }
         }
     }
@@ -184,17 +173,17 @@ object Jivo {
     @JvmStatic
     fun clear() {
         if (Jivo::jivoSdkComponent.isInitialized) {
-            unsubscribeFromPush()
-            jivoSdkComponent.clearUseCaseProvider().get().execute()
-            lifecycleObserver.onClear()
+            jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().onSuccess {
+                jivoSdkComponent.clearUseCaseProvider().get().execute()
+                lifecycleObserver.onClear()
+            }.execute()
         }
     }
 
     @JvmStatic
     fun unsubscribeFromPush() {
         if (Jivo::jivoSdkComponent.isInitialized) {
-            storage.pushToken = ""
-            jivoSdkComponent.updatePushTokenUseCaseProvider().get().execute()
+            jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().execute()
         }
     }
 
