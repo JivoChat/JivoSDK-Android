@@ -19,13 +19,12 @@ The **Jivo Mobile SDK** allows you to embed a chat into your native **Android** 
 -   New messages indicator inside the integrated app
 -   PUSH notifications
 
-### Current version: 2.2
+### Current version: 2.2.2
 
 List of changes:
 
--   fixed incorrect display of `markdown` list;
--   added support for customizing the chat button;
--   added support for customizing a message with a picture;
+-   fixed errors that caused the SDK to crash and not work correctly;
+-   Jivo.changeChannelId() and Jivo.setUserToken() methods have been replaced with Jivo.setData() method;
 
 ### Known Issues:
 - There is a problem with displaying colors in **SDK** chat on **Xiaomi** devices. Solution - add a flag to your application's styles:
@@ -114,7 +113,7 @@ android {
 dependencies {
    ...
    //JivoSDK
-   implementation 'com.jivosite.sdk:android-sdk:2.2'
+   implementation 'com.jivosite.sdk:android-sdk:2.2.2'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -131,8 +130,6 @@ To initialize **JivoSDK** in a class inherited from the `Application` class, add
 The static method `Jivo.init()` takes the following parameters:
 
 -   **appContext** - application context.
--   **widgetId** - unique id - widget_id.
--   **host** - optional parameter, you can pass an empty string.
 
 If you do not have the class, which is inherited from the `Application` class, then you should create it and add the name into `AndroidManifest.xml`
 
@@ -143,10 +140,7 @@ class App() : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Jivo.init(
-            appContext = this,
-            widgetId = "xXxXxxXxXx"
-        )
+        Jivo.init(appContext = this)
     }
 }
 ```
@@ -828,6 +822,17 @@ export default function App() {
 
 Changelog
 =========
+
+2.2.2 (02/08/2024)
+-----------------------
+
+### Bug Fixes:
+
+-   fixed errors that caused the SDK to crash and not work correctly;
+
+### Features:
+
+-   Jivo.changeChannelId() and Jivo.setUserToken() methods have been replaced with Jivo.setData() method;
 
 2.2 (11/21/2023)
 -----------------------

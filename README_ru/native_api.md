@@ -2,12 +2,11 @@
 Ниже перечислены примеры и описание основных настроек JivoSDK:
 
 - [Jivo.init](#jivo_init) - Инициализация основных компонентов **JivoSDK**.
-- [Jivo.changeChannelId](#jivo_change_channel_id) - Смена канала.
+- [Jivo.setData](#jivo_set_data) - Установка канала, JWT-токена и хоста.
 - [Jivo.enableLogging](#jivo_enable_logging) - Включение логирования **JivoSDK**.
 - [Jivo.setContactInfo](#jivo_set_contact_info) - Отправка контактных данных посетителя.
 - [Jivo.setCustomData](#jivo_set_custom_data) - Отправка дополнительной информации о клиенте.
 - [Jivo.clear](#jivo_clear) - Очистка данных **JivoSDK**.
-- [Jivo.setUserToken](#jivo_set_user_token) - Сохранение истории чата.
 - [Jivo.addNewMessageListener](#jivo_add_new_message_listener) - Получения информации о непрочитанных сообщениях.
 - [Jivo.disableInAppNotification](#jivo_disable_in_app_notification) - Отключения in-app уведомлений.
 - [Jivo.addNotificationPermissionListener](#jivo_add_notification_permission_listener) - Получение информации о разрешении уведомлений.
@@ -20,13 +19,6 @@
 > [!IMPORTANT]<br>Инициализируйте библиотеку JivoSDK только в методе `Application.onCreate()`. Если в приложении есть несколько
 > процессов, убедитесь, что JivoSDK инициализируется только в главном процессе.
 
-Метод `Jivo.init()` принимает следующие параметры:
-| Название | Тип | Описание |
-| ------------- |---------|--------------------------------------------------------|
-| appContext | Context | Контекст приложения. |
-| widgetId | String | Уникальный id канала.|
-| host | String | Необязательный параметр, можно передать пустую строку. |
-
 Пример:
 > <details><summary>Kotlin</summary>
 >
@@ -35,10 +27,7 @@
 >
 >    override fun onCreate() {
 >        super.onCreate()
->        Jivo.init(
->            appContext = this,
->            widgetId = "xXxXxxXxXx"
->        )
+>        Jivo.init(appContext = this)
 >    }
 >}
 >```
@@ -53,7 +42,7 @@
 >    @Override
 >    public void onCreate() {
 >        super.onCreate();
->        Jivo.init(this, "xXxXxxXxXx", "");
+>        Jivo.init(this);
 >        ...
 >    }
 >    ...
@@ -61,16 +50,55 @@
 >```
 ></details>
 
-## <a name="jivo_change_channel_id">Jivo.changeChannelId.</a>
+## <a name="jivo_set_data">Jivo.setData.</a>
 
-Для смены канала необходимо использовать метод `Jivo.changeChannelId()` и передать параметр `widgetId` и затем вызвать метод `Jivo.updatePushToken()`, ниже представлен пример кода:
+Для установки и смены канала, сохранения истории и установки хоста подключения(дополнительная опция), необходимо использовать метод `Jivo.setData()`. 
 
+Метод `Jivo.setData()` принимает следующие параметры:
+| Название | Тип | Описание |
+| ------------- |---------|--------------------------------------------------------|
+| widgetId | String | Уникальный id канала.|
+| userToken | String | Необязательный параметр, JWT-токен используется для сохранения истории. |
+| host | String | Необязательный параметр, можно передать пустую строку. |
+
+Пример:
+> <details><summary>Kotlin</summary>
+>
 >```kotlin
->Jivo.changeChannelId("xXxXxXxXx")
->Jivo.updatePushToken(token)
+>    Jivo.setData(widgetId = "xXxXxXxXx", userToken = "your_jwt_token", host = "")
 >```
+></details>
+>
+> <details> <summary>Java</summary>
+>
+>```java
+>    Jivo.setData("xXxXxXxXx", "your_jwt_token", "");
+>```
+></details>
 
-> [!IMPORTANT]<br>После вызова `Jivo.changeChannelId()`, не требуется вызывать методы `Jivo.clear()`, `Jivo.unsubscribeFromPush()`.
+> [!IMPORTANT]<br>Метод `Jivo.setData()`, необходимо вызвать до открытия чата.
+> <br>После вызова `Jivo.setData()`, не требуется вызывать методы `Jivo.clear()`, `Jivo.unsubscribeFromPush()`.
+> <br>Если вы используете уведомления в вашем приложении, то после вызова `Jivo.setData()`, вызовите метод `Jivo.subscribeFromPush()`.
+
+>[!NOTE]<br>Сохранение истории чата после удаления приложения или очистки данных. Для сохранения истории необходимо сгенерировать
+>**JWT-токен**. Для подписи **JWT-токена**, потребуется сгенерировать **SECRET** и передать его в Jivo(Этого пока нет
+>в интерфейсе приложения.). Хранить **SECRET** только на **backend’e**, иначе безопасность будет нарушена.
+>Сгенерированный **JWT-токен** нужно передать метод `Jivo.setData()`. Более подробную информацию JWT-токене вы можете получить на сайте https://jwt.io/introduction 
+>
+>Пример формирования payload:
+>
+>```kotlin
+>{
+>    "id": "123", // Уникальный идентификатор клиента, обязательным условием имя поля должно быть "id"
+>    ... // Любые параметры на усмотрение клиента
+>}
+>```
+>
+>Пример формирования токена:
+>
+>```kotlin
+>token = jwt.encode(payload, secret, HS256)
+>```
 
 ## <a name="jivo_enable_logging">Jivo.enableLogging.</a>
 
@@ -87,7 +115,7 @@
 >    override fun onCreate() {
 >        ...
 >        Timber.plant(Timber.DebugTree())
->        Jivo.init(this, "xXxXxXxXxXx")
+>        Jivo.init(this)
 >        Jivo.enableLogging()
 >        ...
 >    }
@@ -106,7 +134,7 @@
 >    public void onCreate() {
 >        ...
 >        Timber.plant(new Timber.DebugTree());
->        Jivo.init(this, "xXxXxXxXxXx", "");
+>        Jivo.init(this);
 >        Jivo.enableLogging();
 >        ...
 >    }
@@ -225,55 +253,6 @@
 >```
 ></details>
 
-## <a name="jivo_set_user_token">Jivo.setUserToken.</a>
-
-Сохранение истории чата после удаления приложения или очистки данных. Для сохранения истории необходимо сгенерировать
-**JWT-токен**. Для подписи **JWT-токена**, потребуется сгенерировать **SECRET** и передать его в Jivo(Этого пока нет 
-в интерфейсе приложения.). Хранить **SECRET** только на **backend’e**, иначе безопасность будет нарушена.
-Сгенерированный **JWT-токен** нужно передать метод `Jivo.setUserToken()`.
-
-Пример:
-> <details><summary>Kotlin</summary>
->
->```kotlin
->override fun auth() {
->    ...
->    Jivo.setUserToken("your_jwt_token")
->    ...
->}
->```
-></details>
->
-> <details> <summary>Java</summary>
->
->```java
->@Override
->void auth(){
->        ...
->        Jivo.setUserToken("your_jwt_token");
->        ...
->}
->```
-></details>
-
->Пример формирования payload:
->
->```kotlin
->{
->    "id": "123", // Уникальный идентификатор клиента, обязательным условием имя поля должно быть "id"
->    ... // Любые параметры на усмотрение клиента
->}
->```
-
->Пример формирования токена:
->
->```kotlin
->token = jwt.encode(payload, secret, HS256)
->```
-
-</p>
-</details>
-
 ## <a name="jivo_add_new_message_listener">Jivo.addNewMessageListener.</a>
 
 Для получения информации о непрочитанных сообщениях необходимо использовать метод `Jivo.addNewMessageListener()`. Данный метод
@@ -385,10 +364,7 @@
 >    override fun onCreate() {
 >        super.onCreate()
 >        ...
->        Jivo.init(
->            appContext = this,
->            widgetId = "xXxXxxXxXx"
->        )
+>        Jivo.init(appContext = this)
 >        Jivo.setConfig(
 >            Config.Builder()
 >                .setWelcomeMessage(R.string.welcome_message_placeholder)
@@ -412,7 +388,7 @@
 >    public void onCreate() {
 >        super.onCreate();
 >        ...
->        Jivo.init(this, "xXxXxxXxXx", "");
+>        Jivo.init(this);
 >        Jivo.setConfig(new Config.Builder()
 >                .setWelcomeMessage(R.string.welcome_message_placeholder)
 >                .setOfflineMessage(R.string.offline)

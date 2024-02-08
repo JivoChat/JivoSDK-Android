@@ -79,7 +79,7 @@ android {
 dependencies {
    ...
    //JivoSDK
-   implementation 'com.jivosite.sdk:android-sdk:2.2'
+   implementation 'com.jivosite.sdk:android-sdk:2.2.2'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -157,8 +157,6 @@ dependencies {
 | Название | Тип | Описание |
 | ------------- |---------|--------------------------------------------------------|
 | appContext | Context | Контекст приложения. |
-| widgetId | String | Уникальный id канала.|
-| host | String | Необязательный параметр, можно передать пустую строку. |
 
 Если у вас нет этого класса, который унаследован от класса `Application`, то создайте его и пропишите название в `AndroidManifest.xml`
 
@@ -170,7 +168,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     public void onCreate() {
     ...
-        Jivo.init(this, "xXxXxXxXx", "");
+        Jivo.init(this);
     
         //Опционально
         Jivo.setConfig(new Config.Builder()
@@ -274,7 +272,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     public void onCreate() {
    ...
-        Jivo.init(this, "xXxXxXxXx", "");
+        Jivo.init(this);
     }
 
     private final ReactNativeHost mReactNativeHost =
