@@ -18,7 +18,8 @@ class SystemItemViewModel @Inject constructor() : LogsItemViewModel() {
 
     override val text: LiveData<String> = Transformations.map(_message) {
         when (it) {
-            is LogMessage.Connecting -> "connecting..."
+            is LogMessage.LoadConfig -> "load config...\n${it.url}"
+            is LogMessage.Connecting -> "connecting...\n${it.uri}"
             is LogMessage.Connected -> "connected"
             is LogMessage.Disconnected -> "disconnected"
             is LogMessage.Ping -> """ping (message="${it.message}")"""

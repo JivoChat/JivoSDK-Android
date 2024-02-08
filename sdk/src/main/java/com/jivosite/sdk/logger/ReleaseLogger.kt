@@ -1,5 +1,7 @@
 package com.jivosite.sdk.logger
 
+import java.net.URI
+
 /**
  * Created on 12/8/20.
  *
@@ -7,7 +9,11 @@ package com.jivosite.sdk.logger
  */
 class ReleaseLogger : Logger {
 
-    override fun logConnecting() {
+    override fun logLoadConfig(url: String) {
+        // Ignore
+    }
+
+    override fun logConnecting(uri: URI) {
         // Ignore
     }
 

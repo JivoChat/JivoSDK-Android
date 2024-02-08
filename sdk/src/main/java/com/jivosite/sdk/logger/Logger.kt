@@ -1,5 +1,7 @@
 package com.jivosite.sdk.logger
 
+import java.net.URI
+
 /**
  * Created on 12/8/20.
  *
@@ -7,7 +9,9 @@ package com.jivosite.sdk.logger
  */
 interface Logger {
 
-    fun logConnecting()
+    fun logLoadConfig(url: String)
+
+    fun logConnecting(uri: URI)
 
     fun logConnected()
 

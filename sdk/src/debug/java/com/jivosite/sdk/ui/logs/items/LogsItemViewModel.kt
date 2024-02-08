@@ -29,6 +29,7 @@ abstract class LogsItemViewModel {
     abstract val text: LiveData<String>
 
     private fun getDefaultEventInfo(message: LogMessage?): String = when (message) {
+        is LogMessage.LoadConfig -> "${timeFormat.format(message.ts)} [${message.id}]"
         is LogMessage.Connecting -> "${timeFormat.format(message.ts)} [${message.id}]"
         is LogMessage.Connected -> "${timeFormat.format(message.ts)} [${message.id}]"
         is LogMessage.Ping -> "${timeFormat.format(message.ts)} [${message.id}]"

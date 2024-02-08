@@ -24,6 +24,7 @@ fun setMessageStatus(view: AppCompatImageView, direction: MessageDirection?) {
 @BindingAdapter("messageIcon")
 fun setMessageIcon(view: AppCompatImageView, message: LogMessage?) {
     val iconResId = when (message) {
+        is LogMessage.LoadConfig -> R.drawable.jivo_sdk_vic_connecting_24
         is LogMessage.Connecting -> R.drawable.jivo_sdk_vic_connecting_24
         is LogMessage.Connected -> R.drawable.jivo_sdk_vic_connected_24
         is LogMessage.Disconnected -> R.drawable.jivo_sdk_vic_disconnected_24

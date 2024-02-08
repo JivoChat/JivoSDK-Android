@@ -1,5 +1,7 @@
 package com.jivosite.sdk.logger
 
+import java.net.URI
+
 /**
  * Created on 12/8/20.
  *
@@ -9,9 +11,16 @@ sealed class LogMessage {
 
     object Initial : LogMessage()
 
+    data class LoadConfig(
+        val id: Long,
+        val ts: Long = System.currentTimeMillis(),
+        val url: String
+    ) : LogMessage()
+
     data class Connecting(
         val id: Long,
-        val ts: Long = System.currentTimeMillis()
+        val ts: Long = System.currentTimeMillis(),
+        val uri: URI
     ) : LogMessage()
 
     data class Connected(

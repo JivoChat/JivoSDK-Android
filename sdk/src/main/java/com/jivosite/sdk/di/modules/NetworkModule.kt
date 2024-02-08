@@ -5,6 +5,7 @@ import com.jivosite.sdk.api.MediaApi
 import com.jivosite.sdk.api.PushApi
 import com.jivosite.sdk.api.SdkApi
 import com.jivosite.sdk.api.TelemetryApi
+import com.jivosite.sdk.logger.Logger
 import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.network.response.ApiResponse
@@ -47,10 +48,10 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(sdkContext: SdkContext, storage: SharedStorage): OkHttpClient = OkHttpClient.Builder()
+    fun provideOkHttpClient(sdkContext: SdkContext, storage: SharedStorage, logger: Logger): OkHttpClient = OkHttpClient.Builder()
         .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
         .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-        .addInterceptor(ChangeUrlInterceptor(storage))
+        .addInterceptor(ChangeUrlInterceptor(storage, logger))
         .addInterceptor(UserAgentInterceptor(sdkContext.appContext))
         .addInterceptor(HttpLoggingInterceptor().apply { level = LOG_LEVEL })
         .build()

@@ -1,5 +1,6 @@
 package com.jivosite.sdk.logger
 
+import java.net.URI
 import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
 
@@ -14,10 +15,20 @@ class DebugLogger @Inject constructor(
 
     private val indexer = AtomicLong(0)
 
-    override fun logConnecting() {
+    override fun logLoadConfig(url: String) {
+        logsRepository.addMessage(
+            LogMessage.LoadConfig(
+                id = indexer.getAndIncrement(),
+                url = url
+            )
+        )
+    }
+
+    override fun logConnecting(uri: URI) {
         logsRepository.addMessage(
             LogMessage.Connecting(
-                id = indexer.getAndIncrement()
+                id = indexer.getAndIncrement(),
+                uri = uri
             )
         )
     }

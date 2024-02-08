@@ -276,7 +276,7 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
                 )
                 addListener(webSocketListener)
                 connectAsynchronously()
-                messageLogger.logConnecting()
+                messageLogger.logConnecting(endpoint)
             }
     }
 
