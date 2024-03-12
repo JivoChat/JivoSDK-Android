@@ -74,8 +74,10 @@ class AgentTextItemViewHolder(
                         binding.buttons.isVisible = false
                     }
                 }
-            } else {
+            } else if (messageEntry.from.toLong() < 0) {
                 markwon.setMarkdown(binding.message, message)
+            } else {
+                binding.message.text = message
             }
 
         }
