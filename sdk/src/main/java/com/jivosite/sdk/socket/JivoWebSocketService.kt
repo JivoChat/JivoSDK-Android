@@ -26,6 +26,7 @@ import com.jivosite.sdk.socket.states.items.InitialState
 import com.jivosite.sdk.socket.states.items.StoppedState
 import com.jivosite.sdk.socket.transmitter.Transmitter
 import com.jivosite.sdk.socket.transmitter.TransmitterSubscriber
+import com.jivosite.sdk.support.utils.getEngineInfo
 import com.neovisionaries.ws.client.*
 import javax.inject.Inject
 import javax.inject.Provider
@@ -184,10 +185,12 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
                             1013,
                             clientCloseFrame.closeReason
                         )
+
                         else -> DisconnectReason.Unknown
                     }
                     state.setDisconnected(reason)
                 }
+
                 is DisconnectedState -> state.setDisconnected(DisconnectReason.Unknown)
                 is StoppedState -> state.setDisconnected(DisconnectReason.Stopped)
             }
@@ -229,6 +232,7 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
                 Jivo.i("Received stop command")
                 getState().stop()
             }
+
             ACTION_RESTART -> {
                 Jivo.i("Received restart command")
                 getState().restart()
@@ -272,7 +276,7 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
                 Jivo.i("Try to connect to endpoint: $endpoint")
                 addHeader(
                     "User-Agent",
-                    "JivoSDK-Android/${BuildConfig.VERSION_NAME} (Mobile; Device=${Build.MANUFACTURER}/${Build.MODEL}; Platform=Android/${Build.VERSION.RELEASE},${Build.VERSION.SDK_INT}; Host=${sdkContext.appContext.packageName}; WebSocket)"
+                    "JivoSDK-Android/${BuildConfig.VERSION_NAME} (Mobile; Device=${Build.MANUFACTURER}/${Build.MODEL}; Platform=Android/${Build.VERSION.RELEASE},${Build.VERSION.SDK_INT}; Host=${sdkContext.appContext.packageName}; WebSocket; Engine=${getEngineInfo()})"
                 )
                 addListener(webSocketListener)
                 connectAsynchronously()
