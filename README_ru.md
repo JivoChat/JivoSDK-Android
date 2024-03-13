@@ -19,7 +19,7 @@ Jivo Mobile SDK - Android
 -   Индикатор новых сообщений внутри приложения интегратора
 -   Push-уведомления
 
-### Актуальная версия: 2.2.2
+### Актуальная версия: 2.2.3
 
 Список изменений:
 
@@ -38,6 +38,7 @@ Jivo Mobile SDK - Android
 Посмотрите, как работает чат внутри приложения на примере нашего демо-приложения. Это простое приложение под Android позволяет написать в чат технической поддержке нашего сервиса - Jivo.
 
 -   [Демо-приложение для Android](https://github.com/JivoChat/JivoSDK-Android/tree/develop/sample)
+-   [Демо-приложение для Flutter](https://github.com/JivoChat/JivoSDK-FlutterDemo)
 
 ### Требования
 
@@ -47,7 +48,7 @@ Jivo Mobile SDK - Android
 ### Этапы интеграции Jivo Mobile SDK:
 
 - [Добавление нового канала Mobile SDK](./README_ru/add_channel.md)
-- Интеграция JivoSDK([native](./README_ru/native_setup.md), [react](./README_ru/react_setup.md))
+- Интеграция JivoSDK([native](./README_ru/native_setup.md), [react](./README_ru/react_setup.md), [flutter](./README_ru/flutter_setup.md))
 - [Настройка push-уведомлений](./README_ru/firebase_notifications_setup.md)
 - [Основные настройки JivoSDK](./README_ru/native_api.md) (Опционально)
 - [Настройка UI JivoSDK](./README_ru/ui_setup.md) (Опционально)

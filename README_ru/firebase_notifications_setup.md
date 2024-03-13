@@ -126,7 +126,6 @@ dependencies {
     ...
     implementation platform('com.google.firebase:firebase-bom:26.2.0')
     implementation 'com.google.firebase:firebase-messaging'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
 }
 ```
 </p>
@@ -198,6 +197,8 @@ dependencies {
 
 
 ### Обработка Push notifications.
+
+> [!NOTE]<br> Для платформы **Flutter** обработка **Push notifications** не требуется.
 
 Если в вашем приложении используются **Push уведомления** с помощью **Firebase Cloud Messaging**, то для корректной работы сервиса в классе, унаследованном от класса `FirebaseMessagingService` , потребуется выполнить следующие настройки:
 
