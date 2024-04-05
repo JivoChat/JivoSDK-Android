@@ -13,10 +13,8 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Jivo.init(
-            appContext = this,
-            widgetId = "4UoDFh5U7n"
-        )
+        Jivo.init(appContext = this)
+        Jivo.setData("4UoDFh5U7n")
         Jivo.setConfig(
             Config.Builder()
                 .setWelcomeMessage(R.string.welcome)
