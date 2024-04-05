@@ -11,7 +11,7 @@ import com.jivosite.sdk.ui.chat.JivoChatFragment
  *
  * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
-class MainFragment: Fragment(R.layout.fragment_main) {
+class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
