@@ -3,32 +3,43 @@ package com.jivosite.sdk.ui.chat
 import android.Manifest
 import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.OpenableColumns
+import android.provider.Settings
+import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.R
 import com.jivosite.sdk.databinding.FragmentJivoChatBinding
-import com.jivosite.sdk.model.pojo.message.ClientMessage
+import com.jivosite.sdk.model.pojo.file.JivoMediaFile
 import com.jivosite.sdk.model.repository.connection.ConnectionState
 import com.jivosite.sdk.support.dg.adapters.SimpleDiffAdapter
 import com.jivosite.sdk.support.event.EventObserver
+import com.jivosite.sdk.support.ext.TakePicture
 import com.jivosite.sdk.support.recycler.AutoScroller
+import com.jivosite.sdk.support.utils.getFileSize
 import com.jivosite.sdk.support.vm.ViewModelFactory
 import com.jivosite.sdk.ui.chat.items.ChatEntry
+import java.io.File
 import java.io.InputStream
 import javax.inject.Inject
 import javax.inject.Provider
@@ -56,6 +67,9 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         ViewModelProvider(requireActivity(), viewModelFactory).get(JivoChatViewModel::class.java)
     }
 
+    private lateinit var cameraResultCallback: ActivityResultLauncher<Uri>
+    private lateinit var requestCameraPermissionCallback: ActivityResultLauncher<String>
+
     private lateinit var contentResultCallback: ActivityResultLauncher<String>
     private lateinit var pushNotificationPermissionLauncher: ActivityResultLauncher<String>
 
@@ -68,12 +82,21 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        contentResultCallback = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-            if (uri != null) handleContent(uri)
+
+        cameraResultCallback = registerForActivityResult(TakePicture()) { result ->
+            if (result != null) handleContent(result)
+        }
+
+        requestCameraPermissionCallback = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            if (it) openCamera()
+        }
+
+        contentResultCallback = registerForActivityResult(ActivityResultContracts.GetContent()) { result ->
+            if (result != null) handleContent(result)
         }
 
         if (Build.VERSION.SDK_INT >= 33) {
-            pushNotificationPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
+            pushNotificationPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
         }
     }
 
@@ -129,6 +152,7 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
                 is ErrorAttachState.UnsupportedType -> requireContext().getString(
                     R.string.message_unsupported_media
                 )
+
                 is ErrorAttachState.FileOversize -> requireContext().getString(
                     R.string.media_uploading_too_large,
                     MAX_FILE_SIZE_IN_MB
@@ -147,6 +171,9 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
 
         binding.banner.isVisible = viewModel.siteId == "1"
 
+        viewModel.attachedJivoMediaFile.observe(viewLifecycleOwner) {
+            renderAttachedFile(it)
+        }
     }
 
     override fun onResume() {
@@ -178,10 +205,8 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
 
     fun send() {
         binding.inputText.text.toString().also {
-            if (it.isNotBlank()) {
-                binding.inputText.text?.clear()
-                viewModel.sendMessage(ClientMessage.createText(it))
-            }
+            binding.inputText.text?.clear()
+            viewModel.prepareMessage(it)
         }
 
         if (Build.VERSION.SDK_INT >= 33 && !Jivo.isPermissionGranted(
@@ -195,33 +220,72 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         }
     }
 
-    fun attach() {
-        contentResultCallback.launch("*/*")
-    }
-
     private fun renderConnectionState(state: ConnectionState) {
         binding.connectionState.isVisible = when (state) {
             is ConnectionState.Initial, ConnectionState.Connected, ConnectionState.Stopped -> {
                 false
             }
+
             is ConnectionState.LoadConfig, ConnectionState.Connecting -> {
                 binding.connectingView.isVisible = true
                 binding.connectionStateName.setText(R.string.connection_state_connecting)
                 binding.connectionRetry.isVisible = false
                 true
             }
+
             is ConnectionState.Disconnected -> {
                 binding.connectingView.isVisible = false
                 binding.connectionStateName.text = getString(R.string.connection_state_disconnected, state.seconds)
                 binding.connectionRetry.isVisible = true
                 true
             }
+
             is ConnectionState.Error -> {
                 binding.connectingView.isVisible = false
                 binding.connectionStateName.text = getString(R.string.connection_state_disconnected, state.seconds)
                 binding.connectionRetry.isVisible = true
                 true
             }
+        }
+    }
+
+    fun openMenuActions() {
+        PopupMenu(requireContext(), binding.menuActions, Gravity.START).apply {
+            inflate(R.menu.menu_chat_input_actions)
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.action_photo -> {
+                        if (ContextCompat.checkSelfPermission(
+                                requireContext(),
+                                Manifest.permission.CAMERA
+                            ) == PackageManager.PERMISSION_GRANTED
+                        ) {
+                            openCamera()
+                        } else {
+                            if (!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+                                requestCameraPermissionCallback.launch(Manifest.permission.CAMERA)
+                            } else {
+                                showCameraDialogNecessary()
+                            }
+                        }
+                        true
+                    }
+
+                    R.id.action_file -> {
+                        contentResultCallback.launch("*/*")
+                        true
+                    }
+
+                    else -> true
+                }
+            }
+            show()
+        }
+    }
+
+    private fun openCamera() {
+        getOutputMediaFileUri()?.let {
+            cameraResultCallback.launch(it)
         }
     }
 
@@ -244,6 +308,55 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
             type = contentResolver.getType(contentUri) ?: ""
         }
 
-        viewModel.uploadFile(inputStream, fileName, type, fileSize, uri.toString())
+        viewModel.prepareJivoMediaFile(inputStream, fileName, type, fileSize, uri.toString())
     }
+
+    private fun getOutputMediaFileUri(): Uri? {
+        return context?.run {
+            FileProvider.getUriForFile(this, "${this.packageName}.jivosdk.fileprovider", getOutputMediaFile()!!)
+        }
+    }
+
+    private fun getOutputMediaFile(): File {
+        return createTempFile(
+            "IMG_${System.currentTimeMillis()}",
+            ".jpg",
+            context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        )
+    }
+
+    private fun renderAttachedFile(attachedJivoMediaFile: JivoMediaFile?) {
+
+        if (attachedJivoMediaFile != null) {
+            binding.attachedFile.isVisible = true
+            binding.icon.load(attachedJivoMediaFile.uri)
+            binding.fileSize.text = getFileSize(requireContext(), attachedJivoMediaFile.size)
+            binding.fileName.text = attachedJivoMediaFile.name
+        } else {
+            binding.attachedFile.isVisible = false
+        }
+    }
+
+    private fun showCameraDialogNecessary() {
+        MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme).apply {
+            setCancelable(true)
+            setMessage(R.string.Camera_Access_Description)
+            setPositiveButton(R.string.Common_Settings) { _, _ ->
+                Intent().apply {
+                    setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    setData(Uri.fromParts("package", requireContext().packageName, null))
+                    startActivity(this)
+                }
+            }
+            setNegativeButton(R.string.common_cancel) { _, _ ->
+                Toast.makeText(
+                    requireContext(),
+                    R.string.Camera_Access_Restricted,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            show()
+        }
+    }
+
 }

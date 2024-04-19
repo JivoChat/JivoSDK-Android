@@ -1,6 +1,5 @@
 package com.jivosite.sdk.support.binding
 
-import android.content.Context
 import android.graphics.Paint
 import android.text.SpannableStringBuilder
 import android.text.format.DateFormat
@@ -47,8 +46,8 @@ import com.jivosite.sdk.support.ext.dp
 import com.jivosite.sdk.support.ext.getFileType
 import com.jivosite.sdk.support.utils.hideKeyboard
 import com.jivosite.sdk.ui.views.JivoRatingBar
+import com.jivosite.sdk.support.utils.getFileSize
 import java.util.*
-import kotlin.math.pow
 
 /**
  * Created on 22.09.2020.
@@ -78,6 +77,7 @@ fun setUploadState(view: AppCompatTextView, state: FileState?) {
             view.isFocusable = false
             view.text = "${getFileSize(context, uploadingState.size)} / ${getFileSize(context, state.size)}"
         }
+
         is UploadState.Error -> {
             view.isClickable = false
             view.isFocusable = false
@@ -91,10 +91,13 @@ fun setUploadState(view: AppCompatTextView, state: FileState?) {
     }
 }
 
-private fun getFileSize(context: Context, size: Long) = when (size) {
-    in 0..999 -> context.getString(R.string.format_file_size_b, size.toDouble())
-    in 1000..999999 -> context.getString(R.string.format_file_size_kb, size.div(1000.0))
-    else -> context.getString(R.string.format_file_size_mb, size.div(10.0.pow(6)))
+@BindingAdapter("fileSize")
+fun setFileSize(view: TextView, size: Long?) {
+    if (size == null || size == 0L) {
+        return
+    } else {
+        view.text = getFileSize(view.context, size)
+    }
 }
 
 @BindingAdapter("items")
@@ -139,10 +142,14 @@ fun inflateToolbar(view: MaterialToolbar, agents: List<Agent>) {
     val context = view.context
 
     val typedArray = context.theme.obtainStyledAttributes(R.style.Widget_JivoSDK_Toolbar, R.styleable.JivoSDKToolbar)
-    val logo = typedArray.getDrawable(R.styleable.JivoSDKToolbar_logo) ?: ContextCompat.getDrawable(context, R.drawable.jivo_sdk_vic_logo)
+    val logo = typedArray.getDrawable(R.styleable.JivoSDKToolbar_logo) ?: ContextCompat.getDrawable(
+        context,
+        R.drawable.jivo_sdk_vic_logo
+    )
     val hasLogo = typedArray.getBoolean(R.styleable.JivoSDKToolbar_hideLogo, false)
     val title = typedArray.getString(R.styleable.JivoSDKToolbar_title) ?: context.getString(R.string.chat_title_placeholder)
-    val subtitle = typedArray.getString(R.styleable.JivoSDKToolbar_subtitle) ?: context.getString(R.string.chat_subtitle_placeholder)
+    val subtitle =
+        typedArray.getString(R.styleable.JivoSDKToolbar_subtitle) ?: context.getString(R.string.chat_subtitle_placeholder)
     typedArray.recycle()
 
     val agentsInChat = agents.filter { it.hasOnlineInChat && it.status !is AgentStatus.Offline }
@@ -177,6 +184,7 @@ fun inflateToolbar(view: MaterialToolbar, agents: List<Agent>) {
                         view.logo = it
                     }
             }
+
             agentsInChat.size == 1 -> {
                 request
                     .data(agentsInChat[0].photo)
@@ -197,6 +205,7 @@ fun inflateToolbar(view: MaterialToolbar, agents: List<Agent>) {
 
                     )
             }
+
             agentsInChat.size > 1 -> {
                 view.logo = null
             }
@@ -225,9 +234,11 @@ fun agentImageLoader(layout: ViewGroup, state: MediaItemState?) {
         MediaItemState.Initial -> {
             viewHolder.placeholder?.isVisible = true
         }
+
         MediaItemState.Loading -> {
             viewHolder.progressView?.isVisible = true
         }
+
         is MediaItemState.Success -> {
             val imageLoader = viewHolder.imageView.context.imageLoader
             val request = ImageRequest.Builder(viewHolder.imageView.context)
@@ -252,11 +263,13 @@ fun agentImageLoader(layout: ViewGroup, state: MediaItemState?) {
                 .build()
             imageLoader.enqueue(request)
         }
+
         MediaItemState.Expired -> {
             viewHolder.placeholder?.isVisible = true
             viewHolder.progressView?.isVisible = false
             viewHolder.errorText?.isVisible = true
         }
+
         is MediaItemState.Error -> {
             viewHolder.progressView?.isVisible = false
             viewHolder.errorText?.text = context.getString(R.string.media_uploading_common_error)
@@ -386,6 +399,7 @@ fun setMediaStatus(view: TextView, state: MediaItemState?) {
             view.isClickable = false
             view.text = context.getString(R.string.file_link_checking)
         }
+
         is MediaItemState.Success -> {
             if (!state.media.isExpired) {
                 view.isVisible = true
@@ -396,6 +410,7 @@ fun setMediaStatus(view: TextView, state: MediaItemState?) {
                 view.isInvisible = false
             }
         }
+
         MediaItemState.Expired -> view.isVisible = false
         is MediaItemState.Error -> {
             view.isVisible = true
@@ -477,7 +492,9 @@ fun ratingState(layout: ViewGroup, state: RatingState?) {
                 viewHolder.description?.text = when (state.ratingFormState.rate) {
                     RateSettings.Rate.GOOD.rate,
                     RateSettings.Rate.GOOD_NORMAL.rate,
-                    RateSettings.Rate.NORMAL.rate -> if (Jivo.getConfig().useRattingStringsRes) context.getString(R.string.rate_form_finish_description_good) else rateSettings?.goodRateTitle
+                    RateSettings.Rate.NORMAL.rate,
+                    -> if (Jivo.getConfig().useRattingStringsRes) context.getString(R.string.rate_form_finish_description_good) else rateSettings?.goodRateTitle
+
                     else -> if (Jivo.getConfig().useRattingStringsRes) context.getString(R.string.rate_form_finish_description_bad) else rateSettings?.badRateTitle
                 }
                 viewHolder.rating?.isVisible = false

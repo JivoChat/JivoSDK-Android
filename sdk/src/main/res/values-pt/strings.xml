@@ -5,6 +5,7 @@
     <!-- Надпись к сообщениям клиента -->
     <string name="agent_name_you">Você</string>
     <string name="Agent.DisplayName.Deleted">Operador excluído</string>
+    <string name="Camera.Access.Description">Este aplicativo precisa de permissão para usar sua câmera</string>
     <!-- Normally user iOS device doesn't return "Restricted" camera access status. But for test purposes we've added an alert with this string message anyway. -->
     <string name="Camera.Access.Restricted">Acesso à câmera negado</string>
     <string name="Camera.Access.Suggestion">Precisamos desta permissão para que você consiga tirar e compartilhar fotos</string>
@@ -41,6 +42,7 @@
     <string name="common_unknown_error">Erro desconhecido</string>
     <string name="Common.Open">Abrir</string>
     <string name="common.send">Enviar</string>
+    <string name="Common.Settings">Configurações</string>
     <!-- Состояние подключения к сервису -->
     <string name="connection_state_connecting">Conectando...</string>
     <!-- Состояние отсутствия подключения -->
@@ -95,6 +97,7 @@ Favor ir até [Ajustes &gt; App &gt; Fotos] para permitir o acesso.</string>
     <string name="menu_action_copy">Link de cópia</string>
     <!-- Пункт меню "Cкачать" -->
     <string name="menu_action_download">Baixar</string>
+    <string name="Menu.Action.File">Arquivo</string>
     <!-- Кнопка скачать для прикрепленного документа/файла -->
     <string name="message_download">Baixar</string>
     <!-- Системное сообщение о присоединении оператора к чату -->

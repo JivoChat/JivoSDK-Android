@@ -518,4 +518,24 @@
         <item name="badgeColor">@color/jivo_sdk_system_red</item>
     </style>
 
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?colorAccent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lines">2</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?colorAccent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lines">2</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
 </resources>

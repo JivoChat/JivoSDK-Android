@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.jivosite.sdk.api.ApiErrors.FILE_TRANSFER_DISABLED
 import com.jivosite.sdk.api.MediaApi
 import com.jivosite.sdk.model.SdkContext
-import com.jivosite.sdk.model.pojo.file.File
+import com.jivosite.sdk.model.pojo.file.JivoMediaFile
 import com.jivosite.sdk.model.repository.StateRepository
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.network.resource.MediaResource
@@ -34,19 +34,19 @@ class UploadRepositoryImpl @Inject constructor(
     override val hasLicense: LiveData<Boolean>
         get() = _hasLicense
 
-    override fun upload(file: File, successfulUnloading: (url: String) -> Unit) {
-        setStateUploading(file)
+    override fun upload(jivoMediaFile: JivoMediaFile, successfulUnloading: (url: String) -> Unit) {
+        setStateUploading(jivoMediaFile)
 
-        createRequest(file).loadSilentlyResource {
+        createRequest(jivoMediaFile).loadSilentlyResource {
             progress { }
             progressUpdate { bytesWritten ->
                 bytesWritten?.let {
-                    setStateUploading(file, it)
+                    setStateUploading(jivoMediaFile, it)
                 }
             }
             result { successfulUnloading(it) }
             error {
-                setStateError(file.uri, it)
+                setStateError(jivoMediaFile.uri, it)
                 if (it == FILE_TRANSFER_DISABLED) {
                     updateLicense(false)
                 }
@@ -70,36 +70,36 @@ class UploadRepositoryImpl @Inject constructor(
         _hasLicense.value = hasLicense
     }
 
-    private fun setStateUploading(file: File, size: Long = 0) {
+    private fun setStateUploading(jivoMediaFile: JivoMediaFile, size: Long = 0) {
         updateStateInRepositoryThread {
             transform { state ->
                 val files = HashMap<String, FileState>()
                 if (state.files.isNotEmpty()) {
                     for ((k, v) in state.files) {
-                        if (k == file.uri) {
-                            files[file.uri] = v.copy(uploadState = UploadState.Uploading(size))
+                        if (k == jivoMediaFile.uri) {
+                            files[jivoMediaFile.uri] = v.copy(uploadState = UploadState.Uploading(size))
                             break
                         } else {
-                            files[file.uri] = FileState(
-                                file.name,
-                                file.type,
-                                file.size,
-                                file.uri,
+                            files[jivoMediaFile.uri] = FileState(
+                                jivoMediaFile.name,
+                                jivoMediaFile.type,
+                                jivoMediaFile.size,
+                                jivoMediaFile.uri,
                                 System.currentTimeMillis() / 1000,
                                 UploadState.Uploading(size),
-                                file.mimeType
+                                jivoMediaFile.mimeType
                             )
                         }
                     }
                 } else {
-                    files[file.uri] = FileState(
-                        file.name,
-                        file.type,
-                        file.size,
-                        file.uri,
+                    files[jivoMediaFile.uri] = FileState(
+                        jivoMediaFile.name,
+                        jivoMediaFile.type,
+                        jivoMediaFile.size,
+                        jivoMediaFile.uri,
                         System.currentTimeMillis() / 1000,
                         UploadState.Uploading(size),
-                        file.mimeType
+                        jivoMediaFile.mimeType
                     )
                 }
 
@@ -108,19 +108,19 @@ class UploadRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun createRequest(file: File): LiveData<Resource<String>> {
+    private fun createRequest(jivoMediaFile: JivoMediaFile): LiveData<Resource<String>> {
         val siteId = storage.siteId.toLong()
         val widgetId = storage.widgetId
         return MediaResource.Builder(schedulers)
             .getAccess {
                 api.getSign(
-                    file.name,
+                    jivoMediaFile.name,
                     storage.clientId.split(".").first(),
                     siteId,
                     widgetId
                 )
             }
-            .file { file }
+            .file { jivoMediaFile }
             .upload { metadata, url, body ->
                 api.uploadMedia(metadata, url, body)
             }

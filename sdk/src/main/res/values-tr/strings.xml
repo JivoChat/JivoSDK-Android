@@ -5,6 +5,7 @@
     <!-- Надпись к сообщениям клиента -->
     <string name="agent_name_you">Ben</string>
     <string name="Agent.DisplayName.Deleted">Silinmiş temsilci</string>
+    <string name="Camera.Access.Description">Bu uygulamanın kameranızı kullanması için izne ihtiyacı var</string>
     <!-- Normally user iOS device doesn't return "Restricted" camera access status. But for test purposes we've added an alert with this string message anyway. -->
     <string name="Camera.Access.Restricted">Kamera erişimi reddedildi</string>
     <string name="Camera.Access.Suggestion">Fotoğraf çekip paylaşabilmeniz için bu izne ihtiyacımız var</string>
@@ -41,6 +42,7 @@
     <string name="common_unknown_error">Bilinmeyen hata</string>
     <string name="Common.Open">Açık</string>
     <string name="common.send">Gönder</string>
+    <string name="Common.Settings">Ayarlar</string>
     <!-- Состояние подключения к сервису -->
     <string name="connection_state_connecting">Bağlanılıyor...</string>
     <!-- Состояние отсутствия подключения -->
@@ -95,6 +97,7 @@ Lütfen [Ayarlar &gt; App &gt; Fotoğraflar] yoluyla izin verin.</string>
     <string name="menu_action_copy">Linki kopyala</string>
     <!-- Пункт меню "Cкачать" -->
     <string name="menu_action_download">İndir</string>
+    <string name="Menu.Action.File">Dosya</string>
     <!-- Кнопка скачать для прикрепленного документа/файла -->
     <string name="message_download">İndir</string>
     <!-- Системное сообщение о присоединении оператора к чату -->

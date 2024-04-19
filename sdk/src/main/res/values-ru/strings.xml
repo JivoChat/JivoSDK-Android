@@ -5,6 +5,7 @@
     <!-- Надпись к сообщениям клиента -->
     <string name="agent_name_you">Вы</string>
     <string name="Agent.DisplayName.Deleted">Удаленный оператор</string>
+    <string name="Camera.Access.Description">Приложению требуется разрешение на использование вашей камеры</string>
     <!-- Normally user iOS device doesn't return "Restricted" camera access status. But for test purposes we've added an alert with this string message anyway. -->
     <string name="Camera.Access.Restricted">Доступ к камере запрещён</string>
     <string name="Camera.Access.Suggestion">Для съёмки фото требуется доступ к камере.\n\nПожалуйста, перейдите в [Настройки устройства &gt; Ваше приложение &gt; Камера], чтобы разрешить доступ.</string>
@@ -23,6 +24,7 @@
     <string name="chat_system_two_agents_typing">%s и %s набирают сообщение...</string>
     <!-- Заголовок окна чата по умолчанию -->
     <string name="chat_title_placeholder">Чат с поддержкой</string>
+    <string name="Chat.History.LoadMore">Подгрузить историю</string>
     <string name="chat.state_unavailable.discription">В настоящий момент чат недоступен. Попробуйте написать нам немного позже.</string>
     <string name="chat.state_unavailable.title">Чат временно недоступен</string>
     <string name="chat.system.contact_form.introduce_in_chat">Представьтесь в чате</string>
@@ -41,6 +43,7 @@
     <string name="common_unknown_error">Техническая ошибка</string>
     <string name="Common.Open">Открыть</string>
     <string name="common.send">Отправить</string>
+    <string name="Common.Settings">Настройки</string>
     <!-- Состояние подключения к сервису -->
     <string name="connection_state_connecting">Подключение…</string>
     <!-- Состояние отсутствия подключения -->
@@ -71,7 +74,7 @@
     <!-- Формат для размера файла в мегабайтах -->
     <string name="format_file_size_mb">%.2f МБ</string>
     <!-- Подсказка в окне ввода сообщения -->
-    <string name="input_message_placeholder">Введите ваше сообщение...</string>
+    <string name="input_message_placeholder">Введите сообщение...</string>
     <string name="jivo_business_messenger">Бизнес-месcенджер</string>
     <!-- Надпись на кнопке контекстного меню выбора типа вложения. Нажатие на кнопку открывает системный пикер документов. -->
     <string name="media_upload_attachment_type_selecting_document">Документ</string>
@@ -95,6 +98,7 @@
     <string name="menu_action_copy">Копировать ссылку</string>
     <!-- Пункт меню "Cкачать" -->
     <string name="menu_action_download">Скачать</string>
+    <string name="Menu.Action.File">Файл</string>
     <!-- Кнопка скачать для прикрепленного документа/файла -->
     <string name="message_download">Скачать</string>
     <!-- Системное сообщение о присоединении оператора к чату -->

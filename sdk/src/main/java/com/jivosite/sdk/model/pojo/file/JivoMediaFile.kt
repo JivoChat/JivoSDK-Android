@@ -7,7 +7,7 @@ import java.io.InputStream
  *
  * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
-data class File(
+data class JivoMediaFile(
     val name: String,
     val type: String,
     val extension: String,

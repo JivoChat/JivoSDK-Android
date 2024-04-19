@@ -3,4 +3,5 @@
     <files-path
         name="notifications"
         path="notifications/" />
+    <external-path name="external_files" path="." />
 </paths>

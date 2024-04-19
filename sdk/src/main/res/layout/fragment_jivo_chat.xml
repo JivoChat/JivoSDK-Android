@@ -89,7 +89,7 @@
             android:paddingTop="32dp"
             android:paddingBottom="16dp"
             android:visibility="@{viewModel.isUnavailable ? View.INVISIBLE:View.VISIBLE}"
-            app:layout_constraintBottom_toTopOf="@id/controls"
+            app:layout_constraintBottom_toTopOf="@id/attachedFile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -186,6 +186,87 @@
 
         </androidx.cardview.widget.CardView>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/attachedFile"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/controls"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/jivo_sdk_vic_file" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/cancel"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/jivo_sdk_vic_close_24"
+                android:tint="?colorPrimary"
+                android:tintMode="src_in"
+                android:onClick="@{() -> viewModel.cancel()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/fileName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="?textAppearanceBody1"
+                android:textColor="?colorPrimary"
+                app:layout_constraintBottom_toTopOf="@id/fileSize"
+                app:layout_constraintEnd_toStartOf="@id/cancel"
+                app:layout_constraintStart_toEndOf="@id/icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Договор об услугах.doc" />
+
+            <TextView
+                android:id="@+id/fileSize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="?textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/fileName"
+                app:layout_constraintTop_toBottomOf="@id/fileName"
+                tools:text="423,5 КБ" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="4dp"
+                android:background="?colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/fileSize"
+                app:layout_constraintEnd_toStartOf="@id/fileName"
+                app:layout_constraintTop_toTopOf="@id/fileName" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?colorOutline"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/controls"
             android:layout_width="match_parent"
@@ -195,11 +276,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recyclerView"
             tools:visibility="invisible">
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/attachBtn"
+                android:id="@+id/menuActions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -207,7 +287,7 @@
                 android:layout_marginBottom="16dp"
                 android:background="?android:selectableItemBackgroundBorderless"
                 android:enabled="@{viewModel.canAttach}"
-                android:onClick="@{() -> fragment.attach()}"
+                android:onClick="@{() -> fragment.openMenuActions()}"
                 android:src="@drawable/jivo_sdk_vic_clip"
                 android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
                 android:visibility="@{viewModel.canUploadFile ? View.VISIBLE : View.GONE}" />
