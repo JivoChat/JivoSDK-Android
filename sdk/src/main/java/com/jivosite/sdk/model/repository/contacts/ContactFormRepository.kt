@@ -21,7 +21,7 @@ interface ContactFormRepository {
 
     fun createContactForm(hasTimeout: Boolean = false)
 
-    fun prepareToSendContactInfo(contactInfo: ContactInfo? = null)
+    fun prepareToSendContactInfo(contactInfo: ContactInfo)
 
     fun sendCustomData(customDataFields: List<CustomData>? = null)
 

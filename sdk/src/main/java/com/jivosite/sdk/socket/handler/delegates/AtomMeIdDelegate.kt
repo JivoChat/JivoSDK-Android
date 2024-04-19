@@ -21,7 +21,7 @@ class AtomMeIdDelegate @Inject constructor(
     private val profileRepository: ProfileRepository,
     private val subscribePushTokenUseCase: Provider<SubscribePushTokenUseCase>,
     private val schedulers: Schedulers,
-    private val contactFormRepository: ContactFormRepository
+    private val contactFormRepository: ContactFormRepository,
 ) : SocketMessageDelegate {
 
     companion object {
@@ -33,7 +33,6 @@ class AtomMeIdDelegate @Inject constructor(
             profileRepository.setId(this)
             schedulers.ui.execute {
                 subscribePushTokenUseCase.get().execute()
-                contactFormRepository.prepareToSendContactInfo()
                 contactFormRepository.sendCustomData()
             }
         }

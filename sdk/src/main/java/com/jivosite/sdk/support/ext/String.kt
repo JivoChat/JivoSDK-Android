@@ -64,6 +64,13 @@ fun String.verifyHostName(): Boolean {
     return this.isNotBlank() && Pattern.compile("^([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}\$").matcher(this.lowercase()).matches()
 }
 
+fun String.obfuscator(): String {
+    return when (val length = this.length) {
+        in 1..4 -> this
+        in 5..20 -> this.replaceRange(3 until length, "***")
+        else -> this.replaceRange(3..length - 4, "***")
+    }
+}
 
 
 

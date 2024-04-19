@@ -12,6 +12,7 @@ import com.jivosite.sdk.support.builders.ContactInfo
 import com.jivosite.sdk.support.builders.ContactInfo.Companion.contactInfo
 import com.jivosite.sdk.support.ext.fromJson
 import com.jivosite.sdk.support.ext.toJson
+import com.jivosite.sdk.support.usecase.SendContactInfoUseCase
 import com.jivosite.sdk.support.vm.StateLiveData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -26,7 +27,8 @@ class ContactFormRepositoryImpl @Inject constructor(
     schedulers: Schedulers,
     private val storage: SharedStorage,
     private val moshi: Moshi,
-    private val messageTransmitter: Transmitter
+    private val messageTransmitter: Transmitter,
+    private val sendContactInfoUseCase: SendContactInfoUseCase,
 ) : StateRepository<ContactFormState>(
     schedulers, "ContactForm", ContactFormState(hasSentContactInfo = storage.hasSentContactInfo)
 ),
@@ -44,6 +46,10 @@ class ContactFormRepositoryImpl @Inject constructor(
 
 
     override fun setContactForm(contactForm: ContactForm) = updateStateInRepositoryThread {
+        doBefore {
+            storage.contactInfo = moshi.toJson(contactForm)
+            true
+        }
         transform { state ->
             state.copy(
                 hasSentContactInfo = true,
@@ -54,31 +60,17 @@ class ContactFormRepositoryImpl @Inject constructor(
                 )
             )
         }
-        doAfter { state ->
-            sendContactInfo(
-                contactInfo {
-                    name = state.contactForm?.name
-                    phone = state.contactForm?.phone ?: ""
-                    email = state.contactForm?.email ?: ""
-                }
-            )
+        doAfter {
+            sendContactInfoUseCase.execute()
         }
     }
 
-    override fun prepareToSendContactInfo(contactInfo: ContactInfo?) {
-        if (contactInfo != null) {
-            val jsonContactInfo = moshi.toJson(contactInfo)
+    override fun prepareToSendContactInfo(contactInfo: ContactInfo) {
+        val jsonContactInfo = moshi.toJson(contactInfo)
 
-            if (jsonContactInfo != storage.contactInfo) {
-                storage.hasSentContactInfo = false
-                storage.contactInfo = jsonContactInfo
-                sendContactInfo(contactInfo)
-            }
-
-        } else if (!storage.hasSentContactInfo && storage.contactInfo.isNotBlank()) {
-            moshi.fromJson<ContactInfo>(storage.contactInfo)?.let {
-                sendContactInfo(it)
-            }
+        if (jsonContactInfo != storage.contactInfo) {
+            storage.hasSentContactInfo = false
+            storage.contactInfo = jsonContactInfo
         }
     }
 
@@ -116,24 +108,5 @@ class ContactFormRepositoryImpl @Inject constructor(
                 customData = ""
             }
         }
-    }
-
-    private fun sendContactInfo(contactInfo: ContactInfo) {
-        val map = mapOf(
-            "atom/user.name" to contactInfo.name,
-            "atom/user.email" to contactInfo.email,
-            "atom/user.phone" to contactInfo.phone,
-            "atom/user.desc" to contactInfo.description
-        )
-
-        for ((key, value) in map) {
-            if (!value.isNullOrBlank()) {
-                messageTransmitter.sendMessage(SocketMessage.contactInfo(key, value))
-            }
-        }
-        if (contactInfo.email.isNotBlank() || contactInfo.phone.isNotBlank()) {
-            storage.hasSentContactInfo = true
-        }
-        Jivo.i("Contact info sent successfully")
     }
 }

@@ -102,7 +102,10 @@ object Jivo {
     fun setContactInfo(contactInfo: ContactInfo) {
         if (Jivo::jivoSdkComponent.isInitialized) {
             jivoSdkComponent.contactFormRepository().prepareToSendContactInfo(contactInfo)
+        } else {
+            e("Call setContactInfo(), JivoSdkComponent hasn't isInitialized")
         }
+        i("Call setContactInfo($contactInfo)")
     }
 
     @JvmStatic
