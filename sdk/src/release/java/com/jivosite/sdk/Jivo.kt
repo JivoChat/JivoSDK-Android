@@ -104,7 +104,10 @@ object Jivo {
     fun setCustomData(customDataFields: List<CustomData>) {
         if (Jivo::jivoSdkComponent.isInitialized) {
             jivoSdkComponent.contactFormRepository().sendCustomData(customDataFields)
+        } else {
+            e("Call setContactInfo(), JivoSdkComponent hasn't isInitialized")
         }
+        i("Call setCustomData($customDataFields)")
     }
 
     @JvmStatic

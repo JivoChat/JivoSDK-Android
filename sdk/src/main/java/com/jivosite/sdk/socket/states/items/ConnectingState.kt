@@ -12,6 +12,7 @@ import com.jivosite.sdk.socket.states.ServiceState
 import com.jivosite.sdk.socket.states.ServiceStateContext
 import com.jivosite.sdk.socket.support.ReconnectStrategy
 import com.jivosite.sdk.support.usecase.SendContactInfoUseCase
+import com.jivosite.sdk.support.usecase.SendCustomDataUseCase
 import com.jivosite.sdk.support.usecase.SubscribePushTokenUseCase
 import javax.inject.Inject
 
@@ -28,7 +29,8 @@ class ConnectingState @Inject constructor(
     private val agentRepository: AgentRepository,
     private val contactFormRepository: ContactFormRepository,
     private val subscribePushTokenUseCase: SubscribePushTokenUseCase,
-    private val sendContactInfoUseCase: SendContactInfoUseCase
+    private val sendContactInfoUseCase: SendContactInfoUseCase,
+    private val sendCustomDataUseCase: SendCustomDataUseCase,
 ) : ServiceState(stateContext) {
 
     override fun load() {
@@ -49,12 +51,12 @@ class ConnectingState @Inject constructor(
         stateContext.changeState(ConnectedState::class.java)
         connectionStateRepository.setState(ConnectionState.Connected)
         agentRepository.onConnectionStateChanged()
-        contactFormRepository.sendCustomData()
         service.keepConnection()
         //reconnectStrategy.reset()
         service.subscribeToTransmitter()
         subscribePushTokenUseCase.execute()
         sendContactInfoUseCase.execute()
+        sendCustomDataUseCase.execute()
     }
 
     override fun send(message: SocketMessage) {
@@ -78,6 +80,7 @@ class ConnectingState @Inject constructor(
                 stateContext.getState().stop()
                 false
             }
+
             else -> {
                 Jivo.e("Unhandled disconnected reason $reason in connecting state, try reconnect")
                 false

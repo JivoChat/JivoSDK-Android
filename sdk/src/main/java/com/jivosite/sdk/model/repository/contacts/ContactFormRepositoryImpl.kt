@@ -1,16 +1,11 @@
 package com.jivosite.sdk.model.repository.contacts
 
-import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.model.pojo.CustomData
-import com.jivosite.sdk.model.pojo.socket.SocketMessage
 import com.jivosite.sdk.model.repository.StateRepository
 import com.jivosite.sdk.model.repository.contacts.ContactFormRepository.Companion.CREATE_CONTACT_FORM_TIMEOUT
 import com.jivosite.sdk.model.storage.SharedStorage
-import com.jivosite.sdk.socket.transmitter.Transmitter
 import com.jivosite.sdk.support.async.Schedulers
 import com.jivosite.sdk.support.builders.ContactInfo
-import com.jivosite.sdk.support.builders.ContactInfo.Companion.contactInfo
-import com.jivosite.sdk.support.ext.fromJson
 import com.jivosite.sdk.support.ext.toJson
 import com.jivosite.sdk.support.usecase.SendContactInfoUseCase
 import com.jivosite.sdk.support.vm.StateLiveData
@@ -27,7 +22,6 @@ class ContactFormRepositoryImpl @Inject constructor(
     schedulers: Schedulers,
     private val storage: SharedStorage,
     private val moshi: Moshi,
-    private val messageTransmitter: Transmitter,
     private val sendContactInfoUseCase: SendContactInfoUseCase,
 ) : StateRepository<ContactFormState>(
     schedulers, "ContactForm", ContactFormState(hasSentContactInfo = storage.hasSentContactInfo)
@@ -74,8 +68,7 @@ class ContactFormRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun sendCustomData(customDataFields: List<CustomData>?) {
-        if (customDataFields != null) {
+    override fun prepareToSendCustomData(customDataFields: List<CustomData>) {
             val jsonCustomData =
                 moshi.adapter<List<CustomData>>(Types.newParameterizedType(List::class.java, CustomData::class.java))
                     .toJson(customDataFields)
@@ -84,16 +77,6 @@ class ContactFormRepositoryImpl @Inject constructor(
                 storage.hasSentCustomData = false
                 storage.customData = jsonCustomData
             }
-
-            if (!storage.hasSentCustomData) {
-                messageTransmitter.sendMessage(SocketMessage.customData(jsonCustomData))
-                storage.hasSentCustomData = true
-            }
-
-        } else if (!storage.hasSentCustomData && storage.customData.isNotBlank()) {
-            messageTransmitter.sendMessage(SocketMessage.customData(storage.customData))
-            storage.hasSentCustomData = true
-        }
     }
 
     override fun clear() = updateStateInRepositoryThread {

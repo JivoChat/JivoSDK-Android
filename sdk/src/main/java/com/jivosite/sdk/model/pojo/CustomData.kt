@@ -1,5 +1,7 @@
 package com.jivosite.sdk.model.pojo
 
+import com.jivosite.sdk.BuildConfig
+import com.jivosite.sdk.support.ext.obfuscator
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -17,5 +19,13 @@ data class CustomData(
     @Json(name = "link")
     val link: String,
     @Json(name = "key")
-    val key: String
-)
+    val key: String,
+) {
+    override fun toString(): String {
+        return if (BuildConfig.DEBUG) {
+            "$content, $title, $link, $key"
+        } else {
+            "${content.obfuscator()}, ${title.obfuscator()}, ${link.obfuscator()}, ${key.obfuscator()}"
+        }
+    }
+}

@@ -23,7 +23,7 @@ interface ContactFormRepository {
 
     fun prepareToSendContactInfo(contactInfo: ContactInfo)
 
-    fun sendCustomData(customDataFields: List<CustomData>? = null)
+    fun prepareToSendCustomData(customDataFields: List<CustomData>)
 
     fun clear()
 }
