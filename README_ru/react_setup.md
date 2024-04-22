@@ -79,7 +79,7 @@ android {
 dependencies {
    ...
    //JivoSDK
-   implementation 'com.jivosite.sdk:android-sdk:2.2.3'
+   implementation 'com.jivosite.sdk:android-sdk:2.3.0'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
