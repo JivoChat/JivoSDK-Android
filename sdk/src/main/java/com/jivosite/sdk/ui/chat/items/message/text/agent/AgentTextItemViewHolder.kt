@@ -24,7 +24,7 @@ class AgentTextItemViewHolder(
     lifecycleOwner: LifecycleOwner,
     private val viewModel: AgentTextItemViewModel,
     private val jivoChatViewModel: JivoChatViewModel,
-    private val markwon: Markwon
+    private val markwon: Markwon,
 ) : MessageItemViewHolder<AgentMessageEntry>(itemView, viewModel) {
 
     companion object {
@@ -66,7 +66,9 @@ class AgentTextItemViewHolder(
                                     }
                                 }
                                 setOnCheckedStateChangeListener { _, checkedIds ->
-                                    viewModel.sendMessage(ClientMessage.createText(it[checkedIds.first()]))
+                                    if (checkedIds.isNotEmpty()) {
+                                        viewModel.sendMessage(ClientMessage.createText(it[checkedIds.first()]))
+                                    }
                                 }
                             }
                         }
