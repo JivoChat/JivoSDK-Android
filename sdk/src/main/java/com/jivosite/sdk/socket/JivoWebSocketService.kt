@@ -26,6 +26,7 @@ import com.jivosite.sdk.socket.states.items.InitialState
 import com.jivosite.sdk.socket.states.items.StoppedState
 import com.jivosite.sdk.socket.transmitter.Transmitter
 import com.jivosite.sdk.socket.transmitter.TransmitterSubscriber
+import com.jivosite.sdk.support.usecase.DeleteClientUseCase
 import com.jivosite.sdk.support.utils.getEngineInfo
 import com.neovisionaries.ws.client.*
 import javax.inject.Inject
@@ -124,6 +125,9 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
     @Inject
     lateinit var chatStateRepository: ChatStateRepository
 
+    @Inject
+    lateinit var deleteClientUseCase: DeleteClientUseCase
+
     private lateinit var socketState: ServiceState
     private var webSocket: WebSocket? = null
     private var connectionKeeper: ConnectionKeeper? = null
@@ -173,6 +177,12 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
                                     chatStateRepository.setBlacklisted()
                                     DisconnectReason.BlackListed
                                 }
+
+                                DisconnectReason.DeletedClient.toString() -> {
+                                    deleteClientUseCase.execute()
+                                    DisconnectReason.DeletedClient
+                                }
+
                                 else -> {
                                     DisconnectReason.DisconnectedByServer(
                                         1000,

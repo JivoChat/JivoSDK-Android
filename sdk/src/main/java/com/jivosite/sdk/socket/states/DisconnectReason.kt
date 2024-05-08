@@ -29,6 +29,12 @@ sealed class DisconnectReason {
         }
     }
 
+    object DeletedClient : DisconnectReason() {
+        override fun toString(): String {
+            return "Deleted"
+        }
+    }
+
     object ChangeInstance : DisconnectReason() {
         override fun toString(): String {
             return "ChangeInstance"

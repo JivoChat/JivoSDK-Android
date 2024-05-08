@@ -61,6 +61,7 @@ import com.jivosite.sdk.ui.chat.items.message.uploading.image.UploadingImageItem
 import com.jivosite.sdk.ui.chat.items.message.welcome.WelcomeMessageItem
 import com.jivosite.sdk.ui.chat.items.rate.RatingItem
 import com.jivosite.sdk.ui.chat.items.unsupported.UnsupportedItem
+import okhttp3.internal.toLongOrDefault
 import java.io.InputStream
 import java.util.*
 import javax.inject.Inject
@@ -256,9 +257,8 @@ class JivoChatViewModel @Inject constructor(
         val messages: SortedMap<Long, ChatEntry> = TreeMap<Long, ChatEntry> { o1, o2 ->
             o2.compareTo(o1)
         }.apply {
-
             state.historyState.messages.forEach {
-                if (it.from == state.myId) {
+                if (it.from.toLongOrNull() == null || it.from == state.myId) {
                     putOrIncrementKey(it.timestamp, ClientMessageEntry(it, EntryPosition.Single))
                 } else {
                     putOrIncrementKey(
@@ -401,7 +401,7 @@ class JivoChatViewModel @Inject constructor(
     }
 
     private fun createItem(myId: String, message: MessageEntry): ChatItem {
-        return if (message.from.isBlank() || message.from == myId) {
+        return if (message.from.isBlank() || message.from.toLongOrNull() == null || message.from == myId) {
             if (message is UploadingFileEntry) {
                 when (message.state.type) {
                     TYPE_IMAGE -> UploadingImageItem(message)
