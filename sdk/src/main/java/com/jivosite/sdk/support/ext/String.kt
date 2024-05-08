@@ -66,7 +66,7 @@ fun String.verifyHostName(): Boolean {
 
 fun String.obfuscator(): String {
     return when (val length = this.length) {
-        in 1..4 -> this
+        in 0..4 -> this
         in 5..20 -> this.replaceRange(3 until length, "***")
         else -> this.replaceRange(3..length - 4, "***")
     }
