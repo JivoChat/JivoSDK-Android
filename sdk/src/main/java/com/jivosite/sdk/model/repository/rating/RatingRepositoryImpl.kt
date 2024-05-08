@@ -22,7 +22,6 @@ class RatingRepositoryImpl @Inject constructor(
     private val storage: SharedStorage,
     private val transmitter: Transmitter,
     private val moshi: Moshi
-
 ) : StateRepository<RatingState>(schedulers, "Rating", RatingState()), RatingRepository {
 
     override val observableState: StateLiveData<RatingState>
@@ -48,9 +47,11 @@ class RatingRepositoryImpl @Inject constructor(
                 is RatingFormState.Ready -> {
                     state.copy(ratingFormState = RatingFormState.Draft(rate = rate))
                 }
+
                 is RatingFormState.Draft -> {
                     state.copy(ratingFormState = state.ratingFormState.copy(rate = rate))
                 }
+
                 else -> {
                     state
                 }
@@ -59,6 +60,9 @@ class RatingRepositoryImpl @Inject constructor(
     }
 
     override fun setComment(comment: String) = updateStateInRepositoryThread {
+        doBefore { state ->
+            state.ratingFormState is RatingFormState.Draft
+        }
         transform { state ->
             state.copy(ratingFormState = (state.ratingFormState as RatingFormState.Draft).copy(comment = comment))
         }
