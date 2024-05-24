@@ -19,7 +19,7 @@ The **Jivo Mobile SDK** allows you to embed a chat into your native **Android** 
 -   New messages indicator inside the integrated app
 -   PUSH notifications
 
-### Current version: 2.3.1
+### Current version: 2.3.2
 
 List of changes:
 
@@ -112,7 +112,7 @@ android {
 dependencies {
    ...
    //JivoSDK
-   implementation 'com.jivosite.sdk:android-sdk:2.3.1'
+   implementation 'com.jivosite.sdk:android-sdk:2.3.2'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -673,7 +673,7 @@ android {
 dependencies {
    ...
    //Jivo SDK
-   implementation 'com.jivosite.sdk:android-sdk:2.3.1'
+   implementation 'com.jivosite.sdk:android-sdk:2.3.2'
    //firebase
    implementation platform('com.google.firebase:firebase-bom:26.2.0')
    implementation 'com.google.firebase:firebase-messaging'
@@ -820,6 +820,13 @@ export default function App() {
 
 Changelog
 =========
+
+2.3.2 (24/05/2024)
+-----------------------
+
+### Bug Fixes:
+
+-   fixed errors that caused the SDK to crash and not work correctly;
 
 2.3.1 (09/05/2024)
 -----------------------

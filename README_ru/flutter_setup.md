@@ -53,4 +53,4 @@ dependencies {
     api 'com.google.firebase:firebase-messaging'
 }
 ```
-> [!NOTE]<br>Для полноценной работы JivoSDK, необходимо настроить push-уведомления с помощью Firebase Cloud Messaging. Подробная [инструкция](./README_ru/firebase_notifications_setup.md). 
+> [!NOTE]<br>Для полноценной работы JivoSDK, необходимо настроить push-уведомления с помощью Firebase Cloud Messaging. Подробная [инструкция](./firebase_notifications_setup.md). 
