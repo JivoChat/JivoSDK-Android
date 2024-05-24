@@ -85,10 +85,17 @@ class ContactFormRepositoryImpl @Inject constructor(
         }
         doAfter {
             storage.apply {
-                hasSentContactInfo = false
-                contactInfo = ""
-                hasSentCustomData = false
-                customData = ""
+                when {
+                    hasSentContactInfo -> {
+                        hasSentContactInfo = false
+                        contactInfo = ""
+                    }
+
+                    hasSentCustomData -> {
+                        hasSentCustomData = false
+                        customData = ""
+                    }
+                }
             }
         }
     }
