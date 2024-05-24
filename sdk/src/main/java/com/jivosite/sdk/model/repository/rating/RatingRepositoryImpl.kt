@@ -95,7 +95,7 @@ class RatingRepositoryImpl @Inject constructor(
     override fun clear() = updateStateInRepositoryThread {
         transform {
             storage.chatId = ""
-            RatingState(ratingFormState = RatingFormState.Initial)
+            it.copy(ratingFormState = RatingFormState.Initial)
         }
     }
 }
