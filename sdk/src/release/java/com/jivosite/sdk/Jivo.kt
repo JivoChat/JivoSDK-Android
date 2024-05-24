@@ -70,7 +70,7 @@ object Jivo {
     @JvmStatic
     fun setData(widgetId: String, userToken: String = "", host: String = "") {
         if (Jivo::jivoSdkComponent.isInitialized) {
-            if (widgetId != storage.widgetId || userToken != storage.userToken) {
+            if (widgetId.isNotBlank() && widgetId != storage.widgetId || userToken.isNotBlank() && userToken != storage.userToken) {
                 if (storage.clientId.isNotBlank()) {
                     jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().onSuccess {
                         jivoSdkComponent.clearUseCaseProvider().get().execute()
