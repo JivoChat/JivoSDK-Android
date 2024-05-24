@@ -46,7 +46,7 @@ class HistoryRepositoryImpl @Inject constructor(
         transform { state ->
             messagesCache[message.number] = transformMessageIfNeed(message)
             state.copy(messages = messagesCache.entries.map {
-                it.value.copy(status = if (message.number <= storage.lastAckMsgId) MessageStatus.Delivered else MessageStatus.Sent)
+                it.value.copy(status = if (it.key <= storage.lastAckMsgId) MessageStatus.Delivered else MessageStatus.Sent)
             })
         }
         doAfter {
