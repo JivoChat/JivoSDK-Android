@@ -51,6 +51,8 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
         const val REASON_STOPPED = 4000
         const val REASON_TIMEOUT = 4001
 
+        var isStartedService = false
+
         fun loadConfig(appContext: Context) {
             val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
                 action = ACTION_LOAD_CONFIG
@@ -74,6 +76,7 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
         }
 
         fun stop(appContext: Context) {
+
             val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
                 action = ACTION_STOP
             }
@@ -191,6 +194,7 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
                                 }
                             }
                         }
+
                         1013 -> DisconnectReason.DisconnectedByServer(
                             1013,
                             clientCloseFrame.closeReason
@@ -222,7 +226,10 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
         super.onCreate()
         Jivo.getServiceComponent(this).inject(this)
         Jivo.i("Service has been created")
-        changeState(InitialState::class.java)
+        if (!isStartedService) {
+            isStartedService = true
+            changeState(InitialState::class.java)
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -264,6 +271,7 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
         super.onDestroy()
         Jivo.clearServiceComponent()
         Jivo.i("Service has been destroyed")
+        isStartedService = false
     }
 
     override fun getState(): ServiceState = socketState

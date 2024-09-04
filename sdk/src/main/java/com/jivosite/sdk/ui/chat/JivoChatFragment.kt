@@ -201,6 +201,7 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
     override fun onDestroy() {
         super.onDestroy()
         Jivo.clearChatComponent()
+        Jivo.stopSession()
     }
 
     fun send() {

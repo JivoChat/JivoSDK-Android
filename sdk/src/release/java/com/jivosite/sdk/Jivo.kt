@@ -74,7 +74,7 @@ object Jivo {
                 if (storage.clientId.isNotBlank()) {
                     jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().onSuccess {
                         jivoSdkComponent.clearUseCaseProvider().get().execute()
-                        lifecycleObserver.onClear()
+                        lifecycleObserver.stopSession()
                         storage.userToken = userToken
                         storage.widgetId = widgetId
                     }.execute()
@@ -181,7 +181,7 @@ object Jivo {
         if (Jivo::jivoSdkComponent.isInitialized) {
             jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().onSuccess {
                 jivoSdkComponent.clearUseCaseProvider().get().execute()
-                lifecycleObserver.onClear()
+                lifecycleObserver.stopSession()
             }.execute()
         }
     }
@@ -195,6 +195,10 @@ object Jivo {
 
     internal fun startSession() {
         lifecycleObserver.onForeground()
+    }
+
+    internal fun stopSession() {
+        lifecycleObserver.stopSession()
     }
 
     internal fun onNewMessage(hasNewMessage: Boolean) {
