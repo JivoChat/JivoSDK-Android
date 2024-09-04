@@ -1,6 +1,6 @@
-Интеграция JivoSDK
+Jivo SDK integration
 ------------------
-Структура проекта
+Project structure
 -------------------------
 
 ```
@@ -23,9 +23,9 @@ your-project-name/
                  build.gradle
  ```
 
-### Настройка Gradle Scripts
+### Settings Gradle Scripts
 
-Настройки **Gradle** (уровень проекта) (`build.gradle`):
+Settings **Gradle** (project level) (`build.gradle`):
 
 ```gradle
 buildscript {
@@ -51,7 +51,7 @@ allprojects {
 ...
 ```
 
-Настройки **Gradle** (уровень приложения) (`app/build.gradle`):
+Settings **Gradle** (application level) (`app/build.gradle`):
 
 ```gradle
 plugins {
@@ -77,7 +77,7 @@ dependencies {
 }
 ```
 
-Настройка AndroidManifest.xml.
+Settings AndroidManifest.xml.
 -------------------------
 
 ```xml
@@ -129,20 +129,19 @@ dependencies {
 </manifest>
 ```
 
-### Инициализация JivoSDK
+### Initialisation JivoSDK
 
-Для инициализации **JivoSDK** в классе, унаследованном от класса `Application`, в теле переопределенного метода `onCreate()` добавьте вызов статического метода `Jivo.init()`.
-> [!IMPORTANT]<br>Инициализируйте библиотеку JivoSDK только в методе `Application.onCreate()`. Если в приложении есть несколько
-> процессов, убедитесь, что JivoSDK инициализируется только в главном процессе.
+To initialise **JivoSDK** in a class inherited from the `Application` class, add a call to the `Jivo.init()` static method in the body of the overridden `onCreate()` method.
+> [!IMPORTANT]<br>Initialise the JivoSDK library only in the `Application.onCreate()` method. If the application has multiple processes, make sure that JivoSDK is only initialised in the main process.
 
-Статический метод `Jivo.init()` принимает следующие параметры:
-| Название | Тип | Описание |
+The `Jivo.init()` static method accepts the following parameters:
+| Name | Type | Description |
 | ------------- |---------|--------------------------------------------------------|
-| appContext | Context | Контекст приложения. |
+| appContext | Context | Application context. |
 
-Если у вас нет этого класса, который унаследован от класса `Application`, то создайте его и пропишите название в `AndroidManifest.xml`
+If you don't have class, which inherits from the `Application` class, then create it and write the name in `AndroidManifest.xml`
 
-Пример инициализации:
+Example initialisation:
 > Kotlin
 >
 >```kotlin
@@ -170,10 +169,10 @@ dependencies {
 >}
 >```
 
-Открытие чата.
+Launch Jivo SDK.
 --------------
 
-Пример реализации `activity_main.xml` в директории `res/layout/`
+Example of `activity_main.xml` implementation in the `res/layout/` directory
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -197,7 +196,7 @@ dependencies {
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
-Добавьте в `MainActivity` следующий код:
+Add the following code to `MainActivity`:
 
 ```kotlin
 class MainActivity : AppCompatActivity(R.layout.activity_main) {

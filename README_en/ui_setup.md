@@ -1,14 +1,14 @@
 Настройка UI JivoSDK
 =================================
 
-Начиная с версии SDK 1.1.0 все **настройки UI** реализованы с помощью тем и стилей.
-На выбор доступны три основные темы:
+In SDK version 1.1.0, **UI settings** have been changed. At the moment, all UI settings are implemented using themes and styles.
+There are three main themes to choose from:
 
 - **Main.Theme.JivoSDK**
 - **Main.Theme.JivoSDK.Blue**
 - **Main.Theme.JivoSDK.Graphite**
 
-Для переопределения основной темы SDK добавьте данную конструкцию в стили вашего приложения:
+To override the SDK's main theme, add this construct to your application's styles:
 
 ```xml
 
@@ -17,11 +17,12 @@
 </style>
 ```
 
-Если вам требуется переопредить основные цвета SDK, то следует добавить тему и в `parent` указать `Base.Theme.JivoSDK`, а затем переопределить `JivoSDKThemeSwitcher`
+If you need to override the basic SDK colours, you should add a theme and specify `Base.Theme.JivoSDK` in `parent` and then
+override `JivoSDKThemeSwitcher`
 
-- colorPrimary - основной цвет для интерфейса.
-- colorPrimaryVariant — оттенок основного цвета.
-- colorAccent - цвет по умолчанию для компонентов, которые находятся в фокусе или активны.
+- colorPrimary - primary colour for the interface.
+- colorPrimaryVariant — primary colour variant.
+- colorAccent - default colour for components that are in focus or active.
 
 ```xml
 
@@ -32,11 +33,12 @@
 </style>
 
 <style name="JivoSDKThemeSwitcher">
-    <item name="theme">@style/JivoSDKCustomTheme</item>
+<item name="theme">@style/JivoSDKCustomTheme</item>
 </style>
 ```
 
-Для более тонкой настройки UI необходимо переопределить стиль нужного элемента. Пример настройки темы:
+For finer UI customisation, you need to override the style of the desired element.
+Example of theme customisation:
 
 ```xml
 
@@ -70,13 +72,13 @@
 </resources>
 ```
 
-> [!NOTE]<br> Для Flutter или React Native используйте атрибут `<item name="colorPrimaryDark">@color/midnight</item>` который
-> изменяет цвет Status bar.
+> [!NOTE]<br> For Flutter or React Native, use the `<item name=‘colorPrimaryDark’>@color/midnight</item>` attribute which changes
+> the colour of the Status bar.
 
-Список основных элементов SDK
+List of main SDK elements
 -----------------
 
-**Изменение цвета фона чата**
+**Changing the background colour of the chat**
 
 ```xml
 
@@ -85,15 +87,16 @@
 </style>
 ```
 
-**Изменение формы и цвета исходящего сообщения**
+**Changing the shape and colour of the outgoing message**
 
 ```xml
+
 <style name="JivoSDK.OutgoingBubbleBackground" parent="Main.Theme.JivoSDK">
     <item name="android:background">@drawable/jivo_sdk_bg_outgoing_bubble</item>
 </style>
 ```
 
-**Изменение формы и цвета входящего сообщения**
+**Changing the shape and colour of an incoming message**
 
 ```xml
 
@@ -106,7 +109,7 @@
 </style>
 ```
 
-**Настройка ввода текста**
+**Setting up text input**
 
 ```xml
 
@@ -129,7 +132,7 @@
 </style>
 ```
 
-**Изменение формы и цвета элемента формы контактов**
+**Changing the shape and colour of the contact form element**
 
 ```xml
 
@@ -138,7 +141,7 @@
 </style>
 ```
 
-**Изменние кнопки отправки сообщения**
+**Changing the send message button**
 
 ```xml
 
@@ -147,6 +150,6 @@
 </style>
 ```
 
-Список всех элементов находится в [**sdk/src/main/res/values/styles.xml**](https://github.com/JivoChat/JivoSDK-Android/blob/develop/sdk/src/main/res/values/styles.xml)
-> [!NOTE]<br> Для Flutter или React Native используйте атрибут `<item name="colorPrimaryDark">@color/midnight</item>` который
-> изменяет цвет Status bar.
+A list of all elements can be found in [**sdk/src/main/res/values/styles.xml**](https://github.com/JivoChat/JivoSDK-Android/blob/develop/sdk/src/main/res/values/styles.xml)
+> [!NOTE]<br> For Flutter or React Native, use the `<item name=‘colourPrimaryDark’>@color/midnight</item>` attribute which changes
+> the colour of the Status bar.

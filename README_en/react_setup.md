@@ -1,16 +1,14 @@
-Интеграция JivoSDK(React Native).
+Jivo SDK integration(React Native).
 =================================
 
-Открытие проекта.
+Opening of the project.
 -----------------
 
-Для начала откройте проект **Android** в приложении **Android Studio**. Вы можете найти свой **Android-проект** в папке проекта приложений **React Native**:
+First, open the **Android** project in the **Android Studio** application. You can find your **Android project** in the **React Native** app project folder:
 
-<img src="https://user-images.githubusercontent.com/81690520/144239149-22151f18-d938-40c3-b71d-6ff92d5245dc.png" width="630">
+> [!NOTE]<br>We recommend using **Android Studio** to write your own code. **Android studio is an IDE** designed for **Android** development, and using it will help you quickly resolve some issues such as code syntax errors. You can get more information at [link](https://reactnative.dev/docs/native-modules-android)
 
-> [!NOTE]<br>Мы рекомендуем использовать **Android Studio** для написания собственного кода. **Android studio - это IDE**, созданная для разработки под **Android**, и ее использование поможет вам быстро разрешать некоторые проблемы, такие как ошибки синтаксиса кода. Более подробную информацию вы можете получить по [ссылке](https://reactnative.dev/docs/native-modules-android)
- 
-Структура проекта
+Project structure
 -------------------------
 
 ```
@@ -37,10 +35,10 @@ android/
        build.gradle
  ```
 
-Настройка Gradle Scripts.
+Settings Gradle Scripts.
 -------------------------
 
-Настройки **Gradle** (уровень проекта) (`build.gradle`):
+Settings **Gradle** (project level) (`build.gradle`):
 
 ```gradle
 buildscript {
@@ -65,7 +63,7 @@ allprojects {
 }
 ```
 
-Настройки **Gradle** (уровень приложения) (`app/build.gradle`):
+Settings **Gradle** (application level) (`app/build.gradle`):
 
 ```gradle
 android {
@@ -86,7 +84,7 @@ dependencies {
 }
 ```
 
-Настройка AndroidManifest.xml.
+Settings AndroidManifest.xml.
 -------------------------
 
 ```xml
@@ -146,21 +144,20 @@ dependencies {
 </manifest>
 ```
 
-Инициализация JivoSDK.
+### Initialisation JivoSDK
 ----------------------
 
-Для инициализации **JivoSDK** в классе `MainApplication.java`, который находится в папке `android/app/src/main/java/com/your-app-name/`, в тело переопределенного метода `onCreate()` добавьте вызов статического метода `Jivo.init()`.
-> [!IMPORTANT]<br>Инициализируйте библиотеку JivoSDK только в методе `Application.onCreate()`. Если в приложении есть несколько
-> процессов, убедитесь, что JivoSDK инициализируется только в главном процессе.
+To initialise **JivoSDK** in a class inherited from the `Application` class, add a call to the `Jivo.init()` static method in the body of the overridden `onCreate()` method.
+> [!IMPORTANT]<br>Initialise the JivoSDK library only in the `Application.onCreate()` method. If the application has multiple processes, make sure that JivoSDK is only initialised in the main process.
 
-Метод `Jivo.init()` принимает следующие параметры:
-| Название | Тип | Описание |
+The `Jivo.init()` static method accepts the following parameters:
+| Name | Type | Description |
 | ------------- |---------|--------------------------------------------------------|
-| appContext | Context | Контекст приложения. |
+| appContext | Context | Application context. |
 
-Если у вас нет этого класса, который унаследован от класса `Application`, то создайте его и пропишите название в `AndroidManifest.xml`
+If you don't have class, which inherits from the `Application` class, then create it and write the name in `AndroidManifest.xml`
 
-Пример инициализации:
+Example initialisation:
 
 ```java
 public class MainApplication extends Application implements ReactApplication {
@@ -170,7 +167,7 @@ public class MainApplication extends Application implements ReactApplication {
     ...
         Jivo.init(this);
     
-        //Опционально
+        //Optional
         Jivo.setConfig(new Config.Builder()
                 .setOnBackPressed(fragment -> {
                     if (fragment != null) {
@@ -199,10 +196,10 @@ public class MainApplication extends Application implements ReactApplication {
 }
 ```
 
-Добавление модуля.
+Adding a module.
 ------------------
 
-Необходимо создать `JivoSDKModule.java` внутри папки `android/app/src/main/java/your.package.name/`
+Need to create  `JivoSDKModule.java` inside the `android/app/src/main/java/your.package.name/` directory
 
 ```java
 import android.content.Intent;
@@ -233,7 +230,7 @@ public class JivoSDKModule extends ReactContextBaseJavaModule {
 }
 ```
 
-Далее необходимо создать `JivoSDKPackage.java` внутри папки `android/app/src/main/java/your.package.name/`
+Next, it is necessary to create `JivoSDKPackage.java` inside the `android/app/src/main/java/your.package.name/` directory
 
 ```java
 import androidx.annotation.NonNull;
@@ -264,7 +261,8 @@ class JivoSDKPackage implements ReactPackage {
    }
 }
 ```
-Для регистрации пакета JivoSDKModule, вы должны добавить **JivoSDKPackage** в список пакетов, возвращаемых методом **getPackages() ReactNativeHost**. Откройте файл **MainApplication** , который находится в директории **android/app/src/main/java/com/your-app-name/**.
+
+To register the JivoSDKModule package, you must add **JivoSDKPackage** to the list of packages returned by the **getPackages() method of ReactNativeHost**. Open the **MainApplication** file, which is located in the **android/app/src/main/java/com/your-app-name/** directory.
 
 ```java
 public class MainApplication extends Application implements ReactApplication {
@@ -303,10 +301,10 @@ public class MainApplication extends Application implements ReactApplication {
 }
 ```
 
-Открытие чата.
+Launch Jivo SDK.
 --------------
 
-Пример открытия чата **JivoSDK**
+Example of opening a **JivoSDK** chat
 
 ```javascript
 import React from 'react';
@@ -327,7 +325,7 @@ export default function App() {
 ... 
 ```
 
-Необходимо создать `SdkChatActivity.java` в директории `android/app/src/main/java/your.package.name/`
+Need to create `SdkChatActivity.java` in the `android/app/src/main/java/your.package.name/` directory
 
 ```java
 package your.package.name;
@@ -358,7 +356,7 @@ public class SdkChatActivity extends ReactActivity {
 }
 ```
 
-Необходимо создать `activity_sdk_chat.xml` в директории `res/layout/`
+Need to create `activity_sdk_chat.xml` in the `res/layout/` directory
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
