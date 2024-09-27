@@ -6,7 +6,7 @@ buildscript {
         sdkVersion = 33
         buildTools = "30.0.3"
         appVersionName = "1.0.0"
-        appVersionCode = 102409271
+        appVersionCode = 102409272
         ext.kotlinVersion = "1.7.10"
     }
 
