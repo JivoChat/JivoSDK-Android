@@ -47,6 +47,8 @@ class JivoSettingsViewModel @Inject constructor(
 
     fun clearAndRestart() {
         Jivo.clear()
+        widgetId.value = ""
+        userToken.value = ""
     }
 
     fun sendUserInfo() {

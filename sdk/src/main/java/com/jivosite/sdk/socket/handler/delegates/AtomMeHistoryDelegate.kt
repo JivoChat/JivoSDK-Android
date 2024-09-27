@@ -18,7 +18,7 @@ import javax.inject.Inject
 class AtomMeHistoryDelegate @Inject constructor(
     private val historyRepository: HistoryRepository,
     private val paginationRepository: PaginationRepository,
-    private val messageTransmitter: Transmitter
+    private val messageTransmitter: Transmitter,
 ) : SocketMessageDelegate {
 
     companion object {

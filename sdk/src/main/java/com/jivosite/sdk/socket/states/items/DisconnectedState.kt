@@ -33,7 +33,11 @@ class DisconnectedState @Inject constructor(
     }
 
     override fun load() {
-        logImpossibleAction("load")
+        stateContext.changeState(LoadConfigState::class.java)
+        connectionStateRepository.setState(ConnectionState.LoadConfig)
+        service.releaseConnectionKeeper()
+        service.unsubscribeFromTransmitter()
+        stateContext.getState().load()
     }
 
     override fun start() {

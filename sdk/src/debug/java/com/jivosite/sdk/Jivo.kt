@@ -78,20 +78,24 @@ object Jivo {
     @JvmStatic
     fun setData(widgetId: String, userToken: String = "", host: String = "") {
         if (Jivo::jivoSdkComponent.isInitialized) {
-            if (widgetId.isNotBlank() && widgetId != storage.widgetId || userToken.isNotBlank() && userToken != storage.userToken) {
-                if (storage.clientId.isNotBlank()) {
+            when {
+                storage.clientId.isBlank() -> {
+                    storage.widgetId = widgetId
+                    if (userToken.isNotBlank()) {
+                        storage.userToken = userToken
+                    }
+                }
+
+                storage.widgetId != widgetId || userToken.isNotBlank() && storage.userToken != userToken -> {
+                    lifecycleObserver.stopSession()
                     jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().onSuccess {
                         jivoSdkComponent.clearUseCaseProvider().get().execute()
-                        lifecycleObserver.stopSession()
                         storage.userToken = userToken
                         storage.widgetId = widgetId
+                        lifecycleObserver.startNewSession()
                     }.execute()
-                } else {
-                    storage.userToken = userToken
-                    storage.widgetId = widgetId
                 }
             }
-
             if (host.verifyHostName()) {
                 storage.host = host
             }
@@ -203,10 +207,6 @@ object Jivo {
 
     internal fun startSession() {
         lifecycleObserver.onForeground()
-    }
-
-    internal fun stopSession() {
-        lifecycleObserver.stopSession()
     }
 
     internal fun onNewMessage(hasNewMessage: Boolean) {
