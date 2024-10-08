@@ -5,6 +5,7 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -16,22 +17,30 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.DrawableRes
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider.getUriForFile
 import androidx.core.view.isVisible
+import androidx.core.view.setPadding
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.R
 import com.jivosite.sdk.databinding.FragmentJivoChatBinding
 import com.jivosite.sdk.model.pojo.file.JivoMediaFile
+import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_AUDIO
+import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_DOCUMENT
+import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_IMAGE
+import com.jivosite.sdk.model.pojo.file.SupportFileTypes.Companion.TYPE_VIDEO
 import com.jivosite.sdk.model.repository.connection.ConnectionState
 import com.jivosite.sdk.support.dg.adapters.SimpleDiffAdapter
 import com.jivosite.sdk.support.event.EventObserver
@@ -204,7 +213,6 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
     override fun onDestroy() {
         super.onDestroy()
         Jivo.clearChatComponent()
-        Jivo.stopSession()
     }
 
     fun send() {
@@ -352,14 +360,40 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
     }
 
     private fun renderAttachedFile(attachedJivoMediaFile: JivoMediaFile?) {
+        binding.run {
+            if (attachedJivoMediaFile != null) {
+                attachedFile.isVisible = true
+                icon.run {
+                    when (attachedJivoMediaFile.type) {
+                        TYPE_DOCUMENT -> renderIcon(R.drawable.jivo_sdk_vic_file)
+                        TYPE_IMAGE -> {
+                            setBackgroundResource(0)
+                            setPadding(0)
+                            imageTintList = null
+                            load(attachedJivoMediaFile.uri)
+                        }
 
-        if (attachedJivoMediaFile != null) {
-            binding.attachedFile.isVisible = true
-            binding.icon.load(attachedJivoMediaFile.uri)
-            binding.fileSize.text = getFileSize(requireContext(), attachedJivoMediaFile.size)
-            binding.fileName.text = attachedJivoMediaFile.name
-        } else {
-            binding.attachedFile.isVisible = false
+                        TYPE_VIDEO -> renderIcon(R.drawable.jivo_sdk_vic_video)
+                        TYPE_AUDIO -> renderIcon(R.drawable.jivo_sdk_vic_audio)
+                        else -> renderIcon(R.drawable.jivo_sdk_vic_file)
+                    }
+                }
+                fileSize.text = getFileSize(
+                    requireContext(), attachedJivoMediaFile.size
+                )
+                fileName.text = attachedJivoMediaFile.name
+            } else {
+                attachedFile.isVisible = false
+            }
+        }
+    }
+
+    private fun AppCompatImageView.renderIcon(@DrawableRes drawableResId: Int) {
+        this.run {
+            setBackgroundResource(R.drawable.jivo_sdk_bg_attached_icon)
+            imageTintList =
+                ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorOnPrimary))
+            load(drawableResId)
         }
     }
 

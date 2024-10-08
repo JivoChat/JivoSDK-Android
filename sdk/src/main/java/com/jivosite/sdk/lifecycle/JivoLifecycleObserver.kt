@@ -63,7 +63,7 @@ class JivoLifecycleObserver(
                 Jivo.i("Sanctioned until ${convertTimeMillisToDateFormat(storage.sanctionedTime)}, service is turned off")
             }
 
-            storage.startOnInitialization -> {
+            storage.startOnInitialization && !isStartedService -> {
                 JivoWebSocketService.loadConfig(sdkContext.appContext)
                 Jivo.i("SDK moved to foreground, load config")
             }
@@ -71,6 +71,13 @@ class JivoLifecycleObserver(
             else -> {
                 Jivo.i("SDK moved to foreground, service is turned off")
             }
+        }
+    }
+
+    fun startNewSession() {
+        if (isStartedService) {
+            Jivo.d("New session is started, load config")
+            JivoWebSocketService.connect(sdkContext.appContext)
         }
     }
 

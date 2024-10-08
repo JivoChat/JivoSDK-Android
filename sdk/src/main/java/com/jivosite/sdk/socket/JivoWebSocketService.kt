@@ -42,6 +42,8 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
     companion object {
         private const val ACTION_LOAD_CONFIG = "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_LOAD_CONFIG"
         private const val ACTION_START = "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_START"
+        private const val ACTION_CONNECT = "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_CONNECT"
+        private const val ACTION_DISCONNECT = "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_DISCONNECT"
         private const val ACTION_STOP = "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_STOP"
         private const val ACTION_RESTART =
             "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_RESTART"
@@ -67,6 +69,28 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
         fun start(appContext: Context) {
             val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
                 action = ACTION_START
+            }
+            try {
+                appContext.startService(intent)
+            } catch (e: IllegalStateException) {
+                Jivo.e(e, "Can not start jivo sdk service from background")
+            }
+        }
+
+        fun connect(appContext: Context) {
+            val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
+                action = ACTION_CONNECT
+            }
+            try {
+                appContext.startService(intent)
+            } catch (e: IllegalStateException) {
+                Jivo.e(e, "Can not start jivo sdk service from background")
+            }
+        }
+
+        fun disconnect(appContext: Context) {
+            val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
+                action = ACTION_DISCONNECT
             }
             try {
                 appContext.startService(intent)
@@ -243,6 +267,16 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             ACTION_START -> {
                 Jivo.i("Received start command")
                 getState().load()
+            }
+
+            ACTION_CONNECT -> {
+                Jivo.i("Received load config command after changed widgetId or userToken")
+                getState().load()
+            }
+
+            ACTION_DISCONNECT -> {
+                Jivo.i("Received start command")
+                getState().setDisconnected(DisconnectReason.Unknown)
             }
 
             ACTION_STOP -> {
