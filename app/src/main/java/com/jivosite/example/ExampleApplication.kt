@@ -10,7 +10,6 @@ import com.jivosite.example.MainActivity.Companion.TARGET_CHAT
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.push.handler.delegates.TextMessageDelegate.Companion.NOTIFICATION_REQUEST_CODE
 import com.jivosite.sdk.support.builders.Config
-import timber.log.Timber
 
 /**
  * Created on 02.09.2020.
@@ -22,9 +21,7 @@ class ExampleApplication : Application() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate() {
         super.onCreate()
-        Timber.plant(Timber.DebugTree())
         Jivo.init(this)
-        Jivo.enableLogging()
 
         Jivo.setConfig(Config.Builder()
             .setOpenNotification {

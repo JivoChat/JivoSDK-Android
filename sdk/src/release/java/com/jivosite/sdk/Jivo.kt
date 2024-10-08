@@ -22,6 +22,7 @@ import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.ContactInfo
 import com.jivosite.sdk.support.builders.Config
 import com.jivosite.sdk.support.ext.verifyHostName
+import com.jivosite.sdk.support.log.FileLogTree
 import com.jivosite.sdk.ui.chat.NotificationPermissionListener
 import timber.log.Timber
 import java.lang.ref.WeakReference
@@ -52,6 +53,8 @@ object Jivo {
 
     @JvmStatic
     fun init(appContext: Context) {
+        Timber.plant(FileLogTree(appContext))
+        enableLogging()
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
             .sdkModule(SdkModule(appContext))
             .build()
@@ -69,6 +72,7 @@ object Jivo {
 
     @JvmStatic
     fun setData(widgetId: String, userToken: String = "", host: String = "") {
+        i("Call setData(widgetId = $widgetId, userToken = $userToken, host = $host)")
         if (Jivo::jivoSdkComponent.isInitialized) {
             if (widgetId.isNotBlank() && widgetId != storage.widgetId || userToken.isNotBlank() && userToken != storage.userToken) {
                 if (storage.clientId.isNotBlank()) {
@@ -87,27 +91,29 @@ object Jivo {
             if (host.verifyHostName()) {
                 storage.host = host
             }
+        } else {
+            e("Call setData(), JivoSdkComponent hasn't isInitialized")
         }
     }
 
     @JvmStatic
     fun setContactInfo(contactInfo: ContactInfo) {
         if (Jivo::jivoSdkComponent.isInitialized) {
+            i("Call setContactInfo($contactInfo)")
             jivoSdkComponent.contactFormRepository().prepareToSendContactInfo(contactInfo)
         } else {
             e("Call setContactInfo(), JivoSdkComponent hasn't isInitialized")
         }
-        i("Call setContactInfo($contactInfo)")
     }
 
     @JvmStatic
     fun setCustomData(customDataFields: List<CustomData>) {
         if (Jivo::jivoSdkComponent.isInitialized) {
+            i("Call setCustomData($customDataFields)")
             jivoSdkComponent.contactFormRepository().prepareToSendCustomData(customDataFields)
         } else {
             e("Call setContactInfo(), JivoSdkComponent hasn't isInitialized")
         }
-        i("Call setCustomData($customDataFields)")
     }
 
     @JvmStatic
@@ -116,6 +122,7 @@ object Jivo {
             val handler = jivoSdkComponent.remoteMessageHandler()
             handler.handleRemoteMessage(message)
         } else {
+            e("Call handleRemoteMessage(), JivoSdkComponent hasn't isInitialized")
             false
         }
     }
@@ -123,10 +130,13 @@ object Jivo {
     @JvmStatic
     fun updatePushToken(token: String) {
         if (Jivo::jivoSdkComponent.isInitialized) {
+            i("Call updatePushToken(token = $token)")
             if (storage.pushToken != token) {
                 storage.hasSentPushToken = false
                 storage.pushToken = token
             }
+        } else {
+            e("Call updatePushToken(), JivoSdkComponent hasn't isInitialized")
         }
     }
 
@@ -179,17 +189,23 @@ object Jivo {
     @JvmStatic
     fun clear() {
         if (Jivo::jivoSdkComponent.isInitialized) {
+            i("Call clear()")
             jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().onSuccess {
                 jivoSdkComponent.clearUseCaseProvider().get().execute()
                 lifecycleObserver.stopSession()
             }.execute()
+        } else {
+            e("Call clear(), JivoSdkComponent hasn't isInitialized")
         }
     }
 
     @JvmStatic
     fun unsubscribeFromPush() {
         if (Jivo::jivoSdkComponent.isInitialized) {
+            i("Call unsubscribeFromPush()")
             jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().execute()
+        } else {
+            e("Call unsubscribeFromPush(), JivoSdkComponent hasn't isInitialized")
         }
     }
 

@@ -146,4 +146,5 @@ Please go to [Settings &gt; Your App &gt; Photos] to give access.</string>
     <string name="unsupported_message_title">Unsupported message type</string>
     <!-- Приветственное сообщение для пустого чата -->
     <string name="welcome_message_placeholder">Chat with our customer support team and let us know if there\'s any bugs we can fix</string>
+    <string name="JV_SpecialMenu_Popup_ExportJournal">Tech Journal</string>
 </resources>

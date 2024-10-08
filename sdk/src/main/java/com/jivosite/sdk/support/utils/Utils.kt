@@ -15,3 +15,4 @@ fun getFileSize(context: Context, size: Long) = when (size) {
     in 1000..999999 -> context.getString(R.string.format_file_size_kb, size.div(1000.0))
     else -> context.getString(R.string.format_file_size_mb, size.div(10.0.pow(6)))
 }
+

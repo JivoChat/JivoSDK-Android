@@ -24,10 +24,17 @@ class UnsubscribePushTokenUseCase @Inject constructor(
     private val profileRepository: ProfileRepository
 ) : UseCase {
 
+    private lateinit var clientId: String
+    private lateinit var siteId: String
+
     private var onSuccessCallback: (() -> Unit)? = null
 
     override fun execute() {
-        if (profileRepository.id.isBlank() || storage.siteId.isBlank()) {
+        clientId = profileRepository.id
+        siteId = storage.siteId
+
+        if (clientId.isBlank() || siteId.isBlank()) {
+            Jivo.e("Failed to unsubscribe to push notifications due to missing required parameters: clientId = $clientId,  siteId = $siteId")
             return
         }
 
@@ -37,14 +44,15 @@ class UnsubscribePushTokenUseCase @Inject constructor(
         val deviceInfo = Device(deviceId, token = "")
 
         schedulers.ui.execute {
-            createRequest(deviceInfo).loadSilentlyResource {
-                this.error {
-                    Jivo.e(Throwable(it), "Request to disable notifications rejected")
-                }
+            createRequest(clientId, siteId.toLong(), storage.widgetId, deviceInfo).loadSilentlyResource {
                 result {
+                    Jivo.i("Successful request to unsubscribe to push notifications")
                     onSuccessCallback?.invoke()
                     storage.pushToken = ""
                     storage.hasSentPushToken = false
+                }
+                error {
+                    Jivo.e("An unsuccessful request to unsubscribe to push notifications, error - $it")
                 }
             }
         }
@@ -55,12 +63,13 @@ class UnsubscribePushTokenUseCase @Inject constructor(
         return this
     }
 
-    private fun createRequest(device: Device): LiveData<Resource<Unit>> {
+    private fun createRequest(clientId: String, siteId: Long, widgetId: String, device: Device): LiveData<Resource<Unit>> {
+        Jivo.i("Create request to unsubscribe to push notifications, parameters: clientId = $clientId, siteId = $siteId, widgetId = $widgetId, device = ${device.deviceId}")
         return NetworkResource.Builder<Unit, Unit>(schedulers).createCall {
             pushApi.sendDeviceInfo(
-                profileRepository.id,
-                storage.siteId.toLong(),
-                storage.widgetId,
+                clientId,
+                siteId,
+                widgetId,
                 device
             )
         }.handleResponse {

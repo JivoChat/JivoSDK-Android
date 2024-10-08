@@ -8,4 +8,8 @@
         android:id="@+id/action_file"
         android:title="@string/Menu.Action.File" />
 
+    <item
+        android:id="@+id/action_send_logs"
+        android:title="@string/JV_SpecialMenu_Popup_ExportJournal" />
+
 </menu>

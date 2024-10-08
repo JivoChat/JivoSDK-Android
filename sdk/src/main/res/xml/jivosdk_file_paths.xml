@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
+    <files-path name="files" path="." />
     <files-path
         name="notifications"
         path="notifications/" />
+    <files-path
+        name="logs"
+        path="logs/" />
     <external-path name="external_files" path="." />
 </paths>

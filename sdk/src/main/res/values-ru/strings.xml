@@ -146,4 +146,5 @@
     <string name="unsupported_message_title">Неподдерживаемый тип сообщения</string>
     <!-- Приветственное сообщение для пустого чата -->
     <string name="welcome_message_placeholder">С мобильным приложением что-то пошло не так или просто что-то непонятно? Пишите, мы поможем!</string>
+    <string name="JV_SpecialMenu_Popup_ExportJournal">Технический журнал</string>
 </resources>

@@ -28,21 +28,20 @@ class JivoLifecycleObserver(
     override fun onStop(owner: LifecycleOwner) {
         when {
             storage.widgetId.isBlank() -> {
-                Jivo.d("WidgetId is empty, service is turned off")
+                Jivo.e("WidgetId is empty, service is turned off")
             }
 
             storage.blacklistedTime.after() -> {
-                Jivo.d("Application moved to background. Blacklisted until ${convertTimeMillisToDateFormat(storage.blacklistedTime)}, service is turned off")
+                Jivo.i("Application moved to background. Blacklisted until ${convertTimeMillisToDateFormat(storage.blacklistedTime)}, service is turned off")
             }
 
             storage.sanctionedTime.after() -> {
-                Jivo.d("Application moved to background. Sanctioned until ${convertTimeMillisToDateFormat(storage.sanctionedTime)}, service is turned off")
+                Jivo.i("Application moved to background. Sanctioned until ${convertTimeMillisToDateFormat(storage.sanctionedTime)}, service is turned off")
             }
 
             storage.startOnInitialization && isStartedService -> {
-                Jivo.d("Application moved to background, stop service")
+                Jivo.i("Application moved to background, stop service")
                 if (isStartedService) {
-                    Jivo.d("onStop -->> JivoWebSocketService.stop")
                     JivoWebSocketService.stop(sdkContext.appContext)
                 }
             }
@@ -53,31 +52,31 @@ class JivoLifecycleObserver(
     fun onForeground() {
         when {
             storage.widgetId.isBlank() -> {
-                Jivo.d("WidgetId is empty, service is turned off")
+                Jivo.e("WidgetId is empty, service is turned off")
             }
 
             storage.blacklistedTime.after() -> {
-                Jivo.d("Blacklisted until ${convertTimeMillisToDateFormat(storage.blacklistedTime)}, service is turned off")
+                Jivo.i("Blacklisted until ${convertTimeMillisToDateFormat(storage.blacklistedTime)}, service is turned off")
             }
 
             storage.sanctionedTime.after() -> {
-                Jivo.d("Sanctioned until ${convertTimeMillisToDateFormat(storage.sanctionedTime)}, service is turned off")
+                Jivo.i("Sanctioned until ${convertTimeMillisToDateFormat(storage.sanctionedTime)}, service is turned off")
             }
 
             storage.startOnInitialization -> {
                 JivoWebSocketService.loadConfig(sdkContext.appContext)
-                Jivo.d("SDK moved to foreground, load config")
+                Jivo.i("SDK moved to foreground, load config")
             }
 
             else -> {
-                Jivo.d("SDK moved to foreground, service is turned off")
+                Jivo.i("SDK moved to foreground, service is turned off")
             }
         }
     }
 
     fun stopSession() {
         if (isStartedService) {
-            Jivo.d("Session is stopped, service is turned off")
+            Jivo.i("Session is stopped, service is turned off")
             JivoWebSocketService.stop(sdkContext.appContext)
         }
     }

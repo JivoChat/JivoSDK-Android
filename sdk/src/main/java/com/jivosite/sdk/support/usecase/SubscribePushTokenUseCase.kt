@@ -25,15 +25,28 @@ class SubscribePushTokenUseCase @Inject constructor(
     private val schedulers: Schedulers,
     private val storage: SharedStorage,
     private val pushApi: PushApi,
-    private val profileRepository: ProfileRepository
+    private val profileRepository: ProfileRepository,
 ) : UseCase {
 
+    private lateinit var clientId: String
+    private lateinit var siteId: String
+    private lateinit var deviceId: String
+    private lateinit var token: String
+
+
     override fun execute() {
-        if (storage.hasSentPushToken || profileRepository.id.isBlank() || storage.siteId.isBlank()) {
+        clientId = profileRepository.id
+        siteId = storage.siteId
+
+        if (storage.hasSentPushToken) {
+            return
+        } else if (clientId.isBlank() || siteId.isBlank()) {
+            Jivo.e("Failed to subscribe to push notifications due to missing required parameters: clientId = $clientId,  siteId = $siteId")
             return
         }
 
-        val token = storage.pushToken
+        deviceId = storage.deviceId.ifBlank { UUID.randomUUID().toString() }
+        token = storage.pushToken
 
         when {
             token.isBlank() -> {
@@ -57,29 +70,31 @@ class SubscribePushTokenUseCase @Inject constructor(
     }
 
     private fun prepareData(token: String) {
-        if (storage.deviceId.isBlank()) {
-            storage.deviceId = UUID.randomUUID().toString()
-        }
 
         val deviceInfo = Device(
-            deviceId = storage.deviceId, token = token
+            deviceId = deviceId, token = token
         )
 
         schedulers.ui.execute {
-            createRequest(deviceInfo).loadSilentlyResource {
+            createRequest(clientId, siteId.toLong(), storage.widgetId, deviceInfo).loadSilentlyResource {
                 result {
+                    Jivo.i("Successful request to subscribe to push notifications")
                     storage.hasSentPushToken = true
+                }
+                error {
+                    Jivo.e("An unsuccessful request to send device info, error - $it")
                 }
             }
         }
     }
 
-    private fun createRequest(device: Device): LiveData<Resource<Unit>> {
+    private fun createRequest(clientId: String, siteId: Long, widgetId: String, device: Device): LiveData<Resource<Unit>> {
+        Jivo.i("Create request to subscribe to push notifications, parameters: clientId = $clientId, siteId = $siteId, widgetId = $widgetId, device = ${device.deviceId}")
         return NetworkResource.Builder<Unit, Unit>(schedulers).createCall {
             pushApi.sendDeviceInfo(
-                profileRepository.id,
-                storage.siteId.toLong(),
-                storage.widgetId,
+                clientId,
+                siteId,
+                widgetId,
                 device
             )
         }.handleResponse { }.build().asLiveData()

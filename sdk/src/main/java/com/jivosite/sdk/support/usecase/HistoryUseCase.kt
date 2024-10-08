@@ -35,6 +35,7 @@ class HistoryUseCase @Inject constructor(
         schedulers.ui.execute {
             createRequest(clientId, storage.siteId.toLong(), widgetId).loadSilentlyResource {
                 result { messages ->
+                    Jivo.i("Successful request to get message history")
                     messages.lastOrNull()?.let {
                         if (historyRepository.state.lastReadMsgId < it.msgId) {
                             historyRepository.setHasUnreadMessages(true)
@@ -42,7 +43,7 @@ class HistoryUseCase @Inject constructor(
                     }
                 }
                 error {
-                    Jivo.e("An unsuccessful attempt to get history, error - $it")
+                    Jivo.e("An unsuccessful request to get history, error - $it")
                 }
             }
         }
@@ -51,6 +52,7 @@ class HistoryUseCase @Inject constructor(
     private fun createRequest(clientId: String, siteId: Long, widgetId: String): LiveData<Resource<List<HistoryMessage>>> {
         return NetworkResource.Builder<List<HistoryMessage>, HistoryResult>(schedulers)
             .createCall {
+                Jivo.i("Create request to get message history, parameters: clientId = $clientId, siteId = $siteId,  widgetId = $widgetId")
                 sdkApi.getHistory(clientId, siteId, widgetId)
             }
             .handleResponse {

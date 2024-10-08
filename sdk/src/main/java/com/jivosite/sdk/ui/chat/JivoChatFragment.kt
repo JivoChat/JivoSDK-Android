@@ -17,8 +17,9 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
+import androidx.core.content.FileProvider.getUriForFile
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -35,6 +36,8 @@ import com.jivosite.sdk.model.repository.connection.ConnectionState
 import com.jivosite.sdk.support.dg.adapters.SimpleDiffAdapter
 import com.jivosite.sdk.support.event.EventObserver
 import com.jivosite.sdk.support.ext.TakePicture
+import com.jivosite.sdk.support.log.createFile
+import com.jivosite.sdk.support.log.createFileName
 import com.jivosite.sdk.support.recycler.AutoScroller
 import com.jivosite.sdk.support.utils.getFileSize
 import com.jivosite.sdk.support.vm.ViewModelFactory
@@ -250,6 +253,24 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         }
     }
 
+    fun sendLogs(): Boolean {
+        val fileUri = getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.jivosdk.fileprovider",
+            requireContext().createFile(createFileName())
+        )
+
+        val shareIntent = Intent.createChooser(
+            ShareCompat.IntentBuilder(requireContext())
+                .setType("text/plain")
+                .setStream(fileUri)
+                .intent
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION), null
+        )
+        startActivity(shareIntent)
+        return true
+    }
+
     fun openMenuActions() {
         PopupMenu(requireContext(), binding.menuActions, Gravity.START).apply {
             inflate(R.menu.menu_chat_input_actions)
@@ -275,6 +296,10 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
                     R.id.action_file -> {
                         contentResultCallback.launch("*/*")
                         true
+                    }
+
+                    R.id.action_send_logs -> {
+                        sendLogs()
                     }
 
                     else -> true
@@ -314,12 +339,12 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
 
     private fun getOutputMediaFileUri(): Uri? {
         return context?.run {
-            FileProvider.getUriForFile(this, "${this.packageName}.jivosdk.fileprovider", getOutputMediaFile()!!)
+            getUriForFile(this, "${this.packageName}.jivosdk.fileprovider", getOutputMediaFile())
         }
     }
 
     private fun getOutputMediaFile(): File {
-        return createTempFile(
+        return File.createTempFile(
             "IMG_${System.currentTimeMillis()}",
             ".jpg",
             context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
