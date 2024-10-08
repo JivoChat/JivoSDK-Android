@@ -145,4 +145,5 @@ Por favor vaya a [Configuración &gt; App &gt; Fotos] para dar el permiso.</stri
     <string name="unsupported_message_title">Tipo de mensaje no admitido</string>
     <!-- Приветственное сообщение для пустого чата -->
     <string name="welcome_message_placeholder">Contacte con nuestro equipo de soporte y díganos si hay algún bug que podamos reparar</string>
+    <string name="JV_SpecialMenu_Popup_ExportJournal">Diario Técnico</string>
 </resources>

@@ -145,4 +145,5 @@ Lütfen [Ayarlar &gt; App &gt; Fotoğraflar] yoluyla izin verin.</string>
     <string name="unsupported_message_title">Desteklenmeyen mesaj türü</string>
     <!-- Приветственное сообщение для пустого чата -->
     <string name="welcome_message_placeholder">Destek ekibimize yazın ve karşılaştığınız hataları bize iletin</string>
+    <string name="JV_SpecialMenu_Popup_ExportJournal">Teknik dergi</string>
 </resources>

@@ -142,4 +142,5 @@
     <string name="unsupported_message_title">Չաջակցվող հաղորդագրության տեսակ</string>
     <!-- Приветственное сообщение для пустого чата -->
     <string name="welcome_message_placeholder">Բջջային հավելվածի հետ ինչ-որ բան այն չէ՞, թե՞ պարզ չէ: Գրեք, մենք կաջակցենք։</string>
+    <string name="JV_SpecialMenu_Popup_ExportJournal">Տեխնիկական ամսագիր</string>
 </resources>

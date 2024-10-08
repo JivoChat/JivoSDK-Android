@@ -145,4 +145,5 @@ Favor ir até [Ajustes &gt; App &gt; Fotos] para permitir o acesso.</string>
     <string name="unsupported_message_title">Tipo de mensagem incompatível</string>
     <!-- Приветственное сообщение для пустого чата -->
     <string name="welcome_message_placeholder">Converse com nossa equipe de atendimento e nos diga se encontrar qualquer erro para que possamos consertá-lo</string>
+    <string name="JV_SpecialMenu_Popup_ExportJournal">Jornal Técnico</string>
 </resources>
