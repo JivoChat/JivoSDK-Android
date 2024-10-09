@@ -4,7 +4,7 @@ apply plugin: 'kotlin-kapt'
 
 ext {
     PUBLISH_GROUP_ID = 'com.jivosite.sdk'
-    PUBLISH_VERSION = '2.4.0'
+    PUBLISH_VERSION = '2.5.0'
     PUBLISH_ARTIFACT_ID = 'android-sdk'
 }
 
