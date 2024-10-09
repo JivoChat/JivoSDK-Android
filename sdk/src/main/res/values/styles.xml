@@ -538,4 +538,10 @@
         <item name="android:singleLine">false</item>
     </style>
 
+    <style name="Widget.JivoSDK.ProgressBarStyle" parent="Widget.MaterialComponents.CircularProgressIndicator">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+        <item name="android:indeterminateTint">?colorOnPrimary</item>
+    </style>
+
 </resources>
