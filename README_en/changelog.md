@@ -1,6 +1,18 @@
 Changelog
 =========
 
+2.5.0 (09/10/2024)
+-----------------------
+
+### Bug Fixes:
+
+-   fixed errors that caused the SDK to crash and not work correctly;
+-   fixed some UI bugs;
+
+### Features:
+
+-   add logging system;
+
 2.4.0 (04/09/2024)
 -----------------------
 
