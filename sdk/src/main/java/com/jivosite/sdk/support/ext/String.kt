@@ -72,5 +72,13 @@ fun String.obfuscator(): String {
     }
 }
 
+fun String.toLongOrDefault(defaultValue: Long): Long {
+    return try {
+        toLong()
+    } catch (_: NumberFormatException) {
+        defaultValue
+    }
+}
+
 
 

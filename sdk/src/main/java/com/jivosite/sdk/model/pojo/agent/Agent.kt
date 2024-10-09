@@ -1,6 +1,6 @@
 package com.jivosite.sdk.model.pojo.agent
 
-import okhttp3.internal.toLongOrDefault
+import com.jivosite.sdk.support.ext.toLongOrDefault
 
 /**
  * Created on 12/12/20.
