@@ -23,7 +23,9 @@ The **Jivo Mobile SDK** allows you to embed a chat into your native **Android** 
 
 List of changes:
 
--   added disabling JivoWebSocketService after closing the chat;
+-   fixed errors that caused the SDK to crash and not work correctly;
+-   fixed some UI bugs;
+-   add logging system;
 
 ### Known Issues:
 - There is a problem with displaying colors in **SDK** chat on **Xiaomi** devices. Solution - add a flag to your application's styles:
