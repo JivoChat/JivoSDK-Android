@@ -39,7 +39,10 @@ class UnsubscribePushTokenUseCase @Inject constructor(
         }
 
         val deviceId = storage.deviceId
-        if (deviceId.isBlank()) return
+        if (deviceId.isBlank()) {
+            Jivo.e("Failed to unsubscribe to push notifications due to missing required parameter: deviceId = $deviceId")
+            return
+        }
 
         val deviceInfo = Device(deviceId, token = "")
 

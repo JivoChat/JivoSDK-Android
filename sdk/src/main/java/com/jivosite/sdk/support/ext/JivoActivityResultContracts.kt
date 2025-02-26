@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContract
+import com.jivosite.sdk.Jivo.i
 
 /**
  * Created on 05.04.2024.
@@ -18,11 +19,13 @@ class TakePicture : ActivityResultContract<Uri, Uri?>() {
 
     override fun createIntent(context: Context, input: Uri): Intent {
         outputUri = input
+        i("Call TakePicture.createIntent(outputUri = $outputUri)")
         return Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             .putExtra(MediaStore.EXTRA_OUTPUT, input)
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+        i("Call TakePicture.parseResult(resultCode = $resultCode)")
         return if (resultCode == Activity.RESULT_OK && this::outputUri.isInitialized) outputUri else null
     }
 }
