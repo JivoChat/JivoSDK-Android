@@ -45,7 +45,7 @@ class SubscribePushTokenUseCase @Inject constructor(
             return
         }
 
-        deviceId = storage.deviceId.ifBlank { UUID.randomUUID().toString() }
+        deviceId = storage.deviceId.ifBlank { UUID.randomUUID().toString() }.also { storage.deviceId = it }
         token = storage.pushToken
 
         when {
