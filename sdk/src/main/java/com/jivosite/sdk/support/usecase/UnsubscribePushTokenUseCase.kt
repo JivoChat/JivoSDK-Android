@@ -27,20 +27,17 @@ class UnsubscribePushTokenUseCase @Inject constructor(
     private lateinit var clientId: String
     private lateinit var siteId: String
 
-    private var onSuccessCallback: (() -> Unit)? = null
+    private var onUnsubscribePushCallback: (() -> Unit)? = null
 
     override fun execute() {
         clientId = profileRepository.id
         siteId = storage.siteId
 
-        if (clientId.isBlank() || siteId.isBlank()) {
-            Jivo.e("Failed to unsubscribe to push notifications due to missing required parameters: clientId = $clientId,  siteId = $siteId")
-            return
-        }
-
         val deviceId = storage.deviceId
-        if (deviceId.isBlank()) {
-            Jivo.e("Failed to unsubscribe to push notifications due to missing required parameter: deviceId = $deviceId")
+
+        if (clientId.isBlank() || siteId.isBlank() || deviceId.isBlank()) {
+            Jivo.e("Failed to unsubscribe to push notifications due to missing required parameters: clientId = $clientId,  siteId = $siteId, deviceId = $deviceId")
+            onUnsubscribePushCallback?.invoke()
             return
         }
 
@@ -50,19 +47,20 @@ class UnsubscribePushTokenUseCase @Inject constructor(
             createRequest(clientId, siteId.toLong(), storage.widgetId, deviceInfo).loadSilentlyResource {
                 result {
                     Jivo.i("Successful request to unsubscribe to push notifications")
-                    onSuccessCallback?.invoke()
+                    onUnsubscribePushCallback?.invoke()
                     storage.pushToken = ""
                     storage.hasSentPushToken = false
                 }
                 error {
                     Jivo.e("An unsuccessful request to unsubscribe to push notifications, error - $it")
+                    onUnsubscribePushCallback?.invoke()
                 }
             }
         }
     }
 
-    fun onSuccess(onSuccessHandler: () -> Unit): UseCase {
-        onSuccessCallback = onSuccessHandler
+    fun onUnsubscribePush(onSuccessHandler: () -> Unit): UseCase {
+        onUnsubscribePushCallback = onSuccessHandler
         return this
     }
 

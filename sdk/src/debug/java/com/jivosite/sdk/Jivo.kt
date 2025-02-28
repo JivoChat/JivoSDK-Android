@@ -92,7 +92,7 @@ object Jivo {
 
                 storage.widgetId != widgetId || userToken.isNotBlank() && storage.userToken != userToken -> {
                     lifecycleObserver.stopSession()
-                    jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().onSuccess {
+                    jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().onUnsubscribePush {
                         jivoSdkComponent.clearUseCaseProvider().get().execute()
                         storage.userToken = userToken
                         storage.widgetId = widgetId
@@ -202,7 +202,7 @@ object Jivo {
     fun clear() {
         if (Jivo::jivoSdkComponent.isInitialized) {
             i("Call clear()")
-            jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().onSuccess {
+            jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().onUnsubscribePush {
                 jivoSdkComponent.clearUseCaseProvider().get().execute()
                 lifecycleObserver.stopSession()
             }.execute()
