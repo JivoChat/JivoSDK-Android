@@ -1,13 +1,19 @@
 Changelog
 =========
 
+2.5.2 (28/02/2025)
+-----------------------
+
+### Bug Fixes:
+
+-   fixed errors that caused the SDK not work correctly;
+
 2.5.1 (26/02/2025)
 -----------------------
 
 ### Features:
 
 -   add logging;
--   fixed some UI bugs;
 
 2.5.0 (09/10/2024)
 -----------------------
