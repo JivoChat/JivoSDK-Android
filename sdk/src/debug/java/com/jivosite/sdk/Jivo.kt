@@ -1,6 +1,7 @@
 package com.jivosite.sdk
 
 import android.content.Context
+import android.os.Build
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.firebase.messaging.RemoteMessage
@@ -32,6 +33,7 @@ import com.jivosite.sdk.ui.logs.JivoLogsFragment
 import com.jivosite.sdk.ui.settings.JivoSettingsFragment
 import timber.log.Timber
 import java.lang.ref.WeakReference
+import com.jivosite.sdk.BuildConfig
 
 /**
  * Created on 02.09.2020.
@@ -76,6 +78,7 @@ object Jivo {
         ).apply {
             ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         }
+        i("SDK version : ${BuildConfig.VERSION_NAME}, Android: ${Build.VERSION.RELEASE} (level ${Build.VERSION.SDK_INT})")
     }
 
     @JvmStatic
