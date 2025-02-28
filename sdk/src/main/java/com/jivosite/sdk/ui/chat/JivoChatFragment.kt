@@ -34,6 +34,7 @@ import coil.load
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jivosite.sdk.Jivo
+import com.jivosite.sdk.Jivo.i
 import com.jivosite.sdk.R
 import com.jivosite.sdk.databinding.FragmentJivoChatBinding
 import com.jivosite.sdk.model.pojo.file.JivoMediaFile
@@ -324,6 +325,7 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
     }
 
     private fun handleContent(uri: Uri) {
+        i("Call JivoChatFragment.handleContent(uri = $uri)")
         var fileName = ""
         var fileSize = 0L
         var inputStream: InputStream? = null
@@ -360,6 +362,7 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
     }
 
     private fun renderAttachedFile(attachedJivoMediaFile: JivoMediaFile?) {
+        i("Call JivoChatFragment.renderAttachedFile()")
         binding.run {
             if (attachedJivoMediaFile != null) {
                 attachedFile.isVisible = true
