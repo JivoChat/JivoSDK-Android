@@ -25,7 +25,7 @@ class JivoLifecycleObserver(
         historyUseCase.execute()
     }
 
-    override fun onStop(owner: LifecycleOwner) {
+    fun onBackground() {
         when {
             storage.widgetId.isBlank() -> {
                 Jivo.e("WidgetId is empty, service is turned off")

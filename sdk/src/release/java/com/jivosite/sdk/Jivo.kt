@@ -221,7 +221,7 @@ object Jivo {
     }
 
     internal fun stopSession() {
-        lifecycleObserver.stopSession()
+        lifecycleObserver.onBackground()
     }
 
     internal fun onNewMessage(hasNewMessage: Boolean) {

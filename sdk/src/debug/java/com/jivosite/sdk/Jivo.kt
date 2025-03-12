@@ -228,6 +228,10 @@ object Jivo {
         lifecycleObserver.onForeground()
     }
 
+    internal fun stopSession() {
+        lifecycleObserver.onBackground()
+    }
+
     internal fun onNewMessage(hasNewMessage: Boolean) {
         val filteredList = newMessageListeners.filter { it.get() != null }
         newMessageListeners.clear()
