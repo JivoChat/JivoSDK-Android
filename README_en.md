@@ -19,7 +19,7 @@ The **Jivo Mobile SDK** allows you to embed a chat into your native **Android** 
 -   New messages indicator inside the integrated app
 -   PUSH notifications
 
-### Current version: 2.5.2
+### Current version: 2.5.3-beta01
 
 List of changes:
 
