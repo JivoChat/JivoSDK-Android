@@ -8,6 +8,7 @@ import com.jivosite.sdk.support.async.Schedulers
 import com.jivosite.sdk.support.builders.ContactInfo
 import com.jivosite.sdk.support.ext.toJson
 import com.jivosite.sdk.support.usecase.SendContactInfoUseCase
+import com.jivosite.sdk.support.usecase.SendCustomDataUseCase
 import com.jivosite.sdk.support.vm.StateLiveData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -23,6 +24,7 @@ class ContactFormRepositoryImpl @Inject constructor(
     private val storage: SharedStorage,
     private val moshi: Moshi,
     private val sendContactInfoUseCase: SendContactInfoUseCase,
+    private val sendCustomDataUseCase: SendCustomDataUseCase
 ) : StateRepository<ContactFormState>(
     schedulers, "ContactForm", ContactFormState(hasSentContactInfo = storage.hasSentContactInfo)
 ),
@@ -59,12 +61,13 @@ class ContactFormRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun prepareToSendContactInfo(contactInfo: ContactInfo) {
+    override fun prepareToSendContactInfo(contactInfo: ContactInfo)  {
         val jsonContactInfo = moshi.toJson(contactInfo)
 
         if (jsonContactInfo != storage.contactInfo) {
             storage.hasSentContactInfo = false
             storage.contactInfo = jsonContactInfo
+            sendContactInfoUseCase.execute()
         }
     }
 
@@ -76,6 +79,7 @@ class ContactFormRepositoryImpl @Inject constructor(
             if (jsonCustomData != storage.customData) {
                 storage.hasSentCustomData = false
                 storage.customData = jsonCustomData
+                sendCustomDataUseCase.execute()
             }
     }
 
