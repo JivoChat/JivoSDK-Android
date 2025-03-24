@@ -45,6 +45,7 @@ import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.socket.transmitter.Transmitter
 import com.jivosite.sdk.support.event.Event
 import com.jivosite.sdk.support.ext.getSupportFileType
+import com.jivosite.sdk.support.ext.verifyMediaFileLink
 import com.jivosite.sdk.support.livedata.ClientTypingDebounceLiveData
 import com.jivosite.sdk.ui.chat.items.*
 import com.jivosite.sdk.ui.chat.items.contacts.ContactFormItem
@@ -410,7 +411,7 @@ class JivoChatViewModel @Inject constructor(
             } else {
                 when (message.type.getSupportFileType()) {
                     TYPE_DOCUMENT -> {
-                        if (message.data.isFileType()) {
+                        if (message.data.verifyMediaFileLink()) {
                             ClientFileItem(message)
                         } else {
                             ClientTextItem(message)
@@ -424,7 +425,7 @@ class JivoChatViewModel @Inject constructor(
         } else {
             when (message.type.getSupportFileType()) {
                 TYPE_DOCUMENT -> {
-                    if (message.data.isFileType()) {
+                    if (message.data.verifyMediaFileLink()) {
                         AgentFileItem(message)
                     } else {
                         AgentTextItem(message)
@@ -488,7 +489,7 @@ class JivoChatViewModel @Inject constructor(
                 sendMessage(ClientMessage.createFile(it.mimeType, url))
                 sendMessage(ClientMessage.createText(message))
             }
-        } ?: sendMessage(ClientMessage.createText(message))
+        } ?: sendMessage(ClientMessage.createText(message.trim()))
     }
 
     fun sendMessage(message: ClientMessage) {

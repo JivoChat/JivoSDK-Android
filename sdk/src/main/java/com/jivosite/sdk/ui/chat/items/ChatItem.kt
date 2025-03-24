@@ -134,11 +134,7 @@ sealed class EntryPosition {
     object Single : EntryPosition()
 }
 
-fun String.isFileType(): Boolean {
-    return URLUtil.isHttpsUrl(this) && Uri.parse(this).host?.let {
-        it.endsWith("jivosite.com") || it.endsWith("jivo.ru")
-    } ?: false
-}
+
 
 
 
