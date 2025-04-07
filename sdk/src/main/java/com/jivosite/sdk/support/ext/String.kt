@@ -80,5 +80,9 @@ fun String.toLongOrDefault(defaultValue: Long): Long {
     }
 }
 
+fun String.verifyMediaFileLink(): Boolean {
+    return this.isNotBlank() && Pattern.compile("^(https://media-.*jivo(.ru|site.com)).*").matcher(this.lowercase()).matches()
+}
+
 
 

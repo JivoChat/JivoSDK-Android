@@ -2,6 +2,8 @@ package com.jivosite.sdk.support.usecase
 
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
+import com.jivosite.sdk.model.repository.connection.ConnectionState
+import com.jivosite.sdk.model.repository.connection.ConnectionStateRepository
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.transmitter.Transmitter
 import com.jivosite.sdk.support.builders.ContactInfo
@@ -18,10 +20,11 @@ class SendContactInfoUseCase @Inject constructor(
     private val storage: SharedStorage,
     private val messageTransmitter: Transmitter,
     private val moshi: Moshi,
+    private val connectionStateRepository: ConnectionStateRepository
 ) : UseCase {
 
     override fun execute() {
-        if (!storage.hasSentContactInfo && storage.contactInfo.isNotBlank()) {
+        if (!storage.hasSentContactInfo && storage.contactInfo.isNotBlank() && connectionStateRepository.state.value == ConnectionState.Connected) {
             moshi.fromJson<ContactInfo>(storage.contactInfo)?.let {
                 sendContactInfo(it)
             }

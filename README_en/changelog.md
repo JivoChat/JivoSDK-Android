@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.5.5 (24/03/2025)
+-----------------------
+
+### Bug Fixes:
+
+-   fixed errors that caused the SDK not work correctly;
+
 2.5.3-beta01 (12/03/2025)
 -----------------------
 
