@@ -34,6 +34,7 @@ import com.jivosite.sdk.ui.settings.JivoSettingsFragment
 import timber.log.Timber
 import java.lang.ref.WeakReference
 import com.jivosite.sdk.BuildConfig
+import timber.log.Timber.DebugTree
 
 /**
  * Created on 02.09.2020.
@@ -63,7 +64,7 @@ object Jivo {
 
     @JvmStatic
     fun init(appContext: Context) {
-        Timber.plant(FileLogTree(appContext))
+        Timber.plant(FileLogTree(appContext), DebugTree())
         enableLogging()
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
             .sdkModule(SdkModule(appContext))

@@ -1,7 +1,5 @@
 package com.jivosite.sdk.ui.chat.items
 
-import android.net.Uri
-import android.webkit.URLUtil
 import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.pojo.message.HistoryMessage
 import com.jivosite.sdk.model.pojo.socket.SocketMessage

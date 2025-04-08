@@ -49,6 +49,7 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_RESTART"
         private const val ACTION_RECONNECT =
             "com.jivosite.sdk.socket.JivoWebSocketService.ACTION_RECONNECT"
+        private const val FORCED_STOP = "com.jivosite.sdk.socket.JivoWebSocketService.FORCED_STOP"
 
         const val REASON_STOPPED = 4000
         const val REASON_TIMEOUT = 4001
@@ -126,6 +127,13 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             appContext.startService(intent)
         }
 
+
+        fun forcedStop(appContext: Context) {
+            val intent = Intent(appContext, JivoWebSocketService::class.java).apply {
+                action = FORCED_STOP
+            }
+            appContext.stopService(intent)
+        }
     }
 
     @Inject
@@ -292,6 +300,11 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
             ACTION_RECONNECT -> {
                 Jivo.i("Received reconnect command")
                 getState().reconnect(true)
+            }
+
+            FORCED_STOP -> {
+                Jivo.i("Received forced stop command")
+                stopSelf()
             }
 
             else -> Jivo.w("Unknown command $action")

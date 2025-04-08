@@ -9,6 +9,7 @@ import com.jivosite.sdk.socket.JivoWebSocketService.Companion.isStartedService
 import com.jivosite.sdk.support.usecase.HistoryUseCase
 import com.jivosite.sdk.support.utils.after
 import com.jivosite.sdk.support.utils.convertTimeMillisToDateFormat
+import com.jivosite.sdk.support.utils.hasServiceRunning
 
 /**
  * Created on 19.11.2020.
@@ -21,7 +22,15 @@ class JivoLifecycleObserver(
     private val historyUseCase: HistoryUseCase,
 ) : DefaultLifecycleObserver {
 
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        if (sdkContext.appContext.hasServiceRunning(JivoWebSocketService::class.java)) {
+            JivoWebSocketService.forcedStop(sdkContext.appContext)
+        }
+    }
+
     override fun onResume(owner: LifecycleOwner) {
+        super.onResume(owner)
         historyUseCase.execute()
     }
 
@@ -46,7 +55,7 @@ class JivoLifecycleObserver(
                 }
             }
         }
-        Jivo.d("JivoLifecycle: Stop SDK")
+        Jivo.i("SDK moved to background, is started service - $isStartedService")
     }
 
     fun onForeground() {

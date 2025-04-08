@@ -62,6 +62,9 @@ class ConnectedState @Inject constructor(
         service.releaseConnectionKeeper()
         service.unsubscribeFromTransmitter()
         service.disconnect()
+
+        Jivo.i("Service stopped from connected state")
+        service.stopSelf()
     }
 
     override fun setDisconnected(reason: DisconnectReason) {
