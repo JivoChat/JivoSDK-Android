@@ -66,7 +66,8 @@ object Jivo {
         lifecycleObserver = JivoLifecycleObserver(
             sdkContext,
             storage,
-            jivoSdkComponent.historyUseCase().get()
+            jivoSdkComponent.historyUseCase().get(),
+            jivoSdkComponent.clientIdRecoveryUseCase().get()
         ).apply {
             ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         }

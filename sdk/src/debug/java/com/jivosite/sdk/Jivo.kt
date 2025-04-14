@@ -33,7 +33,6 @@ import com.jivosite.sdk.ui.logs.JivoLogsFragment
 import com.jivosite.sdk.ui.settings.JivoSettingsFragment
 import timber.log.Timber
 import java.lang.ref.WeakReference
-import com.jivosite.sdk.BuildConfig
 import timber.log.Timber.DebugTree
 
 /**
@@ -75,7 +74,8 @@ object Jivo {
         lifecycleObserver = JivoLifecycleObserver(
             sdkContext,
             storage,
-            jivoSdkComponent.historyUseCase().get()
+            jivoSdkComponent.historyUseCase().get(),
+            jivoSdkComponent.clientIdRecoveryUseCase().get()
         ).apply {
             ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         }

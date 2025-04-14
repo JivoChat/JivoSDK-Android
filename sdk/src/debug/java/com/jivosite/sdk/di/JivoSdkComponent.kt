@@ -19,6 +19,7 @@ import com.jivosite.sdk.model.repository.history.HistoryRepository
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.push.RemoteMessageHandler
 import com.jivosite.sdk.support.usecase.ClearUseCase
+import com.jivosite.sdk.support.usecase.RecoveryClientIdUseCase
 import com.jivosite.sdk.support.usecase.HistoryUseCase
 import com.jivosite.sdk.support.usecase.SubscribePushTokenUseCase
 import com.jivosite.sdk.support.usecase.UnsubscribePushTokenUseCase
@@ -83,4 +84,6 @@ interface JivoSdkComponent {
     fun contactFormRepository(): ContactFormRepository
 
     fun historyUseCase(): Provider<HistoryUseCase>
+
+    fun clientIdRecoveryUseCase(): Provider<RecoveryClientIdUseCase>
 }

@@ -6,6 +6,7 @@ import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.socket.JivoWebSocketService.Companion.isStartedService
+import com.jivosite.sdk.support.usecase.RecoveryClientIdUseCase
 import com.jivosite.sdk.support.usecase.HistoryUseCase
 import com.jivosite.sdk.support.utils.after
 import com.jivosite.sdk.support.utils.convertTimeMillisToDateFormat
@@ -20,6 +21,7 @@ class JivoLifecycleObserver(
     private val sdkContext: SdkContext,
     private val storage: SharedStorage,
     private val historyUseCase: HistoryUseCase,
+    private val clientIdRecoveryUseCase: RecoveryClientIdUseCase
 ) : DefaultLifecycleObserver {
 
     override fun onCreate(owner: LifecycleOwner) {
@@ -27,6 +29,11 @@ class JivoLifecycleObserver(
         if (sdkContext.appContext.hasServiceRunning(JivoWebSocketService::class.java)) {
             JivoWebSocketService.forcedStop(sdkContext.appContext)
         }
+    }
+
+    override fun onStart(owner: LifecycleOwner) {
+        super.onStart(owner)
+        clientIdRecoveryUseCase.execute()
     }
 
     override fun onResume(owner: LifecycleOwner) {

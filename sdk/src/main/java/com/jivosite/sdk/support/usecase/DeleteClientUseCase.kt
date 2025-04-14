@@ -7,7 +7,6 @@ import com.jivosite.sdk.model.repository.contacts.ContactFormRepository
 import com.jivosite.sdk.model.repository.history.HistoryRepository
 import com.jivosite.sdk.model.repository.pagination.PaginationRepository
 import com.jivosite.sdk.model.repository.pending.PendingRepository
-import com.jivosite.sdk.model.repository.profile.ProfileRepository
 import com.jivosite.sdk.model.repository.rating.RatingRepository
 import com.jivosite.sdk.model.repository.send.SendMessageRepository
 import com.jivosite.sdk.model.repository.typing.TypingRepository
@@ -25,7 +24,6 @@ class DeleteClientUseCase @Inject constructor(
     private val agentRepository: AgentRepository,
     private val historyRepository: HistoryRepository,
     private val paginationRepository: PaginationRepository,
-    private val profileRepository: ProfileRepository,
     private val sendMessageRepository: SendMessageRepository,
     private val typingRepository: TypingRepository,
     private val uploadRepository: UploadRepository,
@@ -40,11 +38,11 @@ class DeleteClientUseCase @Inject constructor(
             lastReadMsgId = 0
             lastUnreadMsgId = 0
             lastAckMsgId = 0
+            path = ""
         }
         agentRepository.clear()
         historyRepository.clear()
         paginationRepository.clear()
-        profileRepository.clear()
         sendMessageRepository.clear()
         typingRepository.clear()
         uploadRepository.clear()
