@@ -1,6 +1,14 @@
 Changelog
 =========
 
+2.5.6 (14/04/2025)
+-----------------------
+
+### Bug Fixes:
+
+-   fixed the problem with displaying messages in the chat feed
+-   fixed errors that caused the SDK not work correctly;
+
 2.5.5 (24/03/2025)
 -----------------------
 

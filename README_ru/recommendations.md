@@ -5,6 +5,9 @@
 Если в вашем проекте используется обфускацию кода, для **ProGuard** обязательно добавьте следующие настройки:
 
 ```
+-keep class com.jivosite.sdk.** { *; }
+-keep class androidx.lifecycle.LiveData { *; }
+
 -keep,allowobfuscation,allowshrinking interface retrofit2.Call
 -keep,allowobfuscation,allowshrinking class retrofit2.Response
 

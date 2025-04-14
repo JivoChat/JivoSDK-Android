@@ -19,10 +19,11 @@ The **Jivo Mobile SDK** allows you to embed a chat into your native **Android** 
 -   New messages indicator inside the integrated app
 -   PUSH notifications
 
-### Current version: 2.5.5
+### Current version: 2.5.6
 
 List of changes:
 
+-   fixed the problem with displaying messages in the chat feed
 -   fixed errors that caused the SDK not work correctly
 
 ### Known Issues:
@@ -43,7 +44,7 @@ This simple Android application with integrated SDK chat allows you to chat with
 -   Android API level 21+
 -   Android Studio 4.2.1+
 
-### Этапы интеграции Jivo Mobile SDK:
+### Jivo Mobile SDK Integration Steps:
 
 - [Adding a new Mobile SDK channel](./README_en/add_channel.md)
 - Jivo SDK integration([native](./README_en/native_setup.md), [react](./README_en/react_setup.md), [flutter](./README_en/flutter_setup.md))
