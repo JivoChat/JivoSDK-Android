@@ -2,7 +2,7 @@ package com.jivosite.sdk.ui.logs.items
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.jivosite.sdk.logger.LogMessage
 import com.jivosite.sdk.support.vm.LiveDataDelegate
 import java.text.SimpleDateFormat
@@ -22,7 +22,7 @@ abstract class LogsItemViewModel {
     protected val _message = MutableLiveData<LogMessage>()
     var message by LiveDataDelegate(_message, LogMessage.Initial)
 
-    val eventInfo: LiveData<String> = Transformations.map(_message) {
+    val eventInfo: LiveData<String> = _message.map {
         getDefaultEventInfo(it)
     }
 

@@ -7,6 +7,8 @@
         <item name="colorPrimaryDark">@color/black</item>
         <item name="colorAccent">@color/darkPastelGreen</item>
         <item name="colorSurface">@color/jivo_sdk_surface</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <!--    <style name="Main.Theme.JivoSDK" parent="Theme.Material3.DayNight.NoActionBar">

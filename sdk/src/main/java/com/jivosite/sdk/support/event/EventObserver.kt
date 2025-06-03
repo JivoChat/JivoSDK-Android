@@ -9,8 +9,8 @@ import androidx.lifecycle.Observer
  */
 class EventObserver<E>(private val onEventUnhandledContent: (E) -> Unit) : Observer<Event<E>> {
 
-    override fun onChanged(event: Event<E>?) {
-        event?.getContentIfNotHandled()?.let {
+    override fun onChanged(value: Event<E>) {
+        value.getContentIfNotHandled()?.let {
             onEventUnhandledContent(it)
         }
     }

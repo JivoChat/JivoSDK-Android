@@ -3,6 +3,10 @@ package com.jivosite.sdk.ui.settings
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.tasks.OnCompleteListener
@@ -44,6 +48,17 @@ class JivoSettingsFragment : Fragment(R.layout.fragment_jivo_settings) {
             binding.appVersion.text = "App build version: ${BuildConfig.VERSION_CODE}"
             binding.sdkVersion.text = "SDK version : ${BuildConfig.VERSION_NAME}"
             binding.osVersion.text = "Android: ${Build.VERSION.RELEASE} (level ${Build.VERSION.SDK_INT})"
+
+            ViewCompat.setOnApplyWindowInsetsListener(binding.scrollView) { v, windowInsets ->
+                val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                    topMargin = insets.top
+                    leftMargin = insets.left
+                    rightMargin = insets.right
+                    bottomMargin = insets.bottom
+                }
+                WindowInsetsCompat.CONSUMED
+            }
         }
     }
 

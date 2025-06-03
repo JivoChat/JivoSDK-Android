@@ -1,7 +1,7 @@
 package com.jivosite.sdk.ui.chat.items.rate
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.jivosite.sdk.model.repository.rating.RatingRepository
 import com.jivosite.sdk.model.repository.rating.RatingState
 import com.jivosite.sdk.model.storage.SharedStorage
@@ -19,24 +19,12 @@ class RateItemViewModel @Inject constructor(
     private val ratingRepository: RatingRepository
 ) : ChatEntryViewModel<RatingEntry>() {
 
-    private val state: LiveData<RatingState> = Transformations.map(_entry) { entry ->
+    private val state: LiveData<RatingState> = _entry.map { entry ->
         entry.state
     }
 
-    val ratingState: LiveData<RatingState> = Transformations.map(state) {
+    val ratingState: LiveData<RatingState> = state.map {
         it
-    }
-
-    val title: LiveData<String> = Transformations.map(state) {
-        it.rateSettings?.customTitle
-    }
-
-    val type: LiveData<String> = Transformations.map(state) {
-        it.rateSettings?.type?.type
-    }
-
-    val icon: LiveData<String> = Transformations.map(state) {
-        it.rateSettings?.icon?.icon
     }
 
     fun setRate(rating: String) {

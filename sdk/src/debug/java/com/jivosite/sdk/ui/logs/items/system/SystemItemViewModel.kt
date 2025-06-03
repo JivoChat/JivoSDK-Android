@@ -1,7 +1,7 @@
 package com.jivosite.sdk.ui.logs.items.system
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.jivosite.sdk.logger.LogMessage
 import com.jivosite.sdk.ui.logs.items.LogsItemViewModel
 import javax.inject.Inject
@@ -16,7 +16,7 @@ class SystemItemViewModel @Inject constructor() : LogsItemViewModel() {
     val logMessage: LiveData<LogMessage>
         get() = _message
 
-    override val text: LiveData<String> = Transformations.map(_message) {
+    override val text: LiveData<String> = _message.map {
         when (it) {
             is LogMessage.LoadConfig -> "load config...\n${it.url}"
             is LogMessage.Connecting -> "connecting...\n${it.uri}"

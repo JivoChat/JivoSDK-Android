@@ -1,13 +1,14 @@
 package com.jivosite.sdk.ui.chat.items.message.general
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 import com.jivosite.sdk.model.pojo.agent.Agent
 import com.jivosite.sdk.model.repository.agent.AgentRepository
+import com.jivosite.sdk.support.ext.toLongOrDefault
 import com.jivosite.sdk.support.vm.AbsentLiveData
 import com.jivosite.sdk.ui.chat.items.EntryPosition
 import com.jivosite.sdk.ui.chat.items.MessageEntry
-import okhttp3.internal.toLongOrDefault
 
 /**
  * Created on 16.09.2020.
@@ -21,7 +22,7 @@ open class MessageItemViewModel<T : MessageEntry>(agentRepository: AgentReposito
     val position: EntryPosition
         get() = entry?.position ?: EntryPosition.Single
 
-    val agent: LiveData<Agent> = Transformations.switchMap(_entry) { entry ->
+    val agent: LiveData<Agent> = _entry.switchMap { entry ->
         val from = entry.from
         if (from.isNotBlank()) {
             agentRepository.observeAgent(from)
@@ -30,33 +31,33 @@ open class MessageItemViewModel<T : MessageEntry>(agentRepository: AgentReposito
         }
     }
 
-    val avatar: LiveData<String> = Transformations.map(agent) { agent ->
-        agent?.photo ?: ""
+    val avatar: LiveData<String> = agent.map { agent ->
+        agent.photo
     }
 
-    val avatarVisibility: LiveData<Boolean> = Transformations.map(_entry) { entry ->
+    val avatarVisibility: LiveData<Boolean> = _entry.map { entry ->
         when (entry.position) {
             is EntryPosition.First, EntryPosition.Single -> true
             else -> false
         }
     }
 
-    val name: LiveData<String> = Transformations.map(agent) { agent ->
-        agent?.name ?: ""
+    val name: LiveData<String> = agent.map { agent ->
+        agent.name
     }
 
-    val nameVisibility: LiveData<Boolean> = Transformations.map(_entry) { entry ->
+    val nameVisibility: LiveData<Boolean> = _entry.map { entry ->
         when (entry.position) {
             is EntryPosition.Last, EntryPosition.Single -> true
             else -> false
         }
     }
 
-    val labelVisibility: LiveData<Boolean> = Transformations.map(_entry) { entry ->
+    val labelVisibility: LiveData<Boolean> = _entry.map { entry ->
         entry.from.toLongOrDefault(0) < 0
     }
 
-    val time: LiveData<Long> = Transformations.map(_entry) {
+    val time: LiveData<Long> = _entry.map {
         it.time
     }
 }

@@ -21,7 +21,7 @@ class JivoLifecycleObserver(
     private val sdkContext: SdkContext,
     private val storage: SharedStorage,
     private val historyUseCase: HistoryUseCase,
-    private val clientIdRecoveryUseCase: RecoveryClientIdUseCase
+    private val clientIdRecoveryUseCase: RecoveryClientIdUseCase,
 ) : DefaultLifecycleObserver {
 
     override fun onCreate(owner: LifecycleOwner) {
@@ -56,10 +56,7 @@ class JivoLifecycleObserver(
             }
 
             storage.startOnInitialization && isStartedService -> {
-                Jivo.i("Application moved to background, stop service")
-                if (isStartedService) {
-                    JivoWebSocketService.stop(sdkContext.appContext)
-                }
+                JivoWebSocketService.stop(sdkContext.appContext)
             }
         }
         Jivo.i("SDK moved to background, is started service - $isStartedService")

@@ -1,7 +1,7 @@
 package com.jivosite.sdk.ui.chat.items.message.text.client
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.jivosite.sdk.model.pojo.message.MessageStatus
 import com.jivosite.sdk.model.repository.agent.AgentRepository
 import com.jivosite.sdk.ui.chat.items.ClientMessageEntry
@@ -19,7 +19,7 @@ class ClientTextItemViewModel @Inject constructor(
     agentRepository: AgentRepository
 ) : MessageItemViewModel<MessageEntry>(agentRepository) {
 
-    val text: LiveData<String> = Transformations.map(_entry) { entry ->
+    val text: LiveData<String> = _entry.map { entry ->
         when (entry) {
             is ClientMessageEntry -> entry.message.data
             is SendingMessageEntry -> entry.message.data
@@ -27,7 +27,7 @@ class ClientTextItemViewModel @Inject constructor(
         }
     }
 
-    val status: LiveData<MessageStatus> = Transformations.map(_entry) { entry ->
+    val status: LiveData<MessageStatus> = _entry.map { entry ->
         when (entry) {
             is ClientMessageEntry -> entry.message.status
             is SendingMessageEntry -> entry.message.status

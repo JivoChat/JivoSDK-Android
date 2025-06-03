@@ -1,7 +1,7 @@
 package com.jivosite.sdk.ui.chat.items.message.text.agent
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.repository.agent.AgentRepository
 import com.jivosite.sdk.ui.chat.JivoChatViewModel
@@ -18,7 +18,7 @@ class AgentTextItemViewModel @Inject constructor(
     agentRepository: AgentRepository
 ) : MessageItemViewModel<AgentMessageEntry>(agentRepository) {
 
-    val messageEntry: LiveData<AgentMessageEntry> = Transformations.map(_entry) { it }
+    val messageEntry: LiveData<AgentMessageEntry> = _entry.map { it }
 
     var jivoChatViewModel: JivoChatViewModel? = null
 

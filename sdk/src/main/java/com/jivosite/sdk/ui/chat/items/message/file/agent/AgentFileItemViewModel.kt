@@ -1,7 +1,7 @@
 package com.jivosite.sdk.ui.chat.items.message.file.agent
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.jivosite.sdk.model.repository.agent.AgentRepository
 import com.jivosite.sdk.model.repository.media.MediaRepository
 import com.jivosite.sdk.ui.chat.items.AgentMessageEntry
@@ -18,7 +18,7 @@ class AgentFileItemViewModel @Inject constructor(
     mediaRepository: MediaRepository
 ) : MediaItemViewModel<AgentMessageEntry>(agentRepository, mediaRepository) {
 
-    val type: LiveData<String> = Transformations.map(_entry) {
+    val type: LiveData<String> = _entry.map {
         it.type
     }
 }

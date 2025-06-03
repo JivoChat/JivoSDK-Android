@@ -2,8 +2,8 @@ package com.jivosite.sdk.ui.chat.items.unsupported
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import com.jivosite.sdk.ui.chat.items.UnsupportedEntry
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ class UnsupportedItemViewModel @Inject constructor() : ViewModel() {
         }
         get() = _data.value
 
-    val message: LiveData<String> = Transformations.map(_data) { it ->
+    val message: LiveData<String> = _data.map { it ->
         it.message.run {
             """{type = ${this.type}, id = ${this.id}, data = ${this.data}""".trimMargin()
         }

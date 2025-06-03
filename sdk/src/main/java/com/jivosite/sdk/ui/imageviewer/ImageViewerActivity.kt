@@ -6,10 +6,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import coil.load
 import com.github.chrisbanes.photoview.PhotoView
 import com.jivosite.sdk.R
@@ -50,6 +55,19 @@ class ImageViewerActivity : AppCompatActivity(R.layout.activity_image_viewer) {
         viewModel.path = path
         viewModel.name = name ?: getString(R.string.download_status_error)
 
+        findViewById<LinearLayoutCompat>(R.id.content).run {
+            ViewCompat.setOnApplyWindowInsetsListener(this) { v, windowInsets ->
+                val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                    topMargin = insets.top
+                    leftMargin = insets.left
+                    rightMargin = insets.right
+                    bottomMargin = insets.bottom
+                }
+                WindowInsetsCompat.CONSUMED
+            }
+        }
+
         setupToolbar(name)
 
         photoView.load(path)
@@ -82,10 +100,12 @@ class ImageViewerActivity : AppCompatActivity(R.layout.activity_image_viewer) {
                 Intents.downloadFile(this, viewModel.path, viewModel.name)
                 true
             }
+
             R.id.action_copy -> {
                 copyToClipboard(viewModel.path)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -1,7 +1,7 @@
 package com.jivosite.sdk.ui.chat.items.message.uploading.file
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.jivosite.sdk.model.repository.agent.AgentRepository
 import com.jivosite.sdk.model.repository.upload.FileState
 import com.jivosite.sdk.model.repository.upload.UploadState
@@ -18,23 +18,23 @@ class UploadingFileItemViewModel @Inject constructor(
     agentRepository: AgentRepository
 ) : MessageItemViewModel<UploadingFileEntry>(agentRepository) {
 
-    val state: LiveData<FileState> = Transformations.map(_entry) { entry ->
+    val state: LiveData<FileState> = _entry.map { entry ->
         entry.state
     }
 
-    val fileName: LiveData<String> = Transformations.map(state) {
+    val fileName: LiveData<String> = state.map {
         it.name
     }
 
-    val size: LiveData<Long> = Transformations.map(state) {
+    val size: LiveData<Long> = state.map {
         it.size
     }
 
-    val type: LiveData<String> = Transformations.map(state) {
+    val type: LiveData<String> = state.map {
         it.mimeType
     }
 
-    val isError: LiveData<Boolean> = Transformations.map(state) {
+    val isError: LiveData<Boolean> = state.map {
         it.uploadState is UploadState.Error
     }
 }

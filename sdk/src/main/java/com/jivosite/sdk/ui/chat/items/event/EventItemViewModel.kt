@@ -2,8 +2,8 @@ package com.jivosite.sdk.ui.chat.items.event
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import com.jivosite.sdk.ui.chat.items.EventEntry
 import javax.inject.Inject
 
@@ -22,11 +22,11 @@ class EventItemViewModel @Inject constructor() : ViewModel() {
         }
         get() = _event.value
 
-    val code: LiveData<Int> = Transformations.map(_event) {
+    val code: LiveData<Int> = _event.map {
         it.code
     }
 
-    val reason: LiveData<String> = Transformations.map(_event) {
+    val reason: LiveData<String> = _event.map {
         it.reason
     }
 }

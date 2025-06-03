@@ -26,20 +26,20 @@ class JivoLogsViewModel @Inject constructor(
     logsRepository: LogsRepository
 ) : ViewModel() {
 
-    val messages: LiveData<List<LogsItem>> = Transformations.map(logsRepository.messages) { list ->
-        list?.filter { message ->
+    val messages: LiveData<List<LogsItem>> = logsRepository.messages.map { list ->
+        list.filter { message ->
             if (storage.doNotShowPings) {
                 message !is LogMessage.Ping && message !is LogMessage.Pong
             } else {
                 true
             }
-        }?.map { message ->
+        }.map { message ->
             when (message) {
                 is LogMessage.Received, is LogMessage.Sent -> MessageItem(message)
                 is LogMessage.Error -> ErrorItem(message)
                 else -> SystemItem(message)
             }
-        } ?: Collections.emptyList()
+        }
     }
 
     var messageToSend = MutableLiveData("")
@@ -51,7 +51,7 @@ class JivoLogsViewModel @Inject constructor(
             value = value?.copy(hasConnection = it is ConnectionState.Connected)
         }
     }
-    val canSend: LiveData<Boolean> = Transformations.map(sendState) {
+    val canSend: LiveData<Boolean> = sendState.map  {
         it.hasMessage && it.hasConnection
     }
 

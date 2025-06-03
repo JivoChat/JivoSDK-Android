@@ -2,7 +2,7 @@ package com.jivosite.sdk.ui.chat.items.contacts
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.jivosite.sdk.model.repository.agent.AgentRepository
 import com.jivosite.sdk.model.repository.contacts.ContactForm
 import com.jivosite.sdk.model.repository.contacts.ContactFormRepository
@@ -57,27 +57,27 @@ class ContactFormItemViewModel @Inject constructor(
         }
     }
 
-    val isNameValid: LiveData<Boolean> = Transformations.map(_canSendState) {
+    val isNameValid: LiveData<Boolean> = _canSendState.map {
         it.isNameValid
     }
 
-    val isPhoneValid: LiveData<Boolean> = Transformations.map(_canSendState) {
+    val isPhoneValid: LiveData<Boolean> = _canSendState.map {
         it.isPhoneValid
     }
 
-    val isEmailValid: LiveData<Boolean> = Transformations.map(_canSendState) {
+    val isEmailValid: LiveData<Boolean> = _canSendState.map {
         it.isEmailValid
     }
 
-    val hasSentContacts = Transformations.map(_entry) {
+    val hasSentContacts = _entry.map {
         it.state.hasSentContactInfo
     }
 
-    val canSend = Transformations.map(_canSendState) {
+    val canSend = _canSendState.map {
         it != null && !it.hasSentContactForm && it.isNameValid && it.isPhoneValid && it.isEmailValid
     }
 
-    val hasAgentsOnline = Transformations.map(agentRepository.hasAgentsOnline) {
+    val hasAgentsOnline = agentRepository.hasAgentsOnline.map {
         it
     }
 

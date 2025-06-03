@@ -26,6 +26,8 @@ object JivoLifecycleOwner : LifecycleOwner {
     private var pauseSent = true
 
     private val registry = LifecycleRegistry(this)
+    override val lifecycle: Lifecycle
+        get() = registry
 
     @SuppressLint("LogNotTimber")
     fun init(context: Context) {
@@ -77,11 +79,10 @@ object JivoLifecycleOwner : LifecycleOwner {
         }
     }
 
-    override fun getLifecycle() = registry
-
     fun addObserver(observer: LifecycleObserver) {
         lifecycle.addObserver(observer)
     }
+
 }
 
 internal open class JivoActivityLifecycleCallbacks : ActivityLifecycleCallbacks {

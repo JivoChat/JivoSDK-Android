@@ -1,7 +1,7 @@
 package com.jivosite.sdk.ui.logs.items.message
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.jivosite.sdk.logger.LogMessage
 import com.jivosite.sdk.ui.logs.items.LogsItemViewModel
 import javax.inject.Inject
@@ -13,7 +13,7 @@ import javax.inject.Inject
  */
 class MessageItemViewModel @Inject constructor() : LogsItemViewModel() {
 
-    val direction: LiveData<MessageDirection> = Transformations.map(_message) {
+    val direction: LiveData<MessageDirection> = _message.map {
         when (it) {
             is LogMessage.Received -> MessageDirection.Incoming
             is LogMessage.Sent -> MessageDirection.Outgoing
@@ -21,7 +21,7 @@ class MessageItemViewModel @Inject constructor() : LogsItemViewModel() {
         }
     }
 
-    override val text: LiveData<String> = Transformations.map(_message) {
+    override val text: LiveData<String> = _message.map {
         when (it) {
             is LogMessage.Received -> it.message
             is LogMessage.Sent -> it.message

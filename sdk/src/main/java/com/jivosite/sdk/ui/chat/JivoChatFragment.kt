@@ -14,6 +14,7 @@ import android.provider.OpenableColumns
 import android.provider.Settings
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,8 +24,11 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider.getUriForFile
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
+import androidx.core.view.updateLayoutParams
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -186,6 +190,16 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
 
         viewModel.attachedJivoMediaFile.observe(viewLifecycleOwner) {
             renderAttachedFile(it)
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.content) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = insets.top
+                leftMargin = insets.left
+                rightMargin = insets.right
+            }
+            WindowInsetsCompat.CONSUMED
         }
     }
 
@@ -396,7 +410,7 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         this.run {
             setBackgroundResource(R.drawable.jivo_sdk_bg_attached_icon)
             imageTintList =
-                ColorStateList.valueOf(MaterialColors.getColor(this, R.attr.colorOnPrimary))
+                ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnPrimary))
             load(drawableResId)
         }
     }

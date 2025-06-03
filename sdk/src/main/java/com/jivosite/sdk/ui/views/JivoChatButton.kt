@@ -20,6 +20,7 @@ import com.jivosite.sdk.R
 import com.jivosite.sdk.support.ext.dp
 import com.jivosite.sdk.support.vm.ViewModelFactory
 import javax.inject.Inject
+import androidx.core.content.withStyledAttributes
 
 /**
  * Created on 12/14/20.
@@ -53,20 +54,23 @@ class JivoChatButton @JvmOverloads constructor(context: Context, attrs: Attribut
         ViewModelProvider(this, viewModelFactory).get(JivoChatButtonViewModel::class.java)
     }
 
+    override val viewModelStore: ViewModelStore
+        get() = (context as AppCompatActivity).viewModelStore
+
     init {
         if (attrs != null) {
-            val ta = context.obtainStyledAttributes(R.style.Widget_JivoSDK_JivoChatButton, R.styleable.JivoChatButton)
-            padding = ta.getInt(
-                R.styleable.JivoChatButton_padding,
-                DEFAULT_PADDING_IN_DP
-            ).dp
-            optionalClipToPadding = ta.getBoolean(
-                R.styleable.JivoChatButton_clipToPadding,
-                DEFAULT_CLIP_TO_PADDING
-            )
-            backgroundTintList = ta.getColorStateList(R.styleable.JivoChatButton_backgroundTintList)
+            context.withStyledAttributes(R.style.Widget_JivoSDK_JivoChatButton, R.styleable.JivoChatButton) {
+                padding = getInt(
+                    R.styleable.JivoChatButton_padding,
+                    DEFAULT_PADDING_IN_DP
+                ).dp
+                optionalClipToPadding = getBoolean(
+                    R.styleable.JivoChatButton_clipToPadding,
+                    DEFAULT_CLIP_TO_PADDING
+                )
+                backgroundTintList = getColorStateList(R.styleable.JivoChatButton_backgroundTintList)
 
-            ta.recycle()
+            }
         } else {
             padding = DEFAULT_PADDING_IN_DP.dp
             optionalClipToPadding = DEFAULT_CLIP_TO_PADDING
@@ -76,10 +80,6 @@ class JivoChatButton @JvmOverloads constructor(context: Context, attrs: Attribut
         clipToPadding = optionalClipToPadding
 
         LayoutInflater.from(context).inflate(R.layout.jivo_button, this, true)
-    }
-
-    override fun getViewModelStore(): ViewModelStore {
-        return (context as AppCompatActivity).viewModelStore
     }
 
     override fun onFinishInflate() {

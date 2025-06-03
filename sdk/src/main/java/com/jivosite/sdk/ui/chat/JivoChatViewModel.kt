@@ -62,7 +62,6 @@ import com.jivosite.sdk.ui.chat.items.message.uploading.image.UploadingImageItem
 import com.jivosite.sdk.ui.chat.items.message.welcome.WelcomeMessageItem
 import com.jivosite.sdk.ui.chat.items.rate.RatingItem
 import com.jivosite.sdk.ui.chat.items.unsupported.UnsupportedItem
-import okhttp3.internal.toLongOrDefault
 import java.io.InputStream
 import java.util.*
 import javax.inject.Inject
@@ -162,12 +161,12 @@ class JivoChatViewModel @Inject constructor(
         addSource(ratingRepository.observableState) { value = value?.copy(ratingState = it) }
     }
 
-    val items: LiveData<List<ChatItem>> = Transformations.map(messagesState) { handleMessagesState(it) }
+    val items: LiveData<List<ChatItem>> = messagesState.map { handleMessagesState(it) }
 
     val clientTyping = ClientTypingDebounceLiveData<String>()
 
-    val agentsTyping: LiveData<List<Agent>> = Transformations.map(typingRepository.observableState) { state ->
-        state?.agents?.mapNotNull {
+    val agentsTyping: LiveData<List<Agent>> = typingRepository.observableState.map { state ->
+        state.agents.mapNotNull {
             agentRepository.getAgent(it.agentId.toString())
         }
     }
@@ -179,11 +178,11 @@ class JivoChatViewModel @Inject constructor(
     val connectionState: LiveData<ConnectionState>
         get() = connectionStateRepository.state
 
-    val agents: LiveData<List<Agent>> = Transformations.map(agentRepository.observableState) {
+    val agents: LiveData<List<Agent>> = agentRepository.observableState.map {
         it.agents
     }
 
-    val isUnavailable: LiveData<Boolean> = Transformations.map(chatStateRepository.observableState) {
+    val isUnavailable: LiveData<Boolean> = chatStateRepository.observableState.map {
         it.blacklisted || it.sanctioned
     }
 
@@ -205,11 +204,11 @@ class JivoChatViewModel @Inject constructor(
         }
 
     }
-    val canSend = Transformations.map(_canSendState) {
+    val canSend = _canSendState.map {
         it != null && it.hasMessage && it.hasConnection && !it.hasPendingMessage || it.hasAttachedFile
     }
 
-    val canUploadFile = Transformations.map(uploadRepository.hasLicense) { it }
+    val canUploadFile = uploadRepository.hasLicense.map { it }
 
     private val _isLoading = MutableLiveData<Boolean>()
 
@@ -234,11 +233,11 @@ class JivoChatViewModel @Inject constructor(
         }
     }
 
-    val canInputText = Transformations.map(messagesState) {
+    val canInputText = messagesState.map {
         it.pendingState.message == null
     }
 
-    val canAttach = Transformations.map(_canAttachState) {
+    val canAttach = _canAttachState.map {
         it != null && !it.isLoading && it.hasConnection && !it.hasPendingMessage && it.hasHistoryMessages
     }
 
