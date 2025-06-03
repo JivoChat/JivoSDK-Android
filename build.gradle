@@ -7,7 +7,7 @@ buildscript {
         buildTools = "35.0.0"
         appVersionName = "1.0.0"
         appVersionCode = 102505302
-        ext.kotlinVersion = "2.1.20"
+        ext.kotlinVersion = "2.1.21"
     }
 
     repositories {
@@ -17,8 +17,8 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.9.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.10"
+        classpath 'com.android.tools.build:gradle:8.9.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.21"
         classpath 'com.google.gms:google-services:4.4.2'
         classpath 'com.google.firebase:firebase-appdistribution-gradle:5.1.1'
         classpath 'org.jetbrains.kotlinx:binary-compatibility-validator:0.5.0'
