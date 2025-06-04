@@ -19,12 +19,12 @@ The **Jivo Mobile SDK** allows you to embed a chat into your native **Android** 
 -   New messages indicator inside the integrated app
 -   PUSH notifications
 
-### Current version: 2.5.6
+### Current version: 2.5.7
 
 List of changes:
 
--   fixed the problem with displaying messages in the chat feed
--   fixed errors that caused the SDK not work correctly
+-   updated AGP to version 8.9.3
+-   fixed UI bugs
 
 ### Known Issues:
 - There is a problem with displaying colors in **SDK** chat on **Xiaomi** devices. Solution - add a flag to your application's styles:
@@ -42,7 +42,8 @@ This simple Android application with integrated SDK chat allows you to chat with
 ### Requirements
 
 -   Android API level 21+
--   Android Studio 4.2.1+
+-   Android Studio 2024.3.2+
+-   Android Gradle plugin 8.10.0+
 
 ### Jivo Mobile SDK Integration Steps:
 

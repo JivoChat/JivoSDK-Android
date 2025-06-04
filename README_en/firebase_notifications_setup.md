@@ -82,7 +82,7 @@ buildscript {
     }
     dependencies {
         ...
-        classpath 'com.google.gms:google-services:4.3.8'
+        classpath 'com.google.gms:google-services:4.4.2'
         ...
     }
 }
@@ -108,7 +108,7 @@ plugins {
 ...
 dependencies {
     ...
-    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    implementation platform('com.google.firebase:firebase-bom:33.12.0')
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-analytics-ktx'
 }

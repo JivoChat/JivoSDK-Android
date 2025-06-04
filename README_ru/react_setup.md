@@ -51,7 +51,7 @@ buildscript {
     }
     dependencies {
         ...
-        classpath 'com.google.gms:google-services:4.3.14'
+        classpath 'com.google.gms:google-services:4.4.2'
     }
 }
 
@@ -79,9 +79,9 @@ android {
 dependencies {
    ...
    //JivoSDK
-   implementation 'com.jivosite.sdk:android-sdk:2.5.6'
+   implementation 'com.jivosite.sdk:android-sdk:2.5.7'
    //firebase
-   implementation platform('com.google.firebase:firebase-bom:26.2.0')
+   implementation platform('com.google.firebase:firebase-bom:33.12.0')
    implementation 'com.google.firebase:firebase-messaging'
 }
 ```

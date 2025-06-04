@@ -109,7 +109,7 @@ buildscript {
     }
     dependencies {
         ...
-        classpath 'com.google.gms:google-services:4.3.14'
+        classpath 'com.google.gms:google-services:4.4.2'
     }
 }
 
@@ -142,7 +142,7 @@ android {
 
 dependencies {
     ...
-    api platform('com.google.firebase:firebase-bom:32.7.2')
+    api platform('com.google.firebase:firebase-bom:33.12.0')
     api 'com.google.firebase:firebase-messaging'
 }
 ```
