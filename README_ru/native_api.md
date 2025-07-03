@@ -11,6 +11,7 @@
 - [Jivo.disableInAppNotification](#jivo_disable_in_app_notification) - Отключения in-app уведомлений.
 - [Jivo.addNotificationPermissionListener](#jivo_add_notification_permission_listener) - Получение информации о разрешении уведомлений.
 - [Jivo.setConfig](#jivo_set_config) - Дополнительные настройки **JivoSDK**.
+- [Jivo.setLocale](#jivo_set_locale) - Установка языка.
 
 
 ## <a name="jivo_init">Jivo.init.</a>
@@ -662,3 +663,7 @@
 ></resources>
 >```
 ></details>
+
+## <a name="jivo_set_locale">Jivo.setLocale.</a>
+
+Для установки языка, необходимо использовать метод `Jivo.setLocale()`. 

@@ -1,6 +1,17 @@
 Changelog
 =========
 
+2.6.0 (03/07/2025)
+-----------------------
+
+### Bug Fixes:
+
+-   fixed errors that caused the SDK not work correctly;
+
+### Features:
+
+-   added the ability to change the language;
+
 2.5.7 (04/06/2025)
 -----------------------
 

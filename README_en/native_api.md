@@ -13,6 +13,7 @@ Examples and descriptions of basic JivoSDK settings:
 - [Jivo.addNotificationPermissionListener](#jivo_add_notification_permission_listener) - Receive information about the
   authorisation of notifications.
 - [Jivo.setConfig](#jivo_set_config) - Additional **JivoSDK** settings.
+- [Jivo.setLocale](#jivo_set_locale) - Set up the language.
 
 ## <a name="jivo_init">Jivo.init.</a>
 
@@ -695,3 +696,7 @@ Example:
 ></resources>
 >```
 ></details>
+
+## <a name="jivo_set_locale">Jivo.setLocale.</a>
+
+To set the language, you need to use the `Jivo.setLocale()` method.
