@@ -43,7 +43,7 @@ class AgentRepositoryImpl @Inject constructor(
 
     override fun getAgent(agentId: String): Agent? = cache[agentId]
 
-    override fun observeAgent(agentId: String): LiveData<Agent> = cacheLive[agentId]
+    override fun observeAgent(agentId: String): LiveData<Agent> = cacheLive[agentId, Agent("")]
 
     override fun setAgentStatus(agentId: String, status: String) = updateStateInRepositoryThread {
         val newStatus = AgentStatus.mapFrom(status)

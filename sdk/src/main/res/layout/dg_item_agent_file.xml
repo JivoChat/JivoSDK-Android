@@ -43,12 +43,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/agentName"
                     style="@style/Widget.JivoSDK.TextView.IncomingBubble.AgentName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.name ?? @string/agent_name_default}"
+                    app:agentName="@{viewModel.name}"
                     android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

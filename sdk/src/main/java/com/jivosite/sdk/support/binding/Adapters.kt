@@ -380,7 +380,7 @@ fun setTime(view: TextView, time: Long?) {
 @BindingAdapter("agentName")
 fun setAgentName(view: AppCompatTextView, name: String?) {
     if (name.isNullOrBlank()) {
-        view.setText(R.string.agent_name_default)
+        view.setText(R.string.Agent_DisplayName_Deleted)
     } else {
         view.text = name
     }
