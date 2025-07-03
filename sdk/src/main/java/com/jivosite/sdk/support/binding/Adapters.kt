@@ -147,9 +147,8 @@ fun inflateToolbar(view: MaterialToolbar, agents: List<Agent>) {
         R.drawable.jivo_sdk_vic_logo
     )
     val hasLogo = typedArray.getBoolean(R.styleable.JivoSDKToolbar_hideLogo, false)
-    val title = typedArray.getString(R.styleable.JivoSDKToolbar_title) ?: context.getString(R.string.chat_title_placeholder)
-    val subtitle =
-        typedArray.getString(R.styleable.JivoSDKToolbar_subtitle) ?: context.getString(R.string.chat_subtitle_placeholder)
+    val title = Jivo.getConfig().title.asString(context.resources, typedArray.getString(R.styleable.JivoSDKToolbar_title) ?: context.getString(R.string.chat_title_placeholder))
+    val subtitle = Jivo.getConfig().subtitle.asString(context.resources, typedArray.getString(R.styleable.JivoSDKToolbar_subtitle) ?: context.getString(R.string.chat_subtitle_placeholder))
     typedArray.recycle()
 
     val agentsInChat = agents.filter { it.hasOnlineInChat && it.status !is AgentStatus.Offline }

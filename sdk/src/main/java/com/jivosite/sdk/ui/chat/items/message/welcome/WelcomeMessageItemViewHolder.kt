@@ -16,6 +16,6 @@ class WelcomeMessageItemViewHolder(itemView: View) : AdapterDelegateViewHolder<C
 
     init {
         val welcomeTextView = itemView.findViewById<TextView>(R.id.welcome)
-        welcomeTextView.text = context.getString(Jivo.getConfig().welcomeMessage ?: R.string.welcome_message_placeholder)
+        welcomeTextView.text = Jivo.getConfig().welcomeMessage.asString(context.resources, context.getString(R.string.welcome_message_placeholder))
     }
 }
