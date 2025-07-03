@@ -2,6 +2,8 @@ package com.jivosite.sdk
 
 import android.content.Context
 import android.os.Build
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.firebase.messaging.RemoteMessage
@@ -223,6 +225,11 @@ object Jivo {
         } else {
             e("Call unsubscribeFromPush(), JivoSdkComponent hasn't isInitialized")
         }
+    }
+
+    @JvmStatic
+    fun setLocale(languageTag: String) {
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(languageTag))
     }
 
     internal fun startSession() {
