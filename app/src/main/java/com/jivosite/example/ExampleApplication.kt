@@ -22,7 +22,7 @@ class ExampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         Jivo.init(this)
-        Jivo.setData("0BWKjBm2fm", host = "androidsdk.dev.jivosite.com")
+        Jivo.setData("Q7BcPYNqCG")
         Jivo.setConfig(Config.Builder()
             .setOpenNotification {
                 PendingIntent.getActivity(
