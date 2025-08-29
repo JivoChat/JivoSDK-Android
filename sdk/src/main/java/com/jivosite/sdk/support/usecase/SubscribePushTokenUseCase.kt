@@ -50,16 +50,20 @@ class SubscribePushTokenUseCase @Inject constructor(
 
         when {
             token.isBlank() -> {
-                FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        return@OnCompleteListener
+                try {
+                    FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                        if (!task.isSuccessful) {
+                            return@OnCompleteListener
+                        }
+                        task.result?.run {
+                            storage.pushToken = this
+                            prepareData(this)
+                        }
+                    }).addOnFailureListener {
+                        Jivo.e(Throwable(it), "Fetching FCM registration token failed")
                     }
-                    task.result?.run {
-                        storage.pushToken = this
-                        prepareData(this)
-                    }
-                }).addOnFailureListener {
-                    Jivo.e(Throwable(it), "Fetching FCM registration token failed")
+                } catch (e: Exception) {
+                    Jivo.e(e, "Fetching FCM registration token failed")
                 }
             }
 
