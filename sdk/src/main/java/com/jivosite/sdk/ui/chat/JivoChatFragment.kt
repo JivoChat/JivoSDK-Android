@@ -198,6 +198,7 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
                 topMargin = insets.top
                 leftMargin = insets.left
                 rightMargin = insets.right
+                bottomMargin = insets.bottom
             }
             WindowInsetsCompat.CONSUMED
         }
