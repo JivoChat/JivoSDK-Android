@@ -64,13 +64,12 @@
                 app:layout_constraintStart_toEndOf="@id/agentName"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 android:id="@+id/message"
                 style="@style/Widget.JivoSDK.TextView.IncomingBubble.Message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:autoLink="all"
                 app:layout_constraintBottom_toTopOf="@id/time"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"

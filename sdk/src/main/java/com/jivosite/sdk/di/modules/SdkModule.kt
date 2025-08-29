@@ -73,10 +73,13 @@ class SdkModule(appContext: Context) {
     @Singleton
     fun provideMarkwon(): Markwon {
         return Markwon.builder(sdkContext.appContext)
-            .usePlugins(listOf(LinkifyPlugin.create(), StrikethroughPlugin.create()))
+            .usePlugins(listOf(LinkifyPlugin.create(true), StrikethroughPlugin.create()))
             .usePlugin(object : AbstractMarkwonPlugin() {
                 override fun configureVisitor(builder: MarkwonVisitor.Builder) {
-                    builder.on(SoftLineBreak::class.java) { visitor, _ -> visitor.forceNewLine() }
+                    builder.on(SoftLineBreak::class.java) { visitor, _ ->
+                        visitor.forceNewLine()
+                        super.configureVisitor(builder)
+                    }
                 }
 
                 override fun configureParser(builder: Parser.Builder) {
@@ -90,6 +93,7 @@ class SdkModule(appContext: Context) {
                             IndentedCodeBlock::class.java,
                         ) as Set<Class<out Block>>?
                     )
+                    super.configureParser(builder)
                 }
             }).build()
     }
