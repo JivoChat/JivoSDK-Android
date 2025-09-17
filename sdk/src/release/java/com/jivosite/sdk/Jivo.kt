@@ -1,7 +1,9 @@
 package com.jivosite.sdk
 
+import android.app.LocaleManager
 import android.content.Context
 import android.os.Build
+import android.os.LocaleList
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
@@ -221,7 +223,16 @@ object Jivo {
 
     @JvmStatic
     fun setLocale(languageTag: String) {
-        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(languageTag))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            sdkContext.appContext.getSystemService(LocaleManager::class.java)
+                ?.applicationLocales = LocaleList.forLanguageTags(languageTag)
+        } else {
+            AppCompatDelegate.setApplicationLocales(
+                LocaleListCompat.forLanguageTags(
+                    languageTag
+                )
+            )
+        }
     }
 
     internal fun startSession() {
