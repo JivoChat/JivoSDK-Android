@@ -29,7 +29,7 @@ class EventItemViewHolder(
         super.bind(item)
         val data = item.requireData()
         if (data is EventEntry) {
-            viewModel.event = data
+            viewModel.entry = data
         }
     }
 }

@@ -4,7 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
+import com.jivosite.sdk.logger.LogMessage
 import com.jivosite.sdk.ui.chat.items.EventEntry
+import com.jivosite.sdk.ui.chat.items.message.general.ChatEntryViewModel
 import javax.inject.Inject
 
 /**
@@ -12,21 +15,17 @@ import javax.inject.Inject
  *
  * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
-class EventItemViewModel @Inject constructor() : ViewModel() {
+class EventItemViewModel @Inject constructor() : ChatEntryViewModel<EventEntry>() {
 
-    private val _event = MutableLiveData<EventEntry>()
-    var event: EventEntry? = null
-        set(value) {
-            field = value
-            value?.run { _event.value = this }
-        }
-        get() = _event.value
+   private val logMessage: LiveData<LogMessage.Disconnected> = _entry.map {
+        it.logMessage as LogMessage.Disconnected
+    }
 
-    val code: LiveData<Int> = _event.map {
+    val code: LiveData<Int> = logMessage.map {
         it.code
     }
 
-    val reason: LiveData<String> = _event.map {
+    val reason: LiveData<String> = logMessage.map {
         it.reason
     }
 }

@@ -29,7 +29,7 @@ class UnsupportedItemViewHolder(
         super.bind(item)
         val data = item.requireData()
         if (data is UnsupportedEntry) {
-            viewModel.data = data
+            viewModel.entry = data
         }
     }
 }

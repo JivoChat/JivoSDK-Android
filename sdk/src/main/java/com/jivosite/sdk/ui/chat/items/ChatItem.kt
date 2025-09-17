@@ -1,5 +1,6 @@
 package com.jivosite.sdk.ui.chat.items
 
+import com.jivosite.sdk.logger.LogMessage
 import com.jivosite.sdk.model.pojo.message.ClientMessage
 import com.jivosite.sdk.model.pojo.message.HistoryMessage
 import com.jivosite.sdk.model.pojo.socket.SocketMessage
@@ -51,7 +52,7 @@ open class ChatItem(viewType: Int, data: ChatEntry) : AdapterDelegateItem<ChatEn
 
 sealed class ChatEntry
 
-data class EventEntry(val code: Int, val reason: String) : ChatEntry()
+data class EventEntry(val logMessage: LogMessage) : ChatEntry()
 
 data class UnsupportedEntry(val message: SocketMessage) : ChatEntry()
 

@@ -275,7 +275,7 @@ class JivoChatViewModel @Inject constructor(
             }
 
             state.eventMessages.forEach {
-                putOrIncrementKey(it.ts, EventEntry(it.code, it.reason))
+                putOrIncrementKey(it.ts, EventEntry(it))
             }
 
             state.uploadFilesState.files.forEach {
