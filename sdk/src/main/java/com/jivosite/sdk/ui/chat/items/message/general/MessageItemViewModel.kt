@@ -22,17 +22,13 @@ open class MessageItemViewModel<T : MessageEntry>(agentRepository: AgentReposito
     val position: EntryPosition
         get() = entry?.position ?: EntryPosition.Single
 
-    val agent: LiveData<Agent> = _entry.switchMap { entry ->
+    val agent: LiveData<Agent?> = _entry.switchMap { entry ->
         val from = entry.from
         if (from.isNotBlank()) {
             agentRepository.observeAgent(from)
         } else {
             AbsentLiveData.create()
         }
-    }
-
-    val avatar: LiveData<String> = agent.map { agent ->
-        agent.photo
     }
 
     val avatarVisibility: LiveData<Boolean> = _entry.map { entry ->
@@ -42,8 +38,8 @@ open class MessageItemViewModel<T : MessageEntry>(agentRepository: AgentReposito
         }
     }
 
-    val name: LiveData<String> = agent.map { agent ->
-        agent.name
+    val name: LiveData<String?> = agent.map { agent ->
+        agent?.name
     }
 
     val nameVisibility: LiveData<Boolean> = _entry.map { entry ->

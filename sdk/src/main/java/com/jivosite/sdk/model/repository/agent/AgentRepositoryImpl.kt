@@ -25,7 +25,7 @@ class AgentRepositoryImpl @Inject constructor(
 ) : StateRepository<AgentState>(schedulers, "Agent", AgentState()), AgentRepository {
 
     private val cache = mutableMapOf<String, Agent>()
-    private val cacheLive = MemoryCache<String, Agent>()
+    private val cacheLive = MemoryCache<String, Agent?>()
 
     override val state: AgentState
         get() = _state
@@ -43,7 +43,7 @@ class AgentRepositoryImpl @Inject constructor(
 
     override fun getAgent(agentId: String): Agent? = cache[agentId]
 
-    override fun observeAgent(agentId: String): LiveData<Agent> = cacheLive[agentId, Agent("")]
+    override fun observeAgent(agentId: String): LiveData<Agent?> = cacheLive[agentId]
 
     override fun setAgentStatus(agentId: String, status: String) = updateStateInRepositoryThread {
         val newStatus = AgentStatus.mapFrom(status)

@@ -34,7 +34,7 @@ interface AgentRepository {
      * @param agentId Идентификатор агента.
      * @return Актуальная информация об агенте и ее обновление.
      */
-    fun observeAgent(agentId: String): LiveData<Agent>
+    fun observeAgent(agentId: String): LiveData<Agent?>
 
     /**
      * Установка информации о статусе агента.
