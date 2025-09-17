@@ -22,7 +22,6 @@ import javax.inject.Inject
 class ErrorState @Inject constructor(
     stateContext: ServiceStateContext,
     private val service: JivoWebSocketService,
-    private val sdkConfigUseCase: SdkConfigUseCase,
     private val reconnectStrategy: ReconnectStrategy,
     private val connectionStateRepository: ConnectionStateRepository,
 ) : ServiceState(stateContext) {
@@ -31,7 +30,7 @@ class ErrorState @Inject constructor(
     private val reconnectCallback = Runnable {
         stateContext.changeState(LoadConfigState::class.java)
         connectionStateRepository.setState(ConnectionState.LoadConfig)
-        sdkConfigUseCase.execute()
+        stateContext.getState().load()
     }
 
     override fun start() {
