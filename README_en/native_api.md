@@ -82,8 +82,6 @@ Example:
 
 > [!IMPORTANT]<br>The `Jivo.setData()` method, must be called before opening a chat.
 > <br>After calling `Jivo.setData()`, it is not necessary to call the `Jivo.clear()`, `Jivo.unsubscribeFromPush()` methods.
-> <br>If you use notifications in your application, after calling `Jivo.setData()`, call the
-> method `Jivo.subscribeFromPush()`.
 
 > [!NOTE]<br>Saves chat history after deleting an app or wiping data. To save the chat history, you need to generate and use a
 > **JWT-токен**. To sign the **JWT token**, you will need to generate a **SECRET** and pass it thought the Jivo desktop/web app in the SDK channel settings. Store **SECRET** only on the

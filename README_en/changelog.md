@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.6.2 (19/09/2025)
+-----------------------
+
+### Bug Fixes:
+
+-   fixed errors that caused the SDK not work correctly;
+
 2.6.1 (29/08/2025)
 -----------------------
 
