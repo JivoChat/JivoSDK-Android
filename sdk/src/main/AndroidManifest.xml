@@ -23,6 +23,7 @@
         <activity
             android:name=".ui.chat.JivoChatActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Base.Theme.JivoSDK" />
 
         <activity

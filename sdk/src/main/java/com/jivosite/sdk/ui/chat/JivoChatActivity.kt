@@ -13,7 +13,7 @@ import com.jivosite.sdk.R
 class JivoChatActivity : AppCompatActivity(R.layout.activity_jivo_chat) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
     }
 }
