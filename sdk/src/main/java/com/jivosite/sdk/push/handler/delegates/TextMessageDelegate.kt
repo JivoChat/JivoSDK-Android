@@ -111,7 +111,10 @@ class TextMessageDelegate @Inject constructor(
     }
 
     override fun createNotification(args: TextMessageArgs): Notification {
-        val title = context.appContext.getString(R.string.notification_message_title)
+        val title = Jivo.getConfig().notificationTitle.asString(
+            context.appContext.resources,
+            context.appContext.getString(R.string.notification_message_title)
+        )
         val text = context.appContext.getString(R.string.notification_message_text_format, args.name, args.message)
         return getDefaultNotificationBuilder()
             .setContentTitle(title)
