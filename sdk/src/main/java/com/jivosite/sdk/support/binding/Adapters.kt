@@ -459,12 +459,14 @@ fun ratingState(layout: ViewGroup, state: RatingState?) {
             is RatingFormState.Initial -> {}
 
             is RatingFormState.Ready -> {
+                layout.isVisible = true
                 viewHolder.title?.text = context.getString(R.string.rate_form_title)
                 viewHolder.description?.text =
                     if (Jivo.getConfig().useRattingStringsRes) context.getString(R.string.rate_form_description) else rateSettings?.customTitle
                 viewHolder.rating?.isVisible = true
                 viewHolder.comment?.isVisible = false
                 viewHolder.sendRating?.isVisible = false
+                viewHolder.sendRating?.isEnabled = false
                 viewHolder.rating?.init(rateSettings?.type?.type, rateSettings?.icon?.icon)
             }
 
@@ -474,6 +476,7 @@ fun ratingState(layout: ViewGroup, state: RatingState?) {
                     if (Jivo.getConfig().useRattingStringsRes) context.getString(R.string.rate_form_description) else rateSettings?.customTitle
                 viewHolder.comment?.isVisible = true
                 viewHolder.sendRating?.isVisible = true
+                viewHolder.sendRating?.isEnabled = true
                 viewHolder.rating?.init(rateSettings?.type?.type, rateSettings?.icon?.icon, state.ratingFormState.rate)
 
                 val comment = state.ratingFormState.comment
