@@ -459,7 +459,6 @@ fun ratingState(layout: ViewGroup, state: RatingState?) {
             is RatingFormState.Initial -> {}
 
             is RatingFormState.Ready -> {
-                layout.isVisible = true
                 viewHolder.title?.text = context.getString(R.string.rate_form_title)
                 viewHolder.description?.text =
                     if (Jivo.getConfig().useRattingStringsRes) context.getString(R.string.rate_form_description) else rateSettings?.customTitle
