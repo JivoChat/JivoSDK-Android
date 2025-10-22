@@ -1,6 +1,18 @@
 Changelog
 =========
 
+2.7.0 (22/10/2025)
+-----------------------
+
+### Bug Fixes:
+
+-   fix message input overlap;
+-   fixed errors that caused the SDK not work correctly;
+
+### Features:
+
+-   added the ability to set a custom title for PUSH notifications;
+
 2.6.2 (19/09/2025)
 -----------------------
 
