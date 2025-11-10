@@ -406,7 +406,6 @@ android/
 >```
 ></details>
 
-
 Далее необходимо создать `JivoSDKPackage` внутри папки `android/app/src/main/java/your.package.name/`
 
 > <details><summary>Kotlin</summary>
@@ -551,7 +550,8 @@ export default function App() {
 }
 ... 
 ```
-Необходимо создать `SdkChatActivity.java` в директории `android/app/src/main/java/your.package.name/`
+Необходимо создать `SdkChatActivity` в директории `android/app/src/main/java/your.package.name/`
+
 > <details><summary>Kotlin</summary>
 >
 >```kotlin
