@@ -296,10 +296,16 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
         return true
     }
 
-    fun openMenuActions(isLongPress: Boolean): Boolean {
-        PopupMenu(requireContext(), binding.menuActions, Gravity.START).apply {
+    fun openMenuActions(hasOnLongClick: Boolean): Boolean {
+        PopupMenu(
+            requireContext(),
+            binding.menuActions,
+            Gravity.NO_GRAVITY,
+            0,
+            R.style.Widget_JivoSDK_PopupMenu
+        ).apply {
             inflate(R.menu.menu_chat_input_actions)
-            menu.findItem(R.id.action_send_logs)?.isVisible = isLongPress
+            menu.findItem(R.id.action_send_logs)?.isVisible = hasOnLongClick
             setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.action_photo -> {

@@ -544,4 +544,9 @@
         <item name="android:indeterminateTint">?colorOnPrimary</item>
     </style>
 
+    <style name="Widget.JivoSDK.PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:overlapAnchor">true</item>
+        <item name="android:dropDownVerticalOffset">-98dp</item>
+    </style>
+
 </resources>
