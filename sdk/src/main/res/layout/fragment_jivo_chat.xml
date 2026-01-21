@@ -289,7 +289,8 @@
                 android:layout_marginBottom="16dp"
                 android:background="?android:selectableItemBackgroundBorderless"
                 android:enabled="@{viewModel.canAttach}"
-                android:onClick="@{() -> fragment.openMenuActions()}"
+                android:onClick="@{() -> fragment.openMenuActions(false)}"
+                android:onLongClick="@{() -> fragment.openMenuActions(true)}"
                 android:src="@drawable/jivo_sdk_vic_clip"
                 android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
                 android:visibility="@{viewModel.canUploadFile ? View.VISIBLE : View.GONE}" />
