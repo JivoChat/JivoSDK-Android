@@ -161,7 +161,7 @@
 
     <!-- Chat background -->
     <style name="JivoSDK.ChatBackground" parent="Main.Theme.JivoSDK">
-        <item name="android:background">@color/jivo_sdk_surface</item>
+        <item name="android:background">@color/jivo_sdk_chat_background</item>
     </style>
 
     <!-- Outgoing bubble background -->

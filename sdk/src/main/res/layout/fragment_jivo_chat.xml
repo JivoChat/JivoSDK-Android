@@ -21,12 +21,12 @@
         android:id="@+id/content"
         style="@style/JivoSDKThemeSwitcher"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/jivo_sdk_chat_background">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            style="@style/JivoSDK.ChatBackground"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="@{viewModel.isUnavailable ? View.VISIBLE:View.INVISIBLE}">
