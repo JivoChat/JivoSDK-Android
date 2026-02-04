@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicReference
  *
  * @author Aleksandr Tavtorkin (tavtorkin@jivosite.com)
  */
-class FileLogTree(private val context: Context) : Timber.Tree() {
+class FileLogTree(context: Context) : Timber.Tree() {
 
     companion object {
         const val LOGS_DIR = "logs"
@@ -39,6 +39,8 @@ class FileLogTree(private val context: Context) : Timber.Tree() {
 
     private fun defaultContext() = Dispatchers.Default
 
+    private val appContext: Context = context.applicationContext
+
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         if (priority < Log.DEBUG) {
             return
@@ -46,7 +48,7 @@ class FileLogTree(private val context: Context) : Timber.Tree() {
 
         try {
             coroutineScope.launch {
-                writeFile.lazySet(context.createFile(createFileName()))
+                writeFile.lazySet(appContext.createFile(createFileName()))
                 val result = runCatching {
                     FileOutputStream(
                         writeFile.get(),

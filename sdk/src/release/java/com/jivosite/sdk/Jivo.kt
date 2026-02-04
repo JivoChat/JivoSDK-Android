@@ -32,6 +32,7 @@ import com.jivosite.sdk.ui.chat.NotificationPermissionListener
 import timber.log.Timber
 import java.lang.ref.WeakReference
 import com.jivosite.sdk.BuildConfig
+import timber.log.Timber.DebugTree
 
 /**
  * Created on 02.09.2020.
@@ -40,7 +41,7 @@ import com.jivosite.sdk.BuildConfig
  */
 object Jivo {
 
-    private const val TAG = "JivoSDK"
+    internal const val TAG = "JivoSDK"
 
     internal lateinit var jivoSdkComponent: JivoSdkComponent
     private var serviceComponent: WebSocketServiceComponent? = null
@@ -55,12 +56,13 @@ object Jivo {
 
     private var config: Config = Config.Builder().build()
 
-    private var loggingEnabled = false
+    private lateinit var fileLogTree: FileLogTree
+    private var loggingEnabled = true
 
     @JvmStatic
     fun init(appContext: Context) {
-        Timber.plant(FileLogTree(appContext))
-        enableLogging()
+        fileLogTree = FileLogTree(appContext)
+        Timber.plant(fileLogTree, DebugTree())
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
             .sdkModule(SdkModule(appContext))
             .build()
@@ -158,8 +160,9 @@ object Jivo {
     }
 
     @JvmStatic
-    fun enableLogging() {
-        loggingEnabled = true
+    fun disableLogging() {
+        loggingEnabled = false
+        Timber.uproot(fileLogTree)
     }
 
     @JvmStatic

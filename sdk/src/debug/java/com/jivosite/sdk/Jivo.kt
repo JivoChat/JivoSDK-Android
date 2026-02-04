@@ -46,7 +46,7 @@ import timber.log.Timber.DebugTree
  */
 object Jivo {
 
-    private const val TAG = "JivoSDK"
+    internal const val TAG = "JivoSDK"
 
     internal lateinit var jivoSdkComponent: JivoSdkComponent
     private var serviceComponent: WebSocketServiceComponent? = null
@@ -63,12 +63,13 @@ object Jivo {
 
     private var config: Config = Config.Builder().build()
 
-    private var loggingEnabled = false
+    private lateinit var fileLogTree: FileLogTree
+    private var loggingEnabled = true
 
     @JvmStatic
     fun init(appContext: Context) {
-        Timber.plant(FileLogTree(appContext), DebugTree())
-        enableLogging()
+        fileLogTree = FileLogTree(appContext)
+        Timber.plant(fileLogTree, DebugTree())
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
             .sdkModule(SdkModule(appContext))
             .build()
@@ -166,8 +167,9 @@ object Jivo {
     }
 
     @JvmStatic
-    fun enableLogging() {
-        loggingEnabled = true
+    fun disableLogging() {
+        loggingEnabled = false
+        Timber.uproot(fileLogTree)
     }
 
     @JvmStatic
