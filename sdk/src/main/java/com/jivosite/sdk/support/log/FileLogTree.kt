@@ -42,7 +42,7 @@ class FileLogTree(context: Context) : Timber.Tree() {
     private val appContext: Context = context.applicationContext
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        if (priority < Log.DEBUG) {
+        if (priority < Log.DEBUG && tag != Jivo.TAG) {
             return
         }
 
@@ -53,7 +53,9 @@ class FileLogTree(context: Context) : Timber.Tree() {
                     FileOutputStream(
                         writeFile.get(),
                         true
-                    ).write("${convertLongToTime(System.currentTimeMillis())} ${convertPriorityToTag(priority)}: $message \n".toByteArray())
+                    ).use {
+                        it.write("${convertLongToTime(System.currentTimeMillis())} ${convertPriorityToTag(priority)}: $message \n".toByteArray())
+                    }
                 }
                 if (result.isFailure) {
                     result.exceptionOrNull()?.printStackTrace()
