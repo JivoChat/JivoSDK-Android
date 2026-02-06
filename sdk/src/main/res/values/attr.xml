@@ -19,4 +19,9 @@
         <attr name="postfix" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="JivoSDKInputText">
+        <attr name="hint" format="string" />
+        <attr name="disabledHint" format="string" />
+    </declare-styleable>
+
 </resources>

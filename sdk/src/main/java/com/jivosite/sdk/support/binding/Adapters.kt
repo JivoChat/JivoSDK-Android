@@ -432,8 +432,17 @@ fun setFileName(view: TextView, state: MediaItemState?) {
 
 @BindingAdapter("stateInputText")
 fun setStateInputText(view: AppCompatEditText, isEnabled: Boolean) {
-    view.hint =
-        view.context.getString(if (isEnabled) R.string.input_message_placeholder else R.string.chat_input_status_contact_info)
+    val context = view.context
+    val typedArray = context.theme.obtainStyledAttributes(
+        R.style.Widget_JivoSDK_TextInputEditText_TextInput,
+        R.styleable.JivoSDKInputText
+    )
+    val hint = typedArray.getString(R.styleable.JivoSDKInputText_hint)
+        ?: context.getString(R.string.input_message_placeholder)
+    val disabledHint = typedArray.getString(R.styleable.JivoSDKInputText_disabledHint)
+        ?: context.getString(R.string.chat_input_status_contact_info)
+    typedArray.recycle()
+    view.hint = if (isEnabled) hint else disabledHint
     view.isEnabled = isEnabled
 }
 

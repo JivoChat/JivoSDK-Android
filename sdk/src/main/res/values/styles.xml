@@ -195,6 +195,9 @@
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:checked">true</item>
         <item name="boxBackgroundMode">none</item>
+
+        <item name="hint">@string/input_message_placeholder</item>
+        <item name="disabledHint">@string/chat_input.status.contact_info</item>
     </style>
 
     <!-- Contact form background -->
