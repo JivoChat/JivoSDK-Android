@@ -48,8 +48,10 @@ class JivoChatFragmentModule(private val fragment: Fragment) {
 
     @IntoSet
     @Provides
-    fun provideWelcomeMessageItemDelegate(): AdapterDelegate<ChatEntry> {
-        return WelcomeMessageItemDelegate()
+    fun provideWelcomeMessageItemDelegate(
+        markwonProvider: Provider<Markwon>
+    ): AdapterDelegate<ChatEntry> {
+        return WelcomeMessageItemDelegate(markwonProvider)
     }
 
     @IntoSet
