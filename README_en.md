@@ -19,13 +19,17 @@ The **Jivo Mobile SDK** allows you to embed a chat into your native **Android** 
 -   New messages indicator inside the integrated app
 -   PUSH notifications
 
-### Current version: 2.7.0
+### Current version: 2.8.0
 
 List of changes:
 
--   fix message input overlap;
--   fixed errors that caused the SDK not work correctly
--   added the ability to set a custom title for PUSH notifications;
+-   added option to disable logging
+-   added tag check when logging
+-   added ability to customize the input field hint
+-   added Markdown support for welcome message
+-   "Technical log" menu item is available on long press
+-   added style for popup menu
+-   added style for chat messages area background
 
 ### Known Issues:
 - There is a problem with displaying colors in **SDK** chat on **Xiaomi** devices. Solution - add a flag to your application's styles:

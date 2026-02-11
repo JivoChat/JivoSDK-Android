@@ -1,6 +1,19 @@
 Changelog
 =========
 
+2.8.0 (11/02/2025)
+-----------------------
+
+### Features:
+
+-   "Technical log" menu item is available on long press;
+-   added style for popup menu;
+-   added style for chat messages area background;
+-   added option to disable logging;
+-   added tag check when logging;
+-   added ability to customize the input field hint;
+-   added Markdown support for welcome message.
+
 2.7.0 (22/10/2025)
 -----------------------
 

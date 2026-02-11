@@ -406,11 +406,12 @@
 | `setOnBackPressed` | [Кастомная навигация по клику кнопки “назад”.](#setOnBackPressed) |
 | `setUriNotificationSound` | [Установка кастомного звука push-уведомления.](#setUriNotificationSound) |
 | `setNotificationSmallIcon` | [Установка малой иконки push-уведомления.](#setNotificationColorIcon) |
+| `setNotificationTitle` | [Установка заголовка push-уведомления.](#setNotificationTitle) |
 | `setOfflineMessage` | [Оповещение об отсутствии операторов на канале.](#setOfflineMessage) |
 | `useRattingStringsRes` | [Использование кастомных, строковых ресурсов для формы оценки](#useRattingStringsRes) |
 
 ### <a name="setWelcomeMessage">setWelcomeMessage</a> 
-Установка текста привественного сообщения. В метод `setWelcomeMessage()` требуется передать строковый ресурс. Приветственное сообщение отображается, если отсутствуют сообщения в чате.
+Установка текста приветственного сообщения. В метод `setWelcomeMessage()` требуется передать строковый ресурс. Приветственное сообщение отображается, если отсутствуют сообщения в чате.
 
 Пример:
 > <details><summary>Kotlin</summary>
@@ -429,6 +430,30 @@
 >```java
 >Jivo.setConfig(new Config.Builder()
 >        .setWelcomeMessage(R.string.welcome_message_placeholder)
+>        .build());
+>```
+></details>
+
+### <a name="setNotificationTitle">setNotificationTitle</a>
+Установка заголовка push-уведомления. В метод `setNotificationTitle()` необходимо передать строковый ресурс.
+
+Пример:
+> <details><summary>Kotlin</summary>
+>
+>```kotlin
+>Jivo.setConfig(
+>   Config.Builder()
+>       .setNotificationTitle(R.string.notification_title)
+>       .build()
+>)
+>```
+></details>
+>
+> <details> <summary>Java</summary>
+>
+>```java
+>Jivo.setConfig(new Config.Builder()
+>        .setNotificationTitle(R.string.notification_title)
 >        .build());
 >```
 ></details>

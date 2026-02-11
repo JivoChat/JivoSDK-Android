@@ -422,6 +422,7 @@ Table of JivoSDK advanced settings:
 | `setOnBackPressed` | [Custom navigation on the “back” button tap](#setOnBackPressed) |
 | `setUriNotificationSound` | [Set a custom notification sound.](#setUriNotificationSound) |
 | `setNotificationSmallIcon` | [Set a small push notification icon.](#setNotificationColorIcon) |
+| `setNotificationTitle` | [Set the push notification title.](#setNotificationTitle) |
 | `setOfflineMessage` | [Notification of the absence of operators on the channel.](#setOfflineMessage) |
 | `useRattingStringsRes` | [Using custom, string resources for the evaluation form](#useRattingStringsRes) |
 
@@ -447,6 +448,31 @@ Example:
 >```java
 >Jivo.setConfig(new Config.Builder()
 >        .setWelcomeMessage(R.string.welcome_message_placeholder)
+>        .build());
+>```
+></details>
+
+### <a name="setNotificationTitle">setNotificationTitle</a>
+
+Set the push notification title. You need to pass a string resource to the `setNotificationTitle()` method.
+
+Example:
+> <details><summary>Kotlin</summary>
+>
+>```kotlin
+>Jivo.setConfig(
+>   Config.Builder()
+>       .setNotificationTitle(R.string.notification_title)
+>       .build()
+>)
+>```
+></details>
+>
+> <details> <summary>Java</summary>
+>
+>```java
+>Jivo.setConfig(new Config.Builder()
+>        .setNotificationTitle(R.string.notification_title)
 >        .build());
 >```
 ></details>
