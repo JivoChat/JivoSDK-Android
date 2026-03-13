@@ -31,8 +31,6 @@ import com.jivosite.sdk.support.log.FileLogTree
 import com.jivosite.sdk.ui.chat.NotificationPermissionListener
 import timber.log.Timber
 import java.lang.ref.WeakReference
-import com.jivosite.sdk.BuildConfig
-import timber.log.Timber.DebugTree
 
 /**
  * Created on 02.09.2020.
@@ -61,8 +59,10 @@ object Jivo {
 
     @JvmStatic
     fun init(appContext: Context) {
-        fileLogTree = FileLogTree(appContext)
-        Timber.plant(fileLogTree, DebugTree())
+        if (loggingEnabled) {
+            fileLogTree = FileLogTree(appContext)
+            Timber.plant(fileLogTree)
+        }
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
             .sdkModule(SdkModule(appContext))
             .build()

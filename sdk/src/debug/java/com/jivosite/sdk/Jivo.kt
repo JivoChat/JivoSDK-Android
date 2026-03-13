@@ -68,8 +68,9 @@ object Jivo {
 
     @JvmStatic
     fun init(appContext: Context) {
-        fileLogTree = FileLogTree(appContext)
-        Timber.plant(fileLogTree, DebugTree())
+        if (loggingEnabled) {
+            Timber.plant(DebugTree())
+        }
         jivoSdkComponent = DaggerJivoSdkComponent.builder()
             .sdkModule(SdkModule(appContext))
             .build()
