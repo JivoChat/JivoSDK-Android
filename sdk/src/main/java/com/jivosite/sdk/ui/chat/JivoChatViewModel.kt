@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.webkit.MimeTypeMap
 import androidx.lifecycle.*
+import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.logger.LogMessage
 import com.jivosite.sdk.logger.LogsRepository
 import com.jivosite.sdk.model.SdkContext
@@ -523,7 +524,7 @@ class JivoChatViewModel @Inject constructor(
     fun loadNextPage() {
         paginationRepository.state.takeIf { it.hasNextPage && !it.loading }?.run {
             paginationRepository.loadingStarted()
-            val msg = historyRepository.state.messages.lastOrNull() ?: return
+            val msg = historyRepository.state.messages.firstOrNull() ?: return
             messageTransmitter.sendMessage(SocketMessage.history(msg.number))
         }
     }
