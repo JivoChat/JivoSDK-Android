@@ -14,7 +14,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         Jivo.init(appContext = this)
-        Jivo.setData("4UoDFh5U7n")
+        Jivo.setData("Q7BcPYNqCG")
         Jivo.setConfig(
             Config.Builder()
                 .setWelcomeMessage(R.string.welcome)

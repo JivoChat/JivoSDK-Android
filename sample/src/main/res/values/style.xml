@@ -9,6 +9,7 @@
 
     <style name="JivoSDKThemeSwitcher">
         <item name="theme">@style/Main.Theme.JivoSDK.Blue</item>
+        <item name="android:background">@color/jivo_sdk_chat_background</item>
     </style>
 
     <style name="Widget.JivoSDK.AppBarLayout" parent="Widget.Material3.AppBarLayout">

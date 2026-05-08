@@ -8,25 +8,11 @@
     tools:context=".ui.MainActivity"
     android:fitsSystemWindows="true">
 
-    <TextView
-        android:id="@+id/explanation"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/chat"
+        android:name="com.jivosite.jivosdk_android_sample.ui.MainFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/explanation"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.jivosite.sdk.ui.views.JivoChatButton
-        android:id="@+id/jivoBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_height="match_parent"
+        android:tag="chat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

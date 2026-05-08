@@ -11,17 +11,4 @@ import com.jivosite.sdk.ui.chat.JivoChatFragment
  *
  * @author Alexander Tavtorkin (tavtorkin@jivosite.com)
  */
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        findViewById<View>(R.id.jivoBtn)?.run {
-            setOnClickListener {
-                supportFragmentManager
-                    .beginTransaction()
-                    .add(R.id.container, JivoChatFragment())
-                    .commit()
-            }
-        }
-    }
-}
+class MainActivity : AppCompatActivity(R.layout.activity_main)
