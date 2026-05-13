@@ -304,7 +304,7 @@ open class JivoChatFragment : Fragment(R.layout.fragment_jivo_chat) {
             0,
             R.style.Widget_JivoSDK_PopupMenu
         ).apply {
-            inflate(R.menu.menu_chat_input_actions)
+            inflate(R.menu.jivo_sdk_menu_chat_input_actions)
             menu.findItem(R.id.action_send_logs)?.isVisible = hasOnLongClick
             setOnMenuItemClickListener {
                 when (it.itemId) {
