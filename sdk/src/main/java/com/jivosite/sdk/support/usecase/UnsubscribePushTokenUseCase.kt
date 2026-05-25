@@ -21,27 +21,29 @@ class UnsubscribePushTokenUseCase @Inject constructor(
     private val schedulers: Schedulers,
     private val storage: SharedStorage,
     private val pushApi: PushApi,
-    private val profileRepository: ProfileRepository
+    private val profileRepository: ProfileRepository,
 ) : UseCase {
 
     private lateinit var clientId: String
     private lateinit var siteId: String
+    private lateinit var pushProvider: String
 
     private var onUnsubscribePushCallback: (() -> Unit)? = null
 
     override fun execute() {
         clientId = profileRepository.id
         siteId = storage.siteId
+        pushProvider = storage.pushProvider
 
         val deviceId = storage.deviceId
 
-        if (clientId.isBlank() || siteId.isBlank() || deviceId.isBlank()) {
-            Jivo.e("Failed to unsubscribe to push notifications due to missing required parameters: clientId = $clientId,  siteId = $siteId, deviceId = $deviceId")
+        if (clientId.isBlank() || siteId.isBlank() || deviceId.isBlank() || pushProvider.isBlank()) {
+            Jivo.e("Failed to unsubscribe to push notifications due to missing required parameters: clientId = $clientId,  siteId = $siteId, deviceId = $deviceId, pushProvider = $pushProvider")
             onUnsubscribePushCallback?.invoke()
             return
         }
 
-        val deviceInfo = Device(deviceId, token = "")
+        val deviceInfo = Device(deviceId, token = "", pushProvider = pushProvider)
 
         schedulers.ui.execute {
             createRequest(clientId, siteId.toLong(), storage.widgetId, deviceInfo).loadSilentlyResource {

@@ -42,6 +42,7 @@ class SharedStorage(context: Context) {
 
         private const val USER_TOKEN = "userToken"
         private const val PUSH_TOKEN = "pushToken"
+        private const val PUSH_PROVIDER = "pushProvider"
 
         private const val IN_APP_NOTIFICATION_ENABLED = "notification"
 
@@ -86,6 +87,7 @@ class SharedStorage(context: Context) {
 
     var userToken: String by SharedPreference(preferences, USER_TOKEN, "")
     var pushToken: String by SharedPreference(preferences, PUSH_TOKEN, "")
+    var pushProvider: String by SharedPreference(preferences, PUSH_PROVIDER, "")
 
     var doNotShowPings: Boolean by SharedPreference(preferences, LOG_DO_NOT_SHOW_PINGS, false)
 

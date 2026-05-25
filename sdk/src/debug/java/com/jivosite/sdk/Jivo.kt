@@ -27,6 +27,7 @@ import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.CustomData
 import com.jivosite.sdk.model.repository.history.NewMessageListener
 import com.jivosite.sdk.model.storage.SharedStorage
+import com.jivosite.sdk.push.JivoPushProvider
 import com.jivosite.sdk.socket.JivoWebSocketService
 import com.jivosite.sdk.support.builders.ContactInfo
 import com.jivosite.sdk.support.builders.Config
@@ -139,10 +140,14 @@ object Jivo {
     }
 
     @JvmStatic
+    @Deprecated(
+        message = "Use handleRemoteMessage(Map<String, String>) for a push provider independent API.",
+        replaceWith = ReplaceWith("handleRemoteMessage(message.data)")
+    )
     fun handleRemoteMessage(message: RemoteMessage): Boolean {
         return if (Jivo::jivoSdkComponent.isInitialized) {
             val handler = jivoSdkComponent.remoteMessageHandler()
-            handler.handleRemoteMessage(message)
+            handler.handleRemoteMessage(message.data)
         } else {
             e("Call handleRemoteMessage(), JivoSdkComponent hasn't isInitialized")
             false
@@ -150,15 +155,40 @@ object Jivo {
     }
 
     @JvmStatic
+    fun handleRemoteMessage(payload: Map<String, String>): Boolean {
+        return if (Jivo::jivoSdkComponent.isInitialized) {
+            val handler = jivoSdkComponent.remoteMessageHandler()
+            handler.handleRemoteMessage(payload)
+        } else {
+            e("Call handleRemoteMessage(), JivoSdkComponent hasn't isInitialized")
+            false
+        }
+    }
+
+    @JvmStatic
+    @Deprecated(
+        message = "Will be removed in the next major release. Use subscribeToPush(token, pushProvider) to specify the push provider explicitly."
+    )
     fun updatePushToken(token: String) {
         if (Jivo::jivoSdkComponent.isInitialized) {
             i("Call updatePushToken(token = $token)")
+            subscribeToPush(token, JivoPushProvider.FCM)
+        } else {
+            e("Call updatePushToken(), JivoSdkComponent hasn't isInitialized")
+        }
+    }
+
+    @JvmStatic
+    fun subscribeToPush(token: String, pushProvider: JivoPushProvider) {
+        if (Jivo::jivoSdkComponent.isInitialized) {
+            i("Call subscribeToPush(token = $token, pushProvider = $pushProvider)")
             if (storage.pushToken != token) {
                 storage.hasSentPushToken = false
                 storage.pushToken = token
             }
+            storage.pushProvider = pushProvider.value
         } else {
-            e("Call updatePushToken(), JivoSdkComponent hasn't isInitialized")
+            e("Call subscribeToPush(), JivoSdkComponent hasn't isInitialized")
         }
     }
 

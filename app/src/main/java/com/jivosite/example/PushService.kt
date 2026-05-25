@@ -7,5 +7,4 @@ import com.jivosite.sdk.push.JivoFirebaseMessagingService
  *
  * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
-class PushService : JivoFirebaseMessagingService() {
-}
+class PushService : JivoFirebaseMessagingService()

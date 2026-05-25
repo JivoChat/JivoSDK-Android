@@ -13,7 +13,7 @@ data class Device(
     @Json(name = "device_id")
     val deviceId: String,
     @Json(name = "platform")
-    val platform: String = "android",
+    val pushProvider: String,
     @Json(name = "token")
     val token: String
 )

@@ -9,15 +9,18 @@ import com.jivosite.sdk.Jivo
  *
  * @author Alexandr Shibelev (shibelev@jivosite.com)
  */
+@Deprecated(
+    message = "Provider-specific helper, will be removed in the next major release. Call Jivo.subscribeToPush() and Jivo.handleRemoteMessage() from your push provider's MessagingService instead."
+)
 open class JivoFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        Jivo.updatePushToken(token)
+        Jivo.subscribeToPush(token, JivoPushProvider.FCM)
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        Jivo.handleRemoteMessage(message)
+        Jivo.handleRemoteMessage(message.data)
     }
 }

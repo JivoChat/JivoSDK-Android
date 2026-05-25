@@ -1,11 +1,8 @@
 package com.jivosite.sdk.support.usecase
 
 import androidx.lifecycle.LiveData
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.messaging.FirebaseMessaging
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.api.PushApi
-import com.jivosite.sdk.model.SdkContext
 import com.jivosite.sdk.model.pojo.push.Device
 import com.jivosite.sdk.model.repository.profile.ProfileRepository
 import com.jivosite.sdk.model.storage.SharedStorage
@@ -32,51 +29,30 @@ class SubscribePushTokenUseCase @Inject constructor(
     private lateinit var siteId: String
     private lateinit var deviceId: String
     private lateinit var token: String
+    private lateinit var pushProvider: String
 
 
     override fun execute() {
+        deviceId = storage.deviceId.ifBlank { UUID.randomUUID().toString() }.also { storage.deviceId = it }
         clientId = profileRepository.id
         siteId = storage.siteId
+        token = storage.pushToken
+        pushProvider = storage.pushProvider
 
         if (storage.hasSentPushToken) {
             return
-        } else if (clientId.isBlank() || siteId.isBlank()) {
-            Jivo.e("Failed to subscribe to push notifications due to missing required parameters: clientId = $clientId,  siteId = $siteId")
+        } else if (clientId.isBlank() || siteId.isBlank() || token.isBlank() || pushProvider.isBlank()) {
+            Jivo.e("Failed to subscribe to push notifications due to missing required parameters: clientId = $clientId,  siteId = $siteId, token = $token, pushProvider = $pushProvider")
             return
         }
 
-        deviceId = storage.deviceId.ifBlank { UUID.randomUUID().toString() }.also { storage.deviceId = it }
-        token = storage.pushToken
-
-        when {
-            token.isBlank() -> {
-                try {
-                    FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-                        if (!task.isSuccessful) {
-                            return@OnCompleteListener
-                        }
-                        task.result?.run {
-                            storage.pushToken = this
-                            prepareData(this)
-                        }
-                    }).addOnFailureListener {
-                        Jivo.e(Throwable(it), "Fetching FCM registration token failed")
-                    }
-                } catch (e: Exception) {
-                    Jivo.e(e, "Fetching FCM registration token failed")
-                }
-            }
-
-            token.isNotBlank() -> {
-                prepareData(token)
-            }
-        }
+        prepareData(token, pushProvider)
     }
 
-    private fun prepareData(token: String) {
+    private fun prepareData(token: String, pushProvider: String) {
 
         val deviceInfo = Device(
-            deviceId = deviceId, token = token
+            deviceId = deviceId, token = token, pushProvider = pushProvider
         )
 
         schedulers.ui.execute {
