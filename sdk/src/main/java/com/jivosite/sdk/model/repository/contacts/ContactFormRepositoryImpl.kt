@@ -84,6 +84,7 @@ class ContactFormRepositoryImpl @Inject constructor(
     }
 
     override fun clear() = updateStateInRepositoryThread {
+        doBefore { !storage.hasSentContactInfo || !storage.hasSentCustomData }
         transform {
             ContactFormState()
         }

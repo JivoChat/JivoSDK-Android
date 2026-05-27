@@ -48,6 +48,8 @@ class DefaultTransmitter @Inject constructor() : Transmitter {
         }
     }
 
+    override fun hasActiveSubscriber(): Boolean = subscribers.isNotEmpty()
+
     override fun clear() {
         subscribers.clear()
     }

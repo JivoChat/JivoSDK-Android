@@ -17,5 +17,7 @@ interface Transmitter {
 
     fun sendMessage(message: String)
 
+    fun hasActiveSubscriber(): Boolean
+
     fun clear()
 }
