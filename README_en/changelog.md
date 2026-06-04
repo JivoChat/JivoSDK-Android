@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.8.3 (04/06/2026)
+-----------------------
+
+### Bug Fixes:
+
+-   fixed the sending of client data after reconnection;
+
 2.8.2 (13/05/2026)
 -----------------------
 
