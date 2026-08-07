@@ -1,5 +1,6 @@
 package com.jivosite.sdk
 
+import android.adservices.ondevicepersonalization.RequestToken
 import android.app.LocaleManager
 import android.content.Context
 import android.os.Build
@@ -90,30 +91,10 @@ object Jivo {
     }
 
     @JvmStatic
-    fun setData(widgetId: String, userToken: String = "", host: String = "") {
-        i("Call setData(widgetId = $widgetId, userToken = $userToken, host = $host)")
+    fun setData(widgetId: String = "", userToken: String = "", host: String = "") {
         if (Jivo::jivoSdkComponent.isInitialized) {
-            when {
-                storage.clientId.isBlank() -> {
-                    storage.widgetId = widgetId
-                    if (userToken.isNotBlank()) {
-                        storage.userToken = userToken
-                    }
-                }
-
-                storage.widgetId != widgetId || userToken.isNotBlank() && storage.userToken != userToken -> {
-                    lifecycleObserver.stopSession()
-                    jivoSdkComponent.unsubscribePushTokenUseCaseProvider().get().onUnsubscribePush {
-                        jivoSdkComponent.clearUseCaseProvider().get().execute()
-                        storage.userToken = userToken
-                        storage.widgetId = widgetId
-                        lifecycleObserver.startNewSession()
-                    }.execute()
-                }
-            }
-            if (host.verifyHostName()) {
-                storage.host = host
-            }
+            i("Call setData(widgetId = $widgetId, userToken = $userToken, host = $host)")
+            jivoSdkComponent.setDataUseCase().get().execute(widgetId, userToken, host)
         } else {
             e("Call setData(), JivoSdkComponent hasn't isInitialized")
         }
