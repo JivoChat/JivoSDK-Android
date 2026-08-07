@@ -58,7 +58,7 @@ class SubscribePushTokenUseCase @Inject constructor(
         schedulers.ui.execute {
             createRequest(clientId, siteId.toLong(), storage.widgetId, deviceInfo).loadSilentlyResource {
                 result {
-                    Jivo.i("Successful request to subscribe to push notifications")
+                    Jivo.i("Successful request to subscribe to push notifications. clientId = $clientId, siteId = $siteId, widgetId = ${storage.widgetId}, deviceId = ${deviceInfo.deviceId},  pushProvider = ${deviceInfo.pushProvider}, token = ${deviceInfo.token}")
                     storage.hasSentPushToken = true
                 }
                 error {
@@ -69,7 +69,7 @@ class SubscribePushTokenUseCase @Inject constructor(
     }
 
     private fun createRequest(clientId: String, siteId: Long, widgetId: String, device: Device): LiveData<Resource<Unit>> {
-        Jivo.i("Create request to subscribe to push notifications, parameters: clientId = $clientId, siteId = $siteId, widgetId = $widgetId, device = ${device.deviceId}")
+        Jivo.i("Create request to subscribe to push notifications, parameters: clientId = $clientId, siteId = $siteId, widgetId = $widgetId, device = ${device.deviceId}, pushProvider = ${device.pushProvider}, token = ${device.token}")
         return NetworkResource.Builder<Unit, Unit>(schedulers).createCall {
             pushApi.sendDeviceInfo(
                 clientId,
