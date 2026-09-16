@@ -17,6 +17,7 @@ import com.jivosite.sdk.push.RemoteMessageHandler
 import com.jivosite.sdk.support.usecase.ClearUseCase
 import com.jivosite.sdk.support.usecase.RecoveryClientIdUseCase
 import com.jivosite.sdk.support.usecase.HistoryUseCase
+import com.jivosite.sdk.support.usecase.SetDataUseCase
 import com.jivosite.sdk.support.usecase.SubscribePushTokenUseCase
 import com.jivosite.sdk.support.usecase.UnsubscribePushTokenUseCase
 import com.jivosite.sdk.ui.views.JivoChatButton
@@ -78,4 +79,6 @@ interface JivoSdkComponent {
     fun historyUseCase(): Provider<HistoryUseCase>
 
     fun clientIdRecoveryUseCase(): Provider<RecoveryClientIdUseCase>
+
+    fun setDataUseCase(): Provider<SetDataUseCase>
 }
