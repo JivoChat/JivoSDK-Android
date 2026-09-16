@@ -1,6 +1,14 @@
 Changelog
 =========
 
+3.0.0-alpha01 (15/09/2026)
+-----------------------
+
+### Features:
+
+-   added push notification support for HMS and RuStore, alongside the existing FCM integration;
+-   improved SDK configuration and channel/user change handling;
+
 2.8.1 (13/03/2026)
 -----------------------
 

@@ -19,11 +19,12 @@ The **Jivo Mobile SDK** allows you to embed a chat into your native **Android** 
 -   New messages indicator inside the integrated app
 -   PUSH notifications
 
-### Current version: 2.8.1
+### Current version: 3.0.0-alpha01
 
 List of changes:
 
--   fix pagination
+-   added push notification support for HMS and RuStore, alongside the existing FCM integration.
+-   improved SDK configuration and channel/user change handling.
 
 ### Known Issues:
 - There is a problem with displaying colors in **SDK** chat on **Xiaomi** devices. Solution - add a flag to your application's styles:
