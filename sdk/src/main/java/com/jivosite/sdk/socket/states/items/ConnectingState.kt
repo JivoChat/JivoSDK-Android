@@ -43,8 +43,8 @@ class ConnectingState @Inject constructor(
     }
 
     override fun setConnected() {
-        stateContext.changeState(ConnectedState::class.java)
         connectionStateRepository.setState(ConnectionState.Connected)
+        stateContext.changeState(ConnectedState::class.java)
         agentRepository.onConnectionStateChanged()
         service.keepConnection()
         //reconnectStrategy.reset()

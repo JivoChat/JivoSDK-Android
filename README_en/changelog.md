@@ -9,6 +9,20 @@ Changelog
 -   added push notification support for HMS and RuStore, alongside the existing FCM integration;
 -   improved SDK configuration and channel/user change handling;
 
+2.8.3 (04/06/2026)
+-----------------------
+
+### Bug Fixes:
+
+-   fixed the sending of client data after reconnection;
+
+2.8.2 (13/05/2026)
+-----------------------
+
+### Bug Fixes:
+
+-   fixed errors that caused the SDK not work correctly;
+
 2.8.1 (13/03/2026)
 -----------------------
 

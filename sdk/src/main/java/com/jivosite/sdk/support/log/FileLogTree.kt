@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicReference
 class FileLogTree(context: Context) : Timber.Tree() {
 
     companion object {
-        const val LOGS_DIR = "logs"
+        const val LOGS_DIR = "jivo_sdk_logs"
         const val ANDROID_LOG_TIME_FORMAT = "MM.dd.yyyy HH:mm:ss:SSS"
         const val ANDROID_LOG_FILE_FORMAT = "dd-MM-yyyy"
     }
@@ -42,7 +42,7 @@ class FileLogTree(context: Context) : Timber.Tree() {
     private val appContext: Context = context.applicationContext
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        if (priority < Log.DEBUG && tag != Jivo.TAG) {
+        if (priority < Log.DEBUG || tag != Jivo.TAG) {
             return
         }
 
@@ -97,7 +97,7 @@ fun Context.createPath(): File {
     return path
 }
 
-fun createFileName() = "log_" + SimpleDateFormat(ANDROID_LOG_FILE_FORMAT, Locale.getDefault()).format(Date()) + ".txt"
+fun createFileName() = "jivo_sdk_log_" + SimpleDateFormat(ANDROID_LOG_FILE_FORMAT, Locale.getDefault()).format(Date()) + ".txt"
 
 fun convertPriorityToTag(priority: Int): String {
     return when (priority) {
