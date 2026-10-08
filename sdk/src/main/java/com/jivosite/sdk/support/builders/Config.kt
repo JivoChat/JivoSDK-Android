@@ -24,7 +24,8 @@ class Config private constructor(
     val notificationColorIcon: Int?,
     val offlineMessage: TextResource,
     val useRattingStringsRes: Boolean = false,
-    val notificationTitle: TextResource
+    val notificationTitle: TextResource,
+    val hideBotLabel: Boolean = false,
 ) {
 
     class Builder {
@@ -52,6 +53,8 @@ class Config private constructor(
         private var useRattingStringsRes: Boolean = false
 
         private var notificationTitle: TextResource = TextResource.empty()
+
+        private var hideBotLabel: Boolean = false
 
         fun setTitle(@StringRes titleResId: Int) =
             apply { this.title = TextResource.fromId(titleResId) }
@@ -98,6 +101,8 @@ class Config private constructor(
         fun setNotificationTitleString(notificationTitle: String) =
             apply { this.notificationTitle = TextResource.fromString(notificationTitle) }
 
+        fun hideBotLabel() = apply { this.hideBotLabel = true }
+
         fun build() = Config(
             title,
             subtitle,
@@ -109,7 +114,8 @@ class Config private constructor(
             notificationColorIcon,
             offlineMessage,
             useRattingStringsRes,
-            notificationTitle
+            notificationTitle,
+            hideBotLabel
         )
 
     }

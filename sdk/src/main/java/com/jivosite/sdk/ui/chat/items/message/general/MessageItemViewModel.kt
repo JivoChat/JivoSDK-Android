@@ -3,6 +3,7 @@ package com.jivosite.sdk.ui.chat.items.message.general
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
+import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.model.pojo.agent.Agent
 import com.jivosite.sdk.model.repository.agent.AgentRepository
 import com.jivosite.sdk.support.ext.toLongOrDefault
@@ -50,7 +51,7 @@ open class MessageItemViewModel<T : MessageEntry>(agentRepository: AgentReposito
     }
 
     val labelVisibility: LiveData<Boolean> = _entry.map { entry ->
-        entry.from.toLongOrDefault(0) < 0
+        !Jivo.getConfig().hideBotLabel && entry.from.toLongOrDefault(0) < 0
     }
 
     val time: LiveData<Long> = _entry.map {
