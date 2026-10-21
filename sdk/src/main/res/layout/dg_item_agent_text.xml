@@ -51,6 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:agentName="@{viewModel.name}"
+                android:visibility="@{viewModel.nameVisibility ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/agent_name_default" />
