@@ -15,6 +15,7 @@ import com.jivosite.sdk.BuildConfig
 import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.R
 import com.jivosite.sdk.databinding.FragmentJivoSettingsBinding
+import com.jivosite.sdk.push.JivoPushProvider
 import com.jivosite.sdk.support.vm.ViewModelFactory
 import javax.inject.Inject
 
@@ -31,7 +32,7 @@ class JivoSettingsFragment : Fragment(R.layout.fragment_jivo_settings) {
         ViewModelProvider(this, viewModelFactory).get(JivoSettingsViewModel::class.java)
     }
 
-    private var isTokenRequestProgress = false
+    private var isTokenRequestInProgress = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,23 +76,34 @@ class JivoSettingsFragment : Fragment(R.layout.fragment_jivo_settings) {
     fun onDisablePush(isDisable: Boolean) {
         if (isDisable) {
             Jivo.unsubscribeFromPush()
-        } else if (!isTokenRequestProgress) {
-            isTokenRequestProgress = true
-            FirebaseMessaging.getInstance().token.addOnCompleteListener(
-                OnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        isTokenRequestProgress = false
-                        Jivo.e(Throwable(task.exception), "Fetching FCM registration token failed")
-                        return@OnCompleteListener
-                    }
-                    task.result?.run {
-                        isTokenRequestProgress = false
-                        Jivo.updatePushToken(this)
-                    }
-                }).addOnFailureListener {
-                isTokenRequestProgress = false
-                Jivo.e(Throwable(it), "Fetching FCM registration token failed")
-            }
+        } else {
+            registrationFirebaseToken()
+        }
+    }
+
+    fun registerPush() {
+        registrationFirebaseToken()
+    }
+
+    private fun registrationFirebaseToken() {
+        if (isTokenRequestInProgress) {
+            return
+        }
+        isTokenRequestInProgress = true
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(
+            OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    isTokenRequestInProgress = false
+                    Jivo.e(Throwable(task.exception), "Fetching FCM registration token failed")
+                    return@OnCompleteListener
+                }
+                task.result?.run {
+                    isTokenRequestInProgress = false
+                    viewModel.applyPushToken(this)
+                }
+            }).addOnFailureListener {
+            isTokenRequestInProgress = false
+            Jivo.e(Throwable(it), "Fetching FCM registration token failed")
         }
     }
 }

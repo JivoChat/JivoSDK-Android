@@ -201,6 +201,47 @@
                 android:text="Disable push notifications"
                 android:textSize="16sp" />
 
+            <Button
+                android:id="@+id/registerPushToken"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:backgroundTint="@color/darkPastelGreen"
+                android:onClick="@{() -> fragment.registerPush()}"
+                android:text="Register push token"
+                android:textColor="@color/white"
+                tools:ignore="HardcodedText" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Token: "
+                    android:textSize="14sp"
+                    android:textColor="@color/jivo_sdk_on_surface"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/pushToken"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{viewModel.pushToken}"
+                    android:textSize="14sp"
+                    tools:text="dfjkbnkjsdbkdsfbsdkfjkjbf85ty5ty95ty95yt945ty8598g4y5g958yg9458gy459gy459g8dkdfbdskfbdsfbsdfkbfskfdb" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

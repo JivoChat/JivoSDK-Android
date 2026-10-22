@@ -7,6 +7,7 @@ import com.jivosite.sdk.Jivo
 import com.jivosite.sdk.logger.LogsRepository
 import com.jivosite.sdk.model.pojo.CustomData
 import com.jivosite.sdk.model.storage.SharedStorage
+import com.jivosite.sdk.push.JivoPushProvider
 import com.jivosite.sdk.support.builders.ContactInfo.Companion.contactInfo
 import com.jivosite.sdk.support.ext.requireValue
 import javax.inject.Inject
@@ -21,6 +22,7 @@ class JivoSettingsViewModel @Inject constructor(
     private val logsRepository: LogsRepository
 ) : ViewModel() {
 
+    val pushToken = MutableLiveData(storage.pushToken)
     val host = MutableLiveData(storage.host)
     val widgetId = MutableLiveData(storage.widgetId)
     val userName = MutableLiveData("")
@@ -49,6 +51,7 @@ class JivoSettingsViewModel @Inject constructor(
         Jivo.clear()
         widgetId.value = ""
         userToken.value = ""
+        pushToken.value = ""
     }
 
     fun sendUserInfo() {
@@ -88,5 +91,11 @@ class JivoSettingsViewModel @Inject constructor(
 
     fun onNightModeChanged(isChecked: Boolean) {
         storage.changeNightMode(isChecked)
+    }
+
+    fun applyPushToken(token: String) {
+        Jivo.subscribeToPush(token, JivoPushProvider.FCM)
+        pushToken.value = token
+        Jivo.i("Manual push token registration requested")
     }
 }
