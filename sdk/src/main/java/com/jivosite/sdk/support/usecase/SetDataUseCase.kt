@@ -5,7 +5,6 @@ import com.jivosite.sdk.model.storage.SharedStorage
 import com.jivosite.sdk.support.ext.verifyHostName
 import com.jivosite.sdk.support.utils.isExpired
 import com.jivosite.sdk.support.utils.parseJivoJwtPayload
-import com.jivosite.sdk.support.utils.parseJivoJwtUserId
 import com.squareup.moshi.Moshi
 import javax.inject.Inject
 
@@ -22,81 +21,18 @@ class SetDataUseCase @Inject constructor(
     private val deleteClientUseCase: DeleteClientUseCase,
 ) {
 
-    private val CHANNEL_ID_REGEX = Regex("^[0-9A-Za-z]{10}$")
-
     fun execute(widgetId: String, userToken: String, host: String) {
-        if (!isValidChannelId(widgetId)) {
-            Jivo.e("Invalid channel id = $widgetId")
-            return
+        val effectiveWidgetId = resolveWidgetId(widgetId) ?: return
+
+        if (userToken.isNotBlank()) {
+            logIncomingTokenIssues(userToken)
         }
 
-        moshi.parseJivoJwtPayload(userToken)
-            .onSuccess { payload ->
-                if (payload?.isExpired() ?: false) {
-                    Jivo.e("JWT token is expired")
-                }
-            }
-            .onFailure {
-                Jivo.e("Не удалось распарсить JWT токен, причина -  $it")
-            }
-
         when {
-            storage.widgetId.isBlank() -> {
-                if (widgetId.isNotBlank()) {
-                    storage.widgetId = widgetId
-                }
-
-                if (userToken.isNotBlank()) {
-                    storage.userToken = userToken
-                }
-            }
-
-            storage.widgetId != widgetId && widgetId.isNotBlank() -> {
-                when {
-                    userToken.isBlank() -> {
-                        unsubscribePushTokenUseCase.onUnsubscribePush {
-                            val preservedUserToken = storage.userToken
-                            clearUseCase.execute()
-                            storage.widgetId = widgetId
-                            if (preservedUserToken.isNotBlank()) {
-                                storage.userToken = preservedUserToken
-                            }
-                            Jivo.stopSession()
-                        }.execute()
-                    }
-
-                    userToken.isNotBlank() -> {
-                        unsubscribePushTokenUseCase.onUnsubscribePush {
-                            clearUseCase.execute()
-                            if (widgetId.isNotBlank()) {
-                                storage.widgetId = widgetId
-                            }
-                            storage.userToken = userToken
-                            Jivo.stopSession()
-                        }.execute()
-                    }
-                }
-            }
-
-            userToken.isNotBlank() -> {
-                when {
-                    storage.userToken.isBlank() -> {
-                        unsubscribePushTokenUseCase.onUnsubscribePush {
-                            deleteClientUseCase.execute()
-                            storage.userToken = userToken
-                            Jivo.stopSession()
-                        }.execute()
-                    }
-
-                    compareUserToken(userToken, storage.userToken) -> {
-                        unsubscribePushTokenUseCase.onUnsubscribePush {
-                            deleteClientUseCase.execute()
-                            storage.userToken = userToken
-                            Jivo.stopSession()
-                        }.execute()
-                    }
-                }
-            }
+            storage.widgetId.isBlank() -> initStorage(effectiveWidgetId, userToken)
+            storage.widgetId != effectiveWidgetId -> changeWidget(effectiveWidgetId, userToken)
+            userToken.isNotBlank() && shouldReplaceUserToken(userToken, storage.userToken) ->
+                replaceUserToken(userToken)
         }
 
         if (host.verifyHostName()) {
@@ -104,15 +40,103 @@ class SetDataUseCase @Inject constructor(
         }
     }
 
-
-    private fun isValidChannelId(id: String): Boolean {
-        val trimmed = id.trim()
-        return trimmed.isEmpty() || CHANNEL_ID_REGEX.matches(trimmed)
+    private fun initStorage(widgetId: String, userToken: String) {
+        storage.widgetId = widgetId
+        if (userToken.isNotBlank()) {
+            storage.userToken = userToken
+        }
     }
 
-    private fun compareUserToken(new: String, old: String): Boolean {
-        val newUserId = moshi.parseJivoJwtUserId(new)
-        val oldUserId = moshi.parseJivoJwtUserId(old)
-        return newUserId != oldUserId
+    private fun changeWidget(widgetId: String, userToken: String) {
+        resetSession {
+            val preservedToken = storage.userToken
+            clearUseCase.execute()
+            storage.widgetId = widgetId
+            storage.userToken = when {
+                userToken.isNotBlank() -> userToken
+                preservedToken.isNotBlank() -> preservedToken
+                else -> ""
+            }
+        }
+    }
+
+    private fun replaceUserToken(userToken: String) {
+        resetSession {
+            deleteClientUseCase.execute()
+            storage.userToken = userToken
+        }
+    }
+
+    private fun shouldReplaceUserToken(incomingUserToken: String, storedUserToken: String): Boolean {
+        if (storedUserToken.isBlank()) {
+            return true
+        }
+
+        val incoming = parseToken(incomingUserToken)
+        val stored = parseToken(storedUserToken)
+
+        if (stored.isExpired && !incoming.isExpired) {
+            return true
+        }
+
+        return incoming.userId != stored.userId
+    }
+
+    private fun parseToken(raw: String): ParsedToken {
+        val payload = moshi.parseJivoJwtPayload(raw).getOrNull()
+        return ParsedToken(
+            userId = payload?.id?.takeIf { it.isNotBlank() },
+            isExpired = payload?.isExpired() == true,
+        )
+    }
+
+    private fun logIncomingTokenIssues(userToken: String) {
+        moshi.parseJivoJwtPayload(userToken)
+            .onSuccess { payload ->
+                if (payload?.isExpired() == true) {
+                    Jivo.e("User token is expired")
+                }
+            }
+            .onFailure {
+                Jivo.e("Failed to parse User token, reason: $it")
+            }
+    }
+
+    private fun resetSession(onUnsubscribed: () -> Unit) {
+        unsubscribePushTokenUseCase.onUnsubscribePush {
+            onUnsubscribed()
+            Jivo.stopSession()
+        }.execute()
+    }
+
+    private fun resolveWidgetId(widgetId: String): String? {
+        val trimmed = widgetId.trim()
+        if (trimmed.isNotBlank()) {
+            if (!isValidWidgetId(trimmed)) {
+                Jivo.e("Invalid widgetIdId = $trimmed")
+                return null
+            }
+            return trimmed
+        }
+
+        val stored = storage.widgetId.trim()
+        if (stored.isNotBlank() && isValidWidgetId(stored)) {
+            return stored
+        }
+
+        Jivo.e("widgetId is required on first call")
+        return null
+    }
+
+    private fun isValidWidgetId(id: String): Boolean =
+        WIDGET_ID_PATTERN.matches(id)
+
+    private data class ParsedToken(
+        val userId: String?,
+        val isExpired: Boolean,
+    )
+
+    private companion object {
+        val WIDGET_ID_PATTERN = Regex("^[0-9A-Za-z]{10}$")
     }
 }
