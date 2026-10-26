@@ -83,6 +83,11 @@ class ConnectedState @Inject constructor(
                 service.disconnect()
                 stateContext.getState().stop()
             }
+            is DisconnectReason.TokenExpired -> {
+                service.disconnect()
+                stateContext.getState().stop()
+                Jivo.e("JWT token is expired")
+            }
             else -> {
                 Jivo.e("Unhandled disconnected reason $reason in connected state, try reconnect")
                 stateContext.getState().reconnect(false)

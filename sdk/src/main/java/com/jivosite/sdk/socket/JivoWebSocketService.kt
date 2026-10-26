@@ -218,6 +218,10 @@ class JivoWebSocketService : Service(), ServiceStateContext, TransmitterSubscrib
                                     DisconnectReason.DeletedClient
                                 }
 
+                                DisconnectReason.TokenExpired.toString() -> {
+                                    DisconnectReason.TokenExpired
+                                }
+
                                 else -> {
                                     DisconnectReason.DisconnectedByServer(
                                         1000,

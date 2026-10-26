@@ -35,6 +35,12 @@ sealed class DisconnectReason {
         }
     }
 
+    object TokenExpired : DisconnectReason() {
+        override fun toString(): String {
+            return "Token Expired"
+        }
+    }
+
     object ChangeInstance : DisconnectReason() {
         override fun toString(): String {
             return "ChangeInstance"
