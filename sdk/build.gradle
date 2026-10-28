@@ -8,7 +8,7 @@ plugins {
 
 ext {
     PUBLISH_GROUP_ID = 'com.jivosite.sdk'
-    PUBLISH_VERSION = '3.0.0-alpha01'
+    PUBLISH_VERSION = '3.0.0-rc01'
     PUBLISH_ARTIFACT_ID = 'android-sdk'
 }
 
