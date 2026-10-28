@@ -120,7 +120,7 @@ Settings **Gradle** (application level) (`app/build.gradle`):
 >dependencies {
 >   ...
 >   //JivoSDK
->   implementation 'com.jivosite.sdk:android-sdk:3.0.0-alpha01'
+>   implementation 'com.jivosite.sdk:android-sdk:3.0.0-rc01'
 >   //firebase
 >   implementation platform('com.google.firebase:firebase-bom:33.12.0')
 >   implementation 'com.google.firebase:firebase-messaging'
@@ -142,7 +142,7 @@ Settings **Gradle** (application level) (`app/build.gradle`):
 >dependencies {
 >   ...
 >   //JivoSDK
->   implementation 'com.jivosite.sdk:android-sdk:3.0.0-alpha01'
+>   implementation 'com.jivosite.sdk:android-sdk:3.0.0-rc01'
 >   //firebase
 >   implementation platform('com.google.firebase:firebase-bom:33.12.0')
 >   implementation 'com.google.firebase:firebase-messaging'

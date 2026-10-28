@@ -424,6 +424,7 @@ Table of JivoSDK advanced settings:
 | `setNotificationSmallIcon` | [Set a small push notification icon.](#setNotificationColorIcon) |
 | `setNotificationTitle` | [Set the push notification title.](#setNotificationTitle) |
 | `setOfflineMessage` | [Notification of the absence of operators on the channel.](#setOfflineMessage) |
+| `hideBotLabel` | [Hide the bot label on bot messages.](#hideBotLabel) |
 | `useRattingStringsRes` | [Using custom, string resources for the evaluation form](#useRattingStringsRes) |
 
 ### <a name="setWelcomeMessage">setWelcomeMessage</a>
@@ -669,6 +670,31 @@ Example:
 >```java
 >Jivo.setConfig(new Config.Builder()
 >        .setOfflineMessage(R.string.offline)
+>        .build());
+>```
+></details>
+
+### <a name="hideBotLabel">hideBotLabel</a>
+
+Hide the bot label displayed on bot messages in the chat feed. By default, the label is shown.
+
+Example:
+> <details><summary>Kotlin</summary>
+>
+>```kotlin
+>Jivo.setConfig(
+>   Config.Builder()
+>       .hideBotLabel()
+>       .build()
+>)
+>```
+></details>
+>
+> <details> <summary>Java</summary>
+>
+>```java
+>Jivo.setConfig(new Config.Builder()
+>        .hideBotLabel()
 >        .build());
 >```
 ></details>

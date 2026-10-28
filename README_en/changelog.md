@@ -1,6 +1,25 @@
 Changelog
 =========
 
+3.0.0-rc01 (28/10/2026)
+-----------------------
+
+### Features:
+
+-   added `hideBotLabel()` config option to hide the bot label on bot messages;
+-   agent name is now shown only on the first message in a consecutive group from the same agent;
+-   improved JWT token handling in `Jivo.setData()` — expired tokens are refreshed automatically when a valid token is provided;
+-   added handling of server disconnect with reason `Token Expired`.
+
+### Bug Fixes:
+
+-   fixed contact and custom data not being sent after WebSocket reconnect;
+-   fixed session reset logic when changing channel or user token via `Jivo.setData()`.
+
+### Other:
+
+-   added scoped consumer ProGuard rules for R8 full mode compatibility.
+
 3.0.0-alpha01 (15/09/2026)
 -----------------------
 

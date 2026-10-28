@@ -408,6 +408,7 @@
 | `setNotificationSmallIcon` | [Установка малой иконки push-уведомления.](#setNotificationColorIcon) |
 | `setNotificationTitle` | [Установка заголовка push-уведомления.](#setNotificationTitle) |
 | `setOfflineMessage` | [Оповещение об отсутствии операторов на канале.](#setOfflineMessage) |
+| `hideBotLabel` | [Скрытие метки бота в сообщениях.](#hideBotLabel) |
 | `useRattingStringsRes` | [Использование кастомных, строковых ресурсов для формы оценки](#useRattingStringsRes) |
 
 ### <a name="setWelcomeMessage">setWelcomeMessage</a> 
@@ -638,6 +639,31 @@
 >```java
 >Jivo.setConfig(new Config.Builder()
 >        .setOfflineMessage(R.string.offline)
+>        .build());
+>```
+></details>
+
+### <a name="hideBotLabel">hideBotLabel</a>
+
+Скрытие метки бота в сообщениях чат-бота в ленте чата. По умолчанию метка отображается.
+
+Пример:
+> <details><summary>Kotlin</summary>
+>
+>```kotlin
+>Jivo.setConfig(
+>   Config.Builder()
+>       .hideBotLabel()
+>       .build()
+>)
+>```
+></details>
+>
+> <details> <summary>Java</summary>
+>
+>```java
+>Jivo.setConfig(new Config.Builder()
+>        .hideBotLabel()
 >        .build());
 >```
 ></details>

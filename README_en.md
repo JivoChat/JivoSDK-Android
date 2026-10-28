@@ -19,12 +19,13 @@ The **Jivo Mobile SDK** allows you to embed a chat into your native **Android** 
 -   New messages indicator inside the integrated app
 -   PUSH notifications
 
-### Current version: 3.0.0-alpha01
+### Current version: 3.0.0-rc01
 
 List of changes:
 
--   added push notification support for HMS and RuStore, alongside the existing FCM integration.
--   improved SDK configuration and channel/user change handling.
+-   added `hideBotLabel()` to hide bot message labels;
+-   improved agent name grouping in the chat feed;
+-   added ProGuard consumer rules for R8 full mode.
 
 ### Known Issues:
 - There is a problem with displaying colors in **SDK** chat on **Xiaomi** devices. Solution - add a flag to your application's styles:
